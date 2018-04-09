@@ -1,0 +1,111 @@
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, label {
+  display: block;
+}
+
+* {
+  -webkit-appearance: none;
+  box-sizing: inherit;
+}
+
+
+
+ol, ul {
+  list-style: none;
+}
+
+
+
+input, textarea, section {
+  border: none;
+  outline: none;
+  background: none;
+
+}
+
+a {
+  text-decoration: none
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  font: inherit;
+}
+
+.app {
+  max-width: 640px;
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow-x: hidden;
+  font-size: .38rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.fog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 10rem;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, .6);
+  z-index: 10;
+}
+
+.fr {
+  float: right;
+}
+
+.fl {
+  float: left;
+}
+
+.hide {
+  display: none;
+}
+
+.clearFix {
+  clear: both;
+  overflow: hidden;
+}
+
+.hideText {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  line-height: 1.6;
+  font-family: @weuiFontDefault;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a img {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  .setTapColor();
+}
