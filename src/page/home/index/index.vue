@@ -1,16 +1,19 @@
 <template>
   <div class="home page">
-    home/index
+    <div class="banner">
+      <Banener></Banener>
+    </div>
+
 
     <Tabbar></Tabbar>
   </div>
 </template>
 
 <script>
-  import {Tabbar} from "com";
+  import {Tabbar, Banener} from "com";
   export default {
     name: 'home',
-    components: {Tabbar},
+    components: {Tabbar, Banener},
     data () {
       return {}
     },
