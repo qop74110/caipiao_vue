@@ -13,23 +13,27 @@
 
   export default {
     name: 'Banner',
+    props: {
+      list: {
+        type: Array,
+        default () {
+          return [
+            {
+              url: 'javascript:',
+              img: 'http://or2eh71ll.bkt.clouddn.com/152151376692483.png',
+            }, {
+              url: 'javascript:',
+              img: 'http://or2eh71ll.bkt.clouddn.com/152151376692483.png',
+            }
+          ]
+        }
+      },
+    },
     data () {
-      return {
-        list: [
-          {
-            url: 'javascript:',
-            img: 'http://or2eh71ll.bkt.clouddn.com/152151376692483.png',
-          }, {
-            url: 'javascript:',
-            img: 'http://or2eh71ll.bkt.clouddn.com/152151376692483.png',
-          }
-        ],
-
-      }
+      return {}
     },
     mounted() {
-      console.log('mounted', this)
-      var swiper = new Swiper('.swiper-container', {
+      new Swiper('.swiper-container', {
         speed: 600,
         loop: true,
 
@@ -38,13 +42,10 @@
           disableOnInteraction: false,
         },
       });
+
     },
     created(){
-      this.mySwiper = new Swiper('.swiper-container', {
-        direction: 'vertical',
-        loop: true,
 
-      })
     },
     methods: {}
   }
@@ -52,9 +53,10 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-  .autoHeight{
+  .autoHeight {
     height: inherit;
   }
+
   .swiper-slide {
     background-repeat: no-repeat;
     background-size: 100% 100%;

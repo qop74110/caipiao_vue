@@ -1,4 +1,5 @@
 import Tabbar from "./Tabbar";
 import Banener from "./Banner";
+import Marquee from "./Marquee";
 
-export {Tabbar, Banener};
+export {Tabbar, Banener, Marquee};

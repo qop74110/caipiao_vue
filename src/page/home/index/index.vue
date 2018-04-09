@@ -4,16 +4,20 @@
       <Banener></Banener>
     </div>
 
+    <div class="marquee">
+      <Marquee></Marquee>
+    </div>
+
 
     <Tabbar></Tabbar>
   </div>
 </template>
 
 <script>
-  import {Tabbar, Banener} from "com";
+  import {Tabbar, Banener, Marquee} from "com";
   export default {
     name: 'home',
-    components: {Tabbar, Banener},
+    components: {Tabbar, Banener, Marquee},
     data () {
       return {}
     },
