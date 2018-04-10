@@ -8,6 +8,15 @@
       <Marquee></Marquee>
     </div>
 
+    <div class="product_list">
+      <ul class="product_ul clearFix">
+        <li class="product_li fl" v-for="i in 12">
+          <img :src="product_list[0].img" class="product_img">
+          <p class="product_name">{{product_list[0].name}}</p>
+          <p class="product_text">{{product_list[0].text}}</p>
+        </li>
+      </ul>
+    </div>
 
     <Tabbar></Tabbar>
   </div>
@@ -19,7 +28,15 @@
     name: 'home',
     components: {Tabbar, Banener, Marquee},
     data () {
-      return {}
+      return {
+        product_list: [
+          {
+            img: "/static/img/test.png",
+            name: "双色球",
+            text: "奖池超7亿"
+          },
+        ],
+      }
     },
     created(){
 

@@ -1,12 +1,36 @@
+@import "../../../assets/css/theme.less";
+
 .home {
   min-height: 100vh;
+  padding-bottom: 1.32rem;
   .banner {
     height: 4rem;
   }
-  .marquee{
+  .marquee {
     height: 1.063rem;
     font-size: .3rem;
     color: #999;
     border-bottom: .25rem solid #EFEFEF;
+  }
+  .product_ul {
+    padding: 1px 0 .53rem;
+    text-align: center;
+  }
+  .product_li {
+    margin: .53rem 0 0;
+    width: 100% / 3;
+    .product_img {
+      @h: 1.25rem;
+      width: @h;
+      height: @h;
+    }
+    .product_name {
+      font-size: .37rem;
+      color: #000;
+    }
+    .product_text {
+      font-size: .3rem;
+      color: @theme;
+    }
   }
 }

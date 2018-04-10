@@ -23,6 +23,24 @@ export default new Router({
       component: (resolve) => {
         require(["page/prize/index"], resolve)
       }
+    }, {
+      path: "/login",
+      name: "login",
+      component: (resolve) => {
+        require(["page/login/index/index.vue"], resolve)
+      }
+    }, {
+      path: "/set",
+      name: "set",
+      component: (resolve) => {
+        require(["page/my/set"], resolve)
+      }
+    }, {
+      path: "/shuangseqiu",
+      name: "shuangseqiu",
+      component: (resolve) => {
+        require(["page/product/shuangseqiu"], resolve)
+      }
     }
   ]
 })

@@ -1,0 +1,70 @@
+@import "../../../assets/css/theme";
+
+.shuangseqiu {
+
+  @bar_h: 1.2rem;
+
+  text-align: center;
+  padding-top: @bar_h;
+
+  .bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: @bar_h;
+    line-height: @bar_h;
+    background: @theme;
+    .w10 {
+      width: 1rem;
+      height: @bar_h;
+    }
+    .back {
+      background: url(../../../assets/img/arrow_l.png) no-repeat .2rem center / .28rem;
+    }
+    .name {
+      width: 8rem;
+      font-size: .5rem;
+      color: white;
+      .arrow {
+        display: inline-block;
+        width: .4rem;
+        height: .4rem;
+        margin-top: -3px;
+        vertical-align: middle;
+        background: url(./img/arrow.png) no-repeat center center / .4rem;
+      }
+    }
+    .more {
+      background: url(./img/more.png) no-repeat .4rem center / .4rem;
+    }
+  }
+  ._fog {
+    position: fixed;
+    top: @bar_h;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 10rem;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .4);
+  }
+
+  .playTypeList {
+    height: 1.2rem;
+    background: white;
+    padding: .26rem .98rem;
+    .type {
+      width: 3.4rem;
+      height: .68rem;
+      border-radius: .08rem;
+      border: 1px solid #999999;
+      color: #999;
+    }
+    .s{
+      background: @theme;
+      border-color: @theme;
+      color: white;
+    }
+  }
+}

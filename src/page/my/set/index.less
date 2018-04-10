@@ -1,0 +1,32 @@
+@import "../../../assets/css/theme";
+
+.set {
+  padding: .4rem;
+  .list {
+    @h: 1.16rem;
+    height: @h;
+    line-height: @h;
+    font-size: .32rem;
+    color: #323232;
+    background: url(../../../assets/img/arrow.png) no-repeat 8.8rem center / .2rem;
+    .list_img {
+      @w: .4rem;
+      width: @w;
+      height: @w;
+      margin-right: .2rem;
+      vertical-align: middle;
+      margin-top: -3px;
+    }
+  }
+  .out {
+    @h: 1.08rem;
+    height: @h;
+    line-height: @h;
+    margin-top: .8rem;
+    text-align: center;
+    font-size: .4rem;
+    background: @theme;
+    color: white;
+    border-radius: .1rem;
+  }
+}
