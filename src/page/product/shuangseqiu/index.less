@@ -3,9 +3,10 @@
 .shuangseqiu {
 
   @bar_h: 1.2rem;
+  @footH: 1.32rem;
 
   text-align: center;
-  padding-top: @bar_h;
+  padding: @bar_h 0 @footH;
 
   .bar {
     position: fixed;
@@ -48,6 +49,7 @@
     width: 10rem;
     margin: 0 auto;
     background: rgba(0, 0, 0, .4);
+    z-index: 10;
   }
 
   .playTypeList {
@@ -61,10 +63,154 @@
       border: 1px solid #999999;
       color: #999;
     }
-    .s{
+    .s {
       background: @theme;
       border-color: @theme;
       color: white;
+    }
+  }
+
+  .moreBox {
+    font-size: .34rem;
+    color: #000;
+    .moreList {
+      position: fixed;
+      top: @bar_h;
+      right: .2rem;
+      width: 2rem;
+      line-height: .9rem;
+      border-radius: .06rem;
+      background: white;
+      .arrow{
+        @arrow_w: .3rem;
+        height: @arrow_w;
+        width: @arrow_w;
+        border:@arrow_w / 2 solid transparent;
+        border-bottom-color: white;
+        position: absolute;
+        top: -@arrow_w;
+        right: .1rem;
+      }
+    }
+  }
+
+  //往期中奖号码
+  .history {
+
+    .his_last {
+      @h: .8rem;
+      height: @h;
+      line-height: @h;
+      padding: 0 .2rem;
+      text-align: left;
+      font-size: .3rem;
+      color: #333;
+      border-bottom: 1px solid @border-color;
+      .his_arrow {
+        display: inline-block;
+        @b_h: .3rem;
+        width: @b_h;
+        height: @b_h;
+        vertical-align: middle;
+        margin-top: -3px;
+        background: url(./img/his_arrow.png) no-repeat center center / 100%;
+
+      }
+    }
+  }
+
+  .content {
+    @p: .3rem;
+    .ballBox {
+      padding: @p;
+      .box {
+        width: (10rem - 2 * @p) / 7;
+        margin-bottom: .1rem;
+        .ball {
+          @ball_w: 1rem;
+          width: @ball_w;
+          height: @ball_w;
+          line-height: @ball_w;
+          margin: 0 auto;
+          border-radius: 50%;
+          border: 1px solid #CCCCCC;
+          font-size: .38rem;
+        }
+        .text {
+          font-size: .3rem;
+          color: #999;
+        }
+      }
+    }
+    .redBallBox {
+      margin-bottom: .2rem;
+      border-bottom: 1px solid @border-color;
+      .ball {
+        color: #E74C3C;
+      }
+    }
+    .blueBallBox {
+      .ball {
+        color: #00A0FF;
+      }
+
+    }
+    .random {
+      margin-top: @p;
+      padding: 0 @p;
+      font-size: .3rem;
+      color: #666;
+    }
+    .dantuo {
+      .text {
+        margin-top: @p;
+        padding-left: @p;
+        text-align: left;
+        font-size: .32rem;
+        color: #666;
+      }
+    }
+  }
+  .foot {
+    @footP: .4rem;
+    @w16: 1.6rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 @footP;
+    height: @footH;
+    background: white;
+    .w16 {
+      width: @w16;
+    }
+    .result {
+      width: 10rem - 2 * (@footP + @w16);
+      line-height: @footH;
+    }
+    .clear {
+      @margin_top: .25rem;
+      @clearH: @footH - 2 * @margin_top;
+      @clearImgH: .4rem;
+      height: @clearH;
+      margin-top: @margin_top;
+      padding-top: @clearImgH;
+      text-align: left;
+      font-size: .3rem;
+      color: #333;
+      background: url(./img/clear.png) no-repeat .1rem top / @clearImgH @clearImgH;
+    }
+    .submit {
+      @sub_h: .8rem;
+      height: @sub_h;
+      width: @sub_h * 2;
+      line-height: @sub_h;
+      margin-top: (@footH - @sub_h ) / 2;
+      background: @theme;
+      color: white;
+      border-radius: .13rem;
+      font-size: .34rem;
     }
   }
 }
