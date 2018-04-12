@@ -76,6 +76,15 @@ export default new Router({
             require(["page/product/shuangseqiu/random"], resolve)
           }
         }, {
+          path: "order",
+          name: "order",
+          meta: {
+            title: '双色球'
+          },
+          component: (resolve) => {
+            require(["page/product/shuangseqiu/order"], resolve)
+          }
+        }, {
           path: '*',
           redirect: 'index'
         },
