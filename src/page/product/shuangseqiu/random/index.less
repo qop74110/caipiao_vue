@@ -1,0 +1,126 @@
+@import "../../../../assets/css/theme";
+
+.random {
+  @foot_h: 1.32rem;
+  min-height: 100vh;
+  padding: .3rem .3rem @foot_h;
+  background: #EFEFEF;
+
+  //说明
+  .exposition {
+    @h: 1.86rem;
+    @p: .5rem;
+    height: @h;
+    line-height: (@h - 2 * @p) / 2;
+    padding: @p .4rem @p 1.3rem;
+    font-size: .32rem;
+    color: #333;
+    background: white url(./img/exposition.png) no-repeat .35rem center / .6rem;
+  }
+  //表单
+  .form {
+    @r_h: .8rem;
+    padding-top: .32rem;
+    font-size: .35rem;
+    color: black;
+    .row {
+      height: @r_h;
+      line-height: @r_h;
+      margin-bottom: .4rem;
+      .left {
+        .em5 {
+          display: inline-block;
+          width: .5em;
+        }
+      }
+      .right {
+        margin: -1px .1rem 0;
+        height: @r_h;
+        background: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: .1rem;
+        text-align: center;
+        overflow: hidden;
+        .w16 {
+          width: 1.6rem;
+        }
+        .w8 {
+          width: .8rem;
+        }
+        .w22 {
+          width: 2.2rem;
+        }
+        .input {
+          text-align: inherit;
+        }
+        .bor_r {
+          border-right: 1px solid #ccc;
+        }
+        //连买几期被选中
+        .s {
+          color: @theme;
+        }
+      }
+    }
+    .add_up {
+      @b_h: .4rem;
+      height: @r_h;
+      .agree {
+        display: inline-block;
+        width: @b_h;
+        height: @b_h;
+        margin-right: .05rem;
+        border-radius: 2.5px;
+        border: 1px solid @theme;
+        vertical-align: text-bottom;
+        background: white;
+      }
+      .s {
+        background: white url(./img/agree.png) no-repeat center center / 100%;
+      }
+      .money {
+        width: 2rem;
+        height: @b_h + .1;
+        margin-top: -1px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: .1rem;
+        text-align: center;
+      }
+      .help {
+        display: inline-block;
+        width: @b_h;
+        height: @b_h;
+        margin-left: .05rem;
+        background: url(./img/help.png) no-repeat center center / 100%;
+        vertical-align: text-bottom;
+
+      }
+    }
+  }
+  .foot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 10rem;
+    margin: 0 auto;
+    height: @foot_h;
+    line-height: @foot_h;
+    background: white;
+    text-align: center;
+    .submit {
+      @submit_w: 1.6rem;
+      position: absolute;
+      top: (@foot_h - @submit_w / 2) / 2;
+      right: .4rem;
+      width: @submit_w;
+      height: @submit_w / 2;
+      line-height: @submit_w / 2;
+      border-radius: .1rem;
+      background: @theme;
+      color: white;
+      font-size: .34rem;
+    }
+  }
+}

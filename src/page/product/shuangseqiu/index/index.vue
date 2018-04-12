@@ -23,7 +23,9 @@
         <li class="arrow"></li>
         <li class="moreItem" @click="$router.push('random')">多期机选</li>
         <li class="moreItem" @click="show_text = !show_text">{{show_text ? "隐藏": "显示"}}遗漏</li>
-        <li class="moreItem" @click="$router.push('exposition')">玩法说明</li>
+        <li class="moreItem" @click="$router.push('/exposition?id=' + global.product_type['shuangseqiu'])">
+          玩法说明
+        </li>
       </ul>
     </div>
 

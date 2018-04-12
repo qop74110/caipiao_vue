@@ -75,9 +75,9 @@ export default new Router({
           component: (resolve) => {
             require(["page/product/shuangseqiu/random"], resolve)
           }
-        // }, {
-          // path: '*',
-          // redirect: 'index'
+        }, {
+          path: '*',
+          redirect: 'index'
         },
 
       ]
