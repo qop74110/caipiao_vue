@@ -23,7 +23,7 @@
         <li class="arrow"></li>
         <li class="moreItem">多期机选</li>
         <li class="moreItem">显示遗漏</li>
-        <li class="moreItem">玩法说明</li>
+        <li class="moreItem" @click="$router.push('exposition')">玩法说明</li>
       </ul>
     </div>
 
@@ -144,5 +144,5 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "./index.less";
+  @import "index.less";
 </style>

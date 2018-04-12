@@ -16,6 +16,7 @@ Vue.use(AlertPlugin);
 Vue.use(ConfirmPlugin);
 Vue.use(AjaxPlugin);
 Vue.use(ToastPlugin);
+Vue.use(require('vue-wechat-title'));
 
 /* eslint-disable no-new */
 new Vue({

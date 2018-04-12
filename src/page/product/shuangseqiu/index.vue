@@ -1,20 +1,20 @@
 <template>
-    <div class="">
-
-    </div>
+  <div class="page">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: '',
-        data () {
-            return {}
-        },
-        created(){
+  export default {
+    name: 'shuangseqiu_page',
+    data () {
+      return {}
+    },
+    created(){
 
-        },
-        methods: {}
-    }
+    },
+    methods: {}
+  }
 </script>
 
 
