@@ -1,6 +1,6 @@
 <template>
   <div class="exposition">
-    <img src="./bg.jpeg" alt="" class="img">
+    <img :src="`./static/img/ex_${id}.jpeg`" class="img">
   </div>
 </template>
 
@@ -8,9 +8,12 @@
   export default {
     name: 'exposition',
     data () {
-      return {}
+      return {
+        id: this.global.product_type[this.$route.query.id || "1"],
+      }
     },
     created(){
+
 
     },
     methods: {}
@@ -19,5 +22,5 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-@import "./index.less";
+  @import "index.less";
 </style>

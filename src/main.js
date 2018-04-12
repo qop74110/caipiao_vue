@@ -5,7 +5,9 @@ import FastClick from 'fastclick';
 import router from './router';
 import App from './App';
 import {LoadingPlugin, AlertPlugin, ConfirmPlugin, AjaxPlugin, ToastPlugin} from "vux";
+import global from "./assets/js/common";
 
+Vue.prototype.global = global;
 
 FastClick.attach(document.body);
 
@@ -17,6 +19,7 @@ Vue.use(ConfirmPlugin);
 Vue.use(AjaxPlugin);
 Vue.use(ToastPlugin);
 Vue.use(require('vue-wechat-title'));
+
 
 /* eslint-disable no-new */
 new Vue({

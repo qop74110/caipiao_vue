@@ -21,7 +21,7 @@
     <div class="moreBox _fog" v-show="show_more" @click.stop="show_more = false">
       <ul class="moreList">
         <li class="arrow"></li>
-        <li class="moreItem">多期机选</li>
+        <li class="moreItem" @click="$router.push('random')">多期机选</li>
         <li class="moreItem" @click="show_text = !show_text">{{show_text ? "隐藏": "显示"}}遗漏</li>
         <li class="moreItem" @click="$router.push('exposition')">玩法说明</li>
       </ul>
@@ -48,7 +48,7 @@
         <!--机选-->
         <div class="random clearFix">
 
-          <span class="fr text">至少选择6个红球，1个蓝球</span>
+          <span class="fr _text">至少选择6个红球，1个蓝球</span>
         </div>
 
         <!--红球-->

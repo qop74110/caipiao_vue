@@ -1,20 +1,20 @@
 <template>
-    <div class="">
+  <div class="random page">
 
-    </div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: '',
-        data () {
-            return {}
-        },
-        created(){
-
-        },
-        methods: {}
-    }
+  export default {
+    name: 'random',
+    data () {
+      return {}
+    },
+    created(){
+      console.log(this.global)
+    },
+    methods: {}
+  }
 </script>
 
 

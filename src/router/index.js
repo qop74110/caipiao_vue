@@ -67,21 +67,31 @@ export default new Router({
             require(["page/product/shuangseqiu/index/index.vue"], resolve)
           }
         }, {
-          path: "exposition",
-          name: "exposition",
+          path: "random",
+          name: "random",
           meta: {
-            title: '玩法说明'
+            title: '多期机选'
           },
           component: (resolve) => {
-            require(["page/product/shuangseqiu/exposition"], resolve)
+            require(["page/product/shuangseqiu/random"], resolve)
           }
-        }, {
-          path: '*',
-          redirect: 'index'
+        // }, {
+          // path: '*',
+          // redirect: 'index'
         },
 
       ]
 
-    }
+    },
+    {
+      path: "/exposition",
+      name: "exposition",
+      meta: {
+        title: '玩法说明'
+      },
+      component: (resolve) => {
+        require(["page/product/exposition"], resolve)
+      }
+    },
   ]
 })
