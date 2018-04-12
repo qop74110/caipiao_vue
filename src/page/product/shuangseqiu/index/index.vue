@@ -22,7 +22,7 @@
       <ul class="moreList">
         <li class="arrow"></li>
         <li class="moreItem">多期机选</li>
-        <li class="moreItem">显示遗漏</li>
+        <li class="moreItem" @click="show_text = !show_text">{{show_text ? "隐藏": "显示"}}遗漏</li>
         <li class="moreItem" @click="$router.push('exposition')">玩法说明</li>
       </ul>
     </div>
@@ -40,7 +40,7 @@
     </div>
 
     <!--标准玩法&胆拖玩法-->
-    <div class="content">
+    <div class="content" :class="show_text && 'show_text'">
       <!--标准玩法-->
       <div class="standard" v-show="play_type === 1">
 
@@ -111,6 +111,7 @@
         play_type: 1,                 //  2：胆拖；  1：标准
         show_play_type: false,
         show_more: false,
+        show_text: false,
 
       }
     },

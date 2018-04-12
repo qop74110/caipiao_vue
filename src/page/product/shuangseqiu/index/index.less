@@ -81,11 +81,11 @@
       line-height: .9rem;
       border-radius: .06rem;
       background: white;
-      .arrow{
+      .arrow {
         @arrow_w: .3rem;
         height: @arrow_w;
         width: @arrow_w;
-        border:@arrow_w / 2 solid transparent;
+        border: @arrow_w / 2 solid transparent;
         border-bottom-color: white;
         position: absolute;
         top: -@arrow_w;
@@ -136,10 +136,7 @@
           border: 1px solid #CCCCCC;
           font-size: .38rem;
         }
-        .text {
-          font-size: .3rem;
-          color: #999;
-        }
+
       }
     }
     .redBallBox {
@@ -167,6 +164,17 @@
         padding-left: @p;
         text-align: left;
         font-size: .32rem;
+        color: #666;
+      }
+    }
+
+    //显示遗漏
+    .text {
+      font-size: .3rem;
+      color: transparent;
+    }
+    &.show_text {
+      .text {
         color: #666;
       }
     }
