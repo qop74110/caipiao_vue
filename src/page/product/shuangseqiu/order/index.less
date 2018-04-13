@@ -1,11 +1,14 @@
 
 .order {
   @btns_h: 1.2rem;
+  @foot_set_h: 1.05rem;
+  @foot_setItem_h: .6rem;
+  @foot_abstract_h: 1.3rem;
   @border-color: #ccc;
 
   min-height: 100vh;
   background: #efefef;
-  padding: .4rem;
+  padding: .4rem .4rem @foot_set_h + @foot_abstract_h + .5;
 
   .btns {
     @p: .2rem;
@@ -28,7 +31,92 @@
       }
     }
   }
-  .foot {
+  .list {
+    border-radius: .2rem;
     background: white;
+    .border {
+      height: .2rem;
+      width: 104%;
+      border-radius: .1rem;
+      background: rgba(204, 204, 204, .5);
+      position: relative;
+      top: -.05rem;
+      left: -2%;
+    }
+    .item {
+      @min_h: 1.9rem;
+      @item_p: .2rem;
+      height: @min_h;
+
+      padding: @item_p .4rem @item_p .25rem;
+      border-top: 1px dashed #ccc;
+      background: url("../../../../assets/img/arrow.png") no-repeat 8.8rem center / .2rem;
+      .del {
+        @w: .53rem;
+        width: @w;
+        height: 100%;
+        vertical-align: middle;
+        background: url(./img/del.png) no-repeat center center / 100%;
+      }
+      .balls {
+        width: 7.8rem;
+        height: 100%;
+        line-height: (@min_h - 2 * @item_p) / 3;
+        padding-left: .2rem;
+        font-size: .4rem;
+        .red {
+          color: #E74C3C;
+        }
+        .blue {
+          color: #00A0FF;
+        }
+      }
+    }
+  }
+  .foot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 10rem;
+    margin: 0 auto;
+    font-size: .38rem;
+    text-align: center;
+    background: white;
+    .set {
+      height: @foot_set_h;
+      line-height: @foot_set_h;
+      border-top: 1px solid #DCDBDB;
+      border-bottom: 1px solid #DCDBDB;
+      .setItem {
+        width: 50%;
+        margin-top: (@foot_set_h - @foot_setItem_h) / 2;
+        .XNumber {
+          vertical-align: top;
+          margin-top: -1px;
+        }
+        .setText {
+          display: inline-block;
+          line-height: @foot_setItem_h;
+          color: #000;
+          vertical-align: top;
+        }
+      }
+    }
+    .abstract {
+      height: @foot_abstract_h;
+      line-height: @foot_abstract_h;
+      .submit {
+        @h: .8rem;
+        position: absolute;
+        bottom: (@foot_abstract_h - @h) / 2;
+        right: .4rem;
+        width: 1.6rem;
+        height: @h;
+        line-height: @h;
+        border-radius: .13rem;
+        color: white;
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <ul class="XNumber fl clearFix" :style="`height: ${h}rem; line-height: cale(${h}rem - 2px)`">
+  <ul class="XNumber clearFix" :style="`height: ${h}rem;     line-height: calc(${h}rem - 2px)`">
     <li class="fl bor_r w8 ccc btn_active" @click="sub">-</li>
     <li class="fl bor_r ">
       <input class="input" type="tel" @focus="focus" @blur="blur" v-model="val" :style="`width: ${input_w}rem`">
@@ -15,8 +15,8 @@
     name: 'XNumber',
     props: {
       h: {
-        type: Number,
-        default: .6,
+        type: String,
+        default: ".6",
       },
       _val: {
         type: Number,
@@ -31,9 +31,12 @@
         default: 15,
       },
       input_w: {
-        type: Number,
-        default: 2.2,
+        type: String,
+        default: "2.2",
       },
+      name: {
+        type: String
+      }
     },
     data () {
       return {
@@ -65,7 +68,7 @@
             this.val = this.max_val;
           }
         }
-        this.$emit("on-change", this.val);
+        this.$emit("on-change", {val: this.val, name: this.name});
       }
     },
   }

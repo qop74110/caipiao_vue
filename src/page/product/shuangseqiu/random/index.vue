@@ -18,30 +18,15 @@
         <span class="left fl">
           每期机选:
         </span>
-
-        <ul class="right fl">
-          <!--todo --不能未负数-->
-          <li class="fl bor_r w8" @click=" zhushu !== 1 && --zhushu">-</li>
-          <li class="fl bor_r ">
-            <input class="w22 input" type="tel" v-model="zhushu">
-          </li>
-          <li class="fl w8" @click="++zhushu">+</li>
-        </ul>
-        注
+        <XNumber class="right" name="zhushu" :_val="zhushu" h=".8" @on-change="setVal"></XNumber>
+        <span class="right_text">注</span>
       </div>
       <div class="row">
         <span class="left fl">
           每<span class="em5"></span>期<span class="em5"></span>投:
         </span>
-        <ul class="right fl">
-          <!--todo --不能未负数-->
-          <li class="fl bor_r w8" @click="bei !== 1 && --bei">-</li>
-          <li class="fl bor_r ">
-            <input class="w22 input" type="tel" v-model="bei">
-          </li>
-          <li class="fl w8" @click="++bei">+</li>
-        </ul>
-        倍
+        <XNumber class="right" name="bei" :_val="bei" h=".8" @on-change="setVal"></XNumber>
+        <span class="right_text">倍</span>
       </div>
       <div class="add_up">
         <span class="agree" :class="agree && 's'" @click="agree = !agree"></span>
@@ -60,8 +45,12 @@
 </template>
 
 <script>
+  import {XNumber} from "com";
   export default {
     name: 'random',
+    components: {
+      XNumber
+    },
     data () {
       return {
         zhushu: 1,              //  注数
@@ -76,10 +65,14 @@
     },
 
     methods: {
+      setVal(d){
+        this[d.name] = d.val;
+        console.log(this.bei)
+      },
       help(){
         this.$vux.alert.show({
           content: '勾选后，当累计中奖金额大于您设定的金额后，后续的期次将被撤销，资金返还到您的账户中。如不勾选，系统一直帮您购买所有期次。',
-          buttonext:"知道了"
+          buttonext: "知道了"
         })
       },
     }
