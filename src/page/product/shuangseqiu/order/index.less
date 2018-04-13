@@ -1,9 +1,33 @@
+
 .order {
+  @btns_h: 1.2rem;
+  @border-color: #ccc;
 
   min-height: 100vh;
   background: #efefef;
   padding: .4rem;
 
+  .btns {
+    @p: .2rem;
+    height: @btns_h;
+    padding: .05rem @p;
+    text-align: center;
+    font-size: .34rem;
+    color: #333;
+    .btn {
+      @btn_h: @btns_h - 2 * @p;
+      width: 2.4rem;
+      height: @btn_h;
+      line-height: @btn_h;
+      margin-left: .4rem;
+      border: 1px solid @border-color;
+      border-radius: .1rem;
+      background-color: white;
+      .btn_img {
+        width: .3rem;
+      }
+    }
+  }
   .foot {
     background: white;
   }

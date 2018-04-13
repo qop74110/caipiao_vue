@@ -1,10 +1,10 @@
 <template>
-  <ul class="XNumber fl clearFix" :style="`height: ${h}rem; line-height: ${h}rem`">
-    <li class="fl bor_r w8 ccc" @click="sub">-</li>
+  <ul class="XNumber fl clearFix" :style="`height: ${h}rem; line-height: cale(${h}rem - 2px)`">
+    <li class="fl bor_r w8 ccc btn_active" @click="sub">-</li>
     <li class="fl bor_r ">
-      <input class="input" type="number" @focus="focus" @blur="blur" v-model="val" :style="`width: ${input_w}rem`">
+      <input class="input" type="tel" @focus="focus" @blur="blur" v-model="val" :style="`width: ${input_w}rem`">
     </li>
-    <li class="fl w8 ccc" @click="add">+</li>
+    <li class="fl w8 ccc btn_active" @click="add">+</li>
   </ul>
 </template>
 
