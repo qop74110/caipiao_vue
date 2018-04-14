@@ -1,7 +1,7 @@
 <template>
-  <div class="shuangseqiu">
+  <div class="shuangseqiu" v-if="loading === 0">
     <nav class="bar">
-      <span class="fl back w10"></span>
+      <span class="fl back w10" @click="$router.go(-1)"></span>
       <span class="fl name" @click="show_play_type = !show_play_type; show_more = false">
           双色球
           <i class="arrow"></i>
@@ -49,13 +49,24 @@
 
         <!--机选-->
         <div class="random clearFix">
-
           <span class="fr _text">至少选择6个红球，1个蓝球</span>
         </div>
 
+
+        <!--<div class="redBallBox ballBox">-->
+        <!--<div class="ball fl" v-for="i in 32">-->
+        <!--<input type="checkbox" :value="i" name="ball">-->
+        <!--<div class="ball">{{ i < 10 ? "0" + i : i }}</div>-->
+        <!--<span class="text">123</span>-->
+        <!--</div>-->
+
+        <!--</div>-->
+
+
         <!--红球-->
         <div class="redBallBox ballBox clearFix">
-          <div class="box fl" v-for="i in 33" :key="i">
+          <div class="box fl" v-for="i in 32" :key="i">
+            <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_red">
             <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
             <span class="text">123</span>
           </div>
@@ -63,6 +74,7 @@
         <!--蓝球-->
         <div class="blueBallBox ballBox clearFix">
           <div class="box fl" v-for="i in 16" :key="i">
+            <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_blue">
             <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
             <span class="text">123</span>
           </div>
@@ -99,7 +111,7 @@
 
     <div class="foot">
       <div class="fl clear w16">清空</div>
-      <div class="fl result">0 注 共<span class="redText">0元</span></div>
+      <div class="fl result">{{zhushu}} 注 共<span class="redText">{{money}}元</span></div>
       <div class="fl submit w16">下一步</div>
     </div>
   </div>
@@ -111,47 +123,87 @@
     data () {
       return {
         play_type: 1,                 //  2：胆拖；  1：标准
-        show_play_type: false,
-        show_more: false,
-        show_text: false,
+        show_play_type: false,        //  显示 标准&胆拖
+        show_more: false,             //  显示更多
+        show_text: false,             //  显示 遗漏
         phase: {},                    //  双色球顶部购买的奖期以及截止时间
+        miss: {},                     //  遗漏数据
+        checked_red: [],              //  选中的红球
+        checked_blue: [],             //  选中的篮球
+        zhushu: 0,
+        money: 0,
+        loading: 2,                   //
+
 
       }
     },
     created(){
       this.$vux.loading.show();
       this.global.ajax.call(this, "ssq_phase", {}, this.getPhase);
+      this.global.ajax.call(this, "ssq_miss", {}, this.getMiss);
     },
     methods: {
       getPhase(d){
-        this.$vux.loading.hide();
+        this.hideLoading();
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
-        else {
+        else if (d.data[0]) {
           this.phase = d.data[0];
         }
 
       },
-      getnum (rn, bn){
+      getMiss(d){
+        this.hideLoading();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else {
+          this.miss = d.data[0];
+        }
+      },
+      hideLoading(){
+        --this.loading === 0 && this.$vux.loading.hide();
+      },
+      getnum (){
+        const rn = this.checked_red.length;
+        const bn = this.checked_blue.length;
+        let zhushu;
 
-        if (rn < 6 || bn === 0) return 0;
-        else if (rn === 6)return bn;
+        if (rn < 6 || bn === 0) zhushu = 0;
+        else if (rn === 6) zhushu = bn;
+        else {
+          let tempNum = 1;
 
-        let tempNum = 1;
+          for (let i = 7; i <= rn; i++) {
+            tempNum = tempNum * i;
+          }
 
-        for (let i = 7; i <= rn; i++) {
-          tempNum = tempNum * i;
+
+          for (let i = 2; i <= rn - 6; i++) {
+            tempNum = tempNum / i;
+          }
+
+          tempNum = parseInt(tempNum) * bn;
+
+          zhushu = tempNum;
         }
 
-        for (let i = 2; i <= rn - 6; i++) {
-          tempNum = tempNum / i;
-        }
 
-        tempNum = tempNum * bn;
-
-        return tempNum;
+        this.zhushu = zhushu;
+        this.money = zhushu * 2;
 
       }
     },
+    watch: {
+      checked_blue (){
+        this.getnum();
+      },
+      checked_red (){
+//        const arr = this.checked_red;
+//        if (arr.length > 24) {
+//          this.global.toast.call(this, "红球不能超过25个");
+//          this.checked_red.pop();
+//        } else
+        this.getnum();
+      }
+    }
   }
 </script>
 

@@ -4,6 +4,7 @@
 
   @bar_h: 1.2rem;
   @footH: 1.32rem;
+  @blue: #00A0FF;
 
   text-align: center;
   padding: @bar_h 0 @footH;
@@ -126,6 +127,17 @@
       .box {
         width: (10rem - 2 * @p) / 7;
         margin-bottom: .1rem;
+        position: relative;
+        .checkbox {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          height: 100%;
+          width: 100%;
+        }
         .ball {
           @ball_w: 1rem;
           width: @ball_w;
@@ -142,13 +154,24 @@
     .redBallBox {
       margin-bottom: .2rem;
       border-bottom: 1px solid @border-color;
+      .checkbox:checked + .ball{
+        background: @theme;
+        color: white;
+        border: 0;
+      }
       .ball {
         color: #E74C3C;
+
       }
     }
     .blueBallBox {
+      .checkbox:checked + .ball{
+        background: @blue;
+        color: white;
+        border: 0;
+      }
       .ball {
-        color: #00A0FF;
+        color: @blue;
       }
 
     }
