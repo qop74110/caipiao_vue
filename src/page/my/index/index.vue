@@ -3,7 +3,8 @@
     <header class="header">
       <div class="service"></div>
       <img class="header_img fl" src="./img/header_img.png">
-      <span class="user_tel">登录/注册</span>
+      <span class="user_tel" v-if="!token" @click="$router.push('login')">登录/注册</span>
+      <span class="user_tel" v-else >{{token}}</span>
     </header>
 
     <ul class="money clearFix">
@@ -22,19 +23,19 @@
     </ul>
 
     <ul class="order clearFix">
-      <li class="fl">
+      <li class="fl" @click="open('')">
         <img class="order_img" src="./img/order1.png" alt="">
         <p class="order_text">全部订单</p>
       </li>
-      <li class="fl">
+      <li class="fl" @click="open('')">
         <img class="order_img" src="./img/order2.png" alt="">
         <p class="order_text">追号订单</p>
       </li>
-      <li class="fl">
+      <li class="fl" @click="open('')">
         <img class="order_img" src="./img/order3.png" alt="">
         <p class="order_text">中奖订单</p>
       </li>
-      <li class="fl">
+      <li class="fl" @click="open('')">
         <img class="order_img" src="./img/order4.png" alt="">
         <p class="order_text">待开奖订单</p>
       </li>
@@ -66,10 +67,11 @@
     name: 'my',
     components: {Tabbar},
     data () {
-      return {}
+      return {
+          token: this.global.cookie.get("token"),
+      }
     },
     created(){
-
     },
     methods: {}
   }

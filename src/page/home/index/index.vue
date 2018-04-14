@@ -10,7 +10,7 @@
 
     <div class="product_list" v-if="product_list !== []">
       <ul class="product_ul clearFix">
-        <li class="product_li fl" v-for="(item,index) in product_list" @click="$router.push()">
+        <li class="product_li fl" v-for="(item,index) in product_list" @click="$router.push(global.product_type[item.lotid] + '/index')">
           <img :src="item.logo" class="product_img">
           <p class="product_name">{{item.title}}</p>
           <p class="product_text">{{item.desc}}</p>

@@ -6,6 +6,7 @@ const global = {
   phoneRE: /^1[345789]\d{9}$/,
   product_type,
 
+  cookie,
   alert(content){
     this.$vux.alert.show({
       content: content,

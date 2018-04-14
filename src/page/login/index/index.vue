@@ -6,7 +6,7 @@
         <input type="tel" maxlength="11" v-model="tel" class="input" placeholder="请输入手机号">
       </label>
       <div class="label vux-1px-b code">
-        <input type="tel" class="input" maxlength="4" v-model="code" placeholder="请输入验证码">
+        <input type="tel" class="input" maxlength="4" v-model="code" @click="getCode" placeholder="请输入验证码">
         <span class="getMsg fr">获取验证码</span>
       </div>
 
@@ -32,10 +32,15 @@
         code: '',
       }
     },
-    created(){
+    methods: {
+      getCode(){
+        const mobile = this.tel;
+        if (!this.global.phoneER.test(mobile)) this.toast.call(this, "手机号格式错误");
+        else {
 
-    },
-    methods: {}
+        }
+      },
+    }
   }
 </script>
 

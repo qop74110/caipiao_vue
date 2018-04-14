@@ -5,8 +5,8 @@
  */
 
 const product_type = {
-  shuangseqiu: 1,           //  双色球
-  jingcaizuqiu: 2           //  竞彩足球
+  shuangseqiu: "ssq",           //  双色球
+  jingcaizuqiu: "ftb"           //  竞彩足球
 };
 
 for (let k in product_type) {

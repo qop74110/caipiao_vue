@@ -35,7 +35,7 @@
 
       </div>
       <div class="his_last">
-        第2018033期 <span class="redText">03-25 19:30 截止</span>
+        第{{phase.phase}}期 <span class="redText">{{phase.end_time}} 截止</span>
 
         <span class="his_btn fr">更多<i class="his_arrow"></i></span>
       </div>
@@ -114,13 +114,23 @@
         show_play_type: false,
         show_more: false,
         show_text: false,
+        phase: {},                    //  双色球顶部购买的奖期以及截止时间
 
       }
     },
     created(){
-
+      this.$vux.loading.show();
+      this.global.ajax.call(this, "ssq_phase", {}, this.getPhase);
     },
     methods: {
+      getPhase(d){
+        this.$vux.loading.hide();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else {
+          this.phase = d.data[0];
+        }
+
+      },
       getnum (rn, bn){
 
         if (rn < 6 || bn === 0) return 0;
