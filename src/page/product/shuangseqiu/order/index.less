@@ -32,16 +32,18 @@
     }
   }
   .list {
+    height: calc(~"100vh - @{foot_set_h} - @{foot_abstract_h} - 1rem - @{btns_h}");
     border-radius: .2rem;
     background: white;
+    overflow-x: scroll;
     .border {
       height: .2rem;
-      width: 104%;
-      border-radius: .1rem;
-      background: rgba(204, 204, 204, .5);
-      position: relative;
-      top: -.05rem;
-      left: -2%;
+      //width: 104%;
+      //border-radius: .1rem;
+      //background: rgba(204, 204, 204, .5);
+      //position: relative;
+      //top: -.05rem;
+      //left: -2%;
     }
     .item {
       @min_h: 1.9rem;
