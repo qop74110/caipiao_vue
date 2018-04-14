@@ -31,15 +31,15 @@
       <div class="add_up">
         <span class="agree" :class="agree && 's'" @click="agree = !agree"></span>
         中奖累计
-        <input v-if="agree" type="tel" class="money" v-model="money">
-        <input v-else type="tel" class="money" v-model="money" disabled>
+        <input v-if="agree" type="tel" class="money" v-model="end_money">
+        <input v-else type="tel" class="money" v-model="end_money" disabled>
         元后停止
         <span class="help" @click="help"></span>
       </div>
     </div>
     <div class="foot">
-      共10期 <span class="redText">20</span>元
-      <span class="submit fr">确定</span>
+      共{{qi}}期 <span class="redText">{{money}}</span>元
+      <span class="submit fr" @click="submit">确定</span>
     </div>
   </div>
 </template>
@@ -55,9 +55,10 @@
       return {
         zhushu: 1,              //  注数
         bei: 1,                 //  倍数
-        money: 5000,            //  累计多少钱， 撤销订单
+        end_money: 5000,        //  累计多少钱， 撤销订单
         agree: false,           //  true:同意累计玩法
         qi: 5,                  //  连买几期
+        money: 10,              //  总金额
       }
     },
     created(){
@@ -67,7 +68,7 @@
     methods: {
       setVal(d){
         this[d.name] = d.val;
-        console.log(this.bei)
+        this.reckon();
       },
       help(){
         this.$vux.alert.show({
@@ -75,6 +76,33 @@
           buttonext: "知道了"
         })
       },
+      reckon(){
+        this.money = this.qi * this.bei * this.zhushu * 2;
+      },
+      submit(){
+        this.$vux.loading.show();
+        this.global.ajax.call(this, "ssq_random", {
+          notes: this.zhushu,
+          money: this.money,
+          periods: this.qi,
+          multiple: this.bei,
+          is_stop: this.agree ? 1 : 2,
+          stop_money: this.end_money
+        }, this.callBack)
+      },
+      callBack(d){
+        this.$vux.loading.hide();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else {
+//            @todo 支付
+          console.log(d)
+        }
+      }
+    },
+    watch: {
+      qi(){
+        this.reckon();
+      }
     }
   }
 </script>

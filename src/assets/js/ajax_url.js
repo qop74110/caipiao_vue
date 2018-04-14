@@ -7,7 +7,7 @@ const ajax_url = {
     login_code: "v1/sms/getcode",
     login: 'v1/login/login',
     ssq_phase: "v1/ssq/purchase",
-    
+    ssq_random: "v1/ssq/multi",
   }
 };
 
