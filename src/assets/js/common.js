@@ -1,24 +1,33 @@
 import ajax_url from "./ajax_url";
 import product_type from "./product_type";
+import {cookie} from 'vux';
 
 const global = {
   phoneRE: /^1[345789]\d{9}$/,
   product_type,
 
-  alert(){
+  alert(content){
     this.$vux.alert.show({
-      title: 'Vux is Cool',
-      content: 'Do you agree?',
-      onShow () {
-        console.log('Plugin: I\'m showing')
-      },
-      onHide () {
-        console.log('Plugin: I\'m hiding')
-      }
+      content: content,
     })
   },
-  ajax(){
+  ajax(url, data, callBack, head = {}, method = "POST"){
+    head.token = cookie.get("token") || "";
+    head.channel = cookie.get("channel") || "lottery-one";
+    debugger;
 
+    this.$http({
+      method: method,
+      headers: head,
+      url: ajax_url.host + ajax_url.api[url],
+      data: data
+    }).then(function (response) {
+      let data = response.data;
+      callBack(data);
+    }).catch(function (err) {
+      console.log(err);
+      callBack({error_message: "链接服务器失败"});
+    })
   },
   isWeiXin: function () {
     let ua = window.navigator.userAgent.toLowerCase();
@@ -29,7 +38,6 @@ const global = {
     }
   },
 };
-
 
 
 export default global;

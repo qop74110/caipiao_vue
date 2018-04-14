@@ -39,9 +39,13 @@
       }
     },
     created(){
-
+      this.global.ajax.call(this, "home_banner", {}, this.getBanner)
     },
-    methods: {}
+    methods: {
+      getBanner(d){
+        console.log(d)
+      }
+    }
   }
 </script>
 
