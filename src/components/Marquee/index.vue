@@ -2,7 +2,7 @@
   <div class="Marquee" :style="`height: ${height}rem; line-height: ${height}rem`">
     <ul class="ul" :style="li_style">
       <li class="li" v-for="(item, index) in list" :key="index">
-        {{item}}
+        {{item.content}}
       </li>
     </ul>
   </div>

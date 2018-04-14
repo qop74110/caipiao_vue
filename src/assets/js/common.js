@@ -14,7 +14,6 @@ const global = {
   ajax(url, data, callBack, head = {}, method = "POST"){
     head.token = cookie.get("token") || "";
     head.channel = cookie.get("channel") || "lottery-one";
-    debugger;
 
     this.$http({
       method: method,
@@ -28,6 +27,9 @@ const global = {
       console.log(err);
       callBack({error_message: "链接服务器失败"});
     })
+  },
+  toast(content = ""){
+    this.$vux.toast.text(content, 'top');
   },
   isWeiXin: function () {
     let ua = window.navigator.userAgent.toLowerCase();
