@@ -12,6 +12,12 @@ const global = {
       content: content,
     })
   },
+  //求M的阶乘
+  jiecheng (m){ //求阶乘
+    if (m < 2)return 1;
+    else return m * (this.jiecheng(m - 1)); //递归算:法n!=n*(n-1)!
+  },
+
   ajax(url, data, callBack, head = {}, method = "POST"){
     head.token = cookie.get("token") || "";
     head.channel = cookie.get("channel") || "lottery-one";

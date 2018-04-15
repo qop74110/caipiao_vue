@@ -44,7 +44,7 @@
     <!--标准玩法&胆拖玩法-->
     <div class="content" :class="show_text && 'show_text'">
       <!--标准玩法-->
-      <div class="standard" >
+      <div class="standard">
 
 
         <!--机选-->
@@ -57,23 +57,24 @@
         <!--红球-胆-->
         <div v-show="play_type === 2">
           <div class="dantuo_text">胆码，选择1至5个号码</div>
-          <div class="redBallBox ballBox clearFix" >
-            <div class="box fl" v-for="i in 32" :key="i">
-              <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_red_dan">
+          <div class="redBallBox ballBox clearFix">
+            <div class="box fl" v-for="i in 33" :key="i">
+              <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox"
+                     v-model="checked_red_dan">
               <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-              <span class="text">123</span>
+              <span class="text">{{miss.red[i - 1]}}</span>
             </div>
           </div>
         </div>
 
 
         <!--红球-->
-        <div class="dantuo_text" v-show="play_type === 2">拖码，选择2个号码</div>
+        <div class="dantuo_text" v-show="play_type === 2">拖码，至少选择2个号码</div>
         <div class="redBallBox ballBox clearFix">
-          <div class="box fl" v-for="i in 32" :key="i">
+          <div class="box fl" v-for="i in 33" :key="i">
             <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_red">
             <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-            <span class="text">123</span>
+            <span class="text">{{miss.red[i - 1]}}</span>
           </div>
         </div>
 
@@ -83,7 +84,7 @@
           <div class="box fl" v-for="i in 16" :key="i">
             <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_blue">
             <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-            <span class="text">123</span>
+            <span class="text">{{miss.blue[i - 1]}}</span>
           </div>
         </div>
       </div>
@@ -103,7 +104,7 @@
     name: 'shuangseqiu',
     data () {
       return {
-        play_type: 1,                 //  2：胆拖；  1：标准
+        play_type: 2,                 //  2：胆拖；  1：标准
         show_play_type: false,        //  显示 标准&胆拖
         show_more: false,             //  显示更多
         show_text: false,             //  显示 遗漏
@@ -137,7 +138,7 @@
         this.hideLoading();
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
         else {
-          this.miss = d.data[0];
+          this.miss = d.data;
         }
       },
       hideLoading(){
@@ -154,35 +155,61 @@
         else {
           let tempNum = 1;
 
-          for (let i = 7; i <= rn; i++) {
-            tempNum = tempNum * i;
+          for (let i = 0; i < 6; i++) {
+
+            tempNum = tempNum * (rn - i);
           }
 
-
-          for (let i = 2; i <= rn - 6; i++) {
-            tempNum = tempNum / i;
-          }
-
-          tempNum = parseInt(tempNum) * bn;
-
-          zhushu = tempNum;
+          zhushu = tempNum / 720 * bn;
         }
 
 
         this.zhushu = zhushu;
 
-      }
+      },
+//      胆拖计算
+      count_betting ()  {
+        let hqdm_count = this.checked_red_dan.length;
+        let hqtm_count = this.checked_red.length;
+        let lqtm_count = this.checked_blue.length;
+
+        let fazs = 0;
+        let tzje = 0;
+        if (hqdm_count > 5 || hqdm_count < 1 || hqtm_count < 1 || lqtm_count < 1 || (hqdm_count + hqtm_count) < 6) {
+          fazs = 0;
+        } else {
+          let r = 6 - hqdm_count;
+          let n = hqtm_count;
+          fazs = (this.global.jiecheng(n) / (this.global.jiecheng(r) * this.global.jiecheng(n - r))) * lqtm_count;
+        }
+
+        this.zhushu = fazs;
+
+      },
     },
     watch: {
-      checked_blue (){
-        this.getnum();
-      },
-      checked_red (){
-        const arr = this.checked_red;
-        if (arr.length > 24) {
-          this.global.toast.call(this, "红球不能超过25个");
-          this.checked_red.pop();
-        } else this.getnum();
+      checked_blue()       {
+        this.play_type === 1 ? this.getnum() : this.count_betting();
+      }
+      ,
+      checked_red(val)      {
+        if (this.play_type === 1) this.getnum();
+        else {
+          const i = this.checked_red_dan.indexOf(val[val.length - 1]);
+          i !== -1 && (this.checked_red_dan.splice(i, 1));
+          this.count_betting()
+        }
+      }
+      ,
+      checked_red_dan(val)      {
+        if (this.checked_red_dan.length > 5) {
+          this.global.toast.call(this, "胆码最多选五个");
+          this.checked_red_dan.pop();
+        } else {
+          const i = this.checked_red.indexOf(val[val.length - 1]);
+          i !== -1 && (this.checked_red.splice(i, 1));
+          this.count_betting();
+        }
       }
     }
   }
