@@ -32,7 +32,7 @@
     <!--往期中奖号码-->
     <div class="history">
       <div class="his_list">
-
+        <!--todo 往期中奖-->
       </div>
       <div class="his_last">
         第{{phase.phase}}期 <span class="redText">{{phase.end_time}} 截止</span>
@@ -46,7 +46,7 @@
       <!--标准玩法-->
       <div class="standard">
 
-
+        <!--todo 机选-->
         <!--机选-->
         <div class="random clearFix" v-show="play_type === 1">
           <span class="random_btn fl">机选</span>
@@ -92,9 +92,9 @@
     </div>
 
     <div class="foot">
-      <div class="fl clear w16">清空</div>
+      <div class="fl clear w16" @click="clear_checked">清空</div>
       <div class="fl result">{{zhushu}} 注 共<span class="redText">{{zhushu * 2}}元</span></div>
-      <div class="fl submit w16">下一步</div>
+      <div class="fl submit w16" @click="submit">下一步</div>
     </div>
   </div>
 </template>
@@ -104,7 +104,8 @@
     name: 'shuangseqiu',
     data () {
       return {
-        play_type: 2,                 //  2：胆拖；  1：标准
+        index: this.$route.query.index || 0,
+        play_type: 1,                 //  2：胆拖；  1：标准
         show_play_type: false,        //  显示 标准&胆拖
         show_more: false,             //  显示更多
         show_text: false,             //  显示 遗漏
@@ -114,7 +115,6 @@
         checked_red: [],              //  选中的红球
         checked_blue: [],             //  选中的篮球
         zhushu: 0,
-//        money: 0,
         loading: 2,                   //
 
 
@@ -124,6 +124,7 @@
       this.$vux.loading.show();
       this.global.ajax.call(this, "ssq_phase", {}, this.getPhase);
       this.global.ajax.call(this, "ssq_miss", {}, this.getMiss);
+//      this.getOrder();
     },
     methods: {
       getPhase(d){
@@ -143,6 +144,26 @@
       },
       hideLoading(){
         --this.loading === 0 && this.$vux.loading.hide();
+      },
+      getOrder(){
+//          todo 订单页面获取数据
+        const json_order = localStorage.getItem("order");
+        if (json_order !== null) {
+          let order;
+          try {
+            order = JSON.parse(json_order)
+          } catch (e) {
+            order = {};
+          }
+          if (order !== {}) {
+            this.show_play_type = order.type || 1;
+            this.checked_red = order.red || [];
+            this.checked_red_dan = order.tuo || [];
+            this.checked_blue = order.blue || [];
+
+          }
+
+        }
       },
 //      标准玩法 计算
       getnum (){
@@ -186,6 +207,31 @@
         this.zhushu = fazs;
 
       },
+      clear_checked(){
+        this.checked_blue = this.checked_red = this.checked_red_dan = [];
+      },
+      submit(){
+        if (this.zhushu === 0) this.global.toast.call(this, "请投注");
+        else {
+//          const type = this.play_type === 1 && this.zhushu > 1 ? 1 : this.play_type === 1 ? 0: 2;
+          const data = {
+            red_arr: this.checked_red,
+            tuo_arr: this.checked_red_dan,
+            blue_arr: this.checked_blue,
+            red: this.checked_red.join(","),
+            tuo: this.checked_red_dan.join(","),
+            blue: this.checked_blue.join(","),
+            notes: this.zhushu,
+            money: this.zhushu * 2,
+            _money: this.zhushu * 2,
+//            periods: 1,
+            multiple: 1,
+            type: this.play_type
+          };
+          localStorage.setItem("order", JSON.stringify([data]));
+          this.$router.push('order?index=' + this.index + "&phase=" + this.phase.phase);
+        }
+      }
     },
     watch: {
       checked_blue()       {

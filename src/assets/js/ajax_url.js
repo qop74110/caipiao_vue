@@ -9,6 +9,7 @@ const ajax_url = {
     ssq_phase: "v1/ssq/purchase",       //  双色球顶部购买的奖期以及截止时间
     ssq_random: "v1/ssq/multi",         //  双色球-多期机选
     ssq_miss: "v1/ssq/miss",            //  双色球-显示遗漏
+    ssq_order: "v1/ssq/order",          //  双色球-下单
   }
 };
 

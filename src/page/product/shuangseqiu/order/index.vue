@@ -9,7 +9,7 @@
         <img src="./img/add.png" alt="" class="btn_img">
         机选一注
       </li>
-      <li class="btn fl btn_active">
+      <li class="btn fl btn_active" @click="del">
         <img src="./img/clear.png" alt="" class="btn_img">
         清空列表
       </li>
@@ -17,14 +17,18 @@
 
     <ul class="list">
       <li class="border"></li>
-      <li class="item clearFix" v-for="i in 10">
-        <i class="fl del"></i>
+      <li class="item clearFix" v-for="(item,index) in balls" :key="index">
+        <i class="fl del" @click="del(index)"></i>
         <span class="fl balls hideText">
-          <span class="red" v-for="i in balls[0].red">{{i}} </span>
+          <span v-if="item.type === 2" class="red">
+             ( <span  v-for="i in item.tuo_arr">{{i}} </span>)
+          </span>
+
+          <span class="red" v-for="i in item.red_arr">{{i}} </span>
           <br>
-          <span class="blue" v-for="i in balls[0].blue">{{i}} </span>
+          <span class="blue" v-for="i in item.blue_arr">{{i}} </span>
           <br>
-          <span class="zhushi">{{`${balls[0].type} ${balls[0].zhu}注${balls[0].money}元`}}</span>
+          <span class="zhushi">{{`${['','单复式',"胆拖"][item.type]} ${item.notes}注${item._money}元`}}</span>
         </span>
       </li>
     </ul>
@@ -44,8 +48,8 @@
         </div>
       </div>
       <div class="abstract">
-        2注1期1倍 共<span class="redText">4</span>元
-        <div class="submit redBg btn_active">付款</div>
+        {{`${zhushu}注${qi}期${bei}倍 共`}}<span class="redText">{{zhushu * qi * bei * balls.length * 2}}</span>元
+        <div class="submit redBg btn_active" @click="submit">付款</div>
       </div>
     </div>
 
@@ -61,23 +65,72 @@
       return {
         qi: 1,
         bei: 1,
-        balls: [
-          {
-            red: ["34", "34", "34", '34', '34', '34', '34'],
-            blue: ["34", "34", "34", '34'],
-            money: 2,
-            type: "单式",
-            zhu:1,
-          }
-        ]
+        balls: [],
+        zhushu: 0,
       }
     },
     created(){
-
+      this.getOrder();
     },
     methods: {
+      getOrder(){
+        const jsonData = localStorage.getItem("order") || "[]";
+        this.balls = JSON.parse(jsonData);
+        let zhushu = 0;
+
+        for (let i = 0; i < this.balls.length; i++) {
+          zhushu += this.balls[i].notes
+        }
+        this.zhushu = zhushu;
+
+      },
+      del(i){
+        if (i > -1) this.balls.splice(i, 1);
+        else {
+          const _this = this;
+          this.$vux.confirm.show({
+            content: "确认清空？",
+            onConfirm(){
+              _this.balls = [];
+            }
+          })
+        }
+        this.setLocaL();
+      },
+      setLocaL(){
+        localStorage.setItem('order', JSON.stringify(this.balls))
+      },
       setVal(d){
         this[d.name] = d.val;
+      },
+      setMoney(){
+        for (let i = 0; i < this.balls.length; i++) {
+          this.balls[i].money = this.qi * this.bei * this.balls[i].notes * 2;
+        }
+      },
+      submit(){
+        if (this.zhushu === 0) this.global.toast.call(this, "请投注");
+        else {
+          this.setMoney();
+          this.$vux.loading.show();
+          this.global.ajax.call(this, "ssq_order", {
+            total: this.balls,
+            notes: this.zhushu,
+            money: this.zhushu * this.qi * this.bei * 2 * this.balls.length,
+            periods: this.qi,
+            multiple: this.bei,
+            phase: this.$route.query.phase || "",
+            is_stop: 1,
+            stop_money: 0,
+          }, this.order_callBack)
+        }
+      },
+      order_callBack(d){
+        this.$vux.loading.hide();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else {
+          console.log(d);
+        }
       }
     },
 
