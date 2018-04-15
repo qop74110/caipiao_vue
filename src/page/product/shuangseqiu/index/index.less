@@ -17,6 +17,7 @@
     height: @bar_h;
     line-height: @bar_h;
     background: @theme;
+    z-index: 100;
     .w10 {
       width: 1rem;
       height: @bar_h;
@@ -154,7 +155,7 @@
     .redBallBox {
       margin-bottom: .2rem;
       border-bottom: 1px solid @border-color;
-      .checkbox:checked + .ball{
+      .checkbox:checked + .ball {
         background: @theme;
         color: white;
         border: 0;
@@ -165,7 +166,7 @@
       }
     }
     .blueBallBox {
-      .checkbox:checked + .ball{
+      .checkbox:checked + .ball {
         background: @blue;
         color: white;
         border: 0;
@@ -181,14 +182,13 @@
       font-size: .3rem;
       color: #666;
     }
-    .dantuo {
-      .text {
-        margin-top: @p;
-        padding-left: @p;
-        text-align: left;
-        font-size: .32rem;
-        color: #666;
-      }
+    .dantuo_text {
+      margin-top: @p;
+      padding-left: @p;
+      text-align: left;
+      font-size: .32rem;
+      color: #666;
+
     }
 
     //显示遗漏

@@ -44,26 +44,31 @@
     <!--标准玩法&胆拖玩法-->
     <div class="content" :class="show_text && 'show_text'">
       <!--标准玩法-->
-      <div class="standard" v-show="play_type === 1">
+      <div class="standard" >
 
 
         <!--机选-->
-        <div class="random clearFix">
+        <div class="random clearFix" v-show="play_type === 1">
+          <span class="random_btn fl">机选</span>
           <span class="fr _text">至少选择6个红球，1个蓝球</span>
         </div>
 
 
-        <!--<div class="redBallBox ballBox">-->
-        <!--<div class="ball fl" v-for="i in 32">-->
-        <!--<input type="checkbox" :value="i" name="ball">-->
-        <!--<div class="ball">{{ i < 10 ? "0" + i : i }}</div>-->
-        <!--<span class="text">123</span>-->
-        <!--</div>-->
-
-        <!--</div>-->
+        <!--红球-胆-->
+        <div v-show="play_type === 2">
+          <div class="dantuo_text">胆码，选择1至5个号码</div>
+          <div class="redBallBox ballBox clearFix" >
+            <div class="box fl" v-for="i in 32" :key="i">
+              <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_red_dan">
+              <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
+              <span class="text">123</span>
+            </div>
+          </div>
+        </div>
 
 
         <!--红球-->
+        <div class="dantuo_text" v-show="play_type === 2">拖码，选择2个号码</div>
         <div class="redBallBox ballBox clearFix">
           <div class="box fl" v-for="i in 32" :key="i">
             <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_red">
@@ -71,7 +76,9 @@
             <span class="text">123</span>
           </div>
         </div>
+
         <!--蓝球-->
+        <div class="dantuo_text" v-show="play_type === 2">篮球，可选1至16个号码</div>
         <div class="blueBallBox ballBox clearFix">
           <div class="box fl" v-for="i in 16" :key="i">
             <input type="checkbox" :value="i < 10 ? '0' + i: ''+ i" name="ball" class="checkbox" v-model="checked_blue">
@@ -80,38 +87,12 @@
           </div>
         </div>
       </div>
-      <!--胆拖-->
-      <div class="dantuo" v-show="play_type === 2">
-        <div class="text">胆码，选择1至5个号码</div>
-        <!--红球-->
-        <div class="redBallBox ballBox clearFix">
-          <div class="box fl" v-for="i in 33" :key="i">
-            <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-            <span class="text">123</span>
-          </div>
-        </div>
 
-        <div class="text">拖码，选择2个号码</div>
-        <div class="redBallBox ballBox clearFix">
-          <div class="box fl" v-for="i in 33" :key="i">
-            <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-            <span class="text">123</span>
-          </div>
-        </div>
-        <div class="text">篮球，可选1至16个号码</div>
-        <!--蓝球-->
-        <div class="blueBallBox ballBox clearFix">
-          <div class="box fl" v-for="i in 16" :key="i">
-            <div class="ball">{{ i < 10 ? "0" + i : i }}</div>
-            <span class="text">123</span>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="foot">
       <div class="fl clear w16">清空</div>
-      <div class="fl result">{{zhushu}} 注 共<span class="redText">{{money}}元</span></div>
+      <div class="fl result">{{zhushu}} 注 共<span class="redText">{{zhushu * 2}}元</span></div>
       <div class="fl submit w16">下一步</div>
     </div>
   </div>
@@ -128,10 +109,11 @@
         show_text: false,             //  显示 遗漏
         phase: {},                    //  双色球顶部购买的奖期以及截止时间
         miss: {},                     //  遗漏数据
+        checked_red_dan: [],          //  胆拖
         checked_red: [],              //  选中的红球
         checked_blue: [],             //  选中的篮球
         zhushu: 0,
-        money: 0,
+//        money: 0,
         loading: 2,                   //
 
 
@@ -161,6 +143,7 @@
       hideLoading(){
         --this.loading === 0 && this.$vux.loading.hide();
       },
+//      标准玩法 计算
       getnum (){
         const rn = this.checked_red.length;
         const bn = this.checked_blue.length;
@@ -187,7 +170,6 @@
 
 
         this.zhushu = zhushu;
-        this.money = zhushu * 2;
 
       }
     },
@@ -196,12 +178,11 @@
         this.getnum();
       },
       checked_red (){
-//        const arr = this.checked_red;
-//        if (arr.length > 24) {
-//          this.global.toast.call(this, "红球不能超过25个");
-//          this.checked_red.pop();
-//        } else
-        this.getnum();
+        const arr = this.checked_red;
+        if (arr.length > 24) {
+          this.global.toast.call(this, "红球不能超过25个");
+          this.checked_red.pop();
+        } else this.getnum();
       }
     }
   }
