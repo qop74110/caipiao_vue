@@ -19,7 +19,10 @@
         default: ".6",
       },
       _val: {
-        type: Number,
+        validator (value) {
+          if (isNaN(parseInt(value)) && value !== "") return false;
+          else return true;
+        },
         default: 1,
       },
       min_val: {
@@ -60,15 +63,19 @@
       },
     },
     watch: {
-      val(val){
+      val(val, old){
         if (val !== "") {
-          if (val < this.min_val) {
+          if (isNaN(parseInt(val))) this.val = old;
+          else if (val < this.min_val) {
             this.val = this.min_val;
           } else if (val > this.max_val) {
             this.val = this.max_val;
           }
         }
         this.$emit("on-change", {val: this.val, name: this.name});
+      },
+      _val(val){
+        this.val = val;
       }
     },
   }
