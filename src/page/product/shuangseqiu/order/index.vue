@@ -1,8 +1,8 @@
 <template>
   <div class="order page">
     <ul class="btns clearFix">
-      <li class="btn fl btn_active">
-        <img src="./img/add.png" alt="" class="btn_img">
+      <li class="btn fl btn_active" @click="back_index(balls.length)">
+        <img src="./img/add.png" alt="" class="btn_img" >
         自选号码
       </li>
       <li class="btn fl btn_active">
@@ -17,8 +17,8 @@
 
     <ul class="list">
       <li class="border"></li>
-      <li class="item clearFix" v-for="(item,index) in balls" :key="index">
-        <i class="fl del" @click="del(index)"></i>
+      <li class="item clearFix" v-for="(item,index) in balls" :key="index" @click.stop="back_index(index)">
+        <i class="fl del" @click.stop="del(index)"></i>
         <span class="fl balls hideText">
           <span v-if="item.type === 2" class="red">
              ( <span  v-for="i in item.red_arr">{{i}} </span>)
@@ -97,6 +97,10 @@
           })
         }
         this.setLocaL();
+      },
+      back_index(i){
+        localStorage.setItem('ssq_index', i);
+        this.$router.back();
       },
       setLocaL(){
         localStorage.setItem('order', JSON.stringify(this.balls))

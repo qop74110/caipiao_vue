@@ -104,7 +104,7 @@
     name: 'shuangseqiu',
     data () {
       return {
-        index: this.$route.query.index || 0,
+        index: localStorage.getItem('ssq_index'),
         play_type: 1,                 //  2：胆拖；  1：标准
         show_play_type: false,        //  显示 标准&胆拖
         show_more: false,             //  显示更多
@@ -116,15 +116,13 @@
         checked_blue: [],             //  选中的篮球
         zhushu: 0,
         loading: 2,                   //
-
-
       }
     },
     created(){
       this.$vux.loading.show();
       this.global.ajax.call(this, "ssq_phase", {}, this.getPhase);
       this.global.ajax.call(this, "ssq_miss", {}, this.getMiss);
-//      this.getOrder();
+      this.index && this.getOrder();
     },
     methods: {
       getPhase(d){
@@ -146,23 +144,20 @@
         --this.loading === 0 && this.$vux.loading.hide();
       },
       getOrder(){
-//          todo 订单页面获取数据
-        const json_order = localStorage.getItem("order");
-        if (json_order !== null) {
-          let order;
-          try {
-            order = JSON.parse(json_order)
-          } catch (e) {
-            order = {};
-          }
-          if (order !== {}) {
-            this.show_play_type = order.type || 1;
-            this.checked_red = order.red || [];
-            this.checked_red_dan = order.tuo || [];
-            this.checked_blue = order.blue || [];
+        const json_order = localStorage.getItem("order") || "[]";
+        const order = JSON.parse(json_order)[this.index];
 
+        if (order) {
+          this.play_type = order.type;
+          this.checked_blue = order.blue_arr || [];
+          if (order.type === 1) {
+            this.checked_red = order.red_arr;
+            this.getnum()
+          } else {
+            this.checked_red = order.tuo_arr;
+            this.checked_red_dan = order.red_arr;
+            this.count_betting()
           }
-
         }
       },
 //      标准玩法 计算
@@ -196,7 +191,7 @@
 
         let fazs = 0;
         let tzje = 0;
-        if (hqdm_count > 5 || hqdm_count < 1 || hqtm_count < 1 || lqtm_count < 1 || (hqdm_count + hqtm_count) < 6) {
+        if (hqdm_count > 5 || hqdm_count < 1 || hqtm_count < 1 || lqtm_count < 1 || (hqdm_count + hqtm_count) < 7) {
           fazs = 0;
         } else {
           let r = 6 - hqdm_count;
@@ -213,7 +208,8 @@
       submit(){
         if (this.zhushu === 0) this.global.toast.call(this, "请投注");
         else {
-
+          const balls = JSON.parse(localStorage.getItem("order") || "[]");
+          const index = this.index || 0;
           const data = {
             tuo_arr: this.checked_red,
             blue_arr: this.checked_blue,
@@ -233,29 +229,33 @@
             data.red = this.checked_red_dan.join(",");
             data.red_arr = this.checked_red_dan
           }
-
-          localStorage.setItem("order", JSON.stringify([data]));
+          balls[index] = data;
+          localStorage.setItem("order", JSON.stringify(balls));
+          localStorage.removeItem("ssq_index");
           this.$router.push('order?index=' + this.index + "&phase=" + this.phase.phase);
         }
       }
-    },
+    }
+    ,
     watch: {
-      checked_blue()       {
+      checked_blue(){
         this.play_type === 1 ? this.getnum() : this.count_betting();
-      }
-      ,
-      checked_red(val)      {
-        if (this.play_type === 1) this.getnum();
+      },
+      checked_red(val){
+        if (val.length > 20) {
+          this.global.toast.call(this, "胆码最多选20个");
+          this.checked_red.pop();
+        } else if (this.play_type === 1) this.getnum();
         else {
+
           const i = this.checked_red_dan.indexOf(val[val.length - 1]);
           i !== -1 && (this.checked_red_dan.splice(i, 1));
           this.count_betting()
         }
-      }
-      ,
-      checked_red_dan(val)      {
+      },
+      checked_red_dan(val)    {
         if (this.checked_red_dan.length > 5) {
-          this.global.toast.call(this, "胆码最多选五个");
+          this.global.toast.call(this, "胆码最多选5个");
           this.checked_red_dan.pop();
         } else {
           const i = this.checked_red.indexOf(val[val.length - 1]);
