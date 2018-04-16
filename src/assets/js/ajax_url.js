@@ -10,6 +10,7 @@ const ajax_url = {
     ssq_random: "v1/ssq/multi",         //  双色球-多期机选
     ssq_miss: "v1/ssq/miss",            //  双色球-显示遗漏
     ssq_order: "v1/ssq/order",          //  双色球-下单
+    ssq_historyNo: "v1/ssq/drop",          //  双色球-下单
   }
 };
 

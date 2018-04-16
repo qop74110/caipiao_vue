@@ -31,13 +31,23 @@
 
     <!--往期中奖号码-->
     <div class="history">
-      <div class="his_list">
-        <!--todo 往期中奖-->
+      <div class="his_list" :class="show_his && 'showHis'">
+        <div class="item">
+          <div class="No fl">期号</div>
+          <div class="Nonumber fl">开奖号码</div>
+        </div>
+        <div class="item" v-for="(item, index) in historyNo" :key="index">
+          <div class="No fl">{{item.period}}期</div>
+          <div class="Nonumber fl">
+            <span v-for="k in item.winning">{{k}} </span>
+          </div>
+        </div>
+
       </div>
       <div class="his_last">
         第{{phase.phase}}期 <span class="redText">{{phase.end_time}} 截止</span>
 
-        <span class="his_btn fr">更多<i class="his_arrow"></i></span>
+        <span class="his_btn fr" @click="show_his = !show_his">往期中奖号<i class="his_arrow"></i></span>
       </div>
     </div>
 
@@ -119,19 +129,22 @@
           "5": "五注",
           "10": "十注"
         },
+        show_his: false,              //  false：隐藏往期
         phase: {},                    //  双色球顶部购买的奖期以及截止时间
         miss: {},                     //  遗漏数据
+        historyNo: [],
         checked_red_dan: [],          //  胆拖
         checked_red: [],              //  选中的红球
         checked_blue: [],             //  选中的篮球
         zhushu: 0,
-        loading: 2,                   //
+        loading: 3,                   //
       }
     },
     created(){
       this.$vux.loading.show();
       this.global.ajax.call(this, "ssq_phase", {}, this.getPhase);
       this.global.ajax.call(this, "ssq_miss", {}, this.getMiss);
+      this.global.ajax.call(this, "ssq_historyNo", {}, this.get_historyNo);
       this.index && this.getOrder();
     },
     methods: {
@@ -148,6 +161,17 @@
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
         else {
           this.miss = d.data;
+        }
+      },
+      get_historyNo(d){
+        this.hideLoading();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else if (d.data && d.data.length !== 0) {
+          for (let i = 0; i < d.data.length; i++) {
+            d.data[i].winning = d.data[i].winning.split(',');
+          }
+
+          this.historyNo = d.data;
         }
       },
       hideLoading(){
@@ -283,5 +307,5 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "index.less";
+  @import "./index.less";
 </style>

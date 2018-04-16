@@ -100,7 +100,42 @@
 
   //往期中奖号码
   .history {
+    .his_list {
+      height: 0;
+      transition:height 1s;
+      overflow: hidden;
+      .item {
+        @h: .95rem;
+        height: @h;
+        line-height: @h;
+        text-align: center;
+        .No {
+          width: 40%;
+        }
+        .Nonumber {
+          width: 60%;
+          span {
+            color: @theme;
+            &:last-child {
+              color: @blue;
+            }
+          }
 
+        }
+        &:nth-child(odd) {
+          background: #EFEFEF;
+        }
+        &:last-child {
+          border-bottom: 1px solid @border-color;
+        }
+      }
+
+    }
+
+    .showHis{
+      height: 10.45rem;
+
+    }
     .his_last {
       @h: .8rem;
       height: @h;
