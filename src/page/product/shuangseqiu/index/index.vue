@@ -46,10 +46,9 @@
       <!--标准玩法-->
       <div class="standard">
 
-        <!--todo 机选-->
         <!--机选-->
         <div class="random clearFix" v-show="play_type === 1">
-          <span class="random_btn fl">机选</span>
+          <span class="random_btn fl" @click="showActionsheet=!showActionsheet">机选</span>
           <span class="fr _text">至少选择6个红球，1个蓝球</span>
         </div>
 
@@ -96,12 +95,17 @@
       <div class="fl result">{{zhushu}} 注 共<span class="redText">{{zhushu * 2}}元</span></div>
       <div class="fl submit w16" @click="submit">下一步</div>
     </div>
+
+    <Actionsheet v-model="showActionsheet" @click_item="click_item"></Actionsheet>
   </div>
 </template>
 
 <script>
+  import {Actionsheet} from "com"
+
   export default {
     name: 'shuangseqiu',
+    components: {Actionsheet},
     data () {
       return {
         index: localStorage.getItem('ssq_index'),
@@ -109,6 +113,7 @@
         show_play_type: false,        //  显示 标准&胆拖
         show_more: false,             //  显示更多
         show_text: false,             //  显示 遗漏
+        showActionsheet: false,       //  显示&隐藏 机选
         phase: {},                    //  双色球顶部购买的奖期以及截止时间
         miss: {},                     //  遗漏数据
         checked_red_dan: [],          //  胆拖
@@ -159,6 +164,9 @@
             this.count_betting()
           }
         }
+      },
+      click_item(key){
+          console.log(key)
       },
 //      标准玩法 计算
       getnum (){
