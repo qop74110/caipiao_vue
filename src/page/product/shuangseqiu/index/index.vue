@@ -96,7 +96,7 @@
       <div class="fl submit w16" @click="submit">下一步</div>
     </div>
 
-    <Actionsheet v-model="showActionsheet" @click_item="click_item"></Actionsheet>
+    <Actionsheet v-model="showActionsheet" @click_item="click_item" :list="actionsheet_list"></Actionsheet>
   </div>
 </template>
 
@@ -114,6 +114,11 @@
         show_more: false,             //  显示更多
         show_text: false,             //  显示 遗漏
         showActionsheet: false,       //  显示&隐藏 机选
+        actionsheet_list: {
+          "1": "一注",
+          "5": "五注",
+          "10": "十注"
+        },
         phase: {},                    //  双色球顶部购买的奖期以及截止时间
         miss: {},                     //  遗漏数据
         checked_red_dan: [],          //  胆拖
@@ -165,8 +170,9 @@
           }
         }
       },
+//      生成随机注数
       click_item(key){
-          console.log(key)
+        if (key > 0) this.$router.push(`order?zhushu=${key}&phase=${this.phase.phase}`)
       },
 //      标准玩法 计算
       getnum (){

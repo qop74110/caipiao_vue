@@ -74,6 +74,7 @@
     },
     created(){
       this.getOrder();
+      this.setRandom_zhushu();
     },
     methods: {
       getOrder(){
@@ -86,6 +87,14 @@
         }
         this.zhushu = zhushu;
 
+      },
+      setRandom_zhushu(){
+        const zhushu = this.$route.query.zhushu;
+        if (zhushu) {
+          for (let i = 0; i < zhushu; i++) {
+            this.random_sort();
+          }
+        }
       },
       del(i){
         if (i > -1) this.balls.splice(i, 1);

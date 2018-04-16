@@ -1,7 +1,7 @@
 <template>
   <div class="Actionsheet" v-show="show" @click="show = false">
 
-    <ul class="list" :class="show && 'show'">
+    <ul class="list">
       <li class="item" v-for="(item, key) in list" @click="click_item(key)">{{item}}</li>
       <li class="item cancel" @click="click_item('-1')">取消</li>
     </ul>
