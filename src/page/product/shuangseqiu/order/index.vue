@@ -21,10 +21,11 @@
         <i class="fl del" @click="del(index)"></i>
         <span class="fl balls hideText">
           <span v-if="item.type === 2" class="red">
-             ( <span  v-for="i in item.tuo_arr">{{i}} </span>)
+             ( <span  v-for="i in item.red_arr">{{i}} </span>)
+             <span class="red" v-for="i in item.tuo_arr">{{i}} </span>
           </span>
 
-          <span class="red" v-for="i in item.red_arr">{{i}} </span>
+          <span v-else class="red" v-for="i in item.red_arr">{{i}} </span>
           <br>
           <span class="blue" v-for="i in item.blue_arr">{{i}} </span>
           <br>

@@ -213,21 +213,27 @@
       submit(){
         if (this.zhushu === 0) this.global.toast.call(this, "请投注");
         else {
-//          const type = this.play_type === 1 && this.zhushu > 1 ? 1 : this.play_type === 1 ? 0: 2;
+
           const data = {
-            red_arr: this.checked_red,
-            tuo_arr: this.checked_red_dan,
+            tuo_arr: this.checked_red,
             blue_arr: this.checked_blue,
-            red: this.checked_red.join(","),
-            tuo: this.checked_red_dan.join(","),
+            tuo: this.checked_red.join(","),
             blue: this.checked_blue.join(","),
             notes: this.zhushu,
             money: this.zhushu * 2,
             _money: this.zhushu * 2,
-//            periods: 1,
             multiple: 1,
             type: this.play_type
           };
+//          配合后台调整数据结构
+          if (data.type === 1) {
+            data.red = this.checked_red.join(",");
+            data.red_arr = this.checked_red
+          } else {
+            data.red = this.checked_red_dan.join(",");
+            data.red_arr = this.checked_red_dan
+          }
+
           localStorage.setItem("order", JSON.stringify([data]));
           this.$router.push('order?index=' + this.index + "&phase=" + this.phase.phase);
         }
