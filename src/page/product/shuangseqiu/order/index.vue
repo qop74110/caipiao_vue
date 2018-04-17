@@ -81,7 +81,6 @@
         const jsonData = localStorage.getItem("order") || "[]";
         this.balls = JSON.parse(jsonData);
         let zhushu = 0;
-
         for (let i = 0; i < this.balls.length; i++) {
           zhushu += this.balls[i].notes
         }
@@ -111,6 +110,7 @@
       },
       back_index(i){
         localStorage.setItem('ssq_index', i);
+        this.setLocaL();
         this.$router.back();
       },
       random_sort(){

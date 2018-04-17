@@ -91,8 +91,7 @@ export default new Router({
 
       ]
 
-    },
-    {
+    }, {
       path: "/exposition",
       name: "exposition",
       meta: {
@@ -101,6 +100,18 @@ export default new Router({
       component: (resolve) => {
         require(["page/product/exposition"], resolve)
       }
+    }, {
+      path: "/nofund",
+      name: "nofund",
+      meta: {
+        title: '404'
+      },
+      component: (resolve) => {
+        require(["page/nofund"], resolve)
+      }
+    }, {
+      path: '*',
+      redirect: '/nofund'
     },
   ]
 })
