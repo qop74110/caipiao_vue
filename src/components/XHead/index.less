@@ -1,0 +1,43 @@
+@import "../../assets/css/theme";
+
+.XHead {
+  @h: 1.2rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: @h;
+  line-height: @h;
+  background: @theme;
+  color: white;
+  text-align: center;
+  font-size: .5rem;
+  font-weight: 200;
+  .w20 {
+    width: 20%;
+    height: 100%;
+    background-repeat: no-repeat;
+
+  }
+  .title {
+    width: 60%;
+    padding: 0 .2rem;
+    .title_option {
+      display: inline-block;
+      height: @h;
+      width: .3rem;
+      vertical-align: top;
+      background: url(../../assets/img/arrow_b.png) no-repeat center center / .3rem;
+    }
+  }
+  .back {
+    background-size: .28rem;
+    background-position: .3rem center;
+    background-image: url(../../assets/img/arrow_l.png);
+  }
+  .more {
+    background-size: .5rem;
+    background-position: 1.2rem center;
+    background-image: url(./more.png);
+  }
+}

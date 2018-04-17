@@ -92,6 +92,29 @@ export default new Router({
       ]
 
     }, {
+      path: "/jingcaizuqiu",
+      component: (resolve) => {
+        require(["page/product/jingcaizuqiu"], resolve)
+      },
+
+      children: [
+        {
+          path: "index",
+          name: "jingcaizuqiu",
+          meta: {
+            title: '竞彩足球'
+          },
+          component: (resolve) => {
+            require(["page/product/jingcaizuqiu/index/index.vue"], resolve)
+          }
+        }, {
+          path: '*',
+          redirect: 'index'
+        },
+
+      ]
+
+    }, {
       path: "/exposition",
       name: "exposition",
       meta: {

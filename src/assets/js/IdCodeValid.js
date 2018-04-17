@@ -26,6 +26,8 @@
 //身份证号合法性验证
 //支持15位和18位身份证号
 //支持地址编码、出生日期、校验位验证
+
+// todo 这个校验不准
 let idCodeValid = function (code) {
   let city = {
     11: "北京",
