@@ -4,6 +4,136 @@
   @foot_h: 1.35rem;
   padding: @XHead_h 0 @foot_h;
   min-height: 100vh;
+  .shaixuan {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    height: @XHead_h;
+    width: .8rem;
+    background: url(./img/shaixuan.png) no-repeat center center / .5rem;
+  }
+  .screen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    text-align: center;
+    background: rgba(0, 0, 0, .5);
+    .screen_con {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      .option {
+        padding: .4rem .4rem 0;
+        color: #666;
+        .title {
+          margin-top: .3rem;
+          border-top: 1px solid #CCCCCC;
+          .text {
+            display: inline-block;
+            height: .6rem;
+            padding: 0 .3rem;
+            background: white;
+            position: relative;
+            top: -.3rem;
+          }
+        }
+      }
+      .checked {
+        font-size: .3rem;
+        color: #333;
+      }
+      .btns {
+        @h: 1.3rem;
+        height: @h;
+        line-height: @h;
+        font-size: .45rem;
+        .btn {
+          width: 50%;
+        }
+        .cancel {
+          background: #999999;
+          color: #333;
+        }
+        .confirm {
+          background: @theme;
+          color: white;
+        }
+      }
+    }
+  }
+  .content {
+    height: calc(~"100vh - @{foot_h} - @{XHead_h}");
+    background: #efefef;
+    text-align: center;
+    color: #333;
+    font-size: .35rem;
+    overflow-x: scroll;
+    position: relative;
+    .bar_box {
+      height: .93rem;
+      .bar{
+        position: fixed;
+        top: @XHead_h;
+        left: 0;
+        right: 0;
+      }
+    }
+    .jixuan {
+      @h: .93rem;
+      height: @h;
+      line-height: @h;
+      padding: 0 .2rem;
+      text-align: left;
+    }
+    .item {
+      margin-bottom: .3rem;
+      background: white;
+      .date {
+        @h: .8rem;
+        height: @h;
+        line-height: @h;
+        border-bottom: 1px solid #efefef;
+        background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
+      }
+      .details {
+        @p: .3rem;
+        @h: 1.8rem;
+        height: @h + 2 * @p;
+        padding: .3rem;
+        border-bottom: 1px solid #efefef;
+        .left {
+          width: 20%;
+          line-height: .6rem;
+          height: 100%;
+          overflow: hidden;
+        }
+        .right {
+          width: 75%;
+          line-height: .7rem;
+          height: 100%;
+          padding: .1rem 0;
+          border: 1px solid #ccc;
+          overflow: hidden;
+          .fl {
+            height: 100%;
+            width: 100% / 3;
+          }
+          .border_r {
+            border-right: 1px solid #ccc;
+          }
+        }
+      }
+    }
+    .noLit {
+      height: 100%;
+      width: 100%;
+      background: url(./img/noList.png) no-repeat center center / 5rem;
+    }
+  }
   .foot {
     @p: .2rem;
     position: absolute;

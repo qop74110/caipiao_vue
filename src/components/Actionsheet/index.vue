@@ -13,7 +13,7 @@
     name: 'Actionsheet',
     props: {
       list: {
-        type: Object,
+        type: [Object, Array],
         default() {
           return {
             "0": "土豆",
