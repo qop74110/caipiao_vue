@@ -42,6 +42,7 @@
       },
       value: {
         handler: function (val) {
+
           this.show = val
         },
         immediate: true

@@ -37,8 +37,6 @@
       }
     },
     created(){
-      this.a_t = this.active_title;
-      this.a_m = this.active_more;
     },
     methods: {},
     watch: {

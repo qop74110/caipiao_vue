@@ -1,6 +1,45 @@
 @import "../../../../assets/css/theme";
 
 .jczq_index {
-  padding: @XHead_h;
-
+  @foot_h: 1.35rem;
+  padding: @XHead_h 0 @foot_h;
+  min-height: 100vh;
+  .foot {
+    @p: .2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: @foot_h;
+    padding: @p 0;
+    border-top: 1px solid #DCDBDB;
+    .clear {
+      @w: .93rem;
+      width: @w;
+      height: 100%;
+      border-right: 1px solid #CCCCCC;
+      background: url(../../../../assets/img/clear.png) no-repeat center center / .5rem;
+    }
+    .text {
+      padding-left: @p;
+      line-height: (@foot_h -  2 * @p) / 2;
+      color: #666666;
+      font-size: .3rem;
+      .changshu {
+        font-size: .38rem;
+        color: #000;
+      }
+    }
+    .submit {
+      @h: .8rem;
+      height: @h;
+      line-height: @h;
+      width: 2 * @h;
+      margin-right: .4rem;
+      color: white;
+      font-size: .38rem;
+      text-align: center;
+      border-radius: .13rem;
+    }
+  }
 }

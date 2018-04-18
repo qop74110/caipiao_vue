@@ -4,5 +4,6 @@ import Marquee from "./Marquee";
 import XNumber from "./XNumber";
 import Actionsheet from "./Actionsheet";
 import XHead from "./XHead";
+import Bar from "./Bar";
 
-export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead};
+export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead, Bar};
