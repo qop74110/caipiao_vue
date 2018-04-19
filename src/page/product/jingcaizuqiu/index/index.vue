@@ -9,7 +9,7 @@
     <div class="content">
       <div class="bar_box" v-show="play_type !== 'FT002'">
         <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
-        <div class="jixuan">
+        <div class="jixuan" v-show="play_type !== 'FT003'">
           机选
         </div>
       </div>
@@ -150,20 +150,6 @@
                 <p>{{`周${_item.weekid} ${_item.teamid}`}}</p>
                 <p>{{_item.endtime}}截止</p>
               </div>
-
-              <!--<div class="right fr">-->
-              <!--<div class="right_top right_children">-->
-              <!--<div class="fl redText">{{_item.homeTeam}}</div>-->
-              <!--<div class="fl">VS</div>-->
-              <!--<div class="fl redText">{{_item.awayTeam}}</div>-->
-              <!--</div>-->
-              <!--<div class="right_bottom right_children" @click="show_bifenPopup_fun(_item, index, _index)">-->
-              <!--<span v-if="checked[index][_index].length === 0">点击选择比分</span>-->
-              <!--<div v-else class="redBg hideText">-->
-              <!--<span v-for="_i in checked[index][_index]" class="whiteText">{{_i}} </span>-->
-              <!--</div>-->
-              <!--</div>-->
-              <!--</div>-->
 
               <div class="right fr">
                 <div class="right_top">
