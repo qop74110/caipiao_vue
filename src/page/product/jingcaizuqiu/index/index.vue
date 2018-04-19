@@ -164,6 +164,22 @@
               <!--</div>-->
               <!--</div>-->
               <!--</div>-->
+
+              <div class="right fr">
+                <div class="right_top">
+                  <span class="redText fl right_top_text">{{_item.homeTeam}}</span>
+                  <span class="vs fl right_top_text">VS</span>
+                  <span class="redText fl right_top_text">{{_item.awayTeam}}</span>
+                </div>
+                <div class="right_bottom">
+                  <div class="fl btn" v-for="(it, _in) in _item.odds">
+                    <input class="checkbox" type="checkbox" :value="it.name" v-model="checked[index][_index]">
+                    <div>
+                      {{it.name}} <span class="odds"> {{it.odds}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -271,7 +287,12 @@
 
         <div class="bottom" @click="show_bifenPopup = false; show_banquanchangPopup = false">
           <div class="bottom_btn confirm fl redBg">确定</div>
-          <div class="bottom_btn cancel fl whiteBg">取消</div>
+          <div v-if="show_bifenPopup" class="bottom_btn cancel fl whiteBg"
+               @click="checked[bifenPopup_data.index][bifenPopup_data._index] = [];">取消
+          </div>
+          <div v-else class="bottom_btn cancel fl whiteBg"
+               @click="checked[banquanchang_data.index][banquanchang_data._index] = [];">取消
+          </div>
         </div>
       </div>
     </div>
@@ -332,7 +353,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[4].value;
+          this.play_type = d.data[3].value;
 
 
         }

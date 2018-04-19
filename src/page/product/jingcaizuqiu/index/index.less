@@ -67,6 +67,7 @@
   }
   .content {
     @h: 1.8rem; //   .right {height}
+    @p: .3rem; //  .right {padding}
     height: calc(~"100vh - @{foot_h} - @{XHead_h}");
     background: #efefef;
     text-align: center;
@@ -110,7 +111,7 @@
         background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
       }
       .details {
-        @p: .3rem;
+
         height: @h + 2 * @p;
         padding: .3rem;
         border-bottom: 1px solid #efefef;
@@ -196,6 +197,59 @@
         border: 1px solid #CCCCCC;
       }
     }
+    .type5 {
+      .details {
+        @h: 2.85rem;
+        @right_bottom: 2.4rem;
+        height: @h;
+        .left {
+          margin-top: .45rem;
+        }
+        .right_top {
+          height: .45rem;
+          line-height: .45rem;
+          .right_top_text {
+            width: 100% / 3;
+            height: 100%;
+          }
+        }
+        .right_bottom {
+          @right_bottom_h: (@h - 2 * @p) - .45;
+          height: @right_bottom_h;
+          border-top: 1px solid #CCCCCC;
+          border-left: 1px solid #CCCCCC;
+          .btn {
+            width: 25%;
+            height: @right_bottom_h / 2;
+            line-height: @right_bottom_h / 2;
+            border-right: 1px solid #CCCCCC;
+            border-bottom: 1px solid #CCCCCC;
+            position: relative;
+            .checkbox {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              opacity: 0;
+              height: 100%;
+              width: 100%;
+              &:checked + div{
+                background: @theme;
+                color: white;
+                .odds{
+                  color: inherit;
+                }
+              }
+            }
+            .odds{
+              color: #666;
+              font-size: .25rem;
+            }
+          }
+        }
+      }
+    }
     .noLit {
       height: 100%;
       width: 100%;
@@ -262,12 +316,12 @@
       margin: -@h/2 .2rem 0;
       border-radius: .1rem;
       background: #EAEAEA;
-      &.h74{
+      &.h74 {
         @h: 7.4rem;
         height: @h;
         margin: -@h/2 .2rem 0;
-        .option{
-          .h2{
+        .option {
+          .h2 {
             .btn:last-child {
               width: 100% / 7;
             }
@@ -398,7 +452,7 @@
   .whiteText {
     color: white;
   }
-  .purpleBg{
+  .purpleBg {
     background: #9A43FA;
   }
 }
