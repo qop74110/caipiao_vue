@@ -78,7 +78,9 @@
       display: none
     }
     .bar_box {
-      height: .93rem;
+      @h: .93rem;
+      padding-top: @h;
+      height: 2 * @h;
       .bar {
         position: fixed;
         top: @XHead_h;
@@ -89,14 +91,14 @@
         background: white;
         z-index: 100;
       }
+      .jixuan {
+        height: @h;
+        line-height: @h;
+        padding: 0 .2rem;
+        text-align: left;
+      }
     }
-    .jixuan {
-      @h: .93rem;
-      height: @h;
-      line-height: @h;
-      padding: 0 .2rem;
-      text-align: left;
-    }
+
     .item {
       margin-bottom: .3rem;
       background: white;
@@ -180,7 +182,7 @@
       }
 
     }
-    .type3 {
+    .type3, .type4 {
       .right_children {
         height: 50%;
         line-height: @h / 2;
@@ -243,6 +245,7 @@
   }
 
   //比分玩法 选择比分 弹窗
+
   .bifen {
     position: absolute;
     top: 0;
@@ -252,12 +255,25 @@
     padding-top: 50vh;
     background: rgba(0, 0, 0, .5);
     text-align: center;
+    z-index: 500;
     .popup {
       @h: 10.4rem;
       height: @h;
       margin: -@h/2 .2rem 0;
       border-radius: .1rem;
       background: #EAEAEA;
+      &.h74{
+        @h: 7.4rem;
+        height: @h;
+        margin: -@h/2 .2rem 0;
+        .option{
+          .h2{
+            .btn:last-child {
+              width: 100% / 7;
+            }
+          }
+        }
+      }
       .title {
         @h: 1.2rem;
         height: @h;
@@ -325,7 +341,7 @@
                 background: @theme;
                 color: white;
                 height: @row_h;
-                .c666{
+                .c666 {
                   color: inherit;
                 }
               }
@@ -356,6 +372,19 @@
       }
     }
   }
+  .zongjinqiu {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 500;
+    .popup {
+      @h: 50vh;
+
+    }
+  }
   .greenBg {
     background: #1AA664;
   }
@@ -366,7 +395,10 @@
     background: white;
 
   }
-  .whiteText{
+  .whiteText {
     color: white;
+  }
+  .purpleBg{
+    background: #9A43FA;
   }
 }
