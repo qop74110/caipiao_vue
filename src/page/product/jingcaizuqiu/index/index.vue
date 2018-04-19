@@ -7,31 +7,35 @@
     <span class="shaixuan" @click="show_screen = true"></span>
     <!--赛事列表-->
     <div class="content">
-      <div class="bar_box">
+      <div class="bar_box" v-show="play_type !== 'FT002'">
         <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
       </div>
       <div class="jixuan">
         机选
       </div>
       <div v-show="index_list.length !== 0">
-        <div class="type1 list" v-show="play_type === 'FT001'">
+        <!--胜平负-->
+        <div class="type1 list" v-if="play_type === 'FT001'">
           <div class="item" v-for="(item, index) in index_list">
             <div class="date">{{`${item.date} ${item.week} ${item.count}比赛可选`}}</div>
-            <div class="details" v-for="(_item,index) in item.match">
+            <div class="details" v-for="(_item,_index) in item.match">
               <div class="left fl">
                 <p>{{_item.league}}</p>
                 <p>{{`周${_item.weekid} ${_item.teamid}`}}</p>
                 <p>{{_item.endtime}}截止</p>
               </div>
               <div class="right fr">
+                <input type="checkbox" class="checkbox checkbox1" value="3" v-model="checked[index][_index]">
                 <div class="victory fl border_r">
                   <p class="redText">{{_item.homeTeam}}</p>
                   <p>主胜 {{_item.odds[0].odds}}</p>
                 </div>
+                <input type="checkbox" class="checkbox checkbox2" value="1" v-model="checked[index][_index]">
                 <div class="ping fl border_r">
                   VS
                   <p>平 {{_item.odds[1].odds}}</p>
                 </div>
+                <input type="checkbox" class="checkbox checkbox3" value="0" v-model="checked[index][_index]">
                 <div class="fail fl">
                   <p class="redText">{{_item.awayTeam}}</p>
                   <p>客胜 {{_item.odds[2].odds}}</p>
@@ -40,24 +44,38 @@
             </div>
           </div>
         </div>
-        <div class="type2 list" v-show="play_type === 'FT006'">
+        <!--让球胜平负-->
+        <div class="type2 list" v-else-if="play_type === 'FT006'">
           <div class="item" v-for="(item, index) in index_list">
             <div class="date">{{`${item.date} ${item.week} ${item.count}比赛可选`}}</div>
-            <div class="details" v-for="(_item,index) in item.match">
+            <div class="details" v-for="(_item,_index) in item.match">
+
               <div class="left fl">
                 <p>{{_item.league}}</p>
                 <p>{{`周${_item.weekid} ${_item.teamid}`}}</p>
                 <p>{{_item.endtime}}截止</p>
               </div>
+
+              <div class="middle fl" :class="_item.odds[0].odds > 0 ? 'redBg':'greenBg'">
+                让球
+                <span class="text">{{_item.odds[3].odds}}</span>
+              </div>
+
               <div class="right fr">
+                <input type="checkbox" class="checkbox checkbox1" value="3" v-model="checked[index][_index]">
+
                 <div class="victory fl border_r">
                   <p class="redText">{{_item.homeTeam}}</p>
                   <p>主胜 {{_item.odds[0].odds}}</p>
                 </div>
+                <input type="checkbox" class="checkbox checkbox2" value="1" v-model="checked[index][_index]">
+
                 <div class="ping fl border_r">
                   VS
                   <p>平 {{_item.odds[1].odds}}</p>
                 </div>
+                <input type="checkbox" class="checkbox checkbox3" value="0" v-model="checked[index][_index]">
+
                 <div class="fail fl">
                   <p class="redText">{{_item.awayTeam}}</p>
                   <p>客胜 {{_item.odds[2].odds}}</p>
@@ -66,7 +84,33 @@
             </div>
           </div>
         </div>
-        <div class="type3 list" v-show="play_type === 'FT002'">比分</div>
+        <!--比分-->
+        <div class="type3 list" v-show="play_type === 'FT002'">
+          <div class="item" v-for="(item, index) in index_list">
+            <div class="date">{{`${item.date} ${item.week} ${item.count}比赛可选`}}</div>
+            <div class="details" v-for="(_item,_index) in item.match">
+              <div class="left fl">
+                <p>{{_item.league}}</p>
+                <p>{{`周${_item.weekid} ${_item.teamid}`}}</p>
+                <p>{{_item.endtime}}截止</p>
+              </div>
+
+              <div class="right fr">
+                <div class="right_top right_children">
+                  <div class="fl redText">{{_item.homeTeam}}</div>
+                  <div class="fl">VS</div>
+                  <div class="fl redText">{{_item.awayTeam}}</div>
+                </div>
+                <div class="right_bottom right_children" @click="show_bifenPopup_fun(_item, index, _index)">
+                  <span v-if="checked[index][_index].length === 0">点击选择比分</span>
+                  <div v-else class="redBg hideText">
+                    <span v-for="_i in checked[index][_index]" class="whiteText">{{_i}} </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="type4 list" v-show="play_type === 'FT003'">总进球</div>
         <div class="type5 list" v-show="play_type === 'FT004'">半全场</div>
       </div>
@@ -79,7 +123,7 @@
         <p class="changshu">已选<span class="redText">{{changshu}}</span>场</p>
         页面赔率仅供参考，请以出票赔率为准
       </div>
-      <div class="fr submit redBg">确认</div>
+      <div class="fr submit redBg" @click="submit">确认</div>
     </footer>
     <!--筛选-->
     <div class="screen" @click="show_screen = false" v-show="show_screen">
@@ -94,9 +138,64 @@
         </div>
       </div>
     </div>
+    <!--xhead -->
     <Actionsheet v-model="show_more" @click_item="more_item" :list="more_list"></Actionsheet>
     <Actionsheet v-model="show_title_option" @click_item="title_item" :list="title_option_list"></Actionsheet>
 
+    <!--比分玩法 弹窗-->
+    <div class="bifen" v-if="show_bifenPopup">
+      <div class="popup">
+        <div class="title">{{`${bifenPopup_data.homeTeam} VS ${bifenPopup_data.awayTeam}`}}</div>
+
+        <div class="option">
+          <p class="text">竞猜全场90分钟（含伤停补时）的比分</p>
+          <div class="victory whiteBg h2">
+            <div class="left fl redBg">胜</div>
+            <div class="right fl">
+              <div class="btn fl" v-for="(item,index) in bifenPopup_data.odds[0]">
+                <input class="checkbox" type="checkbox" :value="item.name" v-model="checked[bifenPopup_data.index][bifenPopup_data._index]">
+                <div>
+                  {{item.name}}
+                  <p class="c666">{{item.odds}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="ping whiteBg">
+            <div class="left fl blueBg">平</div>
+            <div class="right fl ">
+              <div class="btn fl" v-for="(item,index) in bifenPopup_data.odds[1]">
+                <input class="checkbox" type="checkbox" :value="item.name" v-model="checked[bifenPopup_data.index][bifenPopup_data._index]">
+                <div>
+                  {{item.name}}
+                  <p class="c666">{{item.odds}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="fail whiteBg h2">
+            <div class="left fl greenBg">负</div>
+            <div class="right fl">
+              <div class="btn fl" v-for="(item,index) in bifenPopup_data.odds[2]">
+                <input class="checkbox" type="checkbox" :value="item.name" v-model="checked[bifenPopup_data.index][bifenPopup_data._index]">
+                <div>
+                  {{item.name}}
+                  <p class="c666">{{item.odds}}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom" @click="show_bifenPopup = false">
+          <div class="bottom_btn confirm fl redBg">确定</div>
+          <div class="bottom_btn cancel fl whiteBg">取消</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -113,6 +212,7 @@
       return {
         show_title_option: false,         //  true: 显示 xhead的标题选项
         show_more: false,                 //  true: 显示 xhead的更多
+
         more_list: {
           "1": "开奖信息",
           "2": "玩法说明"
@@ -124,8 +224,10 @@
           "过关（至少选两场）",
 
         ],
-        bar_value: 1,
-        show_screen: false,
+        bar_value: 1,                     // 0: 单场
+        show_screen: false,               //  trye: 显示 筛选
+        show_bifenPopup: false,           //  true: 显示 比分玩法弹窗
+        bifenPopup_data: [],           //  true: 显示 比分玩法弹窗
         index_list: [],
         changshu: 0,
         loading: 1,
@@ -148,7 +250,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[0].value;
+          this.play_type = d.data[2].value;
 
 
         }
@@ -166,10 +268,31 @@
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
         else if (d.data) {
           this.index_list = d.data;
+          this.init_checked();
         }
       },
       hideLoading(){
         --this.loading === 0 && this.$vux.loading.hide();
+      },
+      init_checked(){
+        const arr = [];
+        for (let i = 0; i < this.index_list.length; i++) {
+          arr.push([]);
+          for (let k = 0; k < this.index_list[i].match.length; k++) {
+            arr[i].push([])
+          }
+        }
+        this.checked = arr;
+      },
+      set_changshu(){
+        let changshu = 0;
+        for (let i = 0; i < this.checked.length; i++) {
+          for (let k = 0; k < this.checked[i].length; k++) {
+            if (this.checked[i][k].length === 0) continue;
+            else changshu++;
+          }
+        }
+        this.changshu = changshu;
       },
       setMore(val){
         this.show_more = val;
@@ -184,7 +307,20 @@
       },
       title_item(val){
         val !== "-1" && (this.play_type = val)
-      }
+      },
+      show_bifenPopup_fun(data, index, _index){
+        this.show_bifenPopup = true;
+        data.index = index;
+        data._index = _index;
+        this.bifenPopup_data = data;
+      },
+      submit(){
+        if (this.changshu === 0) this.global.toast.call(this, "请下注");
+        else if (this.changshu === 1 && (this.bar_value === 1 && this.play_type !== "FT002")) this.global.toast.call(this, "最少选择两场");
+        else {
+          console.log("下单")
+        }
+      },
     },
     watch: {
       bar_value(val){
@@ -192,6 +328,10 @@
       },
       play_type(val){
         this.getIndexList();
+      },
+      checked(val){
+        console.log(val)
+        this.set_changshu();
       }
     }
   }
