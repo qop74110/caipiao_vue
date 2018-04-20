@@ -30,7 +30,9 @@
     }
   }
   .order_list {
-    max-height: calc(~"100% - @{head_h} - @{foot_h}");
+    @item_h: 2rem;
+    @item_p: .2rem;
+    max-height: calc(~"100vh - @{head_h} - @{foot_h}");
     margin: 0 @p;
     border-radius: .2rem;
     background: white;
@@ -40,6 +42,66 @@
     }
     .first {
       height: .2rem;
+    }
+    .item {
+      height: @item_h;
+      padding: @item_p;
+      background: white;
+      border-top: 1px dashed #ccc;
+      .left {
+        width: .8rem;
+        height: 100%;
+        margin-right: @item_p;
+        background: url(../../../../assets/img/del.png) no-repeat center center / .5rem .5rem;
+      }
+      .right {
+        width: 7.5rem;
+        height: 100%;
+        line-height: (@item_h - 4 * @item_p) / 2;
+        border: 1px solid #ccc;
+        position: relative;
+        .checkbox {
+          position: absolute;
+          top: 0;
+          width: 100% / 3;
+          height: 100%;
+          opacity: 0;
+          &:checked + .fl {
+            background: @theme;
+            color: white;
+            .text {
+              color: inherit;
+            }
+          }
+        }
+        .checkbox1 {
+          left: 0;
+        }
+        .checkbox2 {
+          left: 100% / 3;
+        }
+        .checkbox3 {
+          left: 100% / 3 * 2;
+        }
+        .fl {
+          width: 100% / 3;
+          height: 100%;
+          padding: @item_p;
+        }
+        .bor_r {
+          border-right: 1px solid #ccc;
+        }
+        .text {
+          color: #666;
+          font-size: .3rem;
+        }
+      }
+    }
+
+    .FT001 {
+      .item {
+
+      }
     }
   }
   .foot {

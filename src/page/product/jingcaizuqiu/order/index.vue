@@ -1,14 +1,66 @@
 <template>
-  <div class="jczq_order page">
+  <div class="jczq_order page" v-if="render_page">
     <div class="header">
       <a class="head_btn add fl">添加/编辑赛事</a>
       <a class="head_btn clear fl">清空列表</a>
     </div>
 
-    <ul class="order_list">
-      <li class="first"></li>
-      <li class="item"></li>
-    </ul>
+    <div class="order_list">
+      <div class="first"></div>
+      <!--胜平负-->
+      <div v-if="play_type === 'FT001'" :class="play_type">
+        <div v-for="(item, index) in index_list">
+          <div class="item"
+               v-for="(_item, _index) in item.match"
+               v-if="checked[index][_index].length > 0"
+          >
+            <div class="left fl"></div>
+
+            <div class="right fl">
+
+              <input type="checkbox"
+                     class="checkbox checkbox1"
+                     value="3"
+                     v-model="c[index][_index]"
+              >
+              <div class="fl bor_r">
+                <p class="hideText">{{_item.homeTeam}}</p>
+                <span class="text">主胜 {{_item.odds[0].odds}}</span>
+              </div>
+
+              <input type="checkbox"
+                     class="checkbox checkbox2"
+                     value="1"
+                     v-model="c[index][_index]"
+              >
+              <div class="fl bor_r">
+                <p>VS</p>
+                <span class="text">平 {{_item.odds[1].odds}}</span>
+              </div>
+              <input type="checkbox"
+                     class="checkbox checkbox3"
+                     value="0"
+                     v-model="c[index][_index]"
+              >
+              <div class="fl">
+                <p class="hideText">{{_item.awayTeam}}</p>
+                <span class="text">客胜 {{_item.odds[2].odds}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!--让球 胜平负-->
+    <!--<div v-else-if="play_type === 'FT006'"></div>-->
+    <!--&lt;!&ndash;比分&ndash;&gt;-->
+    <!--<div v-else-if="play_type === 'FT002'"></div>-->
+    <!--&lt;!&ndash;半全场&ndash;&gt;-->
+    <!--<div v-else-if="play_type === 'FT004'"></div>-->
+    <!--&lt;!&ndash;总进球&ndash;&gt;-->
+    <!--<div v-else-if="play_type === 'FT003'"></div>-->
 
     <div class="foot">
       <div class="foot_top">
@@ -26,11 +78,11 @@
       </div>
       <div class="foot_middle" :class="show_footMiddle && 'h22'">
         <div class="item fl" v-for="i in 8">
-          <input class="radio" type="radio" :value="i" v-model="chuan">
+          <input class="radio" type="checkbox" :value="i" v-model="chuan">
           <div class="text">{{i}}串1</div>
         </div>
       </div>
-      <div class="foot_bottom">
+      <div class="foot_bottom" @click="submit">
         10注<span class="redText">20</span>元
         <p class="c666">预测奖金（仅供参考）：191.62</p>
         <span class="submit redBg">确定</span>
@@ -44,15 +96,55 @@
     name: 'jczq_order',
     data () {
       return {
-        bei: 1,
-        chuan: "",
+        bei: '10',
+        chuan: [],
         show_footMiddle: false,
+        index_list: [],
+        play_type: "",
+        bar_value: null,
+        checked: [],
+        c: [],
+        render_page: false,                //  true: 开始渲染页面
       }
     },
     created(){
-
+      this.getOrder();
     },
-    methods: {}
+    methods: {
+      getOrder(){
+        const order = JSON.parse(localStorage.getItem("jczq_order") || "{}");
+
+        if (JSON.stringify(order) !== "{}") {
+          this.index_list = order.index_list || [];
+          this.play_type = order.play_type;
+          this.bar_value = order.bar_value || 1;
+          this.checked = order.checked;
+        }
+
+        this.render_page = true;
+//        深复制
+        const c = [];
+        for (let i = 0; i < this.checked.length; i++) {
+          c.push([]);
+          for (let k = 0; k < this.checked[i].length; k++) {
+            c[i].push(this.checked[i][k])
+          }
+        }
+        this.c = c;
+
+      },
+      submit(){
+          this.
+      }
+    },
+    watch: {
+      c(val){
+        console.log(this.c === this.checked)
+      },
+      checked(val){
+        console.log(val)
+      }
+    }
   }
 </script>
 

@@ -406,13 +406,27 @@
         data.index = index;
         data._index = _index;
         this.banquanchang_data = data;
-        console.log(data)
       },
       submit(){
         if (this.changshu === 0) this.global.toast.call(this, "请下注");
         else if (this.changshu === 1 && (this.bar_value === 1 && this.play_type !== "FT002")) this.global.toast.call(this, "最少选择两场");
         else {
-          console.log("下单")
+//          const data = [];
+//          for (let i = 0; i < this.checked.length; i++) {
+//            for (let k = 0; k < this.checked[i].length; k++) {
+//              if (this.checked[i][k].length !== 0) data.push(this.index_list[i].match[k]);
+//            }
+//          }
+
+
+          const data = {
+            index_list: this.index_list,
+            checked: this.checked,
+            play_type: this.play_type,
+            bar_value: this.bar_value,
+          };
+          localStorage.setItem("jczq_order", JSON.stringify(data));
+          this.$router.push('order');
         }
       },
     },
