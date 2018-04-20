@@ -1,0 +1,145 @@
+@import "../../../../assets/css/theme";
+
+.jczq_order {
+  @head_h: 1.5rem;
+  @foot_h: 2.35rem;
+  @p: .3rem;
+  height: 100vh;
+  padding: @head_h 0 @foot_h;
+  text-align: center;
+  background: #efefef;
+  position: relative;
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: @head_h;
+    line-height: @head_h - 2 * @p;
+    padding: @p;
+    .head_btn {
+      width: 49%;
+      height: 100%;
+      border: 1px solid #ccc;
+      border-radius: .2rem;
+      background: white;
+      color: #333;
+    }
+    .add {
+      margin-right: 2%;
+    }
+  }
+  .order_list {
+    max-height: calc(~"100% - @{head_h} - @{foot_h}");
+    margin: 0 @p;
+    border-radius: .2rem;
+    background: white;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none
+    }
+    .first {
+      height: .2rem;
+    }
+  }
+  .foot {
+    @foot_top: 1.05rem;
+    @foot_bottom: @foot_h - @foot_top;
+    @foot_middle: 2.2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #ccc;
+    .foot_top {
+      height: @foot_top;
+      line-height: @foot_top;
+      .foot_top_btn {
+        height: 100%;
+        width: 3.5rem;
+        .arrow {
+          @h: .25rem;
+          height: @h;
+          margin-top: (@foot_top - @h) / 2;
+          transform: rotate(180deg);
+          transition: transform .25s;
+        }
+      }
+      .bei {
+        @bei_p: .2rem;
+        height: 100%;
+        padding: @bei_p @p;
+        line-height: @foot_top - 2 * @bei_p;
+        .input {
+          width: 2rem;
+          border: 1px solid #ccc;
+          border-radius: .1rem;
+          text-align: inherit;
+        }
+      }
+    }
+    .foot_middle {
+      @h: @foot_middle;
+      height: 0;
+      transition: height .25s;
+      background: #EFEFEF;
+      font-size: .32rem;
+      overflow: hidden;
+      .item {
+        @w: 2.1rem;
+        @h: .7rem;
+        width: @w;
+        height: @h;
+        line-height: @h;
+        margin: .2rem;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: .1rem;
+        overflow: hidden;
+        position: relative;
+        .radio {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          &:checked + .text {
+            background: @theme;
+            color: white;
+          }
+        }
+      }
+    }
+    .h22 {
+      height: @foot_middle;
+    }
+    .foot_bottom {
+      @fb_p: .2rem;
+      height: @foot_bottom;
+      line-height: (@foot_bottom - 2 * @fb_p) / 2;
+      padding: @fb_p 0;
+      font-size: .38rem;
+      border-top: 1px solid #efefef;
+      .c666 {
+        font-size: .3rem;
+      }
+      .submit {
+        @h: @foot_bottom - 2 * @fb_p;
+        position: absolute;
+        bottom: @fb_p;
+        right: @p;
+        width: @h * 2;
+        height: @h;
+        line-height: @h;
+        color: white;
+        border-radius: .1rem;
+      }
+    }
+  }
+  .c666 {
+    color: #666;
+  }
+}

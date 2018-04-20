@@ -28,7 +28,7 @@
               <div class="right fr">
                 <input type="checkbox" class="checkbox checkbox1" value="3" v-model="checked[index][_index]">
                 <div class="victory fl border_r">
-                  <p class="redText">{{_item.homeTeam}}</p>
+                  <p class="redText hideText">{{_item.homeTeam}}</p>
                   <p>主胜 {{_item.odds[0].odds}}</p>
                 </div>
                 <input type="checkbox" class="checkbox checkbox2" value="1" v-model="checked[index][_index]">
@@ -38,7 +38,7 @@
                 </div>
                 <input type="checkbox" class="checkbox checkbox3" value="0" v-model="checked[index][_index]">
                 <div class="fail fl">
-                  <p class="redText">{{_item.awayTeam}}</p>
+                  <p class="redText hideText">{{_item.awayTeam}}</p>
                   <p>客胜 {{_item.odds[2].odds}}</p>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                 <input type="checkbox" class="checkbox checkbox1" value="3" v-model="checked[index][_index]">
 
                 <div class="victory fl border_r">
-                  <p class="redText">{{_item.homeTeam}}</p>
+                  <p class="redText hideText">{{_item.homeTeam}}</p>
                   <p>主胜 {{_item.odds[0].odds}}</p>
                 </div>
                 <input type="checkbox" class="checkbox checkbox2" value="1" v-model="checked[index][_index]">
@@ -78,7 +78,7 @@
                 <input type="checkbox" class="checkbox checkbox3" value="0" v-model="checked[index][_index]">
 
                 <div class="fail fl">
-                  <p class="redText">{{_item.awayTeam}}</p>
+                  <p class="redText hideText">{{_item.awayTeam}}</p>
                   <p>客胜 {{_item.odds[2].odds}}</p>
                 </div>
               </div>
@@ -98,9 +98,9 @@
 
               <div class="right fr">
                 <div class="right_top right_children">
-                  <div class="fl redText">{{_item.homeTeam}}</div>
+                  <div class="fl redText hideText">{{_item.homeTeam}}</div>
                   <div class="fl">VS</div>
-                  <div class="fl redText">{{_item.awayTeam}}</div>
+                  <div class="fl redText hideText">{{_item.awayTeam}}</div>
                 </div>
                 <div class="right_bottom right_children" @click="show_bifenPopup_fun(_item, index, _index)">
                   <span v-if="checked[index][_index].length === 0">点击选择比分</span>
@@ -125,9 +125,9 @@
 
               <div class="right fr">
                 <div class="right_top right_children">
-                  <div class="fl redText">{{_item.homeTeam}}</div>
+                  <div class="fl redText hideText">{{_item.homeTeam}}</div>
                   <div class="fl">VS</div>
-                  <div class="fl redText">{{_item.awayTeam}}</div>
+                  <div class="fl redText hideText">{{_item.awayTeam}}</div>
                 </div>
                 <div class="right_bottom right_children" @click="show_banquanchangPopup_fun(_item, index, _index)">
                   <span v-if="checked[index][_index].length === 0">点击打开投注区</span>
@@ -153,9 +153,9 @@
 
               <div class="right fr">
                 <div class="right_top">
-                  <span class="redText fl right_top_text">{{_item.homeTeam}}</span>
+                  <span class="redText fl right_top_text hideText">{{_item.homeTeam}}</span>
                   <span class="vs fl right_top_text">VS</span>
-                  <span class="redText fl right_top_text">{{_item.awayTeam}}</span>
+                  <span class="redText fl right_top_text hideText">{{_item.awayTeam}}</span>
                 </div>
                 <div class="right_bottom">
                   <div class="fl btn" v-for="(it, _in) in _item.odds">
@@ -339,9 +339,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[3].value;
-
-
+          this.play_type = d.data[0].value;
         }
       },
       getIndexList(){

@@ -108,6 +108,15 @@ export default new Router({
             require(["page/product/jingcaizuqiu/index/index.vue"], resolve)
           }
         }, {
+          path: "order",
+          name: "order",
+          meta: {
+            title: '竞彩足球'
+          },
+          component: (resolve) => {
+            require(["page/product/jingcaizuqiu/order"], resolve)
+          }
+        }, {
           path: '*',
           redirect: 'index'
         },
