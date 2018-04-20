@@ -105,6 +105,8 @@
         checked: [],
         c: [],
         render_page: false,                //  true: 开始渲染页面
+        money: 0,
+        zhushu: 0,
       }
     },
     created(){
@@ -134,7 +136,43 @@
 
       },
       submit(){
-          this.
+        const d = {
+          title: [],
+          "message": {
+            "strand": this.chuan.join(),
+            "ball": 0,
+            "varied": this.bar_value,
+            "play_rules": this.play_type,
+            "number": 1,
+            "money": 2,
+            "multiple": 1
+          }
+        };
+        for (let i = 0; i < this.c.length; i++) {
+          for (let k = 0; k < this.c[i].length; k++) {
+            if (this.c[i][k].length !== 0) {
+              debugger;
+              let odd = [];
+              for (let index = 0; index < this.c[i][k].length; index++) {
+                let v = this.c[i][k][index];
+                odd.push(this.index_list[i].match[k].odds[v === "3" ? 0 : v === "1" ? 1 : 2].odds)
+              }
+
+              d.title.push({
+                team: `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`,
+                odd: odd.join(","),
+                type: this.c[i][k].join(","),
+                match: this.index_list[i].match[k].match_id,
+              });
+            }
+          }
+        }
+//        return;
+
+        this.global.ajax.call(this, "jczq_pay", d, this.submit_CB)
+      },
+      submit_CB(d){
+        console.log(d)
       }
     },
     watch: {
