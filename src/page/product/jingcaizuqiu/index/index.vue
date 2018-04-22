@@ -274,10 +274,10 @@
         <div class="bottom" @click="show_bifenPopup = false; show_banquanchangPopup = false">
           <div class="bottom_btn confirm fl redBg">确定</div>
           <div v-if="show_bifenPopup" class="bottom_btn cancel fl whiteBg"
-               @click="checked[bifenPopup_data.index][bifenPopup_data._index] = [];">取消
+               @click="clear_checked(bifenPopup_data.index, bifenPopup_data._index);">取消
           </div>
           <div v-else class="bottom_btn cancel fl whiteBg"
-               @click="checked[banquanchang_data.index][banquanchang_data._index] = [];">取消
+               @click="clear_checked(banquanchang_data.index, banquanchang_data._index);">取消
           </div>
         </div>
       </div>
@@ -339,7 +339,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[1].value;
+          this.play_type = d.data[2].value;
         }
       },
       getIndexList(){
@@ -406,6 +406,11 @@
         data.index = index;
         data._index = _index;
         this.banquanchang_data = data;
+      },
+      clear_checked(i, _i){
+        for (let k = 0; this.checked[i][_i].length !== 0; k++) {
+          this.checked[i][_i].pop();
+        }
       },
       submit(){
         if (this.changshu === 0) this.global.toast.call(this, "请下注");

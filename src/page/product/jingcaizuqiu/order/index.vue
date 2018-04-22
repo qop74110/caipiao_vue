@@ -8,7 +8,7 @@
     <div class="order_list">
       <div class="first"></div>
       <!--胜平负 && 让球胜平负-->
-      <div v-if="play_type === 'FT001' || play_type === 'FT006'" :class="play_type">
+      <div v-if="play_type === 'FT001' || play_type === 'FT006'" class="type1">
         <div v-for="(item, index) in index_list">
           <div class="item"
                v-for="(_item, _index) in item.match"
@@ -53,8 +53,22 @@
       </div>
 
 
-      <!--&lt;!&ndash;比分&ndash;&gt;-->
-      <!--<div v-else-if="play_type === 'FT002'"></div>-->
+      <!--比分-->
+      <div v-else-if="play_type === 'FT002'" class="type2">
+        <div v-for="(item, index) in index_list">
+          <div class="item"
+               v-for="(_item, _index) in item.match"
+               v-if="checked[index][_index].length > 0"
+          >
+            <div class="left fl" @click="del_c(index, _index)"></div>
+
+            <div class="right fl">
+
+
+            </div>
+          </div>
+        </div>
+      </div>
       <!--&lt;!&ndash;半全场&ndash;&gt;-->
       <!--<div v-else-if="play_type === 'FT004'"></div>-->
       <!--&lt;!&ndash;总进球&ndash;&gt;-->
@@ -151,7 +165,6 @@
 
           }
         }
-        console.log(changshu)
         this.changshu = changshu;
       },
       set_zhushu(){
