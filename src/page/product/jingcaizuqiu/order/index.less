@@ -229,10 +229,98 @@
     height: calc(~"100vh - @{foot_h}");
     background: rgba(0, 0, 0, .5);
   }
+  .popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 50vh;
+    background: rgba(0, 0, 0, .5);
+    z-index: 120;
+    .popup_box {
+      @h: 10rem;
+      margin: -@h / 2 .2rem 0;
+      height: @h;
+      border-radius: .1rem;
+      background: #EAEAEA;
+      .popup_title {
+        @pt: 1.2rem;
+        height: @pt;
+        line-height: @pt;
+        border-bottom: 1px solid #ccc;
+        font-size: .38rem;
+      }
+      .popup_content {
+        margin: .2rem;
+        .left {
+          width: 5%;
+          color: white;
+        }
+
+      }
+      //半全场
+      .FT004 {
+        @ch: 2.4rem;
+        height: @ch;
+        .left {
+          @p: .2rem;
+          height: 100%;
+          padding: @p 0;
+          line-height: (@ch - 2 * @p) / 3;
+          background: #9A43FA;
+        }
+        .right {
+          width: 95%;
+          height: 100%;
+          .btn {
+            width: 100% / 7;
+            height: @ch / 2;
+            line-height: @ch / 4;
+            position: relative;
+            .checkbox {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+              &:checked + div {
+                height: @ch / 2;
+                background: @theme;
+                color: white;
+                .c666 {
+                  color: inherit;
+                }
+              }
+            }
+          }
+        }
+      }
+      .popup_btns {
+        @pb: 1.5rem;
+        height: @pb;
+        padding-top: .2rem;
+        .popup_btn {
+          width: 3.2rem;
+          height: 0.8rem;
+          line-height: 0.8rem;
+          margin: 0 0.8rem;
+          font-size: .35rem;
+          border-radius: .05rem;
+        }
+      }
+    }
+  }
   .c666 {
     color: #666;
   }
   .whiteText {
     color: white;
+  }
+  .whiteBg {
+    background: white;
   }
 }
