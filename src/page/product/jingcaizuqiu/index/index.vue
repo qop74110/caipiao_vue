@@ -339,7 +339,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[3].value;
+          this.play_type = d.data[0].value;
         }
       },
       getIndexList(){
@@ -428,7 +428,7 @@
             index_list: this.index_list,
             checked: this.checked,
             play_type: this.play_type,
-//            bar_value: this.bar_value,
+            bar_value: this.bar_value,
           };
           localStorage.setItem("jczq_order", JSON.stringify(data));
           this.$router.push('order');

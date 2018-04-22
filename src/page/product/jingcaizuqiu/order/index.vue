@@ -2,7 +2,7 @@
   <div class="jczq_order page" v-if="render_page">
     <div class="header">
       <a class="head_btn add fl">添加/编辑赛事</a>
-      <a class="head_btn clear fl">清空列表</a>
+      <a class="head_btn clear fl" @click="del_order">清空列表</a>
     </div>
 
     <div class="order_list">
@@ -64,9 +64,9 @@
 
             <div class="right fl">
               <div class="right_top">
-                <span class="fl">{{_item.homeTeam}}</span>
+                <span class="fl hideText">{{_item.homeTeam}}</span>
                 <span class="fl">VS</span>
-                <span class="fl">{{_item.awayTeam}}</span>
+                <span class="fl hideText">{{_item.awayTeam}}</span>
               </div>
               <div class="right_bottom">
                 <span v-if="c[index][_index].length === 0">点击选择比分</span>
@@ -99,7 +99,7 @@
         </label>
       </div>
       <div class="foot_middle" :class="show_footMiddle && 'h22'">
-        <div class="item fl" v-for="i in changshu" v-if="i !== 1">
+        <div class="item fl" v-for="i in maxChuan" v-if="i !== 1 || i > changshu">
           <input class="radio" type="checkbox" :value="i" v-model="chuan">
           <div class="text">{{i}}串1</div>
         </div>
@@ -133,6 +133,7 @@
         bar_value: 1,
         zhushu: 0,
         changshu: 0,
+        maxChuan: 0,
       }
     },
     created(){
@@ -148,6 +149,11 @@
           this.bar_value = order.bar_value;
           this.checked = order.checked;
         }
+        let maxChan = 8;
+        if (this.play_type === "FT004" || this.play_type === "FT002") maxChan = 4;
+        else if (this.play_type === "FT003") maxChan = 6;
+        this.maxChuan = maxChan;
+
         this.render_page = true;
 
         this.set_c();
@@ -194,10 +200,10 @@
         for (let i = 0; i < this.chuan.length; i++) {
           zhushu += suanfa(zhuArr, this.chuan[i])
         }
-        this.zhushu = zhushu;
+        this.zhushu = zhushu || 0;
       },
       set_money(){
-        this.money = this.zhushu * 2 * this.bei;
+        this.money = this.zhushu * 2 * this.bei || 0;
       },
       set_bei(){
         if (this.bei === "") this.bei = "1";
@@ -207,9 +213,37 @@
           this.checked[i][_i].pop();
         }
         this.c[i][_i] = [];
+
+        const data = {
+          index_list: this.index_list,
+          checked: this.checked,
+          play_type: this.play_type,
+          bar_value: this.bar_value,
+        };
+        localStorage.setItem("jczq_order", JSON.stringify(data));
+
+      },
+      del_order(){
+        const _this = this;
+        this.$vux.confirm.show({
+          content: '确定清空投注内容',
+          onConfirm () {
+            for (let i = 0; i < _this.checked.length; i++) {
+              for (let k = 0; k < _this.checked[i].length; k++) {
+                if (_this.checked[i][k].length !== 0) _this.del_c(i, k)
+              }
+            }
+            localStorage.clear();
+          }
+        })
+      },
+      show_footMiddle_fun(){
+        if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
+        else this.show_footMiddle = !this.show_footMiddle;
       },
       submit(){
         if (this.chuan.length === 0) this.global.toast.call(this, "请选择投注方式");
+        else if (this.money === 0) console.log("money = 0");
         else {
           const d = {
             title: [],
@@ -242,9 +276,9 @@
                   type = type.replace(/平/g, '1');
                   type = type.replace(/胜/g, '3');
                 } else if (pt === "FT003") {
-                    type = type.replace(/\+/g, '')
+                  type = type.replace(/\+/g, '')
                 }
-                debugger;
+
                 d.title.push({
                   team: `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`,
 //                  odd: odd.join(","),
@@ -254,15 +288,18 @@
               }
             }
           }
+          this.$vux.loading.show();
           this.global.ajax.call(this, "jczq_pay", d, this.submit_CB)
         }
       },
-      show_footMiddle_fun(){
-        if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
-        else this.show_footMiddle = !this.show_footMiddle;
-      },
       submit_CB(d){
-        console.log(d)
+        this.$vux.loading.hide();
+        if (d.error_code === 1004) this.global.alert.call(this, "去充值");
+        else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else {
+          this.global.alert.call(this, "下单成功！");
+          localStorage.clear();
+        }
       }
     },
     watch: {
