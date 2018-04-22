@@ -114,6 +114,7 @@
     right: 0;
     background: white;
     border-top: 1px solid #ccc;
+    z-index: 99;
     .foot_top {
       height: @foot_top;
       line-height: @foot_top;
@@ -200,6 +201,14 @@
         border-radius: .1rem;
       }
     }
+  }
+  .footMiddle_fog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(~"100vh - @{foot_h}");
+    background: rgba(0, 0, 0, .5);
   }
   .c666 {
     color: #666;

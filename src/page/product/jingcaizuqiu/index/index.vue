@@ -423,7 +423,7 @@
             index_list: this.index_list,
             checked: this.checked,
             play_type: this.play_type,
-            bar_value: this.bar_value,
+//            bar_value: this.bar_value,
           };
           localStorage.setItem("jczq_order", JSON.stringify(data));
           this.$router.push('order');
