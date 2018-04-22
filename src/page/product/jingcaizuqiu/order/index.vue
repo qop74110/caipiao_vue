@@ -54,7 +54,7 @@
 
 
       <!--比分-->
-      <div v-else-if="play_type === 'FT002'" class="type2">
+      <div v-else-if="play_type === 'FT002' || play_type === 'FT004' ||  play_type === 'FT003'" class="type2">
         <div v-for="(item, index) in index_list">
           <div class="item"
                v-for="(_item, _index) in item.match"
@@ -63,8 +63,17 @@
             <div class="left fl" @click="del_c(index, _index)"></div>
 
             <div class="right fl">
-
-
+              <div class="right_top">
+                <span class="fl">{{_item.homeTeam}}</span>
+                <span class="fl">VS</span>
+                <span class="fl">{{_item.awayTeam}}</span>
+              </div>
+              <div class="right_bottom">
+                <span v-if="c[index][_index].length === 0">点击选择比分</span>
+                <div v-else class="redBg hideText">
+                  <span v-for="_i in c[index][_index]" class="whiteText">{{_i}} </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +130,7 @@
         c: [],
         render_page: false,                //  true: 开始渲染页面
         money: 0,
+        bar_value: 1,
         zhushu: 0,
         changshu: 0,
       }
@@ -135,7 +145,7 @@
         if (JSON.stringify(order) !== "{}") {
           this.index_list = order.index_list || [];
           this.play_type = order.play_type;
-          this.bar_value = order.bar_value || 1;
+          this.bar_value = order.bar_value;
           this.checked = order.checked;
         }
         this.render_page = true;
@@ -162,7 +172,6 @@
             else {
               changshu++;
             }
-
           }
         }
         this.changshu = changshu;
@@ -185,7 +194,7 @@
         for (let i = 0; i < this.chuan.length; i++) {
           zhushu += suanfa(zhuArr, this.chuan[i])
         }
-        this.zhushu = zhushu * this.bei;
+        this.zhushu = zhushu;
       },
       set_money(){
         this.money = this.zhushu * 2 * this.bei;
@@ -221,10 +230,25 @@
 //                  odd.push(this.index_list[i].match[k].odds[v === "3" ? 0 : v === "1" ? 1 : 2].odds)
 //                }
 
+                let type = this.c[i][k].join(",");
+                let pt = this.play_type;
+                if (pt === "FT002") {
+                  type = type.replace(/:/g, '');
+                  type = type.replace(/胜其它/g, '90');
+                  type = type.replace(/平其它/g, '99');
+                  type = type.replace(/负其它/g, '09');
+                } else if (pt === "FT004") {
+                  type = type.replace(/负/g, '0');
+                  type = type.replace(/平/g, '1');
+                  type = type.replace(/胜/g, '3');
+                } else if (pt === "FT003") {
+                    type = type.replace(/\+/g, '')
+                }
+                debugger;
                 d.title.push({
                   team: `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`,
 //                  odd: odd.join(","),
-                  type: this.c[i][k].join(","),
+                  type,
                   match: this.index_list[i].match[k].match_id,
                 });
               }

@@ -339,7 +339,7 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[2].value;
+          this.play_type = d.data[3].value;
         }
       },
       getIndexList(){

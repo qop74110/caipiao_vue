@@ -54,12 +54,14 @@
         margin-right: @item_p;
         background: url(../../../../assets/img/del.png) no-repeat center center / .5rem .5rem;
       }
+      .right {
+        width: 7.5rem;
+      }
 
     }
     //胜平负&让球胜平负
     .type1 {
       .right {
-        width: 7.5rem;
         height: 100%;
         line-height: (@item_h - 4 * @item_p) / 2;
         border: 1px solid #ccc;
@@ -103,7 +105,22 @@
     }
     //比分
     .type2 {
-
+      @top_h: .6rem;
+      @bottom_h: .8rem;
+      .right_top {
+        height: @top_h;
+        line-height: @top_h;
+        span {
+          width: 100% / 3;
+          height: 100%;
+        }
+      }
+      .right_bottom {
+        margin-top: .2rem;
+        height: @bottom_h;
+        line-height: @bottom_h;
+        border: 1px solid #ccc;
+      }
     }
   }
   .foot {
@@ -214,5 +231,8 @@
   }
   .c666 {
     color: #666;
+  }
+  .whiteText {
+    color: white;
   }
 }
