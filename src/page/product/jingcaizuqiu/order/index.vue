@@ -7,8 +7,8 @@
 
     <div class="order_list">
       <div class="first"></div>
-      <!--胜平负-->
-      <div v-if="play_type === 'FT001'" :class="play_type">
+      <!--胜平负 && 让球胜平负-->
+      <div v-if="play_type === 'FT001' || play_type === 'FT006'" :class="play_type">
         <div v-for="(item, index) in index_list">
           <div class="item"
                v-for="(_item, _index) in item.match"
@@ -52,15 +52,14 @@
         </div>
       </div>
 
+
+      <!--&lt;!&ndash;比分&ndash;&gt;-->
+      <!--<div v-else-if="play_type === 'FT002'"></div>-->
+      <!--&lt;!&ndash;半全场&ndash;&gt;-->
+      <!--<div v-else-if="play_type === 'FT004'"></div>-->
+      <!--&lt;!&ndash;总进球&ndash;&gt;-->
+      <!--<div v-else-if="play_type === 'FT003'"></div>-->
     </div>
-    <!--让球 胜平负-->
-    <!--<div v-else-if="play_type === 'FT006'"></div>-->
-    <!--&lt;!&ndash;比分&ndash;&gt;-->
-    <!--<div v-else-if="play_type === 'FT002'"></div>-->
-    <!--&lt;!&ndash;半全场&ndash;&gt;-->
-    <!--<div v-else-if="play_type === 'FT004'"></div>-->
-    <!--&lt;!&ndash;总进球&ndash;&gt;-->
-    <!--<div v-else-if="play_type === 'FT003'"></div>-->
 
     <div class="foot">
       <div class="foot_top">
@@ -72,7 +71,7 @@
 
         <label class="bei fr">
           投
-          <input type="tel" v-model="bei" class="input" max>
+          <input type="tel" v-model="bei" class="input" @blur="set_bei">
           倍
         </label>
       </div>
@@ -128,7 +127,6 @@
         this.render_page = true;
 
         this.set_c();
-        this.set_changshu();
       },
       set_c(){
         //        深复制
@@ -140,22 +138,20 @@
           }
         }
         this.c = c;
-        for (let i = 0; i < this.checked.length; i++) {
-          c.push([]);
-          for (let k = 0; k < this.checked[i].length; k++) {
-            c[i].push(this.checked[i][k])
-          }
-        }
-        this.c = c;
+
       },
       set_changshu(){
         let changshu = 0;
         for (let i = 0; i < this.c.length; i++) {
           for (let k = 0; k < this.c[i].length; k++) {
             if (this.c[i][k].length === 0) continue;
-            else changshu++;
+            else {
+              changshu++;
+            }
+
           }
         }
+        console.log(changshu)
         this.changshu = changshu;
       },
       set_zhushu(){
@@ -176,10 +172,13 @@
         for (let i = 0; i < this.chuan.length; i++) {
           zhushu += suanfa(zhuArr, this.chuan[i])
         }
-        this.zhushu = zhushu;
+        this.zhushu = zhushu * this.bei;
       },
       set_money(){
         this.money = this.zhushu * 2 * this.bei;
+      },
+      set_bei(){
+        if (this.bei === "") this.bei = "1";
       },
       del_c(i, _i){
         for (let k = 0; i < this.checked[i][_i].length; k++) {
@@ -244,13 +243,17 @@
       bei(val){
         if (val !== "") {
           if (!/^[0-9]+$/.test(this.bei)) this.global.toast.call(this, "请输入正整数");
-          else if (this.bei > 99) {
-            this.global.toast.call(this, "最大99倍");
-            this.bei = '99';
-          } else if (val < 1) {
-            this.global.toast.call(this, "最小1倍");
-            this.bei = '1';
-          } else this.set_money();
+          else {
+            if (this.bei > 99) {
+              this.global.toast.call(this, "最大99倍");
+              this.bei = '99';
+            } else if (val < 1) {
+              this.global.toast.call(this, "最小1倍");
+              this.bei = '1';
+            }
+            this.set_money();
+            this.set_zhushu()
+          }
         }
       }
     }
