@@ -303,18 +303,20 @@
 
       },
       del_order(){
-        const _this = this;
-        this.$vux.confirm.show({
-          content: '确定清空投注内容',
-          onConfirm () {
-            for (let i = 0; i < _this.checked.length; i++) {
-              for (let k = 0; k < _this.checked[i].length; k++) {
-                if (_this.checked[i][k].length !== 0) _this.del_c(i, k)
+        if (this.changshu > 0) {
+          const _this = this;
+          this.$vux.confirm.show({
+            content: '确定清空投注内容',
+            onConfirm () {
+              for (let i = 0; i < _this.checked.length; i++) {
+                for (let k = 0; k < _this.checked[i].length; k++) {
+                  if (_this.checked[i][k].length !== 0) _this.del_c(i, k)
+                }
               }
+              localStorage.clear();
             }
-            localStorage.clear();
-          }
-        })
+          })
+        }
       },
       set_order(){
         const d = {
