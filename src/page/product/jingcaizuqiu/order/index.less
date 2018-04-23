@@ -230,6 +230,9 @@
     background: rgba(0, 0, 0, .5);
   }
   .popup {
+    @h55: 5.5rem;
+    @h100: 9.5rem;
+    @ch: 2.4rem;
     position: absolute;
     top: 0;
     left: 0;
@@ -238,10 +241,17 @@
     padding-top: 50vh;
     background: rgba(0, 0, 0, .5);
     z-index: 120;
+    .h55 {
+      height: @h55;
+      margin-top: -@h55 / 2;
+    }
+    .h100 {
+      height: @h100;
+      margin-top: -@h100 / 2;
+    }
     .popup_box {
-      @h: 10rem;
-      margin: -@h / 2 .2rem 0;
-      height: @h;
+      margin-right: .2rem;
+      margin-left: .2rem;
       border-radius: .1rem;
       background: #EAEAEA;
       .popup_title {
@@ -255,20 +265,8 @@
         margin: .2rem;
         .left {
           width: 5%;
-          color: white;
-        }
-
-      }
-      //半全场
-      .FT004 {
-        @ch: 2.4rem;
-        height: @ch;
-        .left {
-          @p: .2rem;
           height: 100%;
-          padding: @p 0;
-          line-height: (@ch - 2 * @p) / 3;
-          background: #9A43FA;
+          color: white;
         }
         .right {
           width: 95%;
@@ -299,6 +297,45 @@
           }
         }
       }
+      //半全场 & 总进球
+      .FT004, .FT003 {
+        height: @ch;
+        .left {
+          @p: .2rem;
+          height: 100%;
+          padding: @p 0;
+          line-height: (@ch - 2 * @p) / 3;
+          background: #9A43FA;
+        }
+
+      }
+      //  比分
+      .FT002 {
+        .whiteBg {
+          height: @ch;
+          margin-bottom: .2rem;
+          .left {
+            line-height: @ch;
+          }
+        }
+        .ping {
+          height: @ch / 2;
+          .left {
+            line-height: @ch/2;
+
+          }
+          .right {
+            .btn:last-child {
+              width: 100% / 7 * 3;
+            }
+          }
+        }
+        .right {
+          .btn:last-child {
+            width: 100% / 7 * 2;
+          }
+        }
+      }
       .popup_btns {
         @pb: 1.5rem;
         height: @pb;
@@ -322,5 +359,11 @@
   }
   .whiteBg {
     background: white;
+  }
+  .blueBg {
+    background: #1A83C7;
+  }
+  .greenBg {
+    background: #1AA664;
   }
 }
