@@ -101,7 +101,7 @@
       </div>
       <div class="foot_bottom" @click="submit">
         {{zhushu}}注<span class="redText">{{money}}</span>元
-        <p class="c666">预测奖金（仅供参考）：191.62</p>
+        <p class="c666">预测奖金(仅供参考): {{min_m}}~{{max_m}}</p>
         <span class="submit redBg">确定</span>
       </div>
     </div>
@@ -193,6 +193,9 @@
 
 <script>
   import suanfa from "../suanfa";
+  import {max_jj, min_jj} from "./jiangjin";
+
+
   export default {
     name: 'jczq_order',
     data () {
@@ -212,7 +215,15 @@
         maxChuan: 0,
         popup_data: {},
         show_popup: false,
-        popup_c: []
+        popup_c: [],
+
+        min_jjArr: [],
+        max_jjArr: [],
+        min_m: 0,
+        max_m: 0,
+        jjArr_index: [],
+        timeout: null,
+
       }
     },
     created(){
@@ -281,6 +292,71 @@
         }
         this.zhushu = zhushu || 0;
       },
+      set_jjArr(){
+        if (this.chuan.length > 0) {
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(() => {
+            let max_jjArr = [];
+            let min_jjArr = [];
+            for (let i = 0; i < this.c.length; i++) {
+              for (let ii = 0; ii < this.c[i].length; ii++) {
+                if (this.c[i][ii].length > 0) {
+                  let odd = [];
+                  for (let iii = 0; iii < this.c[i][ii].length; iii++) {
+                    if (/FT001|FT006/.test(this.play_type)) {
+                      const v = this.c[i][ii][iii];
+                      odd.push(
+                        this.index_list[i].match[ii].odds[v === "3" ? 0 : v === "1" ? 1 : 2].odds
+                      )
+                    } else if (/FT004|FT003/.test(this.play_type)) {
+
+                    } else {
+
+                    }
+                  }
+
+                  if (odd.length === 1) {
+                    max_jjArr[ii] = odd[0];
+                  } else {
+                    this.paixu(odd);
+                    max_jjArr[ii] = odd[odd.length - 1];
+                  }
+                  min_jjArr[ii] = odd[0];
+                }
+              }
+            }
+            this.max_jjArr = [];
+            this.min_jjArr = [];
+
+            for (let i = 0; i < max_jjArr.length; i++) {
+              if (max_jjArr[i] !== undefined) {
+                this.max_jjArr.push(max_jjArr[i]);
+                this.min_jjArr.push(min_jjArr[i]);
+
+              }
+            }
+            this.paixu(this.min_jjArr);
+
+
+            let min = 0;
+            let max = 0;
+            min = min_jj(this.min_jjArr, Math.min.apply(null, this.chuan));
+            for (let i = 0; i < this.chuan.length; i++) {
+              max += max_jj(this.max_jjArr, this.chuan[i]);
+            }
+
+            this.min_m = (min * 2 * this.bei).toFixed(2);
+            this.max_m = (max * 2 * this.bei).toFixed(2);
+
+          }, 1000)
+        } else {
+          this.min_m = 0;
+          this.max_m = 0;
+        }
+      },
+      paixu(arr){
+        arr.sort((m, n) => m - n);
+      },
       set_money(){
         this.money = this.zhushu * 2 * this.bei || 0;
       },
@@ -291,7 +367,10 @@
         for (let k = 0; i < this.checked[i][_i].length; k++) {
           this.checked[i][_i].pop();
         }
-        this.c[i][_i] = [];
+
+        for (let k = 0; i < this.c[i][_i].length; k++) {
+          this.c[i][_i].pop();
+        }
 
         const data = {
           index_list: this.index_list,
@@ -407,11 +486,14 @@
     watch: {
       c(val){
         this.set_changshu();
-        this.set_zhushu()
+        this.set_zhushu();
+        this.set_jjArr();
       },
       chuan(val){
-        if (this.chuan.length > 0 && this.changshu > 1) this.set_zhushu();
-        else this.zhushu = 0;
+        if (this.chuan.length > 0 && this.changshu > 1) {
+          this.set_zhushu();
+          this.set_jjArr();
+        } else this.zhushu = 0;
       },
       zhushu(val){
         this.set_money();
@@ -428,7 +510,8 @@
               this.bei = '1';
             }
             this.set_money();
-            this.set_zhushu()
+            this.set_zhushu();
+            this.set_jjArr();
           }
         }
       }
