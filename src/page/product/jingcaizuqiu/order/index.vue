@@ -81,11 +81,16 @@
 
     <div class="foot">
       <div class="foot_top">
-        <span class="foot_top_btn fl" @click="show_footMiddle_fun">
-          投注方式
-          <span class="redText">(必选)</span>
-          <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
+        <span class="foot_top_btn fl" v-if="bar_value === 0">
+         单关
         </span>
+
+        <span v-else class="foot_top_btn fl" @click="show_footMiddle_fun">
+        投注方式
+        <span class="redText">(必选)</span>
+        <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
+        </span>
+
 
         <label class="bei fr">
           投
@@ -209,7 +214,7 @@
         c: [],
         render_page: false,                //  true: 开始渲染页面
         money: 0,
-        bar_value: 1,
+        bar_value: '1',
         zhushu: 0,
         changshu: 0,
         maxChuan: 0,
@@ -239,6 +244,7 @@
           this.bar_value = order.bar_value;
           this.checked = order.checked;
         }
+
         let maxChan = 8;
         if (this.play_type === "FT004" || this.play_type === "FT002") maxChan = 4;
         else if (this.play_type === "FT003") maxChan = 6;
@@ -247,6 +253,7 @@
         this.render_page = true;
 
         this.set_c();
+
       },
       set_c(){
         //        深复制
@@ -422,8 +429,10 @@
         this.$router.back();
       },
       show_footMiddle_fun(){
-        if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
-        else this.show_footMiddle = !this.show_footMiddle;
+        if (this.bar_value !== 0) {
+          if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
+          else this.show_footMiddle = !this.show_footMiddle;
+        }
       },
       show_popup_option(data, i, k){
         data.index = i;
@@ -436,7 +445,7 @@
         this.c[this.popup_data.index][this.popup_data._index] = this.popup_c.concat();
       },
       submit(){
-        if (this.chuan.length === 0) this.global.toast.call(this, "请选择投注方式");
+        if (this.chuan.length === 0 && this.bar_value) this.global.toast.call(this, "请选择投注方式");
         else if (this.money === 0) console.log("money = 0");
         else {
           const d = {
