@@ -303,15 +303,28 @@
                 if (this.c[i][ii].length > 0) {
                   let odd = [];
                   for (let iii = 0; iii < this.c[i][ii].length; iii++) {
+                    const v = this.c[i][ii][iii];
                     if (/FT001|FT006/.test(this.play_type)) {
-                      const v = this.c[i][ii][iii];
                       odd.push(
                         this.index_list[i].match[ii].odds[v === "3" ? 0 : v === "1" ? 1 : 2].odds
                       )
                     } else if (/FT004|FT003/.test(this.play_type)) {
-
+                      for (let k = 0; k < this.index_list[i].match[ii].odds.length; k++) {
+                        if (v === this.index_list[i].match[ii].odds[k].name) {
+                          odd.push(this.index_list[i].match[ii].odds[k].odds);
+                        }
+                      }
                     } else {
-
+                      const val = v.split(":");
+                      let ik;
+                      if (val[0] > val[1]) ik = 0;
+                      else if (val[0] === val[1]) ik = 1;
+                      else ik = 2;
+                      for (let k = 0; k < this.index_list[i].match[ii].odds[ik].length; k++) {
+                        if (v === this.index_list[i].match[ii].odds[ik][k].name) {
+                          odd.push(this.index_list[i].match[ii].odds[ik][k].odds);
+                        }
+                      }
                     }
                   }
 
@@ -348,7 +361,7 @@
             this.min_m = (min * 2 * this.bei).toFixed(2);
             this.max_m = (max * 2 * this.bei).toFixed(2);
 
-          }, 1000)
+          }, 800)
         } else {
           this.min_m = 0;
           this.max_m = 0;
