@@ -1,7 +1,7 @@
 <template>
   <div class="jczq_order page" v-if="render_page">
     <div class="header">
-      <a class="head_btn add fl">添加/编辑赛事</a>
+      <a class="head_btn add fl" @click="set_order">添加/编辑赛事</a>
       <a class="head_btn clear fl" @click="del_order">清空列表</a>
     </div>
 
@@ -52,8 +52,7 @@
         </div>
       </div>
 
-
-      <!--比分-->
+      <!--比分 & 半全场 & 总进球-->
       <div v-else-if="play_type === 'FT002' || play_type === 'FT004' ||  play_type === 'FT003'" class="type2">
         <div v-for="(item, index) in index_list">
           <div class="item"
@@ -78,10 +77,6 @@
           </div>
         </div>
       </div>
-      <!--&lt;!&ndash;半全场&ndash;&gt;-->
-      <!--<div v-else-if="play_type === 'FT004'"></div>-->
-      <!--&lt;!&ndash;总进球&ndash;&gt;-->
-      <!--<div v-else-if="play_type === 'FT003'"></div>-->
     </div>
 
     <div class="foot">
@@ -321,6 +316,17 @@
           }
         })
       },
+      set_order(){
+        const d = {
+          index_list: this.index_list,
+          checked: this.c,
+          play_type: this.play_type,
+          bar_value: this.bar_value,
+        };
+        localStorage.setItem("jczq_order", JSON.stringify(d));
+        localStorage.setItem("jczq_setOrder", "1");
+        this.$router.back();
+      },
       show_footMiddle_fun(){
         if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
         else this.show_footMiddle = !this.show_footMiddle;
@@ -331,7 +337,6 @@
         this.popup_data = data;
         this.popup_c = this.c[i][k].concat();
         this.show_popup = true;
-        console.log(data)
       },
       popup_confirm(){
         this.c[this.popup_data.index][this.popup_data._index] = this.popup_c.concat();

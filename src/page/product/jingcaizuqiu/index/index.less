@@ -28,6 +28,7 @@
       right: 0;
       background: white;
       .option {
+        @h: .8rem;
         padding: .4rem .4rem 0;
         color: #666;
         .title {
@@ -42,8 +43,46 @@
             top: -.3rem;
           }
         }
+        .screen_top {
+          height: @h;
+          line-height: @h;
+          width: 6.8rem;
+          margin: 0 auto .4rem;
+          border: 1px solid #ccc;
+          .s_topBtn {
+            width: 100% / 3;
+          }
+          .bor_r {
+            border-right: 1px solid #ccc;
+          }
+        }
+        .screen_list {
+          padding-bottom: .2rem;
+          .fl {
+            width: 30%;
+            height: @h;
+            line-height: @h;
+            margin: 1.5%;
+            border: 1px solid #ccc;
+            position: relative;
+            .checkbox {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              height: 100%;
+              width: 100%;
+              &:checked + div{
+                background: @theme;
+                color: white;
+              }
+            }
+          }
+        }
       }
       .checked {
+        padding: .2rem 0;
         font-size: .3rem;
         color: #333;
       }
@@ -234,15 +273,15 @@
               opacity: 0;
               height: 100%;
               width: 100%;
-              &:checked + div{
+              &:checked + div {
                 background: @theme;
                 color: white;
-                .odds{
+                .odds {
                   color: inherit;
                 }
               }
             }
-            .odds{
+            .odds {
               color: #666;
               font-size: .25rem;
             }

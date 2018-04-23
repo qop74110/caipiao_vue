@@ -9,7 +9,7 @@
     <div class="content">
       <div class="bar_box" v-show="play_type !== 'FT002'">
         <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
-        <div class="jixuan" v-show="play_type !== 'FT003'">
+        <div class="jixuan" v-show="play_type !== 'FT003'" @click="random_touzhu">
           机选
         </div>
       </div>
@@ -174,7 +174,7 @@
     </div>
 
     <footer class="foot">
-      <div class="fl clear"></div>
+      <div class="fl clear" @click="init_checked"></div>
       <div class="fl text">
         <p class="changshu">已选<span class="redText">{{changshu}}</span>场</p>
         页面赔率仅供参考，请以出票赔率为准
@@ -182,15 +182,29 @@
       <div class="fr submit redBg" @click="submit">确认</div>
     </footer>
     <!--筛选-->
-    <div class="screen" @click="show_screen = false" v-show="show_screen">
+    <div class="screen" v-show="show_screen">
       <div class="screen_con">
         <div class="option">
           <div class="title"><span class="text">选择联赛</span></div>
+
+          <div class="screen_top">
+            <div class="s_topBtn fl bor_r" @click="all_c">全选</div>
+            <div class="s_topBtn fl bor_r" @click="clear_c">反选</div>
+            <div class="s_topBtn fl" @click="league">五大联赛</div>
+          </div>
+
+          <div class="screen_list clearFix">
+            <div class="fl" v-for="(item , index) in screenList">
+              <input class="checkbox" type="checkbox" :value="index" v-model="screen_c">
+              <div>{{item.league}}</div>
+            </div>
+          </div>
         </div>
-        <div class="checked">已选择<span class="redText">{{50}}</span>场比赛</div>
-        <div class="btns">
+
+        <div class="checked">已选择<span class="redText">{{cNum}}</span>场比赛</div>
+        <div class="btns" @click="show_screen = false">
           <div class="btn cancel fl">取消</div>
-          <div class="btn confirm fl">确定</div>
+          <div class="btn confirm fl" @click="screenFun">确定</div>
         </div>
       </div>
     </div>
@@ -313,6 +327,9 @@
         ],
         bar_value: 1,                     //  0: 单场
         show_screen: false,               //  trye: 显示 筛选
+        screenList: [],                   //  筛选 列表
+        screen_c: [],                     //  筛选 选择的数组
+        cNum: 0,                          //  筛选 共选择多少场
         show_bifenPopup: false,           //  true: 显示 比分玩法弹窗
         bifenPopup_data: [],              //  true: 显示 比分玩法弹窗
         show_banquanchangPopup: false,    //  true: 显示 总进球法弹窗
@@ -321,15 +338,26 @@
         changshu: 0,
         loading: 1,
         checked: [],
+        getData: false,
       }
     },
     created(){
       this.$vux.loading.show();
-      this.global.ajax.call(this, "jczq_play_type", {}, this.getPlay_type)
-
-
+//      this.getData = localStorage.getItem("jczq_setOrder") ? true : false;
+//      if (this.getData) this.getOrder();
+      this.global.ajax.call(this, "jczq_play_type", {}, this.getPlay_type);
     },
     methods: {
+      getOrder(){
+        const order = JSON.parse(localStorage.getItem("jczq_order") || "{}");
+
+        if (JSON.stringify(order) !== "{}") {
+          this.index_list = order.index_list || [];
+          this.play_type = order.play_type;
+          this.bar_value = order.bar_value;
+          this.checked = order.checked;
+        }
+      },
       getPlay_type(d){
         this.hideLoading();
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
@@ -339,23 +367,39 @@
             obj[d.data[i].value] = d.data[i].name
           }
           this.title_option_list = obj;
-          this.play_type = d.data[0].value;
+
+          if (this.getData) this.getData = false;
+          else this.play_type = d.data[0].value;
         }
       },
       getIndexList(){
-        this.$vux.loading.show();
-        this.global.ajax.call(this, "jczq_index_list", {
+        if (!this.getData) {
+          this.$vux.loading.show();
+          this.global.ajax.call(this, "jczq_index_list", {
+            pass_rules: this.bar_value,
+            play_rules: this.play_type
+          }, this.getIndexList_CB);
+        }
+      },
+      getScreenList(){
+        this.global.ajax.call(this, "jczq_screenList", {
           pass_rules: this.bar_value,
           play_rules: this.play_type
-        }, this.getIndexList_CB);
-
+        }, this.getScreenList_CB);
       },
       getIndexList_CB(d){
         this.$vux.loading.hide();
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
         else if (d.data) {
           this.index_list = d.data;
+          console.log(d.data)
           this.init_checked();
+        }
+      },
+      getScreenList_CB(d){
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else if (d.data) {
+          this.screenList = d.data;
         }
       },
       hideLoading(){
@@ -412,6 +456,61 @@
           this.checked[i][_i].pop();
         }
       },
+      all_c(){
+        let arr = []
+        for (let i = 0; i < this.screenList.length; i++) {
+          arr.push(i);
+        }
+        this.screen_c = arr;
+      },
+      clear_c(){
+        if (this.screen_c.length > 0) this.screen_c = [];
+      },
+      league(){
+        for (let i = 0; i < this.screenList.length; i++) {
+          if (/法甲|意甲|西甲|德甲|英超/.test(this.screenList[i].league)) this.screen_c.push(i);
+        }
+      },
+      screenFun(){
+        if (this.screen_c.length === 0) this.global.toast.call(this, "筛选条件为空")
+        else {
+          var arr = [];
+          for (let i = 0; i < this.screen_c.length; i++) {
+            arr.push(this.screenList[this.screen_c[i]].league)
+          }
+
+          this.$vux.loading.show();
+          this.global.ajax.call(this, 'jczq_screen', {
+            pass_rules: this.bar_value,
+            play_rules: this.play_type,
+            league: arr.join(",")
+          }, this.screenFun_CB)
+        }
+
+      },
+      screenFun_CB(d){
+        this.$vux.loading.hide();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else if (d.data) {
+          this.index_list = d.data;
+          this.init_checked();
+        }
+      },
+      random_touzhu(){
+        for (let i = 0; i < this.bar_value + 1; i++) {
+          let i = this.random(this.index_list[0].match.length - 1, 0);
+          let k = this.random(this.index_list[0].match[i].odds.length - 1, 0);
+
+          let d;
+          if (/FT001|FT006/.test(this.play_type)) d = k === 0 ? "3" : k === 1 ? "1" : "0";
+          else d = this.index_list[0].match[i].odds[k].name;
+          this.checked[0][i].push(d)
+        }
+
+      },
+      random(max, min){
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      },
       submit(){
         if (this.changshu === 0) this.global.toast.call(this, "请下注");
         else if (this.changshu === 1 && (this.bar_value === 1 && this.play_type !== "FT002")) this.global.toast.call(this, "最少选择两场");
@@ -430,6 +529,7 @@
             play_type: this.play_type,
             bar_value: this.bar_value,
           };
+          localStorage.clear();
           localStorage.setItem("jczq_order", JSON.stringify(data));
           this.$router.push('order');
         }
@@ -437,14 +537,22 @@
     },
     watch: {
       bar_value(val){
-        this.getIndexList()
+        this.getIndexList();
+        this.getScreenList();
       },
       play_type(val){
         this.getIndexList();
+        this.getScreenList();
       },
       checked(val){
-        console.log(val)
         this.set_changshu();
+      },
+      screen_c(){
+        let cNum = 0;
+        for (let i = 0; i < this.screen_c.length; i++) {
+          cNum += this.screenList[this.screen_c[i]].count
+        }
+        this.cNum = cNum;
       }
     }
   }
