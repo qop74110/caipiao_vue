@@ -392,7 +392,6 @@
         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
         else if (d.data) {
           this.index_list = d.data;
-          console.log(d.data)
           this.init_checked();
         }
       },
@@ -527,7 +526,7 @@
             index_list: this.index_list,
             checked: this.checked,
             play_type: this.play_type,
-            bar_value: this.bar_value,
+            bar_value: this.play_type !== "FT002" ? this.bar_value: 0,
           };
           localStorage.clear();
           localStorage.setItem("jczq_order", JSON.stringify(data));

@@ -222,11 +222,8 @@
         show_popup: false,
         popup_c: [],
 
-        min_jjArr: [],
-        max_jjArr: [],
         min_m: 0,
         max_m: 0,
-        jjArr_index: [],
         timeout: null,
 
       }
@@ -281,29 +278,29 @@
         this.changshu = changshu;
       },
       set_zhushu(){
-        let zhuArr = [];
-        for (let i = 0; i < this.c.length; i++) {
-          for (let _i = 0; _i < this.c[i].length; _i++) {
-            if (this.c[i][_i].length === 0)continue;
-            else {
-              zhuArr.push([]);
-              for (let _i_ = 0; _i_ < this.c[i][_i].length; _i_++) {
-                zhuArr[_i].push(this.c[i][_i][_i_])
+        if (this.chuan.length > 0) {
+          let zhuArr = [];
+          for (let i = 0; i < this.c.length; i++) {
+            for (let _i = 0; _i < this.c[i].length; _i++) {
+              if (this.c[i][_i].length === 0)continue;
+              else {
+                zhuArr.push([]);
+                for (let _i_ = 0; _i_ < this.c[i][_i].length; _i_++) {
+                  zhuArr[zhuArr.length - 1].push(this.c[i][_i][_i_])
+                }
               }
             }
           }
-        }
 
-        let zhushu = 0;
-        if (this.bar_value === 1) {
-          for (let i = 0; i < this.chuan.length; i++) {
-            zhushu += suanfa(zhuArr, this.chuan[i])
-          }
-        } else {
-          zhushu = danzhu(zhuArr);
-        }
+          let zhushu = 0;
+          if (this.bar_value === 1) {
+            for (let i = 0; i < this.chuan.length; i++) {
+              zhushu += suanfa(zhuArr, this.chuan[i])
+            }
+          } else zhushu = danzhu(zhuArr);
 
-        this.zhushu = zhushu || 0;
+          this.zhushu = zhushu || 0;
+        }
       },
       set_jjArr(){
         if (this.chuan.length > 0) {
@@ -330,8 +327,8 @@
                     } else {
                       const val = v.split(":");
                       let ik;
-                      if (val[0] > val[1]) ik = 0;
-                      else if (val[0] === val[1]) ik = 1;
+                      if (val[0] > val[1] || val[0] === "胜其它") ik = 0;
+                      else if (val[0] === val[1] || val[0] === "平其它") ik = 1;
                       else ik = 2;
                       for (let k = 0; k < this.index_list[i].match[ii].odds[ik].length; k++) {
                         if (v === this.index_list[i].match[ii].odds[ik][k].name) {
@@ -342,33 +339,22 @@
                   }
 
                   if (odd.length === 1) {
-                    max_jjArr[ii] = odd[0];
+                    max_jjArr.push(odd[0]);
                   } else {
                     this.paixu(odd);
-                    max_jjArr[ii] = odd[odd.length - 1];
+                    max_jjArr.push(odd[odd.length - 1]);
                   }
-                  min_jjArr[ii] = odd[0];
+                  min_jjArr.push(odd[0]);
                 }
               }
             }
-            this.max_jjArr = [];
-            this.min_jjArr = [];
-
-            for (let i = 0; i < max_jjArr.length; i++) {
-              if (max_jjArr[i] !== undefined) {
-                this.max_jjArr.push(max_jjArr[i]);
-                this.min_jjArr.push(min_jjArr[i]);
-
-              }
-            }
-            this.paixu(this.min_jjArr);
-
 
             let min = 0;
             let max = 0;
-            min = min_jj(this.min_jjArr, Math.min.apply(null, this.chuan));
+
+            min = min_jj(min_jjArr, Math.min.apply(null, this.chuan));
             for (let i = 0; i < this.chuan.length; i++) {
-              max += max_jj(this.max_jjArr, this.chuan[i]);
+              max += max_jj(max_jjArr, this.chuan[i]);
             }
 
             this.min_m = (min * 2 * this.bei).toFixed(2);
@@ -518,7 +504,7 @@
         this.set_jjArr();
       },
       chuan(val){
-        if (this.chuan.length > 0 && this.changshu > 1) {
+        if (this.chuan.length > 0 && this.changshu > this.bar_value) {
           this.set_zhushu();
           this.set_jjArr();
         } else this.zhushu = 0;
