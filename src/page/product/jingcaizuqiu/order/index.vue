@@ -106,7 +106,7 @@
       </div>
       <div class="foot_bottom" @click="submit">
         {{zhushu}}注<span class="redText">{{money}}</span>元
-        <p class="c666">预测奖金(仅供参考): {{min_m}}~{{max_m}}</p>
+        <p class="c666">预测奖金(仅供参考): {{zhushu !== 1 ? min_m + "~" + max_m: min_m}}</p>
         <span class="submit redBg">确定</span>
       </div>
     </div>
@@ -197,7 +197,7 @@
 </template>
 
 <script>
-  import suanfa from "../suanfa";
+  import {suanfa, danzhu} from "../suanfa";
   import {max_jj, min_jj} from "./jiangjin";
 
 
@@ -253,6 +253,7 @@
         this.render_page = true;
 
         this.set_c();
+        this.bar_value === 0 && (this.chuan = [1]);
 
       },
       set_c(){
@@ -287,16 +288,21 @@
             else {
               zhuArr.push([]);
               for (let _i_ = 0; _i_ < this.c[i][_i].length; _i_++) {
-                zhuArr[zhuArr.length - 1].push(this.c[i][_i][_i_])
+                zhuArr[_i].push(this.c[i][_i][_i_])
               }
             }
           }
         }
 
         let zhushu = 0;
-        for (let i = 0; i < this.chuan.length; i++) {
-          zhushu += suanfa(zhuArr, this.chuan[i])
+        if (this.bar_value === 1) {
+          for (let i = 0; i < this.chuan.length; i++) {
+            zhushu += suanfa(zhuArr, this.chuan[i])
+          }
+        } else {
+          zhushu = danzhu(zhuArr);
         }
+
         this.zhushu = zhushu || 0;
       },
       set_jjArr(){

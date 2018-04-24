@@ -41,14 +41,26 @@ const suanfa3 = (i, arr) => {
 };
 
 /*测试数据
-const testData = [
-  [1, 2],
-  [1, 2],
-  [1, 2, 3],
-  [1, 2],
-];
+ const testData = [
+ [1, 2],
+ [1, 2],
+ [1, 2, 3],
+ [1, 2],
+ ];
 
 
-suanfa4(testData, 3)*/
+ suanfa4(testData, 3)*/
 
-export default suanfa;
+
+const danzhu = (arr) => {
+    let zhushu = 0;
+    for (let i = 0; i < arr.length; i++) {
+      for (let k = 0; k < arr[i].length; k++) {
+        zhushu++
+      }
+    }
+    return zhushu;
+  }
+;
+
+export  {suanfa, danzhu};
