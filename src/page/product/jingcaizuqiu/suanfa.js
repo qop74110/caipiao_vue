@@ -5,7 +5,8 @@
  * @returns {number}  注数
  */
 const suanfa = (arr, chuan) => {
-  if (chuan === 2) {
+  if (chuan === 1) return danzhu(arr);
+  else if (chuan === 2) {
     for (let i = 0; i < arr.length; i++) {
       const b = suanfa2(arr);
       return b

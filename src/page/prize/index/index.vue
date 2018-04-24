@@ -1,31 +1,34 @@
 <template>
   <div class="prize page">
     <ul class="lists">
-      <li class="li">
-        <span class="name">双色球</span> <span class="time">第123456期 2018-3-21（周三）</span>
-        <div class="num style1 clearFix">
-          <span class="ball redBall fl">11</span>
-          <span class="ball redBall fl">22</span>
-          <span class="ball redBall fl">33</span>
-          <span class="ball redBall fl">44</span>
-          <span class="ball redBall fl">55</span>
-          <span class="ball redBall fl">66</span>
-          <span class="ball blueBall fl">77</span>
+      <li class="li" v-for="i in list" v-if="global.product_type[i.lotid]" :class="global.product_type[i.lotid]">
+        <div v-if="global.product_type.shuangseqiu === i.lotid">
+          <span class="name">{{i.name}}</span>
+          <span class="time">第{{i.phase}}期 {{i.end_time}}（{{i.week}}）</span>
+          <div class="num style1 clearFix">
+            <span class="ball redBall fl">{{i.bonuscode[0] + i.bonuscode[1]}}</span>
+            <span class="ball redBall fl">{{i.bonuscode[3] + i.bonuscode[4]}}</span>
+            <span class="ball redBall fl">{{i.bonuscode[6] + i.bonuscode[7]}}</span>
+            <span class="ball redBall fl">{{i.bonuscode[9] + i.bonuscode[10]}}</span>
+            <span class="ball redBall fl">{{i.bonuscode[12] + i.bonuscode[13]}}</span>
+            <span class="ball redBall fl">{{i.bonuscode[15] + i.bonuscode[16]}}</span>
+            <span class="ball blueBall fl" >77</span>
+          </div>
         </div>
-      </li>
-      <li class="li">
-        <span class="name">竞猜足球</span> <span class="time">比赛日 2018-3-21</span>
-        <div class="num style2 clearFix ">
-          <div class="c clearFix green">
-            <div class="fl football"></div>
-            <div class="fl w30">科林蒂安</div>
-            <div class="fl w20">2：0</div>
-            <div class="fl w30">布拉干蒂</div>
+        <div v-else-if="global.product_type.jingcaizuqiu === i.lotid">
+          <span class="name">{{i.name}}</span>
+          <span class="time">比赛日 {{i.daytime}}</span>
+          <div class="num style2 clearFix ">
+            <div class="c clearFix green">
+              <div class="fl football"></div>
+              <div class="fl w30">{{i.after}}</div>
+              <div class="fl w20">{{i.result[0] + ' : ' + i.result[2]}}</div>
+              <div class="fl w30">{{i.front}}</div>
+            </div>
           </div>
         </div>
       </li>
     </ul>
-
 
     <Tabbar></Tabbar>
   </div>
@@ -37,12 +40,23 @@
     name: 'prize',
     components: {Tabbar},
     data () {
-      return {}
+      return {
+        list: [],
+      }
     },
     created(){
-
+      this.$vux.loading.show();
+      this.global.ajax.call(this, "kj_list", {}, this.getList)
     },
-    methods: {}
+    methods: {
+      getList(d){
+        this.$vux.loading.hide();
+        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+        else if (d.data && d.data.length > 0) {
+          this.list = d.data;
+        }
+      },
+    }
   }
 </script>
 

@@ -16,6 +16,7 @@ const ajax_url = {
     jczq_pay: "v1/football/confirmThePayment",      //  竞猜足球-下单
     jczq_screenList: "v1/football/league",          //  筛选列表
     jczq_screen: "v1/football/screen",              //  筛选
+    kj_list: "v1/open/open",                        //  开奖_首页_列表
   }
 };
 

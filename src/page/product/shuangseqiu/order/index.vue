@@ -115,6 +115,7 @@
       },
       random_sort(){
         const d = random_sort();
+        console.log(d)
         this.balls.push(d)
         this.zhushu++;
 

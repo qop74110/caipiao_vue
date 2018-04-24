@@ -81,7 +81,7 @@
 
     <div class="foot">
       <div class="foot_top">
-        <span class="foot_top_btn fl" v-if="bar_value === 0">
+        <span class="foot_top_btn fl" v-if="bar_value === 0 && play_type !== 'FT002'">
          单关
         </span>
 
@@ -99,6 +99,10 @@
         </label>
       </div>
       <div class="foot_middle" :class="show_footMiddle && 'h22'">
+        <div class="item fl" v-for="i in 1" v-if="play_type === 'FT002'">
+          <input class="radio" type="checkbox" :value="i" v-model="chuan">
+          <div class="text">单关</div>
+        </div>
         <div class="item fl" v-for="i in maxChuan" v-if="i !== 1 && i <= changshu">
           <input class="radio" type="checkbox" :value="i" v-model="chuan">
           <div class="text">{{i}}串1</div>
@@ -293,11 +297,12 @@
           }
 
           let zhushu = 0;
-          if (this.bar_value === 1) {
+          if (this.chuan.length > 1) {
             for (let i = 0; i < this.chuan.length; i++) {
-              zhushu += suanfa(zhuArr, this.chuan[i])
+              zhushu += suanfa(zhuArr, this.chuan[i]);
             }
           } else zhushu = danzhu(zhuArr);
+
 
           this.zhushu = zhushu || 0;
         }
@@ -305,6 +310,7 @@
       set_jjArr(){
         if (this.chuan.length > 0) {
           clearTimeout(this.timeout);
+          this.timeout = null;
           this.timeout = setTimeout(() => {
             let max_jjArr = [];
             let min_jjArr = [];
@@ -360,7 +366,7 @@
             this.min_m = (min * 2 * this.bei).toFixed(2);
             this.max_m = (max * 2 * this.bei).toFixed(2);
 
-          }, 800)
+          }, 1500)
         } else {
           this.min_m = 0;
           this.max_m = 0;
@@ -421,8 +427,8 @@
         this.$router.back();
       },
       show_footMiddle_fun(){
-        if (this.bar_value !== 0) {
-          if (this.changshu < 2) this.global.toast.call(this, "至少选两场");
+        if (this.changshu > 0) {
+          if (this.changshu < 2 && this.play_type !== "FT002") this.global.toast.call(this, "至少选两场");
           else this.show_footMiddle = !this.show_footMiddle;
         }
       },
@@ -434,7 +440,19 @@
         this.show_popup = true;
       },
       popup_confirm(){
-        this.c[this.popup_data.index][this.popup_data._index] = this.popup_c.concat();
+        let i = this.popup_data.index;
+        let _i = this.popup_data._index;
+
+        this.c[i][_i] = [];
+
+        for (let k = 0; k < this.popup_c.length; k++) {
+          this.c[i][_i].push(this.popup_c[k]);
+        }
+
+        this.set_changshu();
+        this.set_zhushu();
+        this.set_jjArr();
+
       },
       submit(){
         if (this.chuan.length === 0 && this.bar_value) this.global.toast.call(this, "请选择投注方式");
@@ -507,7 +525,11 @@
         if (this.chuan.length > 0 && this.changshu > this.bar_value) {
           this.set_zhushu();
           this.set_jjArr();
-        } else this.zhushu = 0;
+        } else {
+          this.zhushu = 0;
+          this.min_m = 0;
+          this.max_m = 0;
+        }
       },
       zhushu(val){
         this.set_money();
