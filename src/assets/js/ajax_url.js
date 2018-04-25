@@ -19,6 +19,7 @@ const ajax_url = {
         kj_list: "v1/open/open",                        //  开奖_首页_列表
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
+        my_balance: "v1/user/balance",                  //  我的—余额
     }
 };
 

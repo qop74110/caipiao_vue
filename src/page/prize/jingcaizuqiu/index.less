@@ -1,5 +1,11 @@
 @import "../../../assets/css/theme";
 
+@foot-h: 1.32rem;
+.prize_jczq {
+    min-height: 100vh;
+    padding-bottom: @foot-h;
+}
+
 .accordion {
     @a_t-h: .8rem;
     @a_c-h: 3rem;
@@ -91,5 +97,27 @@
     .hide_content {
         height: 0;
         overflow: hidden;
+    }
+}
+
+.foot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 10rem;
+    margin: 0 auto;
+    height: @foot-h;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    background: white;
+    .btn {
+        @h: .8rem;
+        height: @h;
+        line-height: @h;
+        margin: (@foot-h - @h) / 2 .4rem;
+        border-radius: .13rem;
+        color: white;
+        font-weight: 200;
     }
 }

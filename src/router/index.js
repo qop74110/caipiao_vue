@@ -24,6 +24,15 @@ export default new Router({
                 require(["page/my/index"], resolve)
             }
         }, {
+            path: "/recharge",
+            name: "recharge",
+            meta: {
+                title: '充值'
+            },
+            component: (resolve) => {
+                require(["page/my/recharge"], resolve)
+            }
+        }, {
             path: "/prize",
             name: "prize",
             meta: {

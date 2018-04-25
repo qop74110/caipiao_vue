@@ -1,72 +1,73 @@
 
 .lists {
-  @h: 2.146rem;
-  @p: .2rem;
-  .li {
-    height: @h;
-    padding: @p @p 0;
-    background: url(../../../assets/img/arrow.png) no-repeat 9rem center / 0.15rem;
-    .name {
-      font-size: .4rem;
-      color: #000000;
-    }
-    .time {
-      font-size: .3rem;
-      color: #999;
-    }
-    .style1 { // 双色球
+    @h: 2.146rem;
+    @p: .2rem;
+    .li {
+        height: @h;
+        padding: @p @p 0;
+        background: url(../../../assets/img/arrow.png) no-repeat 9rem center / 0.15rem;
+        border-bottom: 1px solid #efefef;
+        .name {
+            font-size: .4rem;
+            color: #000000;
+        }
+        .time {
+            font-size: .3rem;
+            color: #999;
+        }
+        .style1 { // 双色球
 
-    }
-    .style2 { // 竞彩足球
-      .football {
-        @fb_w: .77rem;
-        width: @fb_w;
-        height: 100%;
-        border-radius: 50%;
-        background: white url(./img/football.png) no-repeat left top / 100% 100%;
-      }
-    }
-    //以下是公共样式
-    .num {
-      margin-top: .25rem;
-      font-size: .32rem;
-      color: white;
-      text-align: center;
-    }
-    .ball {
-      @ball_h: .72rem;
-      height: @ball_h;
-      line-height: @ball_h;
-      width: @ball_h;
-      margin-right: .4rem;
+        }
+        .style2 { // 竞彩足球
+            .football {
+                @fb_w: .77rem;
+                width: @fb_w;
+                height: 100%;
+                border-radius: 50%;
+                background: white url(./img/football.png) no-repeat left top / 100% 100%;
+            }
+        }
+        //以下是公共样式
+        .num {
+            margin-top: .25rem;
+            font-size: .32rem;
+            color: white;
+            text-align: center;
+        }
+        .ball {
+            @ball_h: .72rem;
+            height: @ball_h;
+            line-height: @ball_h;
+            width: @ball_h;
+            margin-right: .4rem;
 
-      border-radius: 50%;
-    }
+            border-radius: 50%;
+        }
 
-    .c {
-      @c-h: .8rem;
-      width: 7.7rem;
-      height: @c-h;
-      line-height: @c-h;
-      border-radius: @c-h / 2;
+        .c {
+            @c-h: .8rem;
+            width: 7.7rem;
+            height: @c-h;
+            line-height: @c-h;
+            border-radius: @c-h / 2;
+        }
+        .w30 {
+            width: 30%;
+        }
+        .w20 {
+            width: 20%;
+        }
+        .redBall {
+            background: #E74C3C;
+        }
+        .blueBall {
+            background: #00A0FF;
+        }
+        .green {
+            background: #3FB559;
+        }
+        .orange {
+            background: #FF8000;
+        }
     }
-    .w30 {
-      width: 30%;
-    }
-    .w20 {
-      width: 20%;
-    }
-    .redBall {
-      background: #E74C3C;
-    }
-    .blueBall {
-      background: #00A0FF;
-    }
-    .green {
-      background: #3FB559;
-    }
-    .orange {
-      background: #FF8000;
-    }
-  }
 }
