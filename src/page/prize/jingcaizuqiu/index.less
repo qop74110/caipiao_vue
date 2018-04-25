@@ -1,0 +1,95 @@
+@import "../../../assets/css/theme";
+
+.accordion {
+    @a_t-h: .8rem;
+    @a_c-h: 3rem;
+    text-align: center;
+    .accordion_title {
+        height: @a_t-h;
+        line-height: @a_t-h;
+        position: relative;
+        .arrow {
+            @arrow-h: .16rem;
+            position: absolute;
+            top: (@a_t-h - @arrow-h) / 2;
+            right: .3rem;
+            width: 2 * @arrow-h;
+            height: @arrow-h;
+            transform: rotate(0);
+            transition: transform .25s;
+            background: url(../../product/jingcaizuqiu/index/img/arrow_b.png) no-repeat center center / 100% 100%;
+        }
+        .rotate {
+            transform: rotate(180deg);
+        }
+    }
+    .accordion_content {
+        .item {
+            @i-p: .2rem;
+            @i_c-h: @a_c-h - 2 * @i-p;
+            height: @a_c-h;
+            padding: @i-p;
+            border-top: 1px solid #efefef;
+            .item_top {
+                height: @i_c-h / 2;
+                .w20 {
+                    width: 20%;
+                }
+                .w30 {
+                    width: 30%;
+                }
+                .fl {
+                    height: 100%;
+                }
+                //联赛名 & 周几 & 比赛id
+                .first {
+                    color: #333;
+                    line-height: @i_c-h / 4;
+                }
+                .league {
+                    font-size: .35rem;
+                }
+                .week {
+                    font-size: .3rem;
+                }
+                //球队
+                .team {
+                    line-height: @i_c-h / 2;
+                    font-size: .35rem;
+                }
+                //比分
+                .score {
+                    @p: .2rem;
+                    padding: .2rem 0;
+                    line-height: (@i_c-h / 2 - 2 * @p) / 2;
+                }
+                .result {
+                    font-size: .35rem;
+                }
+                .firsthalf_result {
+                    font-size: .3rem;
+                    color: #666;
+                }
+            }
+            .item_bottom {
+                height: @i_c-h / 2;
+                border: 1px solid #ccc;
+                border-right: 0;
+                .fl {
+                    width: 20%;
+                    height: @i_c-h / 4;
+                    line-height: @i_c-h / 4;
+                    border-right: 1px solid #ccc;
+                    font-size: .32rem;
+                }
+                .bor_b {
+                    border-bottom: 1px solid #ccc;
+                }
+            }
+        }
+    }
+    .hide_content {
+        height: 0;
+        overflow: hidden;
+    }
+}
