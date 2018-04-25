@@ -1,0 +1,126 @@
+@import "../../../assets/css/theme";
+
+@p: .33rem;
+.recharge {
+    min-height: 100vh;
+    background: #F4F4F4;
+    overflow: hidden;
+}
+
+.header {
+    @h: 1.75rem;
+    height: @h;
+    padding: @p;
+    line-height: (@h - 2 * @p) / 2;
+}
+
+.money {
+    @m: .25rem;
+    @h: 3.2rem;
+    height: @h;
+    margin: @m 0;
+    padding: @p;
+    .option {
+        @option-w: 2.68rem;
+        @option-h: .68rem;
+        width: @option-w;
+        height: @option-h;
+        line-height: @option-h;
+        margin: (10rem - 2 * @p - 3 * @option-w) / 6;
+        text-align: center;
+        position: relative;
+        .radio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            width: 100%;
+            &:checked + .num {
+                color: @theme;
+                border-color: @theme;
+            }
+        }
+        .num {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-radius: .1rem;
+        }
+        .custom {
+            height: 100%;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: .1rem;
+            text-align: center;
+        }
+    }
+}
+
+.pay_type {
+    padding-left: @p;
+    .item {
+        @h: .92rem;
+        @img-w: .6rem;
+        height: @h;
+        line-height: @h;
+        padding-left: @img-w + .2;
+        border-top: 1px solid #ccc;
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: @img-w;
+        position: relative;
+        &:first-child {
+            border: 0;
+            padding: 0;
+        }
+        .radio {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            &:checked + .radio_box {
+                border: 0;
+                background: url(./img/checked.png) no-repeat left top / 100% 100%;
+            }
+        }
+        .radio_box {
+            @w: .44rem;
+            width: @w;
+            height: @w;
+            margin: (@h - @w) / 2;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+    }
+    .wx {
+        background-image: url(./img/wx.png);
+    }
+    .zfb {
+        background-image: url(./img/zfb.png);
+    }
+}
+
+.submit {
+    margin: 1.3rem auto 0;
+    width: 5.3rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    color: white;
+    font-size: .4rem;
+    border-radius: .16rem;
+}
+
+.whiteBg {
+    background: white;
+}
+
+.font {
+    font-size: .32rem;
+    color: #323232;
+}

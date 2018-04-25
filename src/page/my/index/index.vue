@@ -83,6 +83,7 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data.amount) {
                     this.balance = d.data.amount;
+                    this.global.cookie.set('amount', this.balance);
                 }
             },
             share(){
