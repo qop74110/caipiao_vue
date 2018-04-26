@@ -20,6 +20,8 @@ const ajax_url = {
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
         my_balance: "v1/user/balance",                  //  我的—余额
+        pay: 'v1/recharge/pay',                         //  充值
+        bindState: 'v1/extract/binding',                //  银行卡&身份证&手机号 绑定状态
     }
 };
 

@@ -15,7 +15,7 @@
                 <p class="num hideText">{{balance}}</p>
                 <span class="balance">余额</span>
             </li>
-            <li class="fl">
+            <li class="fl" @click="open('tixian')">
                 <span class="flet line"></span>
                 提现
             </li>
@@ -41,10 +41,10 @@
         </ul>
 
         <ul class="lists">
-            <li class="li">
-                <img class="lists_img" src="./img/l1.png">
-                我的红包
-            </li>
+            <!--<li class="li">-->
+                <!--<img class="lists_img" src="./img/l1.png">-->
+                <!--我的红包-->
+            <!--</li>-->
             <li class="li" @click="share">
                 <img class="lists_img" src="./img/l2.png">
                 分享给朋友

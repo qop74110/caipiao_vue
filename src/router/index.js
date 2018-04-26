@@ -33,6 +33,33 @@ export default new Router({
                 require(["page/my/recharge"], resolve)
             }
         }, {
+            path: "/tixian",
+            name: "tixian",
+            meta: {
+                title: '提现'
+            },
+            component: (resolve) => {
+                require(["page/my/tixian"], resolve)
+            }
+        }, {
+            path: "/bindID",
+            name: "bindID",
+            meta: {
+                title: '身份验证'
+            },
+            component: (resolve) => {
+                require(["page/my/bindID"], resolve)
+            }
+        }, {
+            path: "/bindBankCard",
+            name: "bindBankCard",
+            meta: {
+                title: '绑定提现银行卡'
+            },
+            component: (resolve) => {
+                require(["page/my/bindBankCard"], resolve)
+            }
+        }, {
             path: "/prize",
             name: "prize",
             meta: {

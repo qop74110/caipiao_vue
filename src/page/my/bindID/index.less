@@ -1,0 +1,64 @@
+@import "../../../assets/css/theme";
+
+.bindID {
+    @row-h: 1rem;
+    padding: .2rem 0 .2rem .2rem;
+
+    .row {
+        height: @row-h;
+        line-height: @row-h;
+        border-bottom: 1px solid #E1E1E1;
+        font-size: .32rem;
+        color: #323232;
+        &:first-child {
+            border: none;
+        }
+    }
+    .tishi {
+        color: #a9a9a9;
+    }
+    .left {
+        width: 1.5rem;
+    }
+    .em5 {
+        display: inline-block;
+        width: .5em;
+    }
+    .input {
+        width: 80%;
+        height: 100%;
+    }
+    .codeRow {
+        position: relative;
+        .getCode {
+            @h: .6rem;
+            position: absolute;
+            top: (@row-h - @h) / 2;
+            right: .2rem;
+            height: @h;
+            line-height: @h;
+            width: 2rem;
+            border: 1px solid @theme;
+            border-radius: .1rem;
+            color: @theme;
+            text-align: center;
+            font-size: .24rem;
+        }
+    }
+
+    .submit {
+        width: 5.3rem;
+        height: 1.18rem;
+        line-height: 1.18rem;
+        margin: 1.2rem auto 0;
+        color: white;
+        font-size: .4rem;
+        text-align: center;
+        border-radius: .15rem;
+        & + .tishi {
+            font-size: .24rem;
+            text-align: center;
+        }
+    }
+
+}

@@ -70,10 +70,23 @@
                 this.money = "";
             },
             submit(){
-                if (this.money === "" && this.custom_money === "") this.global.toast.call(this, "选择金额")
+                if (this.money === "" && this.custom_money === "") this.global.toast.call(this, "选择金额");
                 else if (this.pay_type === "") this.global.toast.call(this, "选择支付方式");
                 else {
-                    t
+                    this.$vux.loading.show();
+                    let money = this.money === "" ? this.custom_money * 100 : this.money;
+                    this.global.ajax.call(this, "pay", {
+                        money: money * 1,
+                        type: this.pay_type * 1
+                    }, this.pay_CB)
+                }
+            },
+            pay_CB(d){
+                this.$vux.loading.hide();
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+//                    todo 充值回调
+                    console.log(d)
                 }
             },
         },
