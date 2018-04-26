@@ -75,20 +75,10 @@
                 else {
                     this.$vux.loading.show();
                     let money = this.money === "" ? this.custom_money * 100 : this.money;
-                    this.global.ajax.call(this, "pay", {
-                        money: money * 1,
-                        type: this.pay_type * 1
-                    }, this.pay_CB)
+                    const global = this.global;
+                    window.location.href = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${global.cookie.get('token')}&money=${money * 1}&type=${this.pay_type * 1}`;
                 }
-            },
-            pay_CB(d){
-                this.$vux.loading.hide();
-                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
-                else {
-//                    todo 充值回调
-                    console.log(d)
-                }
-            },
+            },git
         },
         watch: {
             money(val){
