@@ -21,9 +21,11 @@ const ajax_url = {
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
         my_balance: "v1/user/balance",                  //  我的—余额
         pay: 'v1/recharge/pay',                         //  充值
-        bindState: 'v1/extract/binding',                //  银行卡&身份证&手机号 绑定状态
-        checkCode: 'v1/sms/checkCode',                  //  银行卡&身份证&手机号 验证手机验证码
-        bindID: 'v1/extract/idcard',                    //  绑定 银行卡&身份证&手机号
+        tx_bindState: 'v1/extract/binding',             //  银行卡&身份证&手机号 绑定状态
+        tx_checkCode: 'v1/sms/checkCode',               //  银行卡&身份证&手机号 验证手机验证码
+        tx_bindID: 'v1/extract/idcard',                 //  绑定 银行卡&身份证&手机号
+        tx_tixianData: 'v1/extract/amount',             //  提现 获取余额&银行卡号
+        tx_take: 'v1/extract/take',               //  提现 申请提现
     }
 };
 

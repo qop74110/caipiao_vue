@@ -104,10 +104,10 @@
                 else if (location === "") text = "请输入开户所在地";
                 else {
                     this.$vux.loading.show();
-                    this.global.ajax.call(this, 'checkCode', {userphone: phoneNo, code}, (d) => {
+                    this.global.ajax.call(this, 'tx_checkCode', {userphone: phoneNo, code}, (d) => {
                         if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                         else {
-                            this.global.ajax.call(this, 'bindID', {
+                            this.global.ajax.call(this, 'tx_bindID', {
                                 accNo,
                                 idCard,
                                 customerNm,
@@ -122,7 +122,6 @@
                     });
                     return;
                 }
-
                 this.global.toast.call(this, text);
             },
             submit_CB(d){
