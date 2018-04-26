@@ -51,15 +51,6 @@ export default new Router({
                 require(["page/my/bindID"], resolve)
             }
         }, {
-            path: "/bindBankCard",
-            name: "bindBankCard",
-            meta: {
-                title: '绑定提现银行卡'
-            },
-            component: (resolve) => {
-                require(["page/my/bindBankCard"], resolve)
-            }
-        }, {
             path: "/prize",
             name: "prize",
             meta: {
