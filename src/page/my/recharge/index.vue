@@ -78,7 +78,7 @@
                     const global = this.global;
                     window.location.href = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${global.cookie.get('token')}&money=${money * 1}&type=${this.pay_type * 1}`;
                 }
-            },git
+            },
         },
         watch: {
             money(val){
