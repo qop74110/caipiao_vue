@@ -22,7 +22,7 @@
         </ul>
 
         <ul class="order clearFix">
-            <li class="fl" @click="open('')">
+            <li class="fl" @click="open('/order/all')">
                 <img class="order_img" src="./img/order1.png" alt="">
                 <p class="order_text">全部订单</p>
             </li>
