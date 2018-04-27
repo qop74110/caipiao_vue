@@ -23,5 +23,4 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-    @import "./index.less";
 </style>

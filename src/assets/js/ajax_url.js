@@ -27,6 +27,9 @@ const ajax_url = {
         tx_tixianData: 'v1/extract/amount',             //  提现 获取余额&银行卡号
         tx_take: 'v1/extract/take',                     //  提现 申请提现
         order_all: 'v1/order/whole',                    //  订单 我的全部订单
+        order_chase: 'v1/order/chase',                  //  订单 追号订单
+        order_ing: 'v1/order/wait',                     //  订单 待开奖订单
+        order_prize: 'v1/order/winning',                     //  订单 待开奖订单
     }
 };
 
