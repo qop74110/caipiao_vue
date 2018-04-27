@@ -17,7 +17,7 @@
                         <p>订单金额</p>
                     </div>
                     <div class="winning_money fl">
-                        {{detail.winning_money || '0'}}元
+                        <span class="redText">{{detail.winning_money || '0'}}元</span>
                         <p>中奖金额</p>
                     </div>
                 </div>
@@ -44,8 +44,6 @@
                     <template v-for="(item, index) in blueBall">
                         <span class="ball blueText">{{item}}</span>
                     </template>
-
-
                 </span>
             </div>
             <div class="row">
@@ -66,7 +64,39 @@
         </div>
         <!--足彩-->
         <div class="info" v-else-if="detail.play_type === global.product_type.jingcaizuqiu">
-            足彩
+            <div>
+                <span class="text">投注信息</span>
+                <table class="tabal">
+                    <thead class="t_head">
+                    <tr>
+                        <th class="th">场次</th>
+                        <th class="th">主队VS客队</th>
+                        <!--<th class="th">玩法</th>-->
+                        <th class="th">投注(赔率)</th>
+                        <th class="th">彩果</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="tr" v-for="(item, index) in detail.arr">
+                        <td class="td">
+                            周{{item.week}}
+                            <div>{{item.team_id}}</div>
+                        </td>
+                        <td class="td blueText">
+                            <div class="hideText">{{item.team.split(':')[0]}}</div>
+                            <div>{{item.team.split('*')[1]}}</div>
+                            <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
+                        </td>
+                        <td class="td">{{item.selected}}</td>
+                        <td class="td">{{item.result}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="quiz" @click="$router.push('/exposition?id=' + global.product_type.jingcaizuqiu)">
+                    <span class="text">中奖怎么算？</span>
+                </div>
+            </div>
         </div>
 
         <div class="foot">
@@ -74,6 +104,8 @@
             <span class="text">订单编号</span> {{detail.tc_order_num}} <br>
             <span class="text">温馨提示</span> 奖金直接打入您的账户
         </div>
+
+        <div class="del_order redText" @click="del_order">删除本订单</div>
     </div>
 </template>
 
@@ -107,10 +139,19 @@
                         }
                         this.blueBall = d.data[0].data.split("#")[1].split(",");
                         this.redBall = d.data[0].data.split("#")[0].split(",");
-
-                        this.detail = d.data[0];
                     }
+//                    else if (d.data[0].play_type === this.global.product_type.jingcaizuqiu) {
+//                        for (let i = 0; i < d.data[0].arr.length; i++) {
+//
+//                        }
+//                    }
+
+
+                    this.detail = d.data[0];
                 }
+            },
+            del_order(){
+
             },
         }
     }

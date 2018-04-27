@@ -94,6 +94,40 @@
             padding-left: @p;
             background: url(../../../assets/img/arrow.png) no-repeat 9.5rem center / .2rem;
         }
+
+        .tabal {
+            @h: .8rem;
+            width: 10rem;
+            margin: 0 -@p;
+            text-align: center;
+            color: #666;
+            .t_head {
+                height: @h;
+                line-height: @h;
+                background: #ccc;
+                font-size: .32rem;
+
+            }
+            .th {
+                width: 25%;
+                font-weight: 200;
+                overflow: hidden;
+            }
+            .tr {
+                height: 1.5rem;
+                border-bottom: 1px solid #ccc;
+                font-size: .35rem;
+                &:last-child {
+                    border: 0;
+                }
+                .td {
+                    border-right: 1px solid #ccc;
+                    &:last-child {
+                        border: 0;
+                    }
+                }
+            }
+        }
     }
     .foot {
         padding: @p;
@@ -103,6 +137,10 @@
             display: inline-block;
             width: @w;
         }
+    }
+    .del_order {
+        margin-top: .6rem;
+        text-align: center;
     }
     .blueText {
         color: #00A0FF;
