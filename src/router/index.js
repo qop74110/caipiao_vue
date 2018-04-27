@@ -52,6 +52,7 @@ export default new Router({
             }
         }, {
             path: "/order",
+            name: "Order",
             meta: {
                 title: '我的订单'
             },
@@ -178,7 +179,6 @@ export default new Router({
                     }
                 }, {
                     path: "order",
-                    name: "order",
                     meta: {
                         title: '双色球'
                     },
@@ -204,7 +204,6 @@ export default new Router({
                     }
                 }, {
                     path: "order",
-                    name: "order",
                     meta: {
                         title: '竞彩足球'
                     },

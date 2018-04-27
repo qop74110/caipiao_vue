@@ -1,0 +1,110 @@
+
+.detail {
+    @head-h: 3rem;
+    min-height: 100vh;
+    background: #EFEFEF;
+    @w: 2rem;
+    @p: .2rem;
+    .head {
+        height: @head-h;
+        padding: @p;
+        background: white;
+        .left {
+            width: 65%;
+            height: 100%;
+        }
+        .left_top {
+            @h: ( @head-h - 2 * @p ) * .6;
+            height: @h;
+            line-height: @h;
+            .logo {
+                height: @h * .8;
+                margin-top: @h * .1;
+            }
+            .p_name {
+                padding-left: .25rem;
+                font-size: .4rem;
+                color: #000;
+            }
+            .phase {
+                padding-left: .1rem;
+                font-size: .32rem;
+                color: #666;
+            }
+        }
+        .left_bttom {
+            @h: ( @head-h - 2 * @p ) * .4;
+            @lb-p: .1rem;
+            height: @h;
+            line-height: (@h - 2 * @lb-p) / 2;
+            padding: @lb-p;
+            font-size: .32rem;
+            color: #666;
+            .fl {
+                margin-right: .2rem;
+                text-align: center;
+            }
+        }
+        .right {
+            width: 35%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: right center;
+        }
+        //订单状态 0=等待开奖 2=未中奖 3=中奖
+        .openmatch0 {
+            background-image: url(./img/openmatch0.png);
+            background-size: auto .4rem;
+        }
+        .openmatch2 {
+            background-image: url(./img/openmatch2.png);
+            background-size: 100% auto;
+        }
+        .openmatch3 {
+            background-image: url(./img/openmatch3.png);
+            background-size: auto 100%;
+        }
+    }
+    .border {
+        height: .2rem;
+        background: url(./img/head_bg.png) repeat left top / auto 100%;
+    }
+    .info {
+        padding: @p;
+        font-size: .32rem;
+        .text {
+            display: inline-block;
+            width: @w;
+        }
+        .balls {
+            float: right;
+            width: 7.5rem;
+        }
+        .ball {
+            margin-right: .1rem;
+        }
+
+        .quiz {
+            @h: .8rem;
+            height: @h;
+            line-height: @h;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            margin: 0 -@p;
+            padding-left: @p;
+            background: url(../../../assets/img/arrow.png) no-repeat 9.5rem center / .2rem;
+        }
+    }
+    .foot {
+        padding: @p;
+        font-size: .32rem;
+        color: #666;
+        .text {
+            display: inline-block;
+            width: @w;
+        }
+    }
+    .blueText {
+        color: #00A0FF;
+    }
+}

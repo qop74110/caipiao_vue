@@ -29,7 +29,8 @@ const ajax_url = {
         order_all: 'v1/order/whole',                    //  订单 我的全部订单
         order_chase: 'v1/order/chase',                  //  订单 追号订单
         order_ing: 'v1/order/wait',                     //  订单 待开奖订单
-        order_prize: 'v1/order/winning',                     //  订单 待开奖订单
+        order_prize: 'v1/order/winning',                //  订单 待开奖订单
+        order_detail: 'v1/order/deteails',              //  订单 详情
     }
 };
 

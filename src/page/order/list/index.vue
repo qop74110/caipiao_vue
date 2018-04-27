@@ -4,7 +4,7 @@
             <li class="item" v-for="(item, index) in list" :key="item.id"
                 @click="$router.push('/order/detail?id=' + item.id)">
                 <div class="left fl">
-                    <p class="m">{{item.created_at.split("-")[0]}}</p>
+                    <p class="m">{{item.created_at.split("-")[0]}}月</p>
                     <p class="d">{{item.created_at.split("-")[1]}}</p>
                 </div>
                 <div class="middle fl">
