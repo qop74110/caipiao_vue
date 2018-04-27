@@ -1,0 +1,54 @@
+.order_list {
+    @item-h: 2.2rem;
+    @item-p: .5rem;
+    min-height: 100vh;
+    background: #EFEFEF;
+    .lists {
+        background: white;
+    }
+    .item {
+        height: @item-h;
+        padding: .6rem .25rem;
+        line-height: (@item-h - 2 * @item-p) / 2;
+        border-bottom: 1px solid #efefef;
+        .left {
+            width: 1rem;
+            .m {
+                font-size: .32rem;
+                color: #333;
+            }
+            .d {
+                font-size: .45rem;
+                color: #000;
+            }
+        }
+        .middle {
+            .p_name {
+                font-size: .4rem;
+                color: #0a0a0a;
+            }
+            .info {
+                font-size: .32rem;
+                color: #666;
+            }
+        }
+        .right {
+            height: 100%;
+            line-height: @item-h - 2 * @item-p;
+            padding-right: .35rem;
+            font-size: .32rem;
+            color: #333;
+            background: url(../../../assets/img/arrow.png) no-repeat right center / .2rem;
+        }
+
+        //等待开奖
+        .stete3 {
+            color: #E74C3C;
+        }
+    }
+    .noData {
+        height: 100vh;
+        width: 100%;
+        background: url(../../../assets/img/noData.png) no-repeat center center / 5rem auto;
+    }
+}

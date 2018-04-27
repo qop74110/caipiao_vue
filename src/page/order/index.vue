@@ -19,5 +19,4 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-    @import "./order_list.less";
 </style>

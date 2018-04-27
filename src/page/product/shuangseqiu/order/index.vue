@@ -115,7 +115,6 @@
       },
       random_sort(){
         const d = random_sort();
-        console.log(d)
         this.balls.push(d)
         this.zhushu++;
 
@@ -143,7 +142,7 @@
             periods: this.qi,
             multiple: this.bei,
             phase: this.$route.query.phase || "",
-            is_stop: 1,
+            is_stop: 2,
             stop_money: 0,
           }, this.order_callBack)
         }

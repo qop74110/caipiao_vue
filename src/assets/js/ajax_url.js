@@ -25,7 +25,8 @@ const ajax_url = {
         tx_checkCode: 'v1/sms/checkCode',               //  银行卡&身份证&手机号 验证手机验证码
         tx_bindID: 'v1/extract/idcard',                 //  绑定 银行卡&身份证&手机号
         tx_tixianData: 'v1/extract/amount',             //  提现 获取余额&银行卡号
-        tx_take: 'v1/extract/take',               //  提现 申请提现
+        tx_take: 'v1/extract/take',                     //  提现 申请提现
+        order_all: 'v1/order/whole',                    //  订单 我的全部订单
     }
 };
 

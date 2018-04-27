@@ -26,15 +26,15 @@
                 <img class="order_img" src="./img/order1.png" alt="">
                 <p class="order_text">全部订单</p>
             </li>
-            <li class="fl" @click="open('')">
+            <li class="fl" @click="open('/order/chase')">
                 <img class="order_img" src="./img/order2.png" alt="">
                 <p class="order_text">追号订单</p>
             </li>
-            <li class="fl" @click="open('')">
+            <li class="fl" @click="open('/order/prize')">
                 <img class="order_img" src="./img/order3.png" alt="">
                 <p class="order_text">中奖订单</p>
             </li>
-            <li class="fl" @click="open('')">
+            <li class="fl" @click="open('/order/ing')">
                 <img class="order_img" src="./img/order4.png" alt="">
                 <p class="order_text">待开奖订单</p>
             </li>

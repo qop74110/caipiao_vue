@@ -96,7 +96,7 @@ export default new Router({
                         require(["page/order/chase"], resolve)
                     }
                 }, {
-                    path: " detail",
+                    path: "detail",
                     name: "order_detail",
                     meta: {
                         title: '订单详情'
@@ -104,10 +104,7 @@ export default new Router({
                     component: (resolve) => {
                         require(["page/order/detail"], resolve)
                     }
-                }, {
-                    path: '*',
-                    redirect: '/nofund'
-                },
+                }
             ]
         }, {
             path: "/prize",
@@ -188,10 +185,7 @@ export default new Router({
                     component: (resolve) => {
                         require(["page/product/shuangseqiu/order"], resolve)
                     }
-                }, {
-                    path: '*',
-                    redirect: '/nofund'
-                },
+                }
             ]
         }, {
             path: "/jingcaizuqiu",

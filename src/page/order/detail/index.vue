@@ -1,12 +1,12 @@
 <template>
-    <div class=" detail page">
+    <div class="detail page">
 
     </div>
 </template>
 
 <script>
     export default {
-        name: ' detail',
+        name: 'detail',
         data () {
             return {}
         },
