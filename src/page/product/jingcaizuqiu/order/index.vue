@@ -297,11 +297,11 @@
                     }
 
                     let zhushu = 0;
-                    if (this.chuan.length > 1) {
-                        for (let i = 0; i < this.chuan.length; i++) {
-                            zhushu += suanfa(zhuArr, this.chuan[i]);
-                        }
-                    } else zhushu = danzhu(zhuArr);
+
+                    for (let i = 0; i < this.chuan.length; i++) {
+                        if (this.chuan[i] === 1) zhushu += danzhu(zhuArr);
+                        else zhushu += suanfa(zhuArr, this.chuan[i]);
+                    }
 
 
                     this.zhushu = zhushu || 0;
