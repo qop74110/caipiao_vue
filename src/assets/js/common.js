@@ -54,7 +54,6 @@ const global = {
         }
     },
     chongzhi: (_this, money) => {
-        console.log(_this)
         let type = '';
         _this.$vux.confirm.show({
             content: "余额不足，请选择充值方式",

@@ -507,7 +507,7 @@
             },
             submit_CB(d){
                 this.$vux.loading.hide();
-                if (d.error_code === 0) this.global.chongzhi(this, this.money * 100);
+                if (d.error_code === 1004) this.global.chongzhi(this, this.money);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.global.alert.call(this, "下单成功！");
