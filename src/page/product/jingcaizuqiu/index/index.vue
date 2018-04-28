@@ -506,14 +506,16 @@
             },
             random_touzhu(){
                 for (let i = 0; i < this.bar_value + 1; i++) {
-                    let i = this.random(this.index_list[0].match.length - 1, 0);
-                    let k = this.random(this.index_list[0].match[i].odds.length - 1, 0);
+                    let ii = this.random(this.index_list[0].match.length - 1, 0);
+                    let k = this.random(this.index_list[0].match[ii].odds.length - 1, 0);
 
                     let d;
                     if (/FT001|FT006/.test(this.play_type)) d = k === 0 ? "3" : k === 1 ? "1" : "0";
                     else d = this.index_list[0].match[i].odds[k].name;
-                    this.checked[0][i].push(d)
+                    this.checked[0][ii].push(d)
                 }
+                this.set_changshu();
+                this.submit();
 
             },
             random(max, min){

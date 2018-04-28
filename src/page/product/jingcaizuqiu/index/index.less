@@ -1,497 +1,499 @@
 @import "../../../../assets/css/theme";
 
 .jczq_index {
-  @foot_h: 1.35rem;
-  padding: @XHead_h 0 @foot_h;
-  min-height: 100vh;
-  .shaixuan {
-    position: absolute;
-    top: 0;
-    right: 1rem;
-    height: @XHead_h;
-    width: .8rem;
-    background: url(./img/shaixuan.png) no-repeat center center / .5rem;
-  }
-  .screen {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    text-align: center;
-    background: rgba(0, 0, 0, .5);
-    z-index: 100;
-    .screen_con {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: white;
-      .option {
-        @h: .8rem;
-        padding: .4rem .4rem 0;
-        color: #666;
-        .title {
-          margin-top: .3rem;
-          border-top: 1px solid #CCCCCC;
-          .text {
-            display: inline-block;
-            height: .6rem;
-            padding: 0 .3rem;
-            background: white;
-            position: relative;
-            top: -.3rem;
-          }
-        }
-        .screen_top {
-          height: @h;
-          line-height: @h;
-          width: 6.8rem;
-          margin: 0 auto .4rem;
-          border: 1px solid #ccc;
-          .s_topBtn {
-            width: 100% / 3;
-          }
-          .bor_r {
-            border-right: 1px solid #ccc;
-          }
-        }
-        .screen_list {
-          padding-bottom: .2rem;
-          .fl {
-            width: 30%;
-            height: @h;
-            line-height: @h;
-            margin: 1.5%;
-            border: 1px solid #ccc;
-            position: relative;
-            .checkbox {
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              height: 100%;
-              width: 100%;
-              &:checked + div{
-                background: @theme;
-                color: white;
-              }
-            }
-          }
-        }
-      }
-      .checked {
-        padding: .2rem 0;
-        font-size: .3rem;
-        color: #333;
-      }
-      .btns {
-        @h: 1.3rem;
-        height: @h;
-        line-height: @h;
-        font-size: .45rem;
-        .btn {
-          width: 50%;
-        }
-        .cancel {
-          background: #999999;
-          color: #333;
-        }
-        .confirm {
-          background: @theme;
-          color: white;
-        }
-      }
+    @foot_h: 1.35rem;
+    padding: @XHead_h 0 @foot_h;
+    min-height: 100vh;
+    .shaixuan {
+        position: absolute;
+        top: 0;
+        right: 1rem;
+        height: @XHead_h;
+        width: .8rem;
+        background: url(./img/shaixuan.png) no-repeat center center / .5rem;
     }
-  }
-  .content {
-    @h: 1.8rem; //   .right {height}
-    @p: .3rem; //  .right {padding}
-    height: calc(~"100vh - @{foot_h} - @{XHead_h}");
-    background: #efefef;
-    text-align: center;
-    color: #333;
-    font-size: .35rem;
-    overflow-x: scroll;
-    position: relative;
-    &::-webkit-scrollbar {
-      display: none
-    }
-    .bar_box {
-      @h: .93rem;
-      padding-top: @h;
-      .bar {
-        position: fixed;
-        top: @XHead_h;
+    .screen {
+        position: absolute;
         left: 0;
         right: 0;
+        bottom: 0;
+        top: 0;
+        text-align: center;
+        background: rgba(0, 0, 0, .5);
+        z-index: 100;
+        .screen_con {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            .option {
+                @h: .8rem;
+                padding: .4rem .4rem 0;
+                color: #666;
+                .title {
+                    margin-top: .3rem;
+                    border-top: 1px solid #CCCCCC;
+                    .text {
+                        display: inline-block;
+                        height: .6rem;
+                        padding: 0 .3rem;
+                        background: white;
+                        position: relative;
+                        top: -.3rem;
+                    }
+                }
+                .screen_top {
+                    height: @h;
+                    line-height: @h;
+                    width: 6.8rem;
+                    margin: 0 auto .4rem;
+                    border: 1px solid #ccc;
+                    .s_topBtn {
+                        width: 100% / 3;
+                    }
+                    .bor_r {
+                        border-right: 1px solid #ccc;
+                    }
+                }
+                .screen_list {
+                    padding-bottom: .2rem;
+                    .fl {
+                        width: 30%;
+                        height: @h;
+                        line-height: @h;
+                        margin: 1.5%;
+                        border: 1px solid #ccc;
+                        position: relative;
+                        .checkbox {
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 100%;
+                            width: 100%;
+                            &:checked + div {
+                                background: @theme;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+            .checked {
+                padding: .2rem 0;
+                font-size: .3rem;
+                color: #333;
+            }
+            .btns {
+                @h: 1.3rem;
+                height: @h;
+                line-height: @h;
+                font-size: .45rem;
+                .btn {
+                    width: 50%;
+                }
+                .cancel {
+                    background: #999999;
+                    color: #333;
+                }
+                .confirm {
+                    background: @theme;
+                    color: white;
+                }
+            }
+        }
+    }
+    .content {
+        @h: 1.8rem; //   .right {height}
+        @p: .3rem; //  .right {padding}
+        height: calc(~"100vh - @{foot_h} - @{XHead_h}");
+        background: #efefef;
+        text-align: center;
+        color: #333;
+        font-size: .35rem;
+        overflow-x: scroll;
+        position: relative;
+        &::-webkit-scrollbar {
+            display: none
+        }
+        .bar_box {
+            @h: .93rem;
+            padding-top: @h;
+            .bar {
+                position: fixed;
+                top: @XHead_h;
+                left: 0;
+                right: 0;
+                width: 10rem;
+                margin: 0 auto;
+                background: white;
+                z-index: 100;
+            }
+            .jixuan {
+                height: @h;
+                line-height: @h;
+                padding: 0 .2rem;
+                text-align: left;
+            }
+        }
+
+        .item {
+            margin-bottom: .3rem;
+            background: white;
+            .date {
+                @h: .8rem;
+                height: @h;
+                line-height: @h;
+                border-bottom: 1px solid #efefef;
+                background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
+            }
+            .details {
+
+                height: @h + 2 * @p;
+                padding: .3rem;
+                border-bottom: 1px solid #efefef;
+                .left {
+                    width: 20%;
+                    line-height: .6rem;
+                    height: 100%;
+                    overflow: hidden;
+                }
+                .right {
+                    width: 75%;
+                    height: 100%;
+                }
+            }
+        }
+        .type1, .type2 {
+            .right {
+                line-height: .7rem;
+                border: 1px solid #ccc;
+                position: relative;
+                overflow: hidden;
+                .fl {
+                    padding-top: .1rem;
+                    height: 100%;
+                    width: 100% / 3;
+                }
+                .border_r {
+                    border-right: 1px solid #ccc;
+                }
+                .checkbox {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    opacity: 0;
+                    width: 100% / 3;
+                    height: 100%;
+                }
+                .checkbox1 {
+                    left: 0;
+                }
+                .checkbox2 {
+                    left: 100% / 3;
+                }
+                .checkbox3 {
+                    left: 100% / 3 * 2;
+                }
+                .checkbox:checked + .fl {
+                    color: white;
+                    background: @theme;
+                    .redText {
+                        color: inherit;
+                    }
+                }
+            }
+        }
+        .type2 {
+            .middle {
+                width: 5%;
+                color: white;
+                height: 100%;
+                padding-top: .1rem;
+                line-height: 1.6rem / 5;
+                font-size: .3rem;
+                .text {
+                    display: block;
+                    padding-top: 2em;
+                    height: 3em
+                }
+            }
+
+        }
+        .type3, .type4 {
+            .right_children {
+                height: 50%;
+                line-height: @h / 2;
+            }
+            .right_top {
+                .fl {
+                    width: 100% / 3;
+                }
+            }
+            .right_bottom {
+                border: 1px solid #CCCCCC;
+            }
+        }
+        .type5 {
+            .details {
+                @h: 2.85rem;
+                @right_bottom: 2.4rem;
+                height: @h;
+                .left {
+                    margin-top: .45rem;
+                }
+                .right_top {
+                    height: .45rem;
+                    line-height: .45rem;
+                    .right_top_text {
+                        width: 100% / 3;
+                        height: 100%;
+                    }
+                }
+                .right_bottom {
+                    @right_bottom_h: (@h - 2 * @p) - .45;
+                    height: @right_bottom_h;
+                    border-top: 1px solid #CCCCCC;
+                    border-left: 1px solid #CCCCCC;
+                    .btn {
+                        width: 25%;
+                        height: @right_bottom_h / 2;
+                        line-height: @right_bottom_h / 2;
+                        border-right: 1px solid #CCCCCC;
+                        border-bottom: 1px solid #CCCCCC;
+                        position: relative;
+                        .checkbox {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            opacity: 0;
+                            height: 100%;
+                            width: 100%;
+                            &:checked + div {
+                                background: @theme;
+                                color: white;
+                                .odds {
+                                    color: inherit;
+                                }
+                            }
+                        }
+                        .odds {
+                            color: #666;
+                            font-size: .25rem;
+                        }
+                    }
+                }
+            }
+        }
+        .noLit {
+            height: 100%;
+            width: 100%;
+            background: url(../../../../assets/img/noData.png) no-repeat center center / 5rem;
+        }
+    }
+    .foot {
+        @p: .2rem;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: @foot_h;
         width: 10rem;
         margin: 0 auto;
-        background: white;
-        z-index: 100;
-      }
-      .jixuan {
-        height: @h;
-        line-height: @h;
-        padding: 0 .2rem;
-        text-align: left;
-      }
-    }
-
-    .item {
-      margin-bottom: .3rem;
-      background: white;
-      .date {
-        @h: .8rem;
-        height: @h;
-        line-height: @h;
-        border-bottom: 1px solid #efefef;
-        background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
-      }
-      .details {
-
-        height: @h + 2 * @p;
-        padding: .3rem;
-        border-bottom: 1px solid #efefef;
-        .left {
-          width: 20%;
-          line-height: .6rem;
-          height: 100%;
-          overflow: hidden;
-        }
-        .right {
-          width: 75%;
-          height: 100%;
-        }
-      }
-    }
-    .type1, .type2 {
-      .right {
-        line-height: .7rem;
-        border: 1px solid #ccc;
-        position: relative;
-        overflow: hidden;
-        .fl {
-          padding-top: .1rem;
-          height: 100%;
-          width: 100% / 3;
-        }
-        .border_r {
-          border-right: 1px solid #ccc;
-        }
-        .checkbox {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          opacity: 0;
-          width: 100% / 3;
-          height: 100%;
-        }
-        .checkbox1 {
-          left: 0;
-        }
-        .checkbox2 {
-          left: 100% / 3;
-        }
-        .checkbox3 {
-          left: 100% / 3 * 2;
-        }
-        .checkbox:checked + .fl {
-          color: white;
-          background: @theme;
-          .redText {
-            color: inherit;
-          }
-        }
-      }
-    }
-    .type2 {
-      .middle {
-        width: 5%;
-        color: white;
-        height: 100%;
-        padding-top: .1rem;
-        line-height: 1.6rem / 5;
-        font-size: .3rem;
-        .text {
-          display: block;
-          padding-top: 2em;
-          height: 3em
-        }
-      }
-
-    }
-    .type3, .type4 {
-      .right_children {
-        height: 50%;
-        line-height: @h / 2;
-      }
-      .right_top {
-        .fl {
-          width: 100% / 3;
-        }
-      }
-      .right_bottom {
-        border: 1px solid #CCCCCC;
-      }
-    }
-    .type5 {
-      .details {
-        @h: 2.85rem;
-        @right_bottom: 2.4rem;
-        height: @h;
-        .left {
-          margin-top: .45rem;
-        }
-        .right_top {
-          height: .45rem;
-          line-height: .45rem;
-          .right_top_text {
-            width: 100% / 3;
+        padding: @p 0;
+        border-top: 1px solid #DCDBDB;
+        .clear {
+            @w: .93rem;
+            width: @w;
             height: 100%;
-          }
-        }
-        .right_bottom {
-          @right_bottom_h: (@h - 2 * @p) - .45;
-          height: @right_bottom_h;
-          border-top: 1px solid #CCCCCC;
-          border-left: 1px solid #CCCCCC;
-          .btn {
-            width: 25%;
-            height: @right_bottom_h / 2;
-            line-height: @right_bottom_h / 2;
             border-right: 1px solid #CCCCCC;
-            border-bottom: 1px solid #CCCCCC;
-            position: relative;
-            .checkbox {
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              opacity: 0;
-              height: 100%;
-              width: 100%;
-              &:checked + div {
-                background: @theme;
-                color: white;
-                .odds {
-                  color: inherit;
-                }
-              }
-            }
-            .odds {
-              color: #666;
-              font-size: .25rem;
-            }
-          }
-        }
-      }
-    }
-    .noLit {
-      height: 100%;
-      width: 100%;
-      background: url(../../../../assets/img/noData.png) no-repeat center center / 5rem;
-    }
-  }
-  .foot {
-    @p: .2rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: @foot_h;
-    padding: @p 0;
-    border-top: 1px solid #DCDBDB;
-    .clear {
-      @w: .93rem;
-      width: @w;
-      height: 100%;
-      border-right: 1px solid #CCCCCC;
-      background: url(../../../../assets/img/clear.png) no-repeat center center / .5rem;
-    }
-    .text {
-      padding-left: @p;
-      line-height: (@foot_h -  2 * @p) / 2;
-      color: #666666;
-      font-size: .3rem;
-      .changshu {
-        font-size: .38rem;
-        color: #000;
-      }
-    }
-    .submit {
-      @h: .8rem;
-      height: @h;
-      line-height: @h;
-      width: 2 * @h;
-      margin-right: .4rem;
-      color: white;
-      font-size: .38rem;
-      text-align: center;
-      border-radius: .13rem;
-    }
-  }
-  .Actionsheet {
-    z-index: 500;
-  }
-
-  //比分玩法 选择比分 弹窗
-
-  .bifen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-top: 50vh;
-    background: rgba(0, 0, 0, .5);
-    text-align: center;
-    z-index: 500;
-    .popup {
-      @h: 10.4rem;
-      height: @h;
-      margin: -@h/2 .2rem 0;
-      border-radius: .1rem;
-      background: #EAEAEA;
-      &.h74 {
-        @h: 7.4rem;
-        height: @h;
-        margin: -@h/2 .2rem 0;
-        .option {
-          .h2 {
-            .btn:last-child {
-              width: 100% / 7;
-            }
-          }
-        }
-      }
-      .title {
-        @h: 1.2rem;
-        height: @h;
-        line-height: @h;
-        border-bottom: 1px solid #ccc;
-        font-size: .38rem;
-        color: #000;
-      }
-      .option {
-        @p: .2rem;
-        padding: @p;
-        & > div {
-          margin-bottom: @p;
+            background: url(../../../../assets/img/clear.png) no-repeat center center / .5rem;
         }
         .text {
-          margin-bottom: @p;
-          color: #666;
-          font-size: .3rem;
-          text-align: left;
+            padding-left: @p;
+            line-height: (@foot_h -  2 * @p) / 2;
+            color: #666666;
+            font-size: .3rem;
+            .changshu {
+                font-size: .38rem;
+                color: #000;
+            }
         }
+        .submit {
+            @h: .8rem;
+            height: @h;
+            line-height: @h;
+            width: 2 * @h;
+            margin-right: .4rem;
+            color: white;
+            font-size: .38rem;
+            text-align: center;
+            border-radius: .13rem;
+        }
+    }
+    .Actionsheet {
+        z-index: 500;
+    }
 
-        @row_h: 1.2rem;
-        .h2 {
-          height: @row_h * 2;
-          .left {
-            line-height: @row_h * 2;
-          }
-          .btn:last-child {
-            width: 100% / 3.5;
-          }
-        }
-        .ping {
-          height: @row_h;
-          line-height: @row_h;
-          .btn:last-child {
-            width: 100% / 7 * 3;
-          }
-        }
-        .left {
-          width: 5%;
-          height: 100%;
-          color: white;
-          font-weight: 200;
-          font-size: .3rem;
-        }
-        .right {
-          width: 95%;
-          height: 100%;
-          position: relative;
-          .btn {
-            height: @row_h;
-            line-height: @row_h / 2;
-            width: 100% / 7;
-            position: relative;
-            .checkbox {
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-              width: 100%;
-              height: 100%;
-              opacity: 0;
-              &:checked + div {
-                background: @theme;
-                color: white;
-                height: @row_h;
-                .c666 {
-                  color: inherit;
+    //比分玩法 选择比分 弹窗
+
+    .bifen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-top: 50vh;
+        background: rgba(0, 0, 0, .5);
+        text-align: center;
+        z-index: 500;
+        .popup {
+            @h: 10.4rem;
+            height: @h;
+            margin: -@h/2 .2rem 0;
+            border-radius: .1rem;
+            background: #EAEAEA;
+            &.h74 {
+                @h: 7.4rem;
+                height: @h;
+                margin: -@h/2 .2rem 0;
+                .option {
+                    .h2 {
+                        .btn:last-child {
+                            width: 100% / 7;
+                        }
+                    }
                 }
-              }
             }
-            .c666 {
-              color: #666;
-              font-size: .25rem;
+            .title {
+                @h: 1.2rem;
+                height: @h;
+                line-height: @h;
+                border-bottom: 1px solid #ccc;
+                font-size: .38rem;
+                color: #000;
             }
-          }
+            .option {
+                @p: .2rem;
+                padding: @p;
+                & > div {
+                    margin-bottom: @p;
+                }
+                .text {
+                    margin-bottom: @p;
+                    color: #666;
+                    font-size: .3rem;
+                    text-align: left;
+                }
+
+                @row_h: 1.2rem;
+                .h2 {
+                    height: @row_h * 2;
+                    .left {
+                        line-height: @row_h * 2;
+                    }
+                    .btn:last-child {
+                        width: 100% / 3.5;
+                    }
+                }
+                .ping {
+                    height: @row_h;
+                    line-height: @row_h;
+                    .btn:last-child {
+                        width: 100% / 7 * 3;
+                    }
+                }
+                .left {
+                    width: 5%;
+                    height: 100%;
+                    color: white;
+                    font-weight: 200;
+                    font-size: .3rem;
+                }
+                .right {
+                    width: 95%;
+                    height: 100%;
+                    position: relative;
+                    .btn {
+                        height: @row_h;
+                        line-height: @row_h / 2;
+                        width: 100% / 7;
+                        position: relative;
+                        .checkbox {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            &:checked + div {
+                                background: @theme;
+                                color: white;
+                                height: @row_h;
+                                .c666 {
+                                    color: inherit;
+                                }
+                            }
+                        }
+                        .c666 {
+                            color: #666;
+                            font-size: .25rem;
+                        }
+                    }
+                }
+            }
+            .bottom {
+                @bottom_h: 1.5rem;
+                height: @bottom_h;
+                .bottom_btn {
+                    @w: 3.2rem;
+                    @h: .8rem;
+                    width: @w;
+                    height: @h;
+                    line-height: @h;
+                    margin: (@bottom_h - @h) / 2 - .2 (4.8rem - @w) / 2 0;
+                    font-size: .35rem;
+                    border-radius: .05rem;
+                }
+                .confirm {
+                    color: white;
+                }
+            }
         }
-      }
-      .bottom {
-        @bottom_h: 1.5rem;
-        height: @bottom_h;
-        .bottom_btn {
-          @w: 3.2rem;
-          @h: .8rem;
-          width: @w;
-          height: @h;
-          line-height: @h;
-          margin: (@bottom_h - @h) / 2 - .2 (4.8rem - @w) / 2 0;
-          font-size: .35rem;
-          border-radius: .05rem;
-        }
-        .confirm {
-          color: white;
-        }
-      }
     }
-  }
-  .zongjinqiu {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 0;
-    right: 0;
-    background: rgba(0, 0, 0, .5);
-    z-index: 500;
-    .popup {
-      @h: 50vh;
+    .zongjinqiu {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .5);
+        z-index: 500;
+        .popup {
+            @h: 50vh;
+
+        }
+    }
+    .greenBg {
+        background: #1AA664;
+    }
+    .blueBg {
+        background: #1A83C7;
+    }
+    .whiteBg {
+        background: white;
 
     }
-  }
-  .greenBg {
-    background: #1AA664;
-  }
-  .blueBg {
-    background: #1A83C7;
-  }
-  .whiteBg {
-    background: white;
-
-  }
-  .whiteText {
-    color: white;
-  }
-  .purpleBg {
-    background: #9A43FA;
-  }
+    .whiteText {
+        color: white;
+    }
+    .purpleBg {
+        background: #9A43FA;
+    }
 }

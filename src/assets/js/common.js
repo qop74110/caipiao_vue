@@ -22,6 +22,7 @@ const global = {
     ajax(url, data, callBack, head = {}, method = "POST"){
         head.token = cookie.get("token") || "";
         head.channel = cookie.get("channel") || "lottery-one";
+        const _this = this;
 
         this.$http({
             method: method,
@@ -30,6 +31,11 @@ const global = {
             data: data
         }).then(function (response) {
             let data = response.data;
+            if (data.error_code === 600) {
+                _this.$vux.loading.hide();
+                _this.$router.push('/login');
+                return;
+            }
             callBack(data);
         }).catch(function (err) {
             console.log(err);

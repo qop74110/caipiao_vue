@@ -94,7 +94,7 @@
                 if (this.token) {
                     if (url === "") this.global.toast.call(this, "还没写");
                     else this.$router.push(url);
-                }
+                } else this.$router.push('/login');
             }
         }
     }

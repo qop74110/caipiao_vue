@@ -151,7 +151,22 @@
                 }
             },
             del_order(){
-
+                const _this = this;
+                this.$vux.confirm.prompt('placeholder', {
+                    content: "删除后本订单将无法还原",
+                    onConfirm () {
+                        _this.$vux.loading.show();
+                        _this.global.ajax.call(_this, '', {}, _this.del_order_CB);
+                    }
+                })
+            },
+            del_order_CB(d){
+                this.$vux.loding.hide();
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+                    this.global.alert.call(this, "删除成功");
+                    this.$router.back();
+                }
             },
         }
     }
