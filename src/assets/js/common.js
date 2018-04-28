@@ -53,6 +53,27 @@ const global = {
             return false;
         }
     },
+    chongzhi: (_this, money) => {
+        console.log(_this)
+        let type = '';
+        _this.$vux.confirm.show({
+            content: "余额不足，请选择充值方式",
+            confirmText: '微信',
+            cancelText: '支付宝',
+            onCancel () {
+                type = 5;
+            },
+            onConfirm () {
+                type = 3;
+            },
+            onHide(){
+                const g = _this.global;
+                const token = g.cookie.get('token');
+                if (token) window.location.href = `${g.ajax_url.host + g.ajax_url.api.pay}?token=${token}&money=${money}&type=${type}`;
+                else this.$router.push("/login");
+            }
+        })
+    },
 };
 
 
