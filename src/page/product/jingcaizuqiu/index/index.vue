@@ -353,8 +353,9 @@
         },
         created(){
             this.$vux.loading.show();
-//      this.getData = localStorage.getItem("jczq_setOrder") ? true : false;
-//      if (this.getData) this.getOrder();
+            this.getData = localStorage.getItem("jczq_setOrder") ? true : false;
+            if (this.getData) this.getOrder();
+
             this.global.ajax.call(this, "jczq_play_type", {}, this.getPlay_type);
         },
         methods: {

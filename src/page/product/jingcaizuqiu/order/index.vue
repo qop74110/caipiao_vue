@@ -261,7 +261,7 @@
                 this.render_page = true;
 
                 this.set_c();
-                if(this.bar_value === 0 && this.play_type !== "FT002") (this.chuan = [1]);
+                if (this.bar_value === 0 && this.play_type !== "FT002") (this.chuan = [1]);
 
             },
             set_c(){
