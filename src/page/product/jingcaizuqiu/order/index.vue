@@ -81,16 +81,23 @@
 
         <div class="foot">
             <div class="foot_top">
-        <span class="foot_top_btn fl" v-if="bar_value === 0 && play_type !== 'FT002'">
-         单关
-        </span>
+                <span class="foot_top_btn fl" v-if="bar_value === 0 && play_type !== 'FT002'">
+                    单关
+                </span>
+                <span v-else-if="chuan.length === 0" class="foot_top_btn fl" @click="show_footMiddle_fun">
+                    投注方式
+                    <span class="redText">(必选)</span>
+                    <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
+                </span>
 
-                <span v-else class="foot_top_btn fl" @click="show_footMiddle_fun">
-        投注方式
-        <span class="redText">(必选)</span>
-        <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
-        </span>
+                <span v-else class="foot_top_btn fl hideText" @click="show_footMiddle_fun">
+                    <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
+                    <!--{{chuan.join('串1,')}}串1-->
 
+                    <template v-for="item in chuan">
+                        {{item === 1 ? '单关': item + '串1'}}
+                    </template>
+                </span>
 
                 <label class="bei fr">
                     投
@@ -254,7 +261,7 @@
                 this.render_page = true;
 
                 this.set_c();
-                this.bar_value === 0 && (this.chuan = [1]);
+                if(this.bar_value === 0 && this.play_type !== "FT002") (this.chuan = [1]);
 
             },
             set_c(){
@@ -315,13 +322,10 @@
                         let max_jjArr = [];
                         let min_jjArr = [];
                         for (let i = 0; i < this.c.length; i++) {
-                            console.log(1)
                             for (let ii = 0; ii < this.c[i].length; ii++) {
-                                console.log(2)
                                 if (this.c[i][ii].length > 0) {
                                     let odd = [];
                                     for (let iii = 0; iii < this.c[i][ii].length; iii++) {
-                                        console.log(3)
                                         const v = this.c[i][ii][iii];
                                         if (/FT001|FT006/.test(this.play_type)) {
                                             odd.push(
@@ -340,7 +344,6 @@
                                             else if (val[0] === val[1] || val[0] === "平其它") ik = 1;
                                             else ik = 2;
                                             for (let k = 0; k < this.index_list[i].match[ii].odds[ik].length; k++) {
-                                                console.log(4)
                                                 if (v === this.index_list[i].match[ii].odds[ik][k].name) {
                                                     odd.push(this.index_list[i].match[ii].odds[ik][k].odds);
                                                 }
@@ -364,7 +367,6 @@
 
                         min = min_jj(min_jjArr, Math.min.apply(null, this.chuan));
                         for (let i = 0; i < this.chuan.length; i++) {
-                            console.log(5)
                             max += max_jj(max_jjArr, this.chuan[i]);
                         }
 
@@ -374,16 +376,14 @@
                         this.min_m = 0;
                         this.max_m = 0;
                     }
-                }, 1500)
+                }, 800)
 
             },
             paixu(arr){
                 arr.sort((m, n) => m - n);
             },
             set_money(){
-                console.log(33)
                 this.money = this.zhushu * 2 * this.bei || 0;
-                console.log(44)
             },
             set_bei(){
                 if (this.bei === "") this.bei = "1";
