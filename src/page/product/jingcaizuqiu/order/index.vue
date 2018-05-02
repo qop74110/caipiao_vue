@@ -108,10 +108,10 @@
                     <div class="text">{{i}}串1</div>
                 </div>
             </div>
-            <div class="foot_bottom" @click="submit">
-                {{zhushu}}注<span class="redText">{{money}}</span>元
+            <div class="foot_bottom">
+                {{zhushu}}注 {{bei}}倍 <span class="redText">{{money}}</span>元
                 <p class="c666">预测奖金(仅供参考): {{zhushu !== 1 ? min_m + "~" + max_m: min_m}}</p>
-                <span class="submit redBg">确定</span>
+                <span class="submit redBg" @click="submit">确定</span>
             </div>
         </div>
 
@@ -308,17 +308,20 @@
                 }
             },
             set_jjArr(){
-                if (this.chuan.length > 0) {
-                    clearTimeout(this.timeout);
-                    this.timeout = null;
-                    this.timeout = setTimeout(() => {
+                clearTimeout(this.timeout);
+                this.timeout = null;
+                this.timeout = setTimeout(() => {
+                    if (this.chuan.length > 0) {
                         let max_jjArr = [];
                         let min_jjArr = [];
                         for (let i = 0; i < this.c.length; i++) {
+                            console.log(1)
                             for (let ii = 0; ii < this.c[i].length; ii++) {
+                                console.log(2)
                                 if (this.c[i][ii].length > 0) {
                                     let odd = [];
                                     for (let iii = 0; iii < this.c[i][ii].length; iii++) {
+                                        console.log(3)
                                         const v = this.c[i][ii][iii];
                                         if (/FT001|FT006/.test(this.play_type)) {
                                             odd.push(
@@ -337,6 +340,7 @@
                                             else if (val[0] === val[1] || val[0] === "平其它") ik = 1;
                                             else ik = 2;
                                             for (let k = 0; k < this.index_list[i].match[ii].odds[ik].length; k++) {
+                                                console.log(4)
                                                 if (v === this.index_list[i].match[ii].odds[ik][k].name) {
                                                     odd.push(this.index_list[i].match[ii].odds[ik][k].odds);
                                                 }
@@ -360,23 +364,26 @@
 
                         min = min_jj(min_jjArr, Math.min.apply(null, this.chuan));
                         for (let i = 0; i < this.chuan.length; i++) {
+                            console.log(5)
                             max += max_jj(max_jjArr, this.chuan[i]);
                         }
 
                         this.min_m = (min * 2 * this.bei).toFixed(2);
                         this.max_m = (max * 2 * this.bei).toFixed(2);
+                    } else {
+                        this.min_m = 0;
+                        this.max_m = 0;
+                    }
+                }, 1500)
 
-                    }, 1500)
-                } else {
-                    this.min_m = 0;
-                    this.max_m = 0;
-                }
             },
             paixu(arr){
                 arr.sort((m, n) => m - n);
             },
             set_money(){
+                console.log(33)
                 this.money = this.zhushu * 2 * this.bei || 0;
+                console.log(44)
             },
             set_bei(){
                 if (this.bei === "") this.bei = "1";
@@ -461,7 +468,7 @@
                     const d = {
                         title: [],
                         message: {
-                            strand: this.chuan.join('串1,') + "串1",
+                            strand: this.bar_value > 0 || this.play_type === 'FT002' ? this.chuan.join() : 0,
                             play_rules: this.play_type,
                             number: this.zhushu,
                             money: this.money,
@@ -471,11 +478,6 @@
                     for (let i = 0; i < this.c.length; i++) {
                         for (let k = 0; k < this.c[i].length; k++) {
                             if (this.c[i][k].length !== 0) {
-//                let odd = [];
-//                for (let index = 0; index < this.c[i][k].length; index++) {
-//                  let v = this.c[i][k][index];
-//                  odd.push(this.index_list[i].match[k].odds[v === "3" ? 0 : v === "1" ? 1 : 2].odds)
-//                }
 
                                 let type = this.c[i][k].join(",");
                                 let pt = this.play_type;
@@ -516,12 +518,12 @@
             },
         },
         watch: {
-            c(val){
+            c(){
                 this.set_changshu();
                 this.set_zhushu();
                 this.set_jjArr();
             },
-            chuan(val){
+            chuan(){
                 if (this.chuan.length > 0 && this.changshu > this.bar_value) {
                     this.set_zhushu();
                     this.set_jjArr();
@@ -531,7 +533,7 @@
                     this.max_m = 0;
                 }
             },
-            zhushu(val){
+            zhushu(){
                 this.set_money();
             },
             bei(val){
