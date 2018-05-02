@@ -27,7 +27,7 @@
         <div class="border"></div>
 
         <!--双色球-->
-        <div class="info" v-if="detail.lotid === global.product_type.shuangseqiu">
+        <div class="info" v-if="play_type === 'shuangseqiu'">
             <div class="row">
                 <span class="text">投注信息</span>
                 <span class="hideText balls">
@@ -63,7 +63,7 @@
 
         </div>
         <!--足彩-->
-        <div class="info" v-else-if="detail.play_type === global.product_type.jingcaizuqiu">
+        <div class="info" v-else-if="play_type === 'jingcaizuqiu'">
             <div>
                 <span class="text">投注信息</span>
                 <table class="tabal">
@@ -106,6 +106,10 @@
         </div>
 
         <div class="del_order redText" @click="del_order">删除本订单</div>
+
+        <div class="one_more">
+            <div class="one_more_btn redBg" @click="one_more">再来一注</div>
+        </div>
     </div>
 </template>
 
@@ -118,6 +122,7 @@
                 redBall: [],
                 blueBall: [],
                 danBall: [],
+                play_type: '',
             }
         },
         created(){
@@ -130,21 +135,19 @@
         methods: {
             getData(d){
                 this.$vux.loading.hide();
-                if (d.error_code !== 0) this.global.toast.call(this, d.error_message)
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data.length === 1) {
                     if (d.data[0].lotid === this.global.product_type.shuangseqiu) {
+                        this.play_type = 'shuangseqiu';
                         if (d.data[0].play_type === "103") {
                             this.danBall = d.data[0].data.split("$")[0].split(",");
                             d.data[0].data = d.data[0].data.split("$")[1];
                         }
                         this.blueBall = d.data[0].data.split("#")[1].split(",");
                         this.redBall = d.data[0].data.split("#")[0].split(",");
+                    } else if (d.data[0].play_type === this.global.product_type.jingcaizuqiu) {
+                        this.play_type = 'jingcaizuqiu';
                     }
-//                    else if (d.data[0].play_type === this.global.product_type.jingcaizuqiu) {
-//                        for (let i = 0; i < d.data[0].arr.length; i++) {
-//
-//                        }
-//                    }
 
 
                     this.detail = d.data[0];
@@ -152,7 +155,7 @@
             },
             del_order(){
                 const _this = this;
-                this.$vux.confirm.show( {
+                this.$vux.confirm.show({
                     content: "删除后本订单将无法还原",
                     onConfirm () {
                         _this.$vux.loading.show();
@@ -167,6 +170,13 @@
                     this.global.alert.call(this, "删除成功");
                     this.$router.back();
                 }
+            },
+            one_more(){
+                const pt = this.play_type;
+                let url = null;
+                if (pt === "") url = 'home';
+                else url = `${this.play_type}/index`;
+                this.$router.push('/' + url);
             },
         }
     }

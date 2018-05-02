@@ -142,6 +142,26 @@
         margin-top: .6rem;
         text-align: center;
     }
+    .one_more {
+        @om-h: 1.32rem;
+        height: @om-h;
+        background: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .one_more_btn {
+            @om_btn-h: .8rem;
+            @om_btn-w: 3.5rem;
+            width: @om_btn-w;
+            height: @om_btn-h;
+            line-height: @om_btn-h;
+            margin: (@om-h - @om_btn-h) / 2 auto 0;
+            color: white;
+            text-align: center;
+            border-radius: .1rem;
+        }
+    }
     .blueText {
         color: #00A0FF;
     }
