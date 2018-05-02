@@ -259,7 +259,7 @@
                 this.render_page = true;
 
                 this.set_c();
-                if (this.bar_value === 0 ) (this.chuan = [1]);
+                if (this.bar_value === 0) (this.chuan = [1]);
 
             },
             set_c(){
@@ -507,7 +507,8 @@
             },
             submit_CB(d){
                 this.$vux.loading.hide();
-                if (d.error_code === 1004) this.global.chongzhi(this, this.money);
+//                if (d.error_code === 1004) this.global.chongzhi(this, d.data.money, d.data.orderid);
+                if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.global.alert.call(this, "下单成功！");

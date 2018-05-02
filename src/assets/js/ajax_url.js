@@ -26,6 +26,7 @@ const ajax_url = {
         my_balance: "v1/user/balance",                  //  我的—余额
 
         pay: 'v1/recharge/browser',                     //  充值
+        pay1004: 'v1/pay/browser',                     //  充值
 
         tx_bindState: 'v1/extract/binding',             //  银行卡&身份证&手机号 绑定状态
         tx_checkCode: 'v1/sms/checkCode',               //  银行卡&身份证&手机号 验证手机验证码

@@ -27,7 +27,8 @@
                 <div class="num">500</div>
             </div>
             <div class="option fl">
-                <input class="custom" type="tel" v-model="custom_money" placeholder="自定义金额" @focus="setChecked">
+                <input class="custom" type="tel" :class="custom_money.length > 0 && 'redBorder' " v-model="custom_money"
+                       placeholder="自定义金额" @focus="setChecked">
             </div>
         </div>
 
@@ -60,10 +61,19 @@
                 money: "5000",                                          //  单选框的金额 单位分
                 custom_money: '',                                       //  自定义的金额 单位元
                 pay_type: '3',
+
+                type: 1,                                                //  1: 主动充值& 0：余额不足 充值
+                orderid: '',
             }
         },
         created(){
-
+            const query = this.$route.query;
+            if (query.type === "1004") {
+                this.setChecked();
+                this.custom_money = query.money;
+                this.type = 0;
+                this.orderid = query.orderid;
+            }
         },
         methods: {
             setChecked(){
@@ -76,7 +86,12 @@
                     this.$vux.loading.show();
                     let money = this.money === "" ? this.custom_money * 100 : this.money;
                     const global = this.global;
-                    window.location.href = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${global.cookie.get('token')}&money=${money * 1}&type=${this.pay_type * 1}`;
+
+                    let url;
+                    let token = global.cookie.get('token');
+                    if (this.type) url = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${token}&money=${money * 1}&type=${this.pay_type}`;
+                    else url = `${global.ajax_url.host + global.ajax_url.api.pay1004}?token=${token}&money=${money}&type=${this.pay_type}&orderid=${this.orderid}`;
+                    window.location.href = url;
                 }
             },
         },

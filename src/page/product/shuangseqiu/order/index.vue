@@ -149,7 +149,7 @@
             },
             order_callBack(d){
                 this.$vux.loading.hide();
-                if (d.error_code === 1004) this.global.chongzhi(this, this.zhushu * this.qi * this.bei * 2 * 100);
+                if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.global.alert.call(this, "购买成功");
