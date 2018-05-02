@@ -81,7 +81,7 @@
 
         <div class="foot">
             <div class="foot_top">
-                <span class="foot_top_btn fl" v-if="bar_value === 0 && play_type !== 'FT002'">
+                <span class="foot_top_btn fl" v-if="bar_value === 0">
                     单关
                 </span>
                 <span v-else-if="chuan.length === 0" class="foot_top_btn fl" @click="show_footMiddle_fun">
@@ -92,10 +92,8 @@
 
                 <span v-else class="foot_top_btn fl hideText" @click="show_footMiddle_fun">
                     <img src="./img/arrow_b.png" class="fr arrow" :style="show_footMiddle && 'transform: rotate(0);'">
-                    <!--{{chuan.join('串1,')}}串1-->
-
                     <template v-for="item in chuan">
-                        {{item === 1 ? '单关': item + '串1'}}
+                        {{item + '串1'}}
                     </template>
                 </span>
 
@@ -261,7 +259,7 @@
                 this.render_page = true;
 
                 this.set_c();
-                if (this.bar_value === 0 && this.play_type !== "FT002") (this.chuan = [1]);
+                if (this.bar_value === 0 ) (this.chuan = [1]);
 
             },
             set_c(){
@@ -468,7 +466,7 @@
                     const d = {
                         title: [],
                         message: {
-                            strand: this.bar_value > 0 || this.play_type === 'FT002' ? this.chuan.join() : 0,
+                            strand: this.bar_value > 0 ? this.chuan.join() : 0,
                             play_rules: this.play_type,
                             number: this.zhushu,
                             money: this.money,

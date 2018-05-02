@@ -7,9 +7,9 @@
         <span class="shaixuan" @click="show_screen = true"></span>
         <!--赛事列表-->
         <div class="content">
-            <div class="bar_box" v-show="play_type !== 'FT002'">
+            <div class="bar_box">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
-                <div class="jixuan" v-show="play_type !== 'FT003'" @click="random_touzhu">
+                <div class="jixuan" v-show="play_type !== 'FT003' && play_type !== 'FT002'" @click="random_touzhu">
                     机选
                 </div>
             </div>
@@ -524,7 +524,7 @@
             },
             submit(){
                 if (this.changshu === 0) this.global.toast.call(this, "请下注");
-                else if (this.changshu === 1 && (this.bar_value === 1 && this.play_type !== "FT002")) this.global.toast.call(this, "最少选择两场");
+                else if (this.changshu === 1 && this.bar_value === 1 ) this.global.toast.call(this, "最少选择两场");
                 else {
                     const data = {
                         index_list: this.index_list,
