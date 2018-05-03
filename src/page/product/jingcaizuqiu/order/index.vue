@@ -104,10 +104,10 @@
                 </label>
             </div>
             <div class="foot_middle" :class="show_footMiddle && 'h22'">
-                <div class="item fl" v-for="i in 1" v-if="play_type === 'FT002'">
-                    <input class="radio" type="checkbox" :value="i" v-model="chuan">
-                    <div class="text">单关</div>
-                </div>
+                <!--<div class="item fl" v-for="i in 1" v-if="play_type === 'FT002'">-->
+                    <!--<input class="radio" type="checkbox" :value="i" v-model="chuan">-->
+                    <!--<div class="text">单关</div>-->
+                <!--</div>-->
                 <div class="item fl" v-for="i in maxChuan" v-if="i !== 1 && i <= changshu">
                     <input class="radio" type="checkbox" :value="i" v-model="chuan">
                     <div class="text">{{i}}串1</div>

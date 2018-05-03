@@ -524,13 +524,13 @@
             },
             submit(){
                 if (this.changshu === 0) this.global.toast.call(this, "请下注");
-                else if (this.changshu === 1 && this.bar_value === 1 ) this.global.toast.call(this, "最少选择两场");
+                else if (this.changshu === 1 && this.bar_value === 1) this.global.toast.call(this, "最少选择两场");
                 else {
                     const data = {
                         index_list: this.index_list,
                         checked: this.checked,
                         play_type: this.play_type,
-                        bar_value: this.play_type !== "FT002" ? this.bar_value : 0,
+                        bar_value: this.bar_value,
                     };
                     localStorage.clear();
                     localStorage.setItem("jczq_order", JSON.stringify(data));

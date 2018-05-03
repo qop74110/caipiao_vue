@@ -81,17 +81,20 @@
             },
             submit(){
                 if (this.money === "" && this.custom_money === "") this.global.toast.call(this, "选择金额");
-                else if (this.pay_type === "") this.global.toast.call(this, "选择支付方式");
                 else {
-                    this.$vux.loading.show();
                     let money = this.money === "" ? this.custom_money * 100 : this.money;
-                    const global = this.global;
+                    if (!/^[1-9]\d*$/.test(money)) this.global.toast.call(this, "请输入正整数");
+                    else if (this.pay_type === "") this.global.toast.call(this, "选择支付方式");
+                    else {
+                        this.$vux.loading.show();
+                        const global = this.global;
 
-                    let url;
-                    let token = global.cookie.get('token');
-                    if (this.type) url = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${token}&money=${money * 1}&type=${this.pay_type}`;
-                    else url = `${global.ajax_url.host + global.ajax_url.api.pay1004}?token=${token}&money=${money}&type=${this.pay_type}&orderid=${this.orderid}`;
-                    window.location.href = url;
+                        let url;
+                        let token = global.cookie.get('token');
+                        if (this.type) url = `${global.ajax_url.host + global.ajax_url.api.pay}?token=${token}&money=${money * 1}&type=${this.pay_type}`;
+                        else url = `${global.ajax_url.host + global.ajax_url.api.pay1004}?token=${token}&money=${money * 1}&type=${this.pay_type}&orderid=${this.orderid}`;
+                        window.location.href = url;
+                    }
                 }
             },
         },
