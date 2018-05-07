@@ -2,7 +2,7 @@
     <div class="order_list">
         <ul class="lists" v-if="list.length > 0">
             <li class="item" v-for="(item, index) in list" :key="item.id"
-                @click="$router.push('/order/detail?id=' + item.id)">
+                @click="$router.push('/order/detail?id=' + item.order_id)">
                 <div class="left fl">
                     <p class="m">{{item.created_at.split("-")[0]}}月</p>
                     <p class="d">{{item.created_at.split("-")[1]}}</p>

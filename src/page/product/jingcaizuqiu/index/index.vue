@@ -178,6 +178,36 @@
                         </div>
                     </div>
                 </div>
+                <!--混合投注-->
+                <div class="type6 list" v-else-if="play_type === 'FT005'">
+                    <div class="item" v-for="(item, index) in index_list">
+                        <div class="date">{{`${item.date} ${item.week} ${item.count}比赛可选`}}</div>
+                        <div class="details" v-for="(_item,_index) in item.match">
+                            <div class="left fl">
+                                <p>{{_item.league}}</p>
+                                <p>{{`周${_item.weekid} ${_item.teamid}`}}</p>
+                                <p>{{_item.endtime}}截止</p>
+                            </div>
+
+                            <div class="right fr">
+                                <div class="right_top">
+                                    <span class="redText fl right_top_text hideText">{{_item.homeTeam}}</span>
+                                    <span class="vs fl right_top_text">VS</span>
+                                    <span class="redText fl right_top_text hideText">{{_item.awayTeam}}</span>
+                                </div>
+                                <div class="right_bottom">
+                                    <div class="fl btn" v-for="(it, _in) in _item.odds">
+                                        <input class="checkbox" type="checkbox" :value="it.name"
+                                               v-model="checked[index][_index]">
+                                        <div>
+                                            {{it.name}} <span class="odds"> {{it.odds}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="noLit" v-show="index_list.length === 0"></div>
         </div>
@@ -446,7 +476,10 @@
                 else if (val === "1") this.$router.push('/prize_jczq');
             },
             title_item(val){
-                val !== "-1" && (this.play_type = val)
+                if (val !== "-1") {
+                    this.play_type = val;
+                    this.index_list = [];
+                }
             },
             show_bifenPopup_fun(data, index, _index){
                 this.show_bifenPopup = true;
@@ -539,15 +572,15 @@
             },
         },
         watch: {
-            bar_value(val){
+            bar_value(){
                 this.getIndexList();
                 this.getScreenList();
             },
-            play_type(val){
+            play_type(){
                 this.getIndexList();
                 this.getScreenList();
             },
-            checked(val){
+            checked(){
                 this.set_changshu();
             },
             screen_c(){

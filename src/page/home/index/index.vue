@@ -69,8 +69,11 @@
             open(i){
 //                判断彩种是否启用  1=启用 2=未启用
                 if (this.product_list[i].status === "2") this.global.alert.call(this, "暂停销售");
-                else this.$router.push(this.global.product_type[this.product_list[i].lotid] + '/index');
-//
+                else{
+                    const url = this.global.product_type[this.product_list[i].lotid];
+                    if (url)this.$router.push(url + '/index');
+                    else this.global.alert.call(this, "敬请期待");
+                }
             }
         }
     }
