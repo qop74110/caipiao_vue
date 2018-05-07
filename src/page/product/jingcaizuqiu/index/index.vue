@@ -200,29 +200,53 @@
                                         0
                                     </div>
                                     <div class="fl btn">
-                                        主胜: {{_item.odds[0][0].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                               :value="3">
+                                        <div>
+                                            主胜: {{_item.odds[0][0].odds}}
+                                        </div>
                                     </div>
                                     <div class="fl btn">
-                                        平:{{_item.odds[0][1].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                               :value="1">
+                                        <div>
+                                            平:{{_item.odds[0][1].odds}}
+                                        </div>
                                     </div>
                                     <div class="fl btn">
-                                        客胜:{{_item.odds[0][2].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                               :value="0">
+                                        <div>
+                                            客胜:{{_item.odds[0][2].odds}}
+                                        </div>
                                     </div>
 
                                     <div class="first fl" :class=" _item.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
                                         {{parseInt(_item.odds[1][3].odds)}}
                                     </div>
                                     <div class="fl btn">
-                                        主胜: {{_item.odds[1][0].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                               :value="3">
+                                        <div>
+                                            主胜: {{_item.odds[1][0].odds}}
+                                        </div>
                                     </div>
                                     <div class="fl btn">
-                                        平:{{_item.odds[1][1].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                               :value="1">
+                                        <div>
+                                            平:{{_item.odds[1][1].odds}}
+                                        </div>
                                     </div>
                                     <div class="fl btn">
-                                        客胜:{{_item.odds[1][2].odds}}
+                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                               :value="0">
+                                        <div>
+                                            客胜:{{_item.odds[1][2].odds}}
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="right_right open fr">展开</div>
+                                <div class="right_right open fr" @click="showPopup(index, _index)">展开</div>
                             </div>
                         </div>
                     </div>
@@ -231,14 +255,6 @@
             <div class="noLit" v-show="index_list.length === 0"></div>
         </div>
 
-        <footer class="foot">
-            <div class="fl clear" @click="init_checked"></div>
-            <div class="fl text">
-                <p class="changshu">已选<span class="redText">{{changshu}}</span>场</p>
-                页面赔率仅供参考，请以出票赔率为准
-            </div>
-            <div class="fr submit redBg" @click="submit">确认</div>
-        </footer>
         <!--筛选-->
         <div class="screen" v-show="show_screen">
             <div class="screen_con">
@@ -357,6 +373,123 @@
             </div>
         </div>
 
+        <!--弹窗-->
+        <div class="popup" v-if="showPopupBox">
+            <div class="popup_content">
+                <div class="pop_title">
+                    {{`${popup_data.homeTeam} VS ${popup_data.awayTeam}`}}
+                </div>
+                <div class="popup_body">
+                    <!--胜平负&让球胜平负-->
+                    <div class="one whiteBg option_box">
+                        <div class="fl first first_one c9 whiteText">0</div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="3"
+                                   v-model="popup_c[0]">
+                            <div>
+                                主胜{{popup_data.odds[0][0].odds}}
+                            </div>
+                        </div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="1"
+                                   v-model="popup_c[0]">
+                            <div>
+                                平{{popup_data.odds[0][1].odds}}
+                            </div>
+                        </div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="0"
+                                   v-model="popup_c[0]">
+                            <div>
+                                客胜{{popup_data.odds[0][2].odds}}
+                            </div>
+                        </div>
+                        <div class="fl first_one first whiteText"
+                             :class="popup_data.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
+                            {{parseInt(popup_data.odds[1][3].odds)}}
+                        </div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="3"
+                                   v-model="popup_c[1]">
+                            <div>
+                                主胜{{popup_data.odds[1][0].odds}}
+                            </div>
+                        </div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="1"
+                                   v-model="popup_c[1]">
+                            <div>
+                                平{{popup_data.odds[1][1].odds}}
+                            </div>
+                        </div>
+                        <div class="fl btn">
+                            <input class="checked" type="checkbox"
+                                   value="0"
+                                   v-model="popup_c[1]">
+                            <div>
+                                客胜{{popup_data.odds[1][2].odds}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--比分-->
+                    <div class="two  whiteBg option_box">
+                        <div class="first fl yellowBg whiteText">比分</div>
+                        <div class="fl btn" v-for="(item, index) in popup_data.odds[2]">
+                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[2]">
+                            <div>
+                                {{item.name}}
+                                <div class="c3">{{item.odds}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--总 进 球-->
+                    <div class="three  whiteBg option_box">
+                        <div class="first fl blueBg whiteText">总进球</div>
+                        <div class="fl btn" v-for="(item, index) in popup_data.odds[3]">
+                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[3]">
+                            <div>
+                                {{item.name}}
+                                <div class="c3">{{item.odds}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--半 全 场-->
+                    <div class="three  whiteBg option_box">
+                        <div class="first fl purpleBg whiteText">半全场</div>
+                        <div class="fl btn" v-for="(item, index) in popup_data.odds[4]">
+                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[4]">
+                            <div>
+                                {{item.name}}
+                                <div class="c3">{{item.odds}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="popup_foot" @click="showPopupBox = false">
+                    <div class="confirm fl btn redBg whiteText" @click="popup_confirm">确定</div>
+                    <div class="cancel fr btn whiteBg" @click="popup_data = null; popup_c = null">取消</div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="foot">
+            <div class="fl clear" @click="init_checked"></div>
+            <div class="fl text">
+                <p class="changshu">已选<span class="redText">{{changshu}}</span>场</p>
+                页面赔率仅供参考，请以出票赔率为准
+            </div>
+            <div class="fr submit redBg" @click="submit">确认</div>
+        </footer>
     </div>
 </template>
 
@@ -399,6 +532,11 @@
                 loading: 1,
                 checked: [],
                 getData: false,
+
+
+                popup_data: null,
+                showPopupBox: false,
+                popup_c: null,
             }
         },
         created(){
@@ -470,7 +608,12 @@
                 for (let i = 0; i < this.index_list.length; i++) {
                     arr.push([]);
                     for (let k = 0; k < this.index_list[i].match.length; k++) {
-                        arr[i].push([])
+                        arr[i].push([]);
+                        if (this.play_type === "FT005") {
+                            for (let j = 0; j < this.index_list[i].match[k].odds.length; j++) {
+                                arr[i][k].push([])
+                            }
+                        }
                     }
                 }
                 this.checked = arr;
@@ -479,8 +622,19 @@
                 let changshu = 0;
                 for (let i = 0; i < this.checked.length; i++) {
                     for (let k = 0; k < this.checked[i].length; k++) {
-                        if (this.checked[i][k].length === 0) continue;
-                        else changshu++;
+                        if(this.play_type !== "FT005"){
+                            if (this.checked[i][k].length === 0) continue;
+                            else changshu++;
+                        }else{
+                            for(let j = 0; j < this.checked[i][k].length; j++){
+                                if (this.checked[i][k][j].length === 0) continue;
+                                else {
+                                    changshu++;
+                                    break;
+                                }
+                            }
+                        }
+
                     }
                 }
                 this.changshu = changshu;
@@ -512,6 +666,38 @@
                 data.index = index;
                 data._index = _index;
                 this.banquanchang_data = data;
+            },
+            showPopup(i, _i){
+                this.popup_data = this.index_list[i].match[_i];
+                this.popup_data.index = i;
+                this.popup_data._index = _i;
+
+                const arr = [];
+                for (let k = 0; k < this.checked[i][_i].length; k++) {
+                    arr[k] = [];
+                    for (let j = 0; j < this.checked[i][_i][k].length; j++) {
+                        arr[k][j] = this.checked[i][_i][k][j];
+                    }
+                }
+                this.popup_c = arr;
+                this.showPopupBox = true;
+            },
+            popup_confirm(){
+                let i = this.popup_data.index;
+                let _i = this.popup_data._index;
+
+                this.checked[i][_i] = [];
+
+                for (let k = 0; k < this.popup_c.length; k++) {
+                    this.checked[i][_i][k] = [];
+                    for (let j = 0; j < this.popup_c[k].length; j++) {
+                        this.checked[i][_i][k].push(this.popup_c[k][j]);
+                    }
+                }
+                this.set_changshu();
+                this.popup_c = null;
+                this.popup_data = null;
+
             },
             clear_checked(i, _i){
                 for (let k = 0; this.checked[i][_i].length !== 0; k++) {

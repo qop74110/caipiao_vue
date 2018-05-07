@@ -76,6 +76,7 @@
                             &:checked + div {
                                 background: @theme;
                                 color: white;
+                                height: inherit;
                             }
                         }
                     }
@@ -276,6 +277,7 @@
                             &:checked + div {
                                 background: @theme;
                                 color: white;
+                                height: inherit;
                                 .odds {
                                     color: inherit;
                                 }
@@ -328,6 +330,21 @@
                         height: @r_b / 2;
                         border-right: 1px solid #CCCCCC;
                         border-bottom: 1px solid #CCCCCC;
+                        position: relative;
+                    }
+                    .checkbox {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        width: 100%;
+                        height: 100%;
+                        &:checked + div {
+                            background: @theme;
+                            color: white;
+                            height: inherit;
+                        }
                     }
                 }
 
@@ -532,6 +549,135 @@
 
         }
     }
+
+    .popup {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 10rem;
+        padding-top: 50vh;
+        background: rgba(0, 0, 0, .5);
+        z-index: 200;
+        .popup_content {
+            @h: 14.9rem;
+            height: @h;
+            margin: -@h / 2 .3rem;
+            background: #EAEAEA;
+            border-radius: .2rem;
+            text-align: center;
+        }
+        .pop_title {
+            @p_t-h: 1rem;
+            height: @p_t-h;
+            line-height: @p_t-h;
+            border-bottom: 1px solid #ccc;
+        }
+        .popup_body {
+            @one-h: 1.333rem;
+            @two-h: 5.333rem;
+            @three-h: 2.15rem;
+            @four-h: 2.15rem;
+            @p: .3rem;
+            padding: @p;
+            color: #000;
+            font-size: .3rem;
+
+            .option_box {
+                margin-bottom: @p;
+            }
+            .one {
+                height: @one-h;
+                line-height: @one-h / 2;
+                border-radius: .1rem;
+                overflow: hidden;
+                .btn {
+                    width: 32%;
+                    height: @one-h / 2;
+
+                }
+            }
+            .two {
+                @btn-w: 96% / 7;
+                height: @two-h;
+
+                border-radius: .1rem;
+                overflow: hidden;
+                .btn {
+                    width: @btn-w;
+                    height: @two-h / 5;
+                    line-height: @two-h / 10;
+                    &:nth-child(14), &:nth-child(32) {
+                        width: @btn-w * 2;
+                    }
+                    &:nth-child(19) {
+                        width: @btn-w * 3;
+                    }
+                }
+                .first {
+                    padding-top: calc(~"@{two-h} / 2 - 2em");
+                }
+            }
+            .three {
+                height: @three-h;
+
+                border-radius: .1rem;
+                overflow: hidden;
+                .btn {
+                    height: @three-h / 2;
+                    line-height: @three-h / 4;
+                    width: 96% / 4;
+                }
+                .first {
+                    padding: .2rem 0;
+                    line-height: (@three-h - 2 * .2) / 3;
+                }
+            }
+
+            .first {
+                height: inherit;
+                width: 4%;
+                font-weight: 200;
+                font-size: .3rem;
+            }
+            .first_one {
+                height: @one-h / 2;
+            }
+            .btn {
+                position: relative;
+            }
+            .checked {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                &:checked + div{
+                    background: @theme;
+                    color: white;
+                    height: inherit;
+                    .c3{
+                        color: inherit;
+                    }
+                }
+            }
+        }
+        .popup_foot {
+            @p_f-h: 1.2rem;
+            height: @p_f-h;
+            padding: 0 1.2rem;
+            .btn {
+                @h: .7rem;
+                height: @h;
+                line-height: @h;
+                width: 3.2rem;
+                border-radius: .1rem;
+            }
+        }
+    }
     .greenBg {
         background: #1AA664;
     }
@@ -542,6 +688,9 @@
         background: white;
 
     }
+    .yellowBg {
+        background: #FB9A32;
+    }
     .whiteText {
         color: white;
     }
@@ -550,5 +699,8 @@
     }
     .c9 {
         background: #999;
+    }
+    .c3 {
+        color: #333;
     }
 }
