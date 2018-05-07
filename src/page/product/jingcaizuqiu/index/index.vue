@@ -195,15 +195,34 @@
                                     <span class="vs fl right_top_text">VS</span>
                                     <span class="redText fl right_top_text hideText">{{_item.awayTeam}}</span>
                                 </div>
-                                <div class="right_bottom">
-                                    <div class="fl btn" v-for="(it, _in) in _item.odds">
-                                        <input class="checkbox" type="checkbox" :value="it.name"
-                                               v-model="checked[index][_index]">
-                                        <div>
-                                            {{it.name}} <span class="odds"> {{it.odds}}</span>
-                                        </div>
+                                <div class="right_middle fl">
+                                    <div class="first fl c9">
+                                        0
+                                    </div>
+                                    <div class="fl btn">
+                                        主胜: {{_item.odds[0][0].odds}}
+                                    </div>
+                                    <div class="fl btn">
+                                        平:{{_item.odds[0][1].odds}}
+                                    </div>
+                                    <div class="fl btn">
+                                        客胜:{{_item.odds[0][2].odds}}
+                                    </div>
+
+                                    <div class="first fl" :class=" _item.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
+                                        {{parseInt(_item.odds[1][3].odds)}}
+                                    </div>
+                                    <div class="fl btn">
+                                        主胜: {{_item.odds[1][0].odds}}
+                                    </div>
+                                    <div class="fl btn">
+                                        平:{{_item.odds[1][1].odds}}
+                                    </div>
+                                    <div class="fl btn">
+                                        客胜:{{_item.odds[1][2].odds}}
                                     </div>
                                 </div>
+                                <div class="right_right open fr">展开</div>
                             </div>
                         </div>
                     </div>
@@ -247,6 +266,7 @@
                 </div>
             </div>
         </div>
+
         <!--xhead -->
         <Actionsheet v-model="show_more" @click_item="more_item" :list="more_list"></Actionsheet>
         <Actionsheet v-model="show_title_option" @click_item="title_item" :list="title_option_list"></Actionsheet>
@@ -410,7 +430,7 @@
                     this.title_option_list = obj;
 
                     if (this.getData) this.getData = false;
-                    else this.play_type = d.data[0].value;
+                    else this.play_type = d.data[5].value;
                 }
             },
             getIndexList(){

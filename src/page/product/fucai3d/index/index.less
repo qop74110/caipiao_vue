@@ -1,0 +1,54 @@
+@random-h: 1rem;
+@xhear-h: 1.2rem;
+@xfoot-h: 1.2rem;
+@p: .4rem;
+
+.fucai3d_index {
+    padding: @xhear-h 0 @xfoot-h;
+}
+
+.history {
+    @his_foot-h: .8rem;
+    @his_body_lh: .93rem;
+    .tr {
+        height: @his_body_lh;
+        line-height: @his_body_lh;
+        text-align: center;
+        .td {
+            float: left;
+            width: 25%;
+        }
+    }
+
+    .his_foot {
+        @btn-arrow: .4rem;
+        height: @his_foot-h;
+        line-height: @his_foot-h;
+        padding: 0 @p;
+        font-size: .3rem;
+        color: #333;
+        border-bottom: 1px solid #efefef;
+        .his_arrow {
+            width: @btn-arrow;
+            height: @his_foot-h;
+            background: url(../../img/his_arrow.png) no-repeat right center / @btn-arrow - .1;
+
+            transform: rotate(0deg);
+            transition: transform .25s;
+        }
+        .rotate {
+            transform: rotate(180deg);
+        }
+    }
+
+}
+
+.random {
+    height: @random-h;
+    line-height: @random-h;
+    padding: 0 @p;
+    .fr {
+        font-size: .3rem;
+        color: #666666;
+    }
+}

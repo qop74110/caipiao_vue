@@ -1,0 +1,41 @@
+@xfoot-h: 1.2rem;
+@p: .4rem;
+
+.XFoot {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: @xfoot-h;
+    line-height: @xfoot-h;
+    width: 10rem;
+    margin: 0 auto;
+    padding: 0 @p;
+    border-top: 1px solid #eee;
+    text-align: center;
+    background: white;
+    .clear {
+        margin-top: .15rem;
+        padding-top: .5rem;
+        background: url(../../assets/img/clear.png) no-repeat center top / .4rem auto;
+        font-size: .3rem;
+        line-height: .5rem;
+    }
+    .submit {
+        @h: .8rem;
+        width: @h * 2;
+        height: @h;
+        line-height: @h;
+        margin-top: (@xfoot-h - @h) / 2;
+        border-radius: .1rem;
+        color: white;
+        font-weight: 200;
+    }
+    .text{
+        position: absolute;
+        left: @p;
+        right: @p;
+        top: 0;
+        bottom: 0;
+    }
+}
