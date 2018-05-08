@@ -77,6 +77,43 @@
                     </div>
                 </div>
             </div>
+
+            <!--混合投注-->
+            <div class="type2" v-else-if="play_type === 'FT005'">
+                <div v-for="(item, index) in index_list">
+                    <div class="item"
+                         v-for="(_item, _index) in item.match"
+                         v-if="checked[index][_index][0].length > 0 ||
+                            checked[index][_index][1].length > 0 ||
+                            checked[index][_index][2].length > 0 ||
+                            checked[index][_index][3].length > 0 ||
+                            checked[index][_index][4].length > 0"
+                    >
+                        <div class="left fl" @click="del_c(index, _index)"></div>
+
+                        <div class="right fl">
+                            <div class="right_top">
+                                <span class="fl hideText">{{_item.homeTeam}}</span>
+                                <span class="fl">VS</span>
+                                <span class="fl hideText">{{_item.awayTeam}}</span>
+                            </div>
+                            <div class="right_bottom" @click="show_popup_option(_item, index, _index)">
+                                <span v-if="c[index][_index].length === 0">点击选择</span>
+                                <div v-else class="redBg hideText">
+                                    <template v-for="(_i,kj) in c[index][_index]">
+                                        <span v-for="_k in _i" class="whiteText">{{
+                                            kj === 0 ? ['负', '平', '', '胜'][_k] :
+                                            kj === 1 ? ['让球负', '让球平', '', '让球胜'][_k] :
+                                            _k
+                                            }} </span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="foot">
@@ -104,10 +141,6 @@
                 </label>
             </div>
             <div class="foot_middle" :class="show_footMiddle && 'h22'">
-                <!--<div class="item fl" v-for="i in 1" v-if="play_type === 'FT002'">-->
-                    <!--<input class="radio" type="checkbox" :value="i" v-model="chuan">-->
-                    <!--<div class="text">单关</div>-->
-                <!--</div>-->
                 <div class="item fl" v-for="i in maxChuan" v-if="i !== 1 && i <= changshu">
                     <input class="radio" type="checkbox" :value="i" v-model="chuan">
                     <div class="text">{{i}}串1</div>
@@ -239,6 +272,10 @@
         },
         created(){
             this.getOrder();
+            this.setMaxChuan();
+            this.render_page = true;
+            this.set_c();
+            if (this.bar_value === 0) (this.chuan = [1]);
         },
         methods: {
             getOrder(){
@@ -250,17 +287,26 @@
                     this.bar_value = order.bar_value;
                     this.checked = order.checked;
                 }
-
+            },
+            setMaxChuan(){
                 let maxChan = 8;
                 if (this.play_type === "FT004" || this.play_type === "FT002") maxChan = 4;
                 else if (this.play_type === "FT003") maxChan = 6;
+                else if (this.play_type === "FT005") {
+                    let chuan = 8;
+                    for (let i = 0; chuan !== 4 && i < this.checked.length; i++) {
+                        for (let k = 0; chuan !== 4 && k < this.checked[i].length; k++) {
+                            for (let j = 2; j < this.checked[i][k].length && chuan !== 4; j++) {
+                                if (this.checked[i][k][j].length !== 0) {
+                                    if (j === 2 || j === 4) chuan = 4;
+                                    else if (j === 3 && chuan > 6) chuan = 6;
+                                }
+                            }
+                        }
+                    }
+                    maxChan = chuan;
+                }
                 this.maxChuan = maxChan;
-
-                this.render_page = true;
-
-                this.set_c();
-                if (this.bar_value === 0) (this.chuan = [1]);
-
             },
             set_c(){
                 //        深复制
@@ -268,19 +314,31 @@
                 for (let i = 0; i < this.checked.length; i++) {
                     c.push([]);
                     for (let k = 0; k < this.checked[i].length; k++) {
-                        c[i].push(this.checked[i][k])
+                        c[i].push(this.checked[i][k]);
+                        if (this.play_type === "FT005") {
+                            for (let j = 0; j < this.checked[i][k].length; j++) {
+                                c[i][k][j] = this.checked[i][k][j];
+                            }
+                        }
                     }
                 }
                 this.c = c;
-
             },
             set_changshu(){
                 let changshu = 0;
                 for (let i = 0; i < this.c.length; i++) {
                     for (let k = 0; k < this.c[i].length; k++) {
-                        if (this.c[i][k].length === 0) continue;
-                        else {
-                            changshu++;
+                        if (this.play_type !== "FT005") {
+                            if (this.c[i][k].length === 0) continue;
+                            else changshu++;
+                        } else {
+                            for (let j = 0; j < this.c[i][k].length; j++) {
+                                if (this.c[i][k][j].length === 0) continue;
+                                else {
+                                    changshu++;
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -324,6 +382,7 @@
                                 if (this.c[i][ii].length > 0) {
                                     let odd = [];
                                     for (let iii = 0; iii < this.c[i][ii].length; iii++) {
+                                        if (this.c[i][ii][iii].length === 0 && this.play_type === "FT005") continue;
                                         const v = this.c[i][ii][iii];
                                         if (/FT001|FT006/.test(this.play_type)) {
                                             odd.push(
@@ -335,7 +394,7 @@
                                                     odd.push(this.index_list[i].match[ii].odds[k].odds);
                                                 }
                                             }
-                                        } else {
+                                        } else if (this.play_type === "FT002") {
                                             const val = v.split(":");
                                             let ik;
                                             if (val[0] > val[1] || val[0] === "胜其它") ik = 0;
@@ -346,16 +405,34 @@
                                                     odd.push(this.index_list[i].match[ii].odds[ik][k].odds);
                                                 }
                                             }
-                                        }
+                                        } else if (this.play_type === "FT005") {
+                                            if (this.c[i][ii][iii].length === 0) continue;
+                                            for (let k = 0; k < v.length; k++) {
+                                                if (iii < 2) {
+                                                    odd.push(
+                                                        this.index_list[i].match[ii].odds[iii][v[k] === "3" ? 0 : v[k] === "1" ? 1 : 2].odds
+                                                    )
+                                                } else {
+                                                    for (let j = 0; j < this.index_list[i].match[ii].odds[iii].length; j++) {
+                                                        if (v[k] === this.index_list[i].match[ii].odds[iii][j].name) {
+                                                            odd.push(this.index_list[i].match[ii].odds[iii][j].odds);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } else return;
                                     }
 
-                                    if (odd.length === 1) {
-                                        max_jjArr.push(odd[0]);
-                                    } else {
-                                        this.paixu(odd);
-                                        max_jjArr.push(odd[odd.length - 1]);
+                                    if (odd.length !== 0) {
+                                        if (odd.length === 1) {
+                                            max_jjArr.push(odd[0]);
+                                        } else {
+                                            this.paixu(odd);
+                                            max_jjArr.push(odd[odd.length - 1]);
+                                        }
+                                        min_jjArr.push(odd[0]);
                                     }
-                                    min_jjArr.push(odd[0]);
+
                                 }
                             }
                         }

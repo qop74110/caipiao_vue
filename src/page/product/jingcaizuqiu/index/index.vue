@@ -7,7 +7,7 @@
         <span class="shaixuan" @click="show_screen = true"></span>
         <!--赛事列表-->
         <div class="content">
-            <div class="bar_box">
+            <div class="bar_box" v-if="play_type !== 'FT005'">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
                 <div class="jixuan" v-show="play_type !== 'FT003' && play_type !== 'FT002'" @click="random_touzhu">
                     机选
@@ -202,21 +202,21 @@
                                     <template v-if="_item.odds[0].length > 0">
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                                   :value="3">
+                                                   value="3">
                                             <div>
                                                 主胜: {{_item.odds[0][0].odds}}
                                             </div>
                                         </div>
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                                   :value="1">
+                                                   value="1">
                                             <div>
                                                 平:{{_item.odds[0][1].odds}}
                                             </div>
                                         </div>
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                                   :value="0">
+                                                   value="0">
                                             <div>
                                                 客胜:{{_item.odds[0][2].odds}}
                                             </div>
@@ -232,21 +232,21 @@
                                         </div>
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                                   :value="3">
+                                                   value="3">
                                             <div>
                                                 主胜: {{_item.odds[1][0].odds}}
                                             </div>
                                         </div>
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                                   :value="1">
+                                                   value="1">
                                             <div>
                                                 平:{{_item.odds[1][1].odds}}
                                             </div>
                                         </div>
                                         <div class="fl btn">
                                             <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                                   :value="0">
+                                                   value="0">
                                             <div>
                                                 客胜:{{_item.odds[1][2].odds}}
                                             </div>
@@ -723,7 +723,6 @@
                 }
                 this.popup_c = arr;
                 this.showPopupBox = true;
-                console.log(this.popup_data)
             },
             popup_confirm(){
                 let i = this.popup_data.index;
@@ -804,6 +803,7 @@
             random(max, min){
                 return Math.floor(Math.random() * (max - min + 1) + min);
             },
+
             submit(){
                 if (this.changshu === 0) this.global.toast.call(this, "请下注");
                 else if (this.changshu === 1 && this.bar_value === 1) this.global.toast.call(this, "最少选择两场");
