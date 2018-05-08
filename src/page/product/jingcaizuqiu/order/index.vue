@@ -350,15 +350,21 @@
                     for (let i = 0; i < this.c.length; i++) {
                         for (let _i = 0; _i < this.c[i].length; _i++) {
                             if (this.c[i][_i].length === 0)continue;
-                            else {
-                                zhuArr.push([]);
-                                for (let _i_ = 0; _i_ < this.c[i][_i].length; _i_++) {
-                                    zhuArr[zhuArr.length - 1].push(this.c[i][_i][_i_])
+                            zhuArr.push([]);
+                            for (let _i_ = 0; _i_ < this.c[i][_i].length; _i_++) {
+                                if (this.play_type !== "FT005") zhuArr[zhuArr.length - 1].push(this.c[i][_i][_i_]);
+                                else {
+                                    if (this.c[i][_i][_i_].length === 0) continue;
+                                    for (let k = 0; k < this.c[i][_i][_i_].length; k++) {
+                                        zhuArr[zhuArr.length - 1].push(this.c[i][_i][_i_][k])
+                                    }
                                 }
                             }
+
+                            if(zhuArr[zhuArr.length - 1].length === 0) zhuArr.pop();
                         }
                     }
-
+                    console.log(zhuArr)
                     let zhushu = 0;
 
                     for (let i = 0; i < this.chuan.length; i++) {
