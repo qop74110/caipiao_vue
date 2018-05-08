@@ -199,52 +199,65 @@
                                     <div class="first fl c9">
                                         0
                                     </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                               :value="3">
-                                        <div>
-                                            主胜: {{_item.odds[0][0].odds}}
+                                    <template v-if="_item.odds[0].length > 0">
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                                   :value="3">
+                                            <div>
+                                                主胜: {{_item.odds[0][0].odds}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                               :value="1">
-                                        <div>
-                                            平:{{_item.odds[0][1].odds}}
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                                   :value="1">
+                                            <div>
+                                                平:{{_item.odds[0][1].odds}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
-                                               :value="0">
-                                        <div>
-                                            客胜:{{_item.odds[0][2].odds}}
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][0]"
+                                                   :value="0">
+                                            <div>
+                                                客胜:{{_item.odds[0][2].odds}}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </template>
+                                    <template v-else>
+                                        <div class="fl btn w3">未开售</div>
+                                    </template>
 
-                                    <div class="first fl" :class=" _item.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
-                                        {{parseInt(_item.odds[1][3].odds)}}
-                                    </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                               :value="3">
-                                        <div>
-                                            主胜: {{_item.odds[1][0].odds}}
+                                    <template v-if="_item.odds[1].length > 0">
+                                        <div class="first fl" :class=" _item.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
+                                            {{parseInt(_item.odds[1][3].odds)}}
                                         </div>
-                                    </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                               :value="1">
-                                        <div>
-                                            平:{{_item.odds[1][1].odds}}
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                                   :value="3">
+                                            <div>
+                                                主胜: {{_item.odds[1][0].odds}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="fl btn">
-                                        <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
-                                               :value="0">
-                                        <div>
-                                            客胜:{{_item.odds[1][2].odds}}
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                                   :value="1">
+                                            <div>
+                                                平:{{_item.odds[1][1].odds}}
+                                            </div>
                                         </div>
-                                    </div>
+                                        <div class="fl btn">
+                                            <input class="checkbox" type="checkbox" v-model="checked[index][_index][1]"
+                                                   :value="0">
+                                            <div>
+                                                客胜:{{_item.odds[1][2].odds}}
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <div class="first fl c9">
+                                            0
+                                        </div>
+                                        <div class="fl btn w3">未开售</div>
+                                    </template>
                                 </div>
                                 <div class="right_right open fr" @click="showPopup(index, _index)">展开</div>
                             </div>
@@ -383,94 +396,123 @@
                     <!--胜平负&让球胜平负-->
                     <div class="one whiteBg option_box">
                         <div class="fl first first_one c9 whiteText">0</div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="3"
-                                   v-model="popup_c[0]">
-                            <div>
-                                主胜{{popup_data.odds[0][0].odds}}
+                        <template v-if="popup_data.odds[0].length > 0">
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="3"
+                                       v-model="popup_c[0]">
+                                <div>
+                                    主胜{{popup_data.odds[0][0].odds}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="1"
-                                   v-model="popup_c[0]">
-                            <div>
-                                平{{popup_data.odds[0][1].odds}}
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="1"
+                                       v-model="popup_c[0]">
+                                <div>
+                                    平{{popup_data.odds[0][1].odds}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="0"
-                                   v-model="popup_c[0]">
-                            <div>
-                                客胜{{popup_data.odds[0][2].odds}}
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="0"
+                                       v-model="popup_c[0]">
+                                <div>
+                                    客胜{{popup_data.odds[0][2].odds}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="fl first_one first whiteText"
-                             :class="popup_data.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
-                            {{parseInt(popup_data.odds[1][3].odds)}}
-                        </div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="3"
-                                   v-model="popup_c[1]">
-                            <div>
-                                主胜{{popup_data.odds[1][0].odds}}
+                        </template>
+                        <template v-else>
+                            <div class="fl notOpen">未开售</div>
+                        </template>
+                        <template v-if="popup_data.odds[1].length > 0">
+                            <div class="fl first_one first whiteText"
+                                 :class="popup_data.odds[1][3].odds < 0 ? 'greenBg': 'redBg'">
+                                {{parseInt(popup_data.odds[1][3].odds)}}
                             </div>
-                        </div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="1"
-                                   v-model="popup_c[1]">
-                            <div>
-                                平{{popup_data.odds[1][1].odds}}
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="3"
+                                       v-model="popup_c[1]">
+                                <div>
+                                    主胜{{popup_data.odds[1][0].odds}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="fl btn">
-                            <input class="checked" type="checkbox"
-                                   value="0"
-                                   v-model="popup_c[1]">
-                            <div>
-                                客胜{{popup_data.odds[1][2].odds}}
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="1"
+                                       v-model="popup_c[1]">
+                                <div>
+                                    平{{popup_data.odds[1][1].odds}}
+                                </div>
                             </div>
-                        </div>
+                            <div class="fl btn">
+                                <input class="checked" type="checkbox"
+                                       value="0"
+                                       v-model="popup_c[1]">
+                                <div>
+                                    客胜{{popup_data.odds[1][2].odds}}
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="fl first_one first whiteText c9">
+                                0
+                            </div>
+                            <div class="fl notOpen w3">未开售</div>
+                        </template>
                     </div>
 
                     <!--比分-->
                     <div class="two  whiteBg option_box">
                         <div class="first fl yellowBg whiteText">比分</div>
-                        <div class="fl btn" v-for="(item, index) in popup_data.odds[2]">
-                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[2]">
-                            <div>
-                                {{item.name}}
-                                <div class="c3">{{item.odds}}</div>
+                        <template v-if="popup_data.odds[2].length > 0">
+                            <div class="fl btn" v-for="(item, index) in popup_data.odds[2]">
+                                <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[2]">
+                                <div>
+                                    {{item.name}}
+                                    <div class="c3">{{item.odds}}</div>
+                                </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="fl notOpen ">未开售</div>
+                        </template>
+
                     </div>
 
                     <!--总 进 球-->
                     <div class="three  whiteBg option_box">
                         <div class="first fl blueBg whiteText">总进球</div>
-                        <div class="fl btn" v-for="(item, index) in popup_data.odds[3]">
-                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[3]">
-                            <div>
-                                {{item.name}}
-                                <div class="c3">{{item.odds}}</div>
+                        <template v-if="popup_data.odds[3].length > 0">
+                            <div class="fl btn" v-for="(item, index) in popup_data.odds[3]">
+                                <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[3]">
+                                <div>
+                                    {{item.name}}
+                                    <div class="c3">{{item.odds}}</div>
+                                </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="fl notOpen ">未开售</div>
+                        </template>
                     </div>
 
                     <!--半 全 场-->
                     <div class="three  whiteBg option_box">
                         <div class="first fl purpleBg whiteText">半全场</div>
-                        <div class="fl btn" v-for="(item, index) in popup_data.odds[4]">
-                            <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[4]">
-                            <div>
-                                {{item.name}}
-                                <div class="c3">{{item.odds}}</div>
+                        <template v-if="popup_data.odds[4].length > 0">
+                            <div class="fl btn" v-for="(item, index) in popup_data.odds[4]">
+                                <input type="checkbox" class="checked" :value="item.name" v-model="popup_c[4]">
+                                <div>
+                                    {{item.name}}
+                                    <div class="c3">{{item.odds}}</div>
+                                </div>
                             </div>
-                        </div>
+                        </template>
+                        <template v-else>
+                            <div class="fl notOpen ">未开售</div>
+                        </template>
                     </div>
 
                 </div>
@@ -622,11 +664,11 @@
                 let changshu = 0;
                 for (let i = 0; i < this.checked.length; i++) {
                     for (let k = 0; k < this.checked[i].length; k++) {
-                        if(this.play_type !== "FT005"){
+                        if (this.play_type !== "FT005") {
                             if (this.checked[i][k].length === 0) continue;
                             else changshu++;
-                        }else{
-                            for(let j = 0; j < this.checked[i][k].length; j++){
+                        } else {
+                            for (let j = 0; j < this.checked[i][k].length; j++) {
                                 if (this.checked[i][k][j].length === 0) continue;
                                 else {
                                     changshu++;
@@ -681,6 +723,7 @@
                 }
                 this.popup_c = arr;
                 this.showPopupBox = true;
+                console.log(this.popup_data)
             },
             popup_confirm(){
                 let i = this.popup_data.index;
