@@ -361,10 +361,10 @@
                                 }
                             }
 
-                            if(zhuArr[zhuArr.length - 1].length === 0) zhuArr.pop();
+                            if (zhuArr[zhuArr.length - 1].length === 0) zhuArr.pop();
                         }
                     }
-                    console.log(zhuArr)
+
                     let zhushu = 0;
 
                     for (let i = 0; i < this.chuan.length; i++) {
@@ -546,6 +546,8 @@
                 if (this.chuan.length === 0 && this.bar_value) this.global.toast.call(this, "请选择投注方式");
                 else if (this.money === 0) console.log("money = 0");
                 else {
+                    this.$vux.loading.show();
+
                     const d = {
                         title: [],
                         message: {
@@ -556,41 +558,90 @@
                             multiple: this.bei * 1
                         }
                     };
-                    for (let i = 0; i < this.c.length; i++) {
-                        for (let k = 0; k < this.c[i].length; k++) {
-                            if (this.c[i][k].length !== 0) {
+                    if (this.play_type !== "FT005") {
+                        for (let i = 0; i < this.c.length; i++) {
+                            for (let k = 0; k < this.c[i].length; k++) {
+                                if (this.c[i][k].length !== 0) {
+                                    let type = this.c[i][k].join(",");
+                                    let pt = this.play_type;
+                                    if (pt === "FT002") {
+                                        type = type.replace(/:/g, '');
+                                        type = type.replace(/胜其它/g, '90');
+                                        type = type.replace(/平其它/g, '99');
+                                        type = type.replace(/负其它/g, '09');
+                                    } else if (pt === "FT004") {
+                                        type = type.replace(/负/g, '0');
+                                        type = type.replace(/平/g, '1');
+                                        type = type.replace(/胜/g, '3');
+                                    } else if (pt === "FT003") {
+                                        type = type.replace(/\+/g, '')
+                                    }
 
-                                let type = this.c[i][k].join(",");
-                                let pt = this.play_type;
-                                if (pt === "FT002") {
-                                    type = type.replace(/:/g, '');
-                                    type = type.replace(/胜其它/g, '90');
-                                    type = type.replace(/平其它/g, '99');
-                                    type = type.replace(/负其它/g, '09');
-                                } else if (pt === "FT004") {
-                                    type = type.replace(/负/g, '0');
-                                    type = type.replace(/平/g, '1');
-                                    type = type.replace(/胜/g, '3');
-                                } else if (pt === "FT003") {
-                                    type = type.replace(/\+/g, '')
-                                }
-
-                                d.title.push({
-                                    team: `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`,
+                                    d.title.push({
+                                        team: `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`,
 //                  odd: odd.join(","),
-                                    type,
-                                    match: this.index_list[i].match[k].match_id,
-                                });
+                                        type,
+                                        match: this.index_list[i].match[k].match_id,
+                                    });
+                                }
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i < this.c.length; i++) {
+                            for (let k = 0; k < this.c[i].length; k++) {
+                                const obj = {};
+                                obj.team = `${this.index_list[i].match[k].homeTeam}:${this.index_list[i].match[k].awayTeam}`;
+                                obj.match = this.index_list[i].match[k].match_id;
+                                obj.type = [];
+
+                                for (let j = 0; j < this.c[i][k].length; j++) {
+                                    if (this.c[i][k][j].length === 0) continue;
+
+                                    const type = {
+                                        lotid: '',
+                                        selected: '',
+                                        odd: '',
+                                    };
+                                    const selected = [];
+                                    const odd = [];
+
+                                    for (let h = 0; h < this.c[i][k][j].length; h++) {
+                                        if (this.c[i][k][j][h].length === 0) continue;
+
+                                        if (j === 0) type.lotid = "FT001";
+                                        else if (j === 1) type.lotid = "FT006";
+                                        else type.lotid = "FT00" + j;
+
+                                        selected.push(this.c[i][k][j][h]);
+
+                                        if (j < 2) {
+                                            odd.push(
+                                                this.index_list[i].match[k].odds[j][this.c[i][k][j][h] === "3" ? 0 : this.c[i][k][j][h] === "1" ? 1 : 2].odds
+                                            )
+                                        } else {
+                                            for (let g = 0; g < this.index_list[i].match[k].odds[j].length; g++) {
+                                                if (this.c[i][k][j][h] === this.index_list[i].match[k].odds[j][g].name) {
+                                                    odd.push(this.index_list[i].match[k].odds[j][g].odds);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    if (selected.length !== 0) {
+                                        type.selected = selected.join(",");
+                                        type.odd = odd.join(",");
+                                        obj.type.push(type);
+                                    }
+                                }
+                                if (obj.type.length !== 0) d.title.push(obj);
                             }
                         }
                     }
-                    this.$vux.loading.show();
-                    this.global.ajax.call(this, "jczq_pay", d, this.submit_CB)
+
+                    this.global.ajax.call(this, this.play_type !== "FT005" ? "jczq_pay" : 'FT005_pay', d, this.submit_CB);
                 }
             },
             submit_CB(d){
                 this.$vux.loading.hide();
-//                if (d.error_code === 1004) this.global.chongzhi(this, d.data.money, d.data.orderid);
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {

@@ -387,7 +387,7 @@
         </div>
 
         <!--弹窗-->
-        <div class="popup" v-if="showPopupBox">
+        <div class="_popup" v-if="showPopupBox">
             <div class="popup_content">
                 <div class="pop_title">
                     {{`${popup_data.homeTeam} VS ${popup_data.awayTeam}`}}
