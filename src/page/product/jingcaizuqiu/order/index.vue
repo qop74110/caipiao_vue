@@ -600,10 +600,8 @@
                                     const type = {
                                         lotid: '',
                                         selected: '',
-                                        odd: '',
                                     };
                                     const selected = [];
-                                    const odd = [];
 
                                     for (let h = 0; h < this.c[i][k][j].length; h++) {
                                         if (this.c[i][k][j][h].length === 0) continue;
@@ -614,21 +612,9 @@
 
                                         selected.push(this.c[i][k][j][h]);
 
-                                        if (j < 2) {
-                                            odd.push(
-                                                this.index_list[i].match[k].odds[j][this.c[i][k][j][h] === "3" ? 0 : this.c[i][k][j][h] === "1" ? 1 : 2].odds
-                                            )
-                                        } else {
-                                            for (let g = 0; g < this.index_list[i].match[k].odds[j].length; g++) {
-                                                if (this.c[i][k][j][h] === this.index_list[i].match[k].odds[j][g].name) {
-                                                    odd.push(this.index_list[i].match[k].odds[j][g].odds);
-                                                }
-                                            }
-                                        }
                                     }
                                     if (selected.length !== 0) {
                                         type.selected = selected.join(",");
-                                        type.odd = odd.join(",");
                                         obj.type.push(type);
                                     }
                                 }
