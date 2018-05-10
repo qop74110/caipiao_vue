@@ -7,7 +7,7 @@
                 <i class="add icon"></i>
                 自选号码
             </li>
-            <li class="btn fl btn_active">
+            <li class="btn fl btn_active" @click="random">
                 <i class="add icon"></i>
                 机选一注
             </li>
@@ -115,6 +115,35 @@
                     zhushu += this.order[i].notes;
                 }
                 this.zhushu = zhushu;
+            },
+            random(){
+                const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                arr.sort(() => Math.random() > .5 ? -1 : 1);
+                const type = this.order && this.order[0] && this.order[0].type ? this.order[0].type : 1;
+                const obj = {
+                    "zhi": "",
+                    "three_dan": "",
+                    "three_fu": "",
+                    "six": "",
+                    "notes": 1,
+                    "money": 2,
+                    "periods": 1,
+                    "multiple": 1,
+                    type
+                };
+
+                if (type === 1) {
+                    obj.zhi = arr.splice(0, 3);
+                } else {
+                    const k = {'3': 'three_fu', "4": "six"}[type]
+                    this.val4 = [];
+                    for (let i = 0; i < type - 1; i++) {
+                        obj[k] = [];
+                        obj[k].push(arr[i])
+                    }
+                }
+
+                this.order.unshift(obj);
             },
             submit(){
                 if (this.zhushu > 0) {

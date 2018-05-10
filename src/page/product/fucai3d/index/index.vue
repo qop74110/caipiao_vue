@@ -254,7 +254,7 @@
                     this.val2.push(arr[1]);
                     this.val3.push(arr[2]);
 
-                } else if (this.play_type !== 1) {
+                } else {
                     this.val4 = [];
                     for (let i = 0; i < this.play_type - 1; i++) {
                         this.val4.push(arr[i])
