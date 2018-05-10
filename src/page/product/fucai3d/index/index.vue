@@ -270,20 +270,18 @@
             submit(){
                 if (this.zhushu === 0) this.global.toast.call(this, "请投注");
                 else {
-
-
                     let money = this.money, notes = this.zhushu, periods = 1, multiple = 1, type = this.play_type;
                     const zhi = [];
                     zhi.push(this.val1.join(''));
                     zhi.push(this.val2.join(''));
                     zhi.push(this.val3.join(''));
                     const d = {
-                        "total": [
+                        total: [
                             {
-                                "zhi": zhi.join(","),
+                                "zhi": type === 1 ? zhi : '',
                                 "three_dan": '',
-                                "three_fu": type === 2 ? '' : this.val4.join(","),
-                                "six": type === 1 ? '' : this.val4.join(","),
+                                "three_fu": type === 3 ? this.val4 : '',
+                                "six": type === 4 ? this.val4 : '',
                                 notes,
                                 money,
                                 periods,
@@ -295,7 +293,7 @@
                         money,
                         periods,
                         multiple,
-                        phase: this.phase
+                        phase: this.phase.phase
                     };
 
                     sessionStorage.setItem("fc3d_order", JSON.stringify(d));

@@ -1,0 +1,114 @@
+@xhear-h: 1.2rem;
+@btn_list-h: 1.6rem;
+@foot-h: 2.4rem;
+
+.fucai3d_order {
+    padding: @xhear-h 0 0 0;
+    background: #EFEFEF;
+    min-height: 100vh;
+}
+
+.btn_list {
+    height: @btn_list-h;
+    padding: @btn_list-h / 4;
+    text-align: center;
+    .btn {
+        width: (10rem - @btn_list-h) / 3;
+        height: @btn_list-h / 2;
+        line-height: @btn_list-h / 2;
+        background: white;
+        color: #333;
+        font-size: .35rem;
+        border: 1px solid #ccc;
+        border-radius: .1rem;
+        &:nth-child(2) {
+            margin: 0 @btn_list-h / 4;
+        }
+    }
+
+    .icon {
+        @icon-w: .3rem;
+        display: inline-block;
+        width: @icon-w;
+        height: @icon-w;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: auto @icon-w;
+        vertical-align: middle;
+        margin-top: -3px;
+
+    }
+    .add {
+        background-image: url(../../shuangseqiu/order/img/add.png);
+    }
+    .rm {
+        background-image: url(../../shuangseqiu/order/img/clear.png);
+    }
+}
+
+.order_list {
+    @order-h: 1.42rem;
+    margin: 0 .4rem;
+    padding: .2rem 0;
+    max-height: calc(~"98vh - @{xhear-h} - @{foot-h} - @{btn_list-h}");
+    background: white;
+    border-radius: .2rem;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .order {
+        height: @order-h;
+        border-top: 1px dashed #ccc;
+        .l {
+            width: 10%;
+            height: 100%;
+            background: url(../../shuangseqiu/order/img/del.png) no-repeat center center / 60%;
+        }
+        .r {
+            width: 85%;
+            height: 100%;
+            line-height: @order-h / 2;
+            padding-right: .4rem;
+            background: url(../../../../assets/img/arrow.png) no-repeat right center / .2rem;
+        }
+    }
+}
+
+.foot {
+    @foot_top-h: 1.12rem;
+    @foot_bottom-h: @foot-h - @foot_top-h;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: @foot-h;
+    background: white;
+    text-align: center;
+    .foot_top {
+        height: @foot_top-h;
+        border-top: 1px solid #DCDBDB;
+        border-bottom: 1px solid #DCDBDB;
+        padding: (@foot_top-h - .6rem) / 2;
+        .text {
+            display: inline-block;
+            line-height: 0.6rem;
+            color: #000;
+            vertical-align: top;
+        }
+    }
+    .foot_bottom {
+        line-height: @foot_bottom-h;
+    }
+    .submit {
+        @h: .8rem;
+        position: absolute;
+        bottom: ( @foot_bottom-h - @h) / 2;
+        right: ( @foot_bottom-h - @h) / 2;
+        height: @h;
+        line-height: @h;
+        width: 2 * @h;
+        color: white;
+        border-radius: .1rem;
+    }
+}
