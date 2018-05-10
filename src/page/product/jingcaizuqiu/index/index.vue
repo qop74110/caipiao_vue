@@ -688,7 +688,7 @@
                 this.show_title_option = val;
             },
             more_item(val){
-                if (val === "2") this.$router.push("/exposition?id=" + this.global.product_type['jingcaizuqiu']);
+                if (val === "2") this.$router.push("/exposition?id=jczq");
                 else if (val === "1") this.$router.push('/prize_jczq');
             },
             title_item(val){

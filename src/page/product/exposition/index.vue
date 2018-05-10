@@ -9,11 +9,10 @@
     name: 'exposition',
     data () {
       return {
-        id: this.global.product_type[this.$route.query.id || "1"],
+        id: this.$route.query.id || "1",
       }
     },
     created(){
-
 
     },
     methods: {}
