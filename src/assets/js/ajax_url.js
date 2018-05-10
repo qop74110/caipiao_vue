@@ -21,13 +21,15 @@ const ajax_url = {
         jczq_screenList: "v1/football/league",          //  筛选列表
         jczq_screen: "v1/football/screen",              //  筛选
 
+        fc3d_phase: "v1/3d/purchase",                   //  福彩3D 顶部购买的奖期以及截止时间
+
         kj_list: "v1/open/open",                        //  开奖_首页_列表
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
         my_balance: "v1/user/balance",                  //  我的—余额
 
         pay: 'v1/recharge/browser',                     //  充值
-        pay1004: 'v1/pay/browser',                     //  充值
+        pay1004: 'v1/pay/browser',                      //  充值
 
         tx_bindState: 'v1/extract/binding',             //  银行卡&身份证&手机号 绑定状态
         tx_checkCode: 'v1/sms/checkCode',               //  银行卡&身份证&手机号 验证手机验证码

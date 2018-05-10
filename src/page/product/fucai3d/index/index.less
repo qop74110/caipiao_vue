@@ -1,10 +1,18 @@
+@import "../../../../assets/css/theme";
+
 @random-h: 1rem;
 @xhear-h: 1.2rem;
 @xfoot-h: 1.2rem;
+@number-h: 3rem;
+@yingli-h: 1rem;
 @p: .4rem;
 
 .fucai3d_index {
-    padding: @xhear-h 0 @xfoot-h;
+    padding: @xhear-h 0 @xfoot-h + @yingli-h;
+
+    .Actionsheet {
+        z-index: 20;
+    }
 }
 
 .history {
@@ -51,4 +59,68 @@
         font-size: .3rem;
         color: #666666;
     }
+
+}
+
+.number {
+    @boll-w: 1rem;
+    @boll-r-m: .48rem;
+    @l-h: .506rem;
+    height: @number-h;
+    padding-right: .36rem;
+    padding-left: .4rem;
+    text-align: center;
+    .l {
+        height: @l-h;
+        line-height: @l-h;
+        padding-left: .2rem;
+        margin-top: (@number-h - 2 * @boll-w) / 4 + (@boll-w - @l-h ) / 2;
+        color: white;
+        font-size: .3rem;
+        border-radius: .1rem 0 0 .1rem;
+        .arrow {
+            margin-left: .1rem;
+            border: @l-h / 2 solid white;
+            border-left-color: transparent;
+        }
+    }
+    .r {
+        width: 5 * @boll-w + 5 * @boll-r-m;
+    }
+    .boll {
+        width: @boll-w;
+        height: @boll-w;
+        line-height: @boll-w;
+        margin-right: @boll-r-m;
+        margin-top: (@number-h - 2 * @boll-w) / 4;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        position: relative;
+        overflow: hidden;
+        .checkbox {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            &:checked + div {
+                height: inherit;
+                width: inherit;
+                background: @theme;
+                color: white;
+            }
+        }
+    }
+}
+
+.yingli {
+    position: absolute;
+    bottom: @xfoot-h;
+    left: 0;
+    right: 0;
+    color: #999;
+    height: @yingli-h;
+    line-height: @yingli-h;
+    padding: 0 @p;
 }
