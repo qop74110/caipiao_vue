@@ -12,7 +12,7 @@ const ajax_url = {
         ssq_random: "v1/ssq/multi",                     //  双色球-多期机选
         ssq_miss: "v1/ssq/miss",                        //  双色球-显示遗漏
         ssq_order: "v1/ssq/order",                      //  双色球-下单
-        ssq_historyNo: "v1/ssq/drop",                   //  双色球-下单
+        ssq_historyNo: "v1/ssq/drop",                   //  双色球-往期中奖
 
         jczq_play_type: "v1/football/muchPlayreles",    //  竞猜足球-玩法类型
         jczq_index_list: "v1/football/list",            //  竞猜足球-赛事列表
@@ -22,6 +22,9 @@ const ajax_url = {
         jczq_screen: "v1/football/screen",              //  筛选
 
         fc3d_phase: "v1/3d/purchase",                   //  福彩3D 顶部购买的奖期以及截止时间
+        fc3d_miss: "v1/3d/miss",                        //  福彩3D-显示遗漏
+        fc3d_historyNo: "v1/3d/drop",                   //  福彩3D-往期中奖
+        fc3d_order: "v1/3d/order",                      //  福彩3D-下单
 
         kj_list: "v1/open/open",                        //  开奖_首页_列表
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透

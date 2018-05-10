@@ -9,7 +9,11 @@
 
 .fucai3d_index {
     padding: @xhear-h 0 @xfoot-h + @yingli-h;
-
+    height: 100vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none
+    }
     .Actionsheet {
         z-index: 20;
     }
@@ -24,7 +28,7 @@
         text-align: center;
         .td {
             float: left;
-            width: 25%;
+            width: 100% / 3;
         }
     }
 
@@ -66,10 +70,11 @@
     @boll-w: 1rem;
     @boll-r-m: .48rem;
     @l-h: .506rem;
-    height: @number-h;
     padding-right: .36rem;
     padding-left: .4rem;
+    padding-bottom: .5rem;
     text-align: center;
+    overflow: hidden;
     .l {
         height: @l-h;
         line-height: @l-h;
@@ -111,6 +116,19 @@
                 color: white;
             }
         }
+    }
+
+    .miss {
+        display: none;
+        padding-right: @boll-r-m;
+        color: #999;
+        font-size: .3rem;
+    }
+}
+
+.showMiss {
+    .miss {
+        display: block;
     }
 }
 
