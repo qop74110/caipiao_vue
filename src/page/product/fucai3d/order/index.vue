@@ -3,7 +3,7 @@
         <XHead :show_mord="false" :show_title_option="false">3D</XHead>
 
         <ul class="btn_list">
-            <li class="btn fl btn_active">
+            <li class="btn fl btn_active" @click="zixuan">
                 <i class="add icon"></i>
                 自选号码
             </li>
@@ -76,22 +76,26 @@
                 play_type: null,
                 phase: null,
 
+                z_data: null,
             }
         },
         created(){
             this.getOrder();
+            sessionStorage.removeItem("fc3d_zixuan");
         },
         methods: {
             getOrder(){
                 let order = sessionStorage.getItem('fc3d_order') || "{}";
                 if (order !== "{}") {
                     let o = JSON.parse(order);
-                    this.zhushu = o.notes || 0;
-                    this.money = o.money || 0;
+//                    this.zhushu = o.notes || 0;
+//                    this.money = o.money || 0;
                     this.bei = o.multiple || 1;
                     this.qi = o.periods || 1;
                     this.order = o.total || [];
                     this.phase = o.phase;
+
+                    this.z_data = o.total;
                 }
             },
             setVal(d){
@@ -115,6 +119,11 @@
                     zhushu += this.order[i].notes;
                 }
                 this.zhushu = zhushu;
+            },
+            zixuan(){
+                sessionStorage.setItem("fc3d_order", JSON.stringify(this.set_request_data()));
+                sessionStorage.setItem("fc3d_zixuan", 1);
+                this.$router.back();
             },
             random(){
                 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -145,32 +154,35 @@
 
                 this.order.unshift(obj);
             },
+            set_request_data(){
+                let notes = this.zhushu, periods = this.qi, multiple = this.bei;
+                const d = {
+                    total: [],
+                    notes,
+                    money: 2 * notes * periods * multiple,
+                    periods,
+                    multiple,
+                    phase: this.phase
+                };
+
+                for (let i = 0; i < this.order.length; i++) {
+                    let arr = JSON.parse(JSON.stringify(this.order[i]));
+                    arr.money = arr.money * periods * multiple;
+                    if (arr.type === 1) arr.zhi = arr.zhi.join(",");
+                    else if (arr.type === 3) arr.three_fu = arr.three_fu.join(",");
+                    else arr.six = arr.six.join(",");
+
+                    delete arr.periods;
+                    delete arr.multiple;
+                    d.total.push(arr);
+                }
+                return d;
+            },
             submit(){
                 if (this.zhushu > 0) {
-                    let notes = this.zhushu, periods = this.qi, multiple = this.bei;
-                    const d = {
-                        total: [],
-                        notes,
-                        money: 2 * notes * periods * multiple,
-                        periods,
-                        multiple,
-                        phase: this.phase
-                    };
-
-                    for (let i = 0; i < this.order.length; i++) {
-                        let arr = JSON.parse(JSON.stringify(this.order[i]));
-                        arr.money = arr.money * periods * multiple;
-                        if (arr.type === 1) arr.zhi = arr.zhi.join(",");
-                        else if (arr.type === 3) arr.three_fu = arr.three_fu.join(",");
-                        else arr.six = arr.six.join(",");
-
-                        delete arr.periods;
-                        delete arr.multiple;
-                        d.total.push(arr);
-                    }
 
                     this.$vux.loading.show();
-                    this.global.ajax.call(this, 'fc3d_order', d, this.submit_CB);
+                    this.global.ajax.call(this, 'fc3d_order', this.set_request_data(), this.submit_CB);
                 }
             },
             submit_CB(d){
@@ -185,8 +197,10 @@
         watch: {
             order(val){
                 this.setZhuShu();
-                console.log(val)
             },
+            z_data(val){
+                console.log(val)
+            }
         },
     }
 </script>

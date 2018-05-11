@@ -275,28 +275,45 @@
                     zhi.push(this.val1.join(''));
                     zhi.push(this.val2.join(''));
                     zhi.push(this.val3.join(''));
-                    const d = {
-                        total: [
-                            {
-                                "zhi": type === 1 ? zhi : '',
-                                "three_dan": '',
-                                "three_fu": type === 3 ? this.val4 : '',
-                                "six": type === 4 ? this.val4 : '',
-                                notes,
-                                money,
-                                periods,
-                                multiple,
-                                type
-                            }
-                        ],
+
+                    const total = {
+                        "zhi": type === 1 ? zhi : '',
+                        "three_dan": '',
+                        "three_fu": type === 3 ? this.val4 : '',
+                        "six": type === 4 ? this.val4 : '',
                         notes,
                         money,
                         periods,
                         multiple,
-                        phase: this.phase.phase
+                        type
                     };
+                    let data = null;
 
-                    sessionStorage.setItem("fc3d_order", JSON.stringify(d));
+                    if (sessionStorage.getItem('fc3d_zixuan')) {                //  自选一注
+                        data = JSON.parse(sessionStorage.getItem('fc3d_order'));
+                        data.total.unshift(total);
+                    } else if (sessionStorage.getItem("fc3d_modify")) {         //  修改某注
+                        data = JSON.parse(sessionStorage.getItem('fc3d_order'));
+                        const modify = sessionStorage.getItem('fc3d_modify');
+                        data.total[modify] = total;
+                    } else {
+                        data = {
+                            total: [
+                                total
+                            ],
+                            periods,
+                            multiple,
+                        };
+                    }
+
+                    for (let i = 0; i < data.total.length; i++) {
+                        if (typeof ( data.total[i].zhi ) !== "object" && data.total[i].zhi !== "") data.total[i].zhi = data.total[i].zhi.split(",");
+                        else if (typeof ( data.total[i].three_fu ) !== "object" && data.total[i].three_fu !== "") data.total[i].zhi = data.total[i].zhi.split(",");
+                        else if (typeof ( data.total[i].six ) !== "object" && data.total[i].six !== "") data.total[i].zhi = data.total[i].zhi.split(",");
+                    }
+                    data.phase = this.phase.phase;
+
+                    sessionStorage.setItem("fc3d_order", JSON.stringify(data));
                     this.$router.push('/fucai3d/order');
                 }
             }
