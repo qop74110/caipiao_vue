@@ -83,11 +83,11 @@
                 <div v-for="(item, index) in index_list">
                     <div class="item"
                          v-for="(_item, _index) in item.match"
-                         v-if="checked[index][_index][0].length > 0 ||
-                            checked[index][_index][1].length > 0 ||
-                            checked[index][_index][2].length > 0 ||
-                            checked[index][_index][3].length > 0 ||
-                            checked[index][_index][4].length > 0"
+                         v-if="c[index][_index][0].length > 0 ||
+                            c[index][_index][1].length > 0 ||
+                            c[index][_index][2].length > 0 ||
+                            c[index][_index][3].length > 0 ||
+                            c[index][_index][4].length > 0"
                     >
                         <div class="left fl" @click="del_c(index, _index)"></div>
 
@@ -608,13 +608,15 @@
                 if (this.bei === "") this.bei = "1";
             },
             del_c(i, _i){
-                for (let k = 0; i < this.checked[i][_i].length; k++) {
-                    this.checked[i][_i].pop();
+
+                if (this.play_type !== "FT005") {
+                    this.$set(this.checked[i], _i, []);
+                    this.$set(this.c[i], _i, []);
+                } else {
+                    this.$set(this.checked[i], _i, [[],[],[],[],[]]);
+                    this.$set(this.c[i], _i, [[],[],[],[],[]]);
                 }
 
-                for (let k = 0; i < this.c[i][_i].length; k++) {
-                    this.c[i][_i].pop();
-                }
 
                 const data = {
                     index_list: this.index_list,
@@ -779,6 +781,8 @@
                 this.set_changshu();
                 this.set_zhushu();
                 this.set_jjArr();
+
+                console.log(this.checked)
             },
             chuan(){
                 if (this.chuan.length > 0 && this.changshu > this.bar_value) {

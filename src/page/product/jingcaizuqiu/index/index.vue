@@ -610,7 +610,7 @@
                     this.title_option_list = obj;
 
                     if (this.getData) this.getData = false;
-                    else this.play_type = d.data[5].value;
+                    else this.play_type = d.data[0].value;
                 }
             },
             getIndexList(){
