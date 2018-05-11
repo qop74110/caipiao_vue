@@ -135,6 +135,15 @@ export default new Router({
                 require(["page/prize/jingcaizuqiu"], resolve)
             }
         }, {
+            path: "/prize_fc3d",
+            name: "prize_fc3d",
+            meta: {
+                title: '福彩3D'
+            },
+            component: (resolve) => {
+                require(["page/prize/fucai3d"], resolve)
+            }
+        }, {
             path: "/login",
             name: "login",
             meta: {

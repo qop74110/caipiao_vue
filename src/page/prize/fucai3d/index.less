@@ -1,0 +1,36 @@
+@import "../../../assets/css/theme";
+
+.item {
+    @item_h: 2.4rem;
+    @p: .3rem;
+    height: @item_h;
+    padding: .4rem .3rem;
+    border-bottom: 1px solid #efefef;
+    background: url(../../../assets/img/arrow.png) no-repeat 9.5rem center / .2rem;
+    &:last-child {
+        border: 0;
+    }
+    .time {
+        @time_h: ( @item_h - 2 * @p ) / 3;
+        height: @time_h;
+        line-height: @time_h;
+        color: #999999;
+        font-size: .3rem;
+    }
+    .balls {
+        @balls_h: ( @item_h - 2 * @p ) / 3 * 2;
+        height: @balls_h;
+        text-align: center;
+        //line-height: @ball_h;
+        .ball {
+            @ball_h: .88rem;
+            height: @ball_h;
+            line-height: @ball_h;
+            width: @ball_h;
+            margin: (@balls_h - @ball_h) / 2 .3rem 0 0;
+            border-radius: 50%;
+            color: white;
+            background: #E74C3C;
+        }
+    }
+}
