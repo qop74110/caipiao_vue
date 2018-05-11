@@ -20,7 +20,7 @@
         <ul class="order_list">
             <li class="order" v-for="(item, index) in order">
                 <div class="l fl" @click="del(index)"></div>
-                <div class="r fl">
+                <div class="r fl" @click="modify(index)">
                     <div class="num hideText">
                         <template v-if="item.type === 1">
                             <span class="redText">{{item.zhi.join(' | ')}}</span>
@@ -82,6 +82,7 @@
         created(){
             this.getOrder();
             sessionStorage.removeItem("fc3d_zixuan");
+            sessionStorage.removeItem("fc3d_modify");
         },
         methods: {
             getOrder(){
@@ -119,6 +120,11 @@
                     zhushu += this.order[i].notes;
                 }
                 this.zhushu = zhushu;
+            },
+            modify(i){
+                sessionStorage.setItem("fc3d_order", JSON.stringify(this.set_request_data()));
+                sessionStorage.setItem("fc3d_modify", i);
+                this.$router.back();
             },
             zixuan(){
                 sessionStorage.setItem("fc3d_order", JSON.stringify(this.set_request_data()));
@@ -168,9 +174,9 @@
                 for (let i = 0; i < this.order.length; i++) {
                     let arr = JSON.parse(JSON.stringify(this.order[i]));
                     arr.money = arr.money * periods * multiple;
-                    if (arr.type === 1) arr.zhi = arr.zhi.join(",");
-                    else if (arr.type === 3) arr.three_fu = arr.three_fu.join(",");
-                    else arr.six = arr.six.join(",");
+                    if (arr.type === 1) arr.zhi = arr.zhi;
+                    else if (arr.type === 3) arr.three_fu = arr.three_fu;
+                    else arr.six = arr.six;
 
                     delete arr.periods;
                     delete arr.multiple;
@@ -180,9 +186,16 @@
             },
             submit(){
                 if (this.zhushu > 0) {
+                    const data = this.set_request_data();
+
+                    for (let i = 0; i < data.total.length; i++) {
+                        if (typeof ( data.total[i].zhi ) === "object" ) data.total[i].zhi = data.total[i].zhi.join(",");
+                        else if (typeof ( data.total[i].three_fu ) === "object" ) data.total[i].three_fu = data.total[i].three_fu.join(",");
+                        else if (typeof ( data.total[i].six ) === "object" ) data.total[i].six = data.total[i].six.join(",");
+                    }
 
                     this.$vux.loading.show();
-                    this.global.ajax.call(this, 'fc3d_order', this.set_request_data(), this.submit_CB);
+                    this.global.ajax.call(this, 'fc3d_order',data, this.submit_CB);
                 }
             },
             submit_CB(d){

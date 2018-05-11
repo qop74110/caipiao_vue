@@ -157,7 +157,7 @@
                 show_his: false,
                 his_list: [],
 
-                play_type: 1,
+                play_type: null,
 
                 val1: [],
                 val2: [],
@@ -175,12 +175,34 @@
         },
         created(){
             this.$vux.loading.show();
+            this.modify();
             this.xhead_title = this.title_option_list[0];
             this.global.ajax.call(this, "fc3d_phase", {}, this.get_phase);
-            this.global.ajax.call(this, "fc3d_miss", {type: 1}, this.get_miss);
+
             this.global.ajax.call(this, "fc3d_historyNo", {}, this.get_historyNo);
+
         },
         methods: {
+            modify(){
+                const modify = sessionStorage.getItem('fc3d_modify');
+                if (modify) {
+                    const data = JSON.parse(sessionStorage.getItem('fc3d_order')).total[modify];
+                    this.play_type = data.type;
+                    if (data.type === 1) {
+                        const val = data.zhi.join(",").split(",");
+                        for (let i = 0; i < 3; i++) {
+                            for (let k = 0; k < val[i].length; k++) {
+                                this['val' + (i + 1)].push(val[i][k]);
+                            }
+                        }
+                    } else {
+                        for (let i = 0; i < data[{"3": "three_fu", "4": 'six'}[data.type]].length; i++) {
+                            this.val4.push(data[{"3": "three_fu", "4": 'six'}[data.type]][i])
+                        }
+                    }
+                } else this.play_type = 1;
+
+            },
             get_phase(d){
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data && d.data[0].phase) {
@@ -306,11 +328,6 @@
                         };
                     }
 
-                    for (let i = 0; i < data.total.length; i++) {
-                        if (typeof ( data.total[i].zhi ) !== "object" && data.total[i].zhi !== "") data.total[i].zhi = data.total[i].zhi.split(",");
-                        else if (typeof ( data.total[i].three_fu ) !== "object" && data.total[i].three_fu !== "") data.total[i].zhi = data.total[i].zhi.split(",");
-                        else if (typeof ( data.total[i].six ) !== "object" && data.total[i].six !== "") data.total[i].zhi = data.total[i].zhi.split(",");
-                    }
                     data.phase = this.phase.phase;
 
                     sessionStorage.setItem("fc3d_order", JSON.stringify(data));
