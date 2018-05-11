@@ -32,7 +32,7 @@
                             <span class="redText">{{item.six.join(' ')}}</span>
                         </template>
                     </div>
-                    <div>{{item.type === 1 ? '单式': item.type === 3 ? '组三复式': '组六复式'}}
+                    <div>{{item.type === 1 ? '单式': item.type === 3 ? '组三复式': item.notes > 1 ? '组六复式':'组六单式'}}
                         {{`${item.notes}注${item.money}元`}}
                     </div>
                 </div>
@@ -152,8 +152,9 @@
                 } else {
                     const k = {'3': 'three_fu', "4": "six"}[type]
                     this.val4 = [];
+
+                    obj[k] = [];
                     for (let i = 0; i < type - 1; i++) {
-                        obj[k] = [];
                         obj[k].push(arr[i])
                     }
                 }
@@ -189,13 +190,13 @@
                     const data = this.set_request_data();
 
                     for (let i = 0; i < data.total.length; i++) {
-                        if (typeof ( data.total[i].zhi ) === "object" ) data.total[i].zhi = data.total[i].zhi.join(",");
-                        else if (typeof ( data.total[i].three_fu ) === "object" ) data.total[i].three_fu = data.total[i].three_fu.join(",");
-                        else if (typeof ( data.total[i].six ) === "object" ) data.total[i].six = data.total[i].six.join(",");
+                        if (typeof ( data.total[i].zhi ) === "object") data.total[i].zhi = data.total[i].zhi.join(",");
+                        else if (typeof ( data.total[i].three_fu ) === "object") data.total[i].three_fu = data.total[i].three_fu.join(",");
+                        else if (typeof ( data.total[i].six ) === "object") data.total[i].six = data.total[i].six.join(",");
                     }
 
                     this.$vux.loading.show();
-                    this.global.ajax.call(this, 'fc3d_order',data, this.submit_CB);
+                    this.global.ajax.call(this, 'fc3d_order', data, this.submit_CB);
                 }
             },
             submit_CB(d){
