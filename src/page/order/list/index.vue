@@ -2,18 +2,19 @@
     <div class="order_list">
         <ul class="lists" v-if="list.length > 0">
             <li class="item" v-for="(item, index) in list" :key="item.id"
-                @click="$router.push('/order/detail?id=' + item.order_id)">
+                @click="openLink(index)">
                 <div class="left fl">
                     <p class="m">{{item.created_at.split("-")[0]}}月</p>
                     <p class="d">{{item.created_at.split("-")[1]}}</p>
                 </div>
                 <div class="middle fl">
                     <p class="p_name">{{item.name}}</p>
-                    <p class="info">{{item.pay_money}}元 {{item.is_chasing === '0' ? '普通': '追号'}}订单</p>
+                    <p class="info">{{item.pay_money_total}}元 {{item.chasing_id === '' ? '普通': '追号'}}订单</p>
                 </div>
                 <div class="right fr" :class="'stete' + item.openmatch">
                     <!--0=等待开奖 2=未中奖 3=中奖-->
-                    {{item.openmatch === '0'? '等待开奖':item.openmatch === '2'? '未中奖':'中奖' }}
+
+                    {{item.s }}
                 </div>
             </li>
         </ul>
@@ -41,9 +42,32 @@
                 this.$vux.loading.hide();
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message)
                 else if (d.data.length > 0) {
+                    this.setOrderState(d.data);
                     this.list = d.data;
                 }
-            }
+            },
+            setOrderState(d){
+                for (let i = 0; i < d.length; i++) {
+                    let s = "";
+                    if (d[i].status === 4) {
+                        if (d[i].openmatch === 0) s = "等待开奖";
+                        else if (d[i].openmatch === 0) s = "等待开奖";
+                        else if (d[i].openmatch === 2) s = "未中奖";
+                        else if (d[i].openmatch === 3) s = "中奖 ";
+                    } else if (d[i].status === 2) s = "委托中";
+                    else s = "委托失败";
+
+                    d[i].s = s;
+                }
+            },
+            openLink(i){
+                const d = this.list[i];
+                let url = "/order/";
+                if (d.chasing_id === "") url += 'detail?id=' + d.order_id;
+                else url += 'detail_tow?id=' + d.chasing_id;
+
+                this.$router.push(url)
+            },
         }
     }
 </script>

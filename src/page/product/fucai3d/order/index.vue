@@ -76,7 +76,6 @@
                 play_type: null,
                 phase: null,
 
-                z_data: null,
             }
         },
         created(){
@@ -89,14 +88,11 @@
                 let order = sessionStorage.getItem('fc3d_order') || "{}";
                 if (order !== "{}") {
                     let o = JSON.parse(order);
-//                    this.zhushu = o.notes || 0;
-//                    this.money = o.money || 0;
                     this.bei = o.multiple || 1;
                     this.qi = o.periods || 1;
                     this.order = o.total || [];
                     this.phase = o.phase;
 
-                    this.z_data = o.total;
                 }
             },
             setVal(d){
@@ -212,9 +208,6 @@
             order(val){
                 this.setZhuShu();
             },
-            z_data(val){
-                console.log(val)
-            }
         },
     }
 </script>

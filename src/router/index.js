@@ -105,6 +105,15 @@ export default new Router({
                     component: (resolve) => {
                         require(["page/order/detail"], resolve)
                     }
+                }, {
+                    path: "detail_tow",
+                    name: "order_detail_tow",
+                    meta: {
+                        title: '订单详情'
+                    },
+                    component: (resolve) => {
+                        require(["page/order/detail_tow"], resolve)
+                    }
                 }
             ]
         }, {
