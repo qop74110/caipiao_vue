@@ -11,11 +11,7 @@
                     <p class="p_name">{{item.name}}</p>
                     <p class="info">{{item.pay_money_total}}元 {{item.chasing_id === '' ? '普通': '追号'}}订单</p>
                 </div>
-                <div class="right fr" :class="'stete' + item.openmatch">
-                    <!--0=等待开奖 2=未中奖 3=中奖-->
-
-                    {{item.s }}
-                </div>
+                <div class="right fr" :class="'stete' + item.openmatch"> {{item.s }}</div>
             </li>
         </ul>
         <div v-else class="noData"></div>
@@ -50,10 +46,10 @@
                 for (let i = 0; i < d.length; i++) {
                     let s = "";
                     if (d[i].status === 4) {
-                        if (d[i].openmatch === 0) s = "等待开奖";
-                        else if (d[i].openmatch === 0) s = "等待开奖";
-                        else if (d[i].openmatch === 2) s = "未中奖";
-                        else if (d[i].openmatch === 3) s = "中奖 ";
+                        if (d[i].openmatch === '0') s = "等待开奖";
+                        else if (d[i].openmatch === '0') s = "等待开奖";
+                        else if (d[i].openmatch === '2') s = "未中奖";
+                        else if (d[i].openmatch === '3') s = "中奖 ";
                     } else if (d[i].status === 2) s = "委托中";
                     else s = "委托失败";
 
