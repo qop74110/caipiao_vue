@@ -112,7 +112,7 @@ export default new Router({
                         title: '订单详情'
                     },
                     component: (resolve) => {
-                        require(["page/order/detail_tow"], resolve)
+                        require(["page/order/detail_two"], resolve)
                     }
                 }
             ]

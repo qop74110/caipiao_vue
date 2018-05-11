@@ -13,7 +13,7 @@
                 </div>
                 <div class="left_bttom">
                     <div class="order_money fl">
-                        {{detail.pay_money_total}}元
+                        {{detail.pay_money_total || detail.pay_money}}元
                         <p>订单金额</p>
                     </div>
                     <div class="winning_money fl">
@@ -144,16 +144,14 @@
         data () {
             return {
                 detail: null,
-                redBall: [],
-                blueBall: [],
-                danBall: [],
                 play_type: '',
             }
         },
         created(){
-            let id = this.$route.query.id;
+            const id  = this.$route.query.id;
             if (id.length > 0) {
                 this.$vux.loading.show();
+                const type = this.$route.query.type;
                 this.global.ajax.call(this, 'order_detail', {id}, this.getData)
             }
         },
@@ -180,10 +178,9 @@
                         for (let i = 0; i < d.data.info.length; i++) {
                             d.data.info[i].bouns = d.data.info[i].bouns.split(",");
                         }
-                    } else if (d.data[0].play_type === typt.jingcaizuqiu) {
+                    } else if (d.data[0] && d.data[0].play_type === typt.jingcaizuqiu) {
                         this.play_type = 'jingcaizuqiu';
                     }
-
 
                     this.detail = d.data[0] || d.data;
                 }

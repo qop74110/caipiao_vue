@@ -45,6 +45,8 @@ const ajax_url = {
         order_ing: 'v1/order/wait',                     //  订单 待开奖订单
         order_prize: 'v1/order/winning',                //  订单 待开奖订单
         order_detail: 'v1/order/deteails',              //  订单 详情
+        // order_footDetail: 'v1/order/footDeteails',      //  订单 足彩详情
+        order_detail_two: 'v1/order/chasing',           //  订单 详情 2级
         order_del: 'v1/order/del',                      //  订单 删除某一定的
     }
 };

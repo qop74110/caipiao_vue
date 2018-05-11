@@ -1,0 +1,140 @@
+
+.detail_tow {
+    @head-h: 3rem;
+    min-height: 100vh;
+    background: #EFEFEF;
+    @w: 2rem;
+    @p: .2rem;
+    .head {
+        height: @head-h;
+        padding: @p;
+        background: white;
+        .left {
+            width: 65%;
+            height: 100%;
+        }
+        .left_top {
+            @h: ( @head-h - 2 * @p ) * .6;
+            height: @h;
+            line-height: @h;
+            .logo {
+                height: @h * .8;
+                margin-top: @h * .1;
+            }
+            .p_name {
+                padding-left: .25rem;
+                font-size: .4rem;
+                color: #000;
+            }
+            .phase {
+                padding-left: .1rem;
+                font-size: .32rem;
+                color: #666;
+            }
+        }
+        .left_bttom {
+            @h: ( @head-h - 2 * @p ) * .4;
+            @lb-p: .1rem;
+            height: @h;
+            line-height: (@h - 2 * @lb-p) / 2;
+            padding: @lb-p;
+            font-size: .32rem;
+            color: #666;
+            .fl {
+                margin-right: .2rem;
+                text-align: center;
+            }
+        }
+        .right {
+            width: 35%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: right center;
+        }
+        //订单状态 0=等待开奖 2=未中奖 3=中奖
+        .openmatch0 {
+            background-image: url(./img/openmatch0.png);
+            background-size: auto .4rem;
+        }
+        .openmatch2 {
+            background-image: url(./img/openmatch2.png);
+            background-size: 100% auto;
+        }
+        .openmatch3 {
+            background-image: url(./img/openmatch3.png);
+            background-size: auto 100%;
+        }
+    }
+    .border {
+        height: .2rem;
+        background: url(./img/head_bg.png) repeat left top / auto 100%;
+    }
+    .info {
+        padding: @p;
+        font-size: .32rem;
+        .text {
+            display: inline-block;
+            width: @w;
+        }
+
+        .order_list {
+            width: 10rem;
+            margin-left: -@p;
+            padding: 0 @p;
+            background: white;
+
+            .order_list_body {
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                .item {
+                    @h: 1.5rem;
+                    height: @h;
+                    line-height: (@h - 2 * .2) / 2;
+                    padding: .2rem .4rem .2rem 0;
+                    background: url(../../../assets/img/arrow.png) no-repeat right center / .2rem;
+                    .qi {
+                        font-size: .38rem;
+                        color: #333;
+                    }
+                    .fr {
+                        height: 100%;
+                        line-height: @h - 2 * .2rem;
+                        color: #999;
+                    }
+                    .money {
+                        color: #999;
+                    }
+                }
+            }
+        }
+
+    }
+    .del_order {
+        margin: .6rem auto 0;
+        width: 3rem;
+        text-align: center;
+    }
+    .one_more {
+        @om-h: 1.32rem;
+        height: @om-h;
+        background: white;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .one_more_btn {
+            @om_btn-h: .8rem;
+            @om_btn-w: 3.5rem;
+            width: @om_btn-w;
+            height: @om_btn-h;
+            line-height: @om_btn-h;
+            margin: (@om-h - @om_btn-h) / 2 auto 0;
+            color: white;
+            text-align: center;
+            border-radius: .1rem;
+        }
+    }
+    .blueText {
+        color: #00A0FF;
+    }
+}

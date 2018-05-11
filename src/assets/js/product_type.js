@@ -5,10 +5,10 @@
  */
 
 const product_type = {
-    shuangseqiu: "ssq",           //  双色球
-    jingcaizuqiu: "ftb",          //  竞彩足球
+    shuangseqiu: "ssq",              //  双色球
+    jingcaizuqiu: "ftb",             //  竞彩足球
     // daletou: 'dlt',               //  大乐透
-    fucai3d: "3d",                //  福彩3d
+    fucai3d: "3d",                   //  福彩3d
     // pailie3: "p3",                //  排列三
     // pailie5: "p5",                //  排列五
 };

@@ -47,7 +47,6 @@
                     let s = "";
                     if (d[i].status === 4) {
                         if (d[i].openmatch === '0') s = "等待开奖";
-                        else if (d[i].openmatch === '0') s = "等待开奖";
                         else if (d[i].openmatch === '2') s = "未中奖";
                         else if (d[i].openmatch === '3') s = "中奖 ";
                     } else if (d[i].status === 2) s = "委托中";
@@ -61,6 +60,8 @@
                 let url = "/order/";
                 if (d.chasing_id === "") url += 'detail?id=' + d.order_id;
                 else url += 'detail_tow?id=' + d.chasing_id;
+
+                url += "&type=" + d.lotid;
 
                 this.$router.push(url)
             },
