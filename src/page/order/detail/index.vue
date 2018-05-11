@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="right fl" :class="'openmatch' + detail.openmatch"></div>
+            <div class="right fl" :class="'openmatch' +  (detail.openmatch || 0)"></div>
         </div>
         <div class="border"></div>
 
