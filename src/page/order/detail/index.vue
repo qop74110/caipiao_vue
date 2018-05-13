@@ -148,11 +148,11 @@
             }
         },
         created(){
-            const id  = this.$route.query.id;
+            const id = this.$route.query.id;
             if (id.length > 0) {
                 this.$vux.loading.show();
                 const type = this.$route.query.type;
-                this.global.ajax.call(this, 'order_detail', {id}, this.getData)
+                this.global.ajax.call(this, type === "FT005" ? 'order_footDetail' : 'order_detail', {id}, this.getData)
             }
         },
         methods: {
