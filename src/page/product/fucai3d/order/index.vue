@@ -23,16 +23,7 @@
                 <div class="r fl" @click="modify(index)">
                     <div class="num hideText redText">
                         <template v-if="item.type === 1">
-                            <span class="redText" v-for="(k, _k) in item.zhi[0]">{{
-                                    _k === item.zhi[0].length - 1 ? k : k + ", "
-                                }}</span> |
-                            <span class="redText" v-for="(k, _k) in item.zhi[1]">{{
-                                    _k === item.zhi[1].length - 1 ? k : k + ", "
-                                }}</span> |
-                            <span class="redText" v-for="(k, _k) in item.zhi[2]">{{
-                                    _k === item.zhi[2].length - 1 ? k : k + ", "
-                                }}</span>
-                            <!--<span class="redText">{{item.zhi.join(' | ')}}</span>-->
+                            <span class="redText">{{item.zhi.join(' | ')}}</span>
                         </template>
                         <template v-else-if="item.type === 3">
                             <span class="redText">{{item.three_fu.join(', ')}}</span>
@@ -162,6 +153,10 @@
                     obj[k] = [];
                     for (let i = 0; i < type - 1; i++) {
                         obj[k].push(arr[i])
+                    }
+                    if (type === 3) {
+                        obj.notes = 2;
+                        obj.money = 4;
                     }
                 }
 
