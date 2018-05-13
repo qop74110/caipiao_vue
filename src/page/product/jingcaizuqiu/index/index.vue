@@ -259,7 +259,20 @@
                                         <div class="fl btn w3">未开售</div>
                                     </template>
                                 </div>
-                                <div class="right_right open fr" @click="showPopup(index, _index)">展开</div>
+
+                                <div class="right_right open fr c9" @click="showPopup(index, _index)" v-if="(checked[index][_index][0].length + checked[index][_index][1].length +
+                                    checked[index][_index][2].length + checked[index][_index][3].length +
+                                    checked[index][_index][4].length) > 0">
+
+                                    {{(checked[index][_index][0].length + checked[index][_index][1].length +
+                                    checked[index][_index][2].length + checked[index][_index][3].length +
+                                    checked[index][_index][4].length) + "项"}}
+                                </div>
+                                <div class="right_right open fr" @click="showPopup(index, _index)" v-else>
+                                    展开
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

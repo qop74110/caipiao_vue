@@ -31,7 +31,7 @@ const global = {
             data: data
         }).then(function (response) {
             let data = response.data;
-            if (data.error_code === 600) {
+            if (data.error_code === 600 || data.error_code === 1003) {
                 _this.$vux.loading.hide();
                 _this.$router.push('/login');
                 return;

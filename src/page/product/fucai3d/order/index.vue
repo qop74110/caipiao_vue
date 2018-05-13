@@ -32,7 +32,8 @@
                             <span class="redText">{{item.six.join(' ')}}</span>
                         </template>
                     </div>
-                    <div>{{item.type === 1 ? '单式': item.type === 3 ? '组三复式': item.notes > 1 ? '组六复式':'组六单式'}}
+                    <div>{{item.type === 1 && item.notes > 1 ? '复式':item.type === 1? '单式' : item.type === 3 ? '组三复式':
+                        item.notes > 1 ? '组六复式':'组六单式'}}
                         {{`${item.notes}注${item.money}元`}}
                     </div>
                 </div>
