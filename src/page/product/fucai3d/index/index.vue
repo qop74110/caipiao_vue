@@ -49,9 +49,9 @@
         <!--选号-->
         <template v-if="play_type === 1 && miss.hundred">
             <div :class="showMiss && 'showMiss'" class="number">
-                <div class="l fl redBg">
-                    百位
-                    <i class="arrow fr"></i>
+                <div class="l fl">
+                    <span class="fl span redBg">百位</span>
+                    <i class="arrow fl"></i>
                 </div>
                 <div class="r fr">
                     <div class="fl" v-for="(item,i) in 10">
@@ -65,9 +65,9 @@
                 </div>
             </div>
             <div :class="showMiss && 'showMiss'" class="number">
-                <div class="l fl redBg">
-                    十位
-                    <i class="arrow fr"></i>
+                <div class="l fl">
+                    <span class="fl span redBg">十位</span>
+                    <i class="arrow fl"></i>
                 </div>
                 <div class="r fr">
                     <div class="fl" v-for="(item,i) in 10">
@@ -82,9 +82,9 @@
                 </div>
             </div>
             <div :class="showMiss && 'showMiss'" class="number">
-                <div class="l fl redBg">
-                    个位
-                    <i class="arrow fr"></i>
+                <div class="l fl">
+                    <span class="fl span redBg">个位</span>
+                    <i class="arrow fl"></i>
                 </div>
                 <div class="r fr">
                     <div class="fl" v-for="(item,i) in 10">
@@ -100,9 +100,9 @@
         </template>
         <template v-else-if="miss.group">
             <div :class="showMiss && 'showMiss'" class="number">
-                <div class="l fl redBg">
-                    选号
-                    <i class="arrow fr"></i>
+                <div class="l fl">
+                    <span class="fl span redBg">选号</span>
+                    <i class="arrow fl"></i>
                 </div>
                 <div class="r fr">
                     <div class="fl" v-for="(item,i) in 10">

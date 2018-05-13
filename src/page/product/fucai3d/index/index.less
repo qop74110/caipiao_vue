@@ -78,15 +78,16 @@
     .l {
         height: @l-h;
         line-height: @l-h;
-        padding-left: .2rem;
         margin-top: (@number-h - 2 * @boll-w) / 4 + (@boll-w - @l-h ) / 2;
-        color: white;
-        font-size: .3rem;
-        border-radius: .1rem 0 0 .1rem;
+        .span {
+            padding: 0 .2rem;
+            border-radius: .1rem 0 0 .1rem;
+            color: white;
+            font-size: .3rem;
+        }
         .arrow {
-            margin-left: .1rem;
-            border: @l-h / 2 solid white;
-            border-left-color: transparent;
+            border: @l-h / 2 solid transparent;
+            border-left-color: @theme;
         }
     }
     .r {

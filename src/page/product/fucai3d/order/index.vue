@@ -21,15 +21,24 @@
             <li class="order" v-for="(item, index) in order">
                 <div class="l fl" @click="del(index)"></div>
                 <div class="r fl" @click="modify(index)">
-                    <div class="num hideText">
+                    <div class="num hideText redText">
                         <template v-if="item.type === 1">
-                            <span class="redText">{{item.zhi.join(' | ')}}</span>
+                            <span class="redText" v-for="(k, _k) in item.zhi[0]">{{
+                                    _k === item.zhi[0].length - 1 ? k : k + ", "
+                                }}</span> |
+                            <span class="redText" v-for="(k, _k) in item.zhi[1]">{{
+                                    _k === item.zhi[1].length - 1 ? k : k + ", "
+                                }}</span> |
+                            <span class="redText" v-for="(k, _k) in item.zhi[2]">{{
+                                    _k === item.zhi[2].length - 1 ? k : k + ", "
+                                }}</span>
+                            <!--<span class="redText">{{item.zhi.join(' | ')}}</span>-->
                         </template>
                         <template v-else-if="item.type === 3">
-                            <span class="redText">{{item.three_fu.join(' ')}}</span>
+                            <span class="redText">{{item.three_fu.join(', ')}}</span>
                         </template>
                         <template v-else>
-                            <span class="redText">{{item.six.join(' ')}}</span>
+                            <span class="redText">{{item.six.join(', ')}}</span>
                         </template>
                     </div>
                     <div>{{item.type === 1 && item.notes > 1 ? '复式':item.type === 1? '单式' : item.type === 3 ? '组三复式':
