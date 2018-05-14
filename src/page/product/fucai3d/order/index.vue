@@ -198,6 +198,13 @@
                     const data = this.set_request_data();
 
                     for (let i = 0; i < data.total.length; i++) {
+                        const zhi = [];
+                        zhi.push(data.total[i].val1.join(''));
+                        zhi.push(data.total[i].val2.join(''));
+                        zhi.push(data.total[i].val3.join(''));
+
+                        data.total[i].zhi = zhi;
+
                         if (typeof ( data.total[i].zhi ) === "object") data.total[i].zhi = data.total[i].zhi.join(",");
                         else if (typeof ( data.total[i].three_fu ) === "object") data.total[i].three_fu = data.total[i].three_fu.join(",");
                         else if (typeof ( data.total[i].six ) === "object") data.total[i].six = data.total[i].six.join(",");
