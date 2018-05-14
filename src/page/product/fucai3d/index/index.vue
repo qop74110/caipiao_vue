@@ -193,9 +193,11 @@
                         this.val2 = data.val2;
                         this.val3 = data.val3;
                     } else {
-                        for (let i = 0; i < data[{"3": "three_fu", "4": 'six'}[data.type]].length; i++) {
-                            this.val4.push(data[{"3": "three_fu", "4": 'six'}[data.type]][i])
-                        }
+                        setTimeout(()=>{
+                            for (let i = 0; i < data[{"3": "three_fu", "4": 'six'}[data.type]].length; i++) {
+                                this.val4.push(data[{"3": "three_fu", "4": 'six'}[data.type]][i])
+                            }
+                        }, 300);
                     }
                 } else this.play_type = 1;
 
@@ -356,7 +358,7 @@
             val3(){
                 if (this.play_type === 1) this.setZhuShu();
             },
-            val4(val){
+            val4(){
                 if (this.play_type !== 1) this.setZhuShu();
             },
             zhushu(val){

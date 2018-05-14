@@ -41,7 +41,6 @@ let webpackConfig = {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                // include: [resolve('src'), resolve('test')],
                 include: [resolve('src'), resolve('test'), resolve('node_modules/dom7'), resolve('node_modules/swiper')]
             },
             {
