@@ -23,7 +23,9 @@
                 <div class="r fl" @click="modify(index)">
                     <div class="num hideText redText">
                         <template v-if="item.type === 1">
-                            <span class="redText">{{item.zhi.join(' | ')}}</span>
+                            <span class="redText">{{item.val1.join(', ')}}</span> |
+                            <span class="redText">{{item.val2.join(', ')}}</span> |
+                            <span class="redText">{{item.val3.join(', ')}}</span>
                         </template>
                         <template v-else-if="item.type === 3">
                             <span class="redText">{{item.three_fu.join(', ')}}</span>
@@ -134,6 +136,9 @@
                 const type = this.order && this.order[0] && this.order[0].type ? this.order[0].type : 1;
                 const obj = {
                     "zhi": "",
+                    val1: [],
+                    val2: [],
+                    val3: [],
                     "three_dan": "",
                     "three_fu": "",
                     "six": "",
@@ -145,7 +150,9 @@
                 };
 
                 if (type === 1) {
-                    obj.zhi = arr.splice(0, 3);
+                    obj.val1[0] = arr[0];
+                    obj.val2[0] = arr[1];
+                    obj.val3[0] = arr[2];
                 } else {
                     const k = {'3': 'three_fu', "4": "six"}[type]
                     this.val4 = [];
@@ -159,7 +166,7 @@
                         obj.money = 4;
                     }
                 }
-
+                console.log(obj)
                 this.order.unshift(obj);
             },
             set_request_data(){

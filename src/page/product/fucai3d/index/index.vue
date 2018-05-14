@@ -189,12 +189,9 @@
                     const data = JSON.parse(sessionStorage.getItem('fc3d_order')).total[modify];
                     this.play_type = data.type;
                     if (data.type === 1) {
-                        const val = data.zhi.join(",").split(",");
-                        for (let i = 0; i < 3; i++) {
-                            for (let k = 0; k < val[i].length; k++) {
-                                this['val' + (i + 1)].push(val[i][k]);
-                            }
-                        }
+                        this.val1 = data.val1;
+                        this.val2 = data.val2;
+                        this.val3 = data.val3;
                     } else {
                         for (let i = 0; i < data[{"3": "three_fu", "4": 'six'}[data.type]].length; i++) {
                             this.val4.push(data[{"3": "three_fu", "4": 'six'}[data.type]][i])
@@ -300,6 +297,9 @@
 
                     const total = {
                         "zhi": type === 1 ? zhi : '',
+                        val1: this.val1,
+                        val2: this.val2,
+                        val3: this.val3,
                         "three_dan": '',
                         "three_fu": type === 3 ? this.val4 : '',
                         "six": type === 4 ? this.val4 : '',
@@ -356,7 +356,7 @@
             val3(){
                 if (this.play_type === 1) this.setZhuShu();
             },
-            val4(){
+            val4(val){
                 if (this.play_type !== 1) this.setZhuShu();
             },
             zhushu(val){
