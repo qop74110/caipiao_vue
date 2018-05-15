@@ -1,0 +1,80 @@
+@head-h: 1.2rem;
+@foot-h: 1.2rem;
+
+.hemai_detail {
+    text-align: center;
+}
+
+.head {
+    height: @head-h;
+    color: white;
+    font-size: .5rem;
+    .head_t {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: @head-h;
+        line-height: @head-h;
+        width: 10rem;
+        margin: 0 auto;
+    }
+    .abs {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1rem;
+    }
+    .back {
+        left: 0;
+        background: url(../../../assets/img/arrow_l.png) no-repeat .3rem center / .3rem;
+    }
+    .share {
+        right: 0;
+        background: url(./img/share.png) no-repeat center center / .5rem;
+    }
+
+}
+
+.footer {
+    height: @foot-h;
+    text-align: center;
+    .foot {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: inherit;
+        line-height: @foot-h;
+        width: 10rem;
+        margin: 0 auto;
+    }
+    .redBg {
+        color: white;
+        font-size: .45rem;
+    }
+    .whiteBg {
+        border-top: 1px solid #DCDBDB;
+        background: white;
+        .quanbao {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 1.4rem;
+            border-right: 1px solid #DCDBDB;
+        }
+        .pay {
+            @pay-h: .8rem;
+            position: absolute;
+            right: .3rem;
+            top: (@foot-h - @pay-h) / 2;
+            height: @pay-h;
+            line-height: @pay-h;
+            width: 2 * @pay-h;
+            color: white;
+            border-radius: .1rem;
+            font-size: .38rem;
+        }
+    }
+}

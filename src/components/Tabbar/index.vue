@@ -51,7 +51,8 @@
             const page_name = this.$route.name;
             if (page_name === "home") this.page = 1;
             else if (page_name === "prize") this.page = 2;
-            else this.page = 3;
+            else if (page_name === "my") this.page = 3;
+            else this.page = 4;
         },
         methods: {
             open(page){
