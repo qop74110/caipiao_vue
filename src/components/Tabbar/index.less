@@ -1,28 +1,28 @@
 @import "../../assets/css/theme";
 
 .Tabbar {
-  @h: 1.32rem;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: @h;
-  width: 10rem;
-  margin: 0 auto;
-  text-align: center;
-  font-size: .26rem;
-  background: white;
-  .TabbarItem {
-    height: 100%;
-    width: 100% / 3;
-    padding-top: .2rem;
-    .TabbarItem_img {
-      @img_h: .53rem;
-      width: @img_h;
-      height: @img_h;
+    @h: 1.32rem;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: @h;
+    width: 10rem;
+    margin: 0 auto;
+    text-align: center;
+    font-size: .26rem;
+    background: white;
+    .TabbarItem {
+        height: 100%;
+        width: 100% / 4;
+        padding-top: .2rem;
+        .TabbarItem_img {
+            @img_h: .53rem;
+            width: @img_h;
+            height: @img_h;
+        }
+        .s {
+            color: @theme;
+        }
     }
-    .s {
-      color: @theme;
-    }
-  }
 }
