@@ -87,8 +87,7 @@
                 }
             },
             share(){
-                if (this.global.isWeiXin()) console.log("还没写分享");       //  todo 微信分享
-                else this.global.alert.call(this, '请在微信客户端打开此链接');
+                this.global.share.call(this)
             },
             open(url){
                 if (this.token) {

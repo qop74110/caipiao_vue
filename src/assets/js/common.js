@@ -53,6 +53,10 @@ const global = {
             return false;
         }
     },
+    share(){
+        if (this.global.isWeiXin()) console.log("还没写分享");       //  todo 微信分享
+        else this.global.alert.call(this, '请在微信客户端打开此链接');
+    },
     // chongzhi: (_this, money, orderid) => {
     //     let type = '';
     //     _this.$vux.confirm.show({

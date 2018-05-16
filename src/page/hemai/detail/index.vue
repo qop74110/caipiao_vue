@@ -3,7 +3,7 @@
         <header class="head">
             <div class="head_t redBg">
                 合买详情
-                <span class="share abs"></span>
+                <span class="share abs" @click="share"></span>
                 <span class="back abs" @click="$router.go(-1)"></span>
             </div>
         </header>
@@ -196,12 +196,15 @@
             },
             pay_CB(d){
                 this.$vux.loading.hide();
-                if (d.error_code === 1004) console.log("没钱了");
+                if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.$router.push("/pay_success?id=");
                     /*todo 等接口返回订单id*/
                 }
+            },
+            share(){
+                this.global.share.call(this)
             }
         },
         destroyed(){
