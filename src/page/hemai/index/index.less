@@ -5,8 +5,6 @@
 
 .hemai {
     padding: 0 0 @foot-h;
-    //height: 100vh;
-    //overflow-y: scroll;
 }
 
 .headbox {
@@ -86,11 +84,58 @@
 
 //列表
 .list {
+    @headImg-h: 1.48rem;
+    @rSon-h: 1rem;
 
+    text-align: center;
     .item {
         height: @item-h;
         padding: .55rem .55rem .3rem;
         border-bottom: 1px solid #efefef;
+        .l {
+            width: @headImg-h;
+        }
+        .headImg {
+            width: @headImg-h;
+            height: @headImg-h;
+        }
+        .text {
+            font-size: .32rem;
+            color: #999;
+        }
+        .r {
+            width: 6.9rem;
+        }
+        .rTop{
+            overflow: hidden;
+        }
+        .rSon {
+            height: @rSon-h;
+        }
+        .c_name {
+            //line-height: @rSon-h;
+            font-size: .48rem;
+        }
+        .progress {
+
+            line-height: @rSon-h / 2.5;
+            .redText {
+                font-size: .56rem;
+            }
+        }
+        .em {
+            font-size: .5em;
+        }
+        .rBottom {
+            line-height: @rSon-h / 2;
+            .fl {
+                width: 100% / 3;
+            }
+        }
+        .val {
+            font-size: .38rem;
+            color: #333;
+        }
     }
 }
 

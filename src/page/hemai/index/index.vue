@@ -38,10 +38,36 @@
         <div>
             <ul class="list" v-if="list.length > 0">
                 <li class="item" v-for="(it, ind) in list" @click="go_detail(it.together_id)">
-                    {{ind}}
+                    <div class="l fl">
+                        <img class="headImg" :src="'./static/img/header_img.png'">
+                        <p class="u_name hideText text">{{it.user_name}}</p>
+                    </div>
+                    <div class="r fr">
+                        <div class="rTop rSon">
+                            <div class="redText fl c_name">{{it.name}}</div>
+                            <div class="fr progress">
+                                <span class="redText">{{it.progress}}<b class="em">%</b></span>
+                                <p class="text">进度</p>
+                            </div>
+                        </div>
+                        <div class="rBottom rSon">
+                            <div class="fl">
+                                <p class="text">总金额（元）</p>
+                                <span class="vla">{{it.pay_money_total}}</span>
+                            </div>
+                            <div class="fl">
+                                <p class="text">剩余金额（元）</p>
+                                <span class="vla">{{it.remaining_money}}</span>
+                            </div>
+                            <div class="fl">
+                                <p class="text">跟单人数</p>
+                                <span class="vla">{{it.number}}</span>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
-            <LoadMore tip="加载中" v-if="list_load"></LoadMore>
+            <LoadMore :tip="list_load ?'加载中': '暂无数据'" :show-loading="list_load" v-if="list_load"></LoadMore>
         </div>
 
 

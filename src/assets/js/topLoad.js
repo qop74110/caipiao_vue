@@ -38,7 +38,6 @@ const scroll = {
     },
 
     fun(){
-        console.log(11)
         if (scroll.time !== null) {
             clearTimeout(scroll.time);
             scroll.time = null;
