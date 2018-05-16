@@ -85,7 +85,8 @@
             <div class="popup">
                 <div class="popup_t">请选择彩种</div>
                 <ul class="popup_b clearFix">
-                    <li class="option fl" v-for="(val, key) in title_list" :key="key" @click="" v-if="key !== 'all'">
+                    <li class="option fl" v-for="(val, key) in title_list" :key="key" @click="hemai(key)"
+                        v-if="key !== 'all'">
                         {{val}}
                     </li>
                 </ul>
@@ -196,6 +197,11 @@
             go_detail(id){
                 this.$router.push('/hemai_detail?id=' + id)
             },
+            hemai(k){
+                const url = this.global.product_type[k];
+                if (url) this.$router.push(url + '/index?hemai=1');
+                else this.global.alert.call(this, "敬请期待");
+            }
         },
         beforeCreate(){
             window.addEventListener('scroll', topLoad.fun);

@@ -1,0 +1,86 @@
+@head-h: 1.2rem;
+@tA-h: .96rem;
+@foot-h: 1.32rem;
+
+.pay_hemai {
+    text-align: center;
+}
+
+.header {
+    height: @head-h;
+    .head {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 10rem;
+        height: inherit;
+        line-height: @head-h;
+        margin: 0 auto;
+        font-size: .5rem;
+        color: white;
+    }
+    .abs {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width: 1rem;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    .back {
+        left: 0;
+        background-image: url(../../../assets/img/arrow_l.png);
+        background-size: .3rem;
+    }
+    .help {
+        right: 0;
+        background-image: url(./help.png);
+        background-size: .4rem;
+    }
+}
+
+//总金额
+.totalAmount {
+    height: @tA-h;
+    line-height: @tA-h;
+    margin: 0 .78rem;
+    border-bottom: 1px solid #EFEFEF;
+}
+
+.footer {
+    @p: .3rem;
+    height: @foot-h;
+    .foot {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 10rem;
+        height: inherit;
+        line-height: @foot-h;
+        margin: 0 auto;
+        padding: 0 .3rem;
+        border-top: 1px solid #efefef;
+    }
+    .abs {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+    .money {
+        left: @p;
+        height: 100%;
+    }
+    .btn {
+        right: @p;
+        @h: .8rem;
+        width: 1.86rem;
+        height: @h;
+        line-height: @h;
+        margin-top: (@foot-h - @h) / 2;
+        border-radius: .1rem;
+        color: #fff;
+    }
+}
