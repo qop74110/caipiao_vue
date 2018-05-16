@@ -121,7 +121,7 @@
 
         <!--剩余份数-->
         <div class="surplus">
-            剩余份数: <span class="redText">{{datas.remaining_money}}份)</span>  (1元/份)
+            剩余份数: <span class="redText">{{datas.remaining_money}}份)</span> (1元/份)
             <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal"></XNumber>
         </div>
 
@@ -129,9 +129,9 @@
         <footer class="footer">
             <!--<div class="foot redBg">方案已满员，下次出手要快点了！</div>-->
             <div class="foot whiteBg">
-                <span class="quanbao redText">全包</span>
+                <span class="quanbao redText" @click="pay('all')">全包</span>
                 共<span class="redText">300</span>元
-                <span class="pay btn_active redBg">支付</span>
+                <span class="pay btn_active redBg" @click="pay">支付</span>
             </div>
         </footer>
     </div>
@@ -186,6 +186,23 @@
             setVal(d){
                 this[d.name] = d.val;
             },
+            pay(s = ""){
+                this.$vux.loading.show();
+                let money = s === "all" ? this.datas.remaining_money : this.yuan;
+                this.global.ajax.call(this, 'hemai_pay', {
+                    id: this.$route.query.id,
+                    money
+                }, this.pay_CB)
+            },
+            pay_CB(d){
+                this.$vux.loading.hide();
+                if (d.error_code === 1004) console.log("没钱了");
+                else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+                    this.$router.push("/pay_success?id=");
+                    /*todo 等接口返回订单id*/
+                }
+            }
         },
         destroyed(){
             clearInterval(this.countDown_time);

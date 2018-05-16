@@ -7,10 +7,11 @@ import order from "./order";
 import prize from "./prize";
 import caizhong from "./product";
 import my from "./my";
+import pay from "./pay";
 
 Vue.use(Router);
 
-const routes = [...hemai,...order,...prize,...caizhong,...my];
+const routes = [...hemai,...order,...prize,...caizhong,...my, ...pay];
 
 routes.push(
     {

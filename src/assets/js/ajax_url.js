@@ -52,6 +52,7 @@ const ajax_url = {
         hemai_list: "v1/together/list",                 //  合买 index-list
         hemai_index_top: 'v1/together/top',             //  合买 index-top
         hemai_idetails: 'v1/together/details',          //  合买 详情
+        hemai_pay: 'v1/together/documentary',           //  合买 跟单
     }
 };
 
