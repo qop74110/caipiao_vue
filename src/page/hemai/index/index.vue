@@ -1,9 +1,9 @@
 <template>
-    <div class="hemai">
+    <div class="hemai" v-if="loading === 0">
         <div class="headbox">
             <div class="head redBg">
                 <div class="title" @click="show_tit_popup = !show_tit_popup; show_hm_popup = false">
-                    {{title}}
+                    {{title_list[title_active]}}
                     <span class="arrow" :class="show_tit_popup && 'rotate'"></span>
                 </div>
 
@@ -16,36 +16,40 @@
 
         <!--排序-->
         <div class="bar">
-            <div class="fl btn_active">
+            <div class="fl btn_active" @click="tag_s_type(1)">
                 战绩
-                <span class="icon top"></span>
+                <span class="icon" :class="s_type === 1 ? s_order === 1 ? 'bottom' : 'top' : 'not'"></span>
             </div>
-            <div class="fl btn_active">
+            <div class="fl btn_active" @click="tag_s_type(2)">
                 进度
-                <span class="icon bottom"></span>
+                <span class="icon" :class="s_type === 2 ? s_order === 1 ? 'bottom' : 'top' : 'not'"></span>
             </div>
-            <div class="fl btn_active">
+            <div class="fl btn_active" @click="tag_s_type(3)">
                 总额
-                <span class="icon not"></span>
+                <span class="icon" :class="s_type === 3 ? s_order === 1 ? 'bottom' : 'top' : 'not'"></span>
             </div>
-            <div class="fl btn_active">
+            <div class="fl btn_active" @click="tag_s_type(4)">
                 截止
-                <span class="icon not"></span>
+                <span class="icon" :class="s_type === 4 ? s_order === 1 ? 'bottom' : 'top' : 'not'"></span>
             </div>
         </div>
 
         <!--列表-->
-        <ul class="list">
-            <li class="item" v-for="(it, ind) in 10" @click="go_detail">
-                {{it}}
-            </li>
-        </ul>
+        <div>
+            <ul class="list" v-if="list.length > 0">
+                <li class="item" v-for="(it, ind) in list" @click="go_detail(it.together_id)">
+                    {{ind}}
+                </li>
+            </ul>
+            <LoadMore tip="加载中" v-if="list_load"></LoadMore>
+        </div>
+
 
         <!--title弹窗-->
         <div class="fog title_popup_box" v-show="show_tit_popup" @click="show_tit_popup = false">
             <ul class="title_popup clearFix">
-                <li class="option fl btn_active" v-for="(i, ind) in title_list">
-                    {{i}}
+                <li class="option fl btn_active" v-for="(val, key) in title_list" @click="set_title(key)">
+                    {{val}}
                 </li>
             </ul>
         </div>
@@ -55,8 +59,8 @@
             <div class="popup">
                 <div class="popup_t">请选择彩种</div>
                 <ul class="popup_b clearFix">
-                    <li class="option fl" v-for="(i, ind) in title_list" :key="ind">
-                        {{i}}
+                    <li class="option fl" v-for="(val, key) in title_list" :key="key" @click="" v-if="key !== 'all'">
+                        {{val}}
                     </li>
                 </ul>
             </div>
@@ -68,39 +72,111 @@
 
 <script>
     import {Tabbar} from "com";
+    import {LoadMore} from 'vux'
+    import topLoad from "../../../assets/js/topLoad";
 
 
     export default {
         name: 'hemai',
         components: {
-            Tabbar
+            Tabbar,
+            LoadMore
         },
         data () {
             return {
-                title: null,
-                title_list: [
-                    "全部彩种",
-                    "双色球",
-                    "大乐透",
-                    "福彩3D",
-                    "竞彩足球",
-                ],
+                title_active: "all",
+                title_list: null,
 
-                sort: null,
+
+                s_type: 1,                      //  筛选 1：战绩； 2:进度； 3：总额； 4：截止
+                s_order: 1,                     //  排序 1：从大到小;  2:从小到达
 
                 show_tit_popup: false,          //  显示 标题弹窗
                 show_hm_popup: false,           //  显示 合买弹窗
 
+                list: [],
+                list_load: true,                //  true: 可以上拉加载
+                stop_request: true,             //  false: 停止请求列表数据
+
+                loading: 2,                     //  页面加载
+
+//                limit_begin: 0,                 //  列表数据从第几条开始获取
+                limit_num: 20,                  //  list + 几条数据
             }
         },
         created(){
-            this.title = this.title_list[0];
+            this.getList();
+            this.global.ajax.call(this, 'hemai_index_top', {}, this.get_tit_list);
+            topLoad.callBack = this.getList;
         },
         methods: {
-            go_detail(i){
-
-                this.$router.push('/hemai_detail')
-            }
+            get_tit_list(d){
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else if (d.data) {
+                    let obj = {all: '全部彩种'};
+                    for (let i = 0; i < d.data.length; i++) {
+                        obj[d.data[i].lotid] = d.data[i].title
+                    }
+                    this.title_list = obj;
+                }
+                this.hideLoading();
+            },
+            getList(){
+                if (this.list_load && this.stop_request) {
+                    this.stop_request = false;
+                    if (this.list.length === 0) this.$vux.loading.show();
+                    this.global.ajax.call(this, "hemai_list", {
+                        type: this.s_type,
+                        order: this.s_order,
+                        limit_begin: this.list.length,
+                        limit_num: this.limit_num,
+                        lotid: this.title_active,
+                    }, this.getList_CB)
+                }
+            },
+            getList_CB(d){
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else if (d.data) {
+                    this.list.push(...d.data.info);
+                    if (d.data.info.length < this.limit_num) this.list_load = false;
+                }
+                this.stop_request = true;
+                this.hideLoading();
+            },
+            hideLoading(){
+                if (this.loading > 0) this.loading--;
+                if (this.loading === 0) this.$vux.loading.hide();
+            },
+            init_list(){
+                !this.list_load && (this.list_load = true);
+                this.list = [];
+                this.getList();
+            },
+            set_title(key){
+                if (this.title_active !== key) {
+                    this.title_active = key;
+                    this.init_list();
+                }
+            },
+            tag_s_type(s_type){
+                if (this.s_type !== s_type) {
+                    this.s_type = s_type;
+                    this.s_order = 1;
+                } else {
+                    this.s_order = this.s_order === 1 ? 2 : 1;
+                }
+                this.init_list();
+            },
+            go_detail(id){
+                this.$router.push('/hemai_detail?id=' + id)
+            },
+        },
+        beforeCreate(){
+            window.addEventListener('scroll', topLoad.fun);
+        },
+        destroyed(){
+            console.log('销毁')
+            window.removeEventListener('scroll', topLoad.fun)
         }
     }
 </script>

@@ -48,6 +48,9 @@ const ajax_url = {
         order_footDetail: 'v1/order/footDeteails',      //  订单 足彩详情
         order_detail_two: 'v1/order/chasing',           //  订单 详情 2级
         order_del: 'v1/order/del',                      //  订单 删除某一定的
+
+        hemai_list: "v1/together/list",                 //  合买 index-list
+        hemai_index_top: 'v1/together/top',             //  合买 index-top
     }
 };
 
