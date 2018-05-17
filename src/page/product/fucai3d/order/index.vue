@@ -214,7 +214,7 @@
                         else if (typeof ( data.total[i].six ) === "object") data.total[i].six = data.total[i].six.join(",");
                     }
 
-                    if (is_together) {          //  true: 发起合买
+                    if (is_together === true) {          //  true: 发起合买
                         if (data.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
                         else if (this.qi > 1) this.global.alert.call(this, "合买不能追期");
                         else {

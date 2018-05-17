@@ -37,7 +37,7 @@
         <!--列表-->
         <div>
             <ul class="list" v-if="list.length > 0">
-                <li class="item" v-for="(it, ind) in list" @click="go_detail(it.together_id)">
+                <li class="item" v-for="(it, ind) in list" @click="go_detail(ind)">
                     <div class="l fl">
                         <img class="headImg" :src="'./static/img/header_img.png'">
                         <p class="u_name hideText text">{{it.user_name}}</p>
@@ -67,9 +67,8 @@
                     </div>
                 </li>
             </ul>
-            <LoadMore :tip="list_load ?'加载中': '暂无数据'" :show-loading="list_load" v-if="list_load"></LoadMore>
+            <LoadMore :tip="list_load ?'加载中': '暂无数据'" :show-loading="list_load"></LoadMore>
         </div>
-
 
         <!--title弹窗-->
         <div class="fog title_popup_box" v-show="show_tit_popup" @click="show_tit_popup = false">
@@ -162,8 +161,10 @@
                 }
             },
             getList_CB(d){
-                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
-                else if (d.data) {
+                if (d.error_code !== 0) {
+                    this.global.toast.call(this, d.error_message);
+                    this.list_load = false;
+                } else if (d.data) {
                     this.list.push(...d.data.info);
                     if (d.data.info.length < this.limit_num) this.list_load = false;
                 }
@@ -194,8 +195,8 @@
                 }
                 this.init_list();
             },
-            go_detail(id){
-                this.$router.push('/hemai_detail?id=' + id)
+            go_detail(i){
+                this.$router.push('/hemai_detail?id=' + this.list[i].together_id + "&lotid=" + this.list[i].lotid)
             },
             hemai(k){
                 const url = this.global.product_type[k];

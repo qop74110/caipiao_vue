@@ -771,7 +771,7 @@
 
                     const ajaxName = this.play_type !== "FT005" ? "jczq" : 'FT005';
 
-                    if (is_together) {
+                    if (is_together === true) {
                         this.$vux.loading.hide();
                         if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
                         else {

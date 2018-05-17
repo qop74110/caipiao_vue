@@ -110,7 +110,7 @@
     }
 }
 
-//  发起人信息 & 投注信息----公共
+//  发起人信息 & 订单信息----公共
 .tag {
     height: @tag-h;
     line-height: @tag-h;
@@ -119,10 +119,70 @@
     font-size: .38rem;
 }
 
+//  投注信息
+.order_body {
+
+    //双色球
+    .style1 {
+        @row-h: 1.2rem;
+        .row {
+            height: @row-h;
+            line-height: @row-h;
+            padding: 0 .4rem;
+            border-top: 1px solid #efefef;
+            overflow: hidden;
+        }
+        .l {
+            width: 2rem;
+            font-size: .29rem;
+            text-align: left;
+        }
+        .ball {
+            margin-right: .1rem;
+        }
+        .blueText{
+            color: #00A0FF;
+        }
+    }
+
+}
+
 //  投注信息 下边距
 .order_margin {
     height: .3rem;
     background: #efefef;
+}
+
+//跟单详情
+.wieh_body {
+    @tr-h: @sur-h;
+    font-size: .32rem;
+    .tr {
+        height: @tr-h;
+        line-height: @tr-h;
+        border-bottom: 1px solid #efefef;
+        &:last-child {
+            border: 0;
+        }
+        overflow: hidden;
+        .td {
+            float: left;
+            width: 25%;
+            height: 100%;
+        }
+    }
+}
+
+.arrow {
+    height: 100%;
+    width: .35rem;
+    background: url(../../../assets/img/arrow.png) no-repeat center center / .2rem;
+    transform: rotate(90deg);
+    transition: transform .25s;
+}
+
+.rotate {
+    transform: rotate(270deg);
 }
 
 //剩余份数

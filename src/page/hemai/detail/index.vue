@@ -82,10 +82,58 @@
             <div class="order_head tag">
                 <span class="k">投注信息</span>
                 <!--1=完全公开 2=参与可见 3=截止后可-->
-                <span class="c9">{{datas.type === 1 ? '完全公开': datas.type === 2 ? '参与可见': '截止后可看'}}</span>
+                <span class="c9">{{datas.type === '1' ? '完全公开': datas.type === '2' ? '参与可见': '截止后可看'}}</span>
+
+                <span class="arrow fr" @click="show_order_body = !show_order_body" :class="show_order_body && 'rotate'"
+                      v-if="datas.type === '1'"></span>
             </div>
-            <div class="order_body" v-if="datas.type === 1">
-                <!--todo 合买详情-投注信息-->
+            <div class="order_body" v-if="datas.type === '1' && show_order_body">
+
+                <!--双色球-->
+                <div class="style1" v-if="lotid === 'ssq'">
+                    <div class="row style1" v-for="(i, ind) in datas.data">
+                        <div class="fl l c6">
+                            <!--101=单式 102=复式 103=胆拖-->
+                            {{i.play_type === "101" ? '单式' :
+                            i.play_type === "102" ? '复式' : '胆拖'
+                            }}{{i.multiple}}倍
+                        </div>
+                        <div class="fl balls">
+                            <template v-if="i.danBall">
+                                <span class="redText">(</span>
+                                <template v-for="(_item, index) in i.danBall">
+                                    <span class="redText ball">{{_item}}</span>
+                                </template>
+                                <span class="redText">)</span>
+                            </template>
+                            <template v-for="(_item, index) in i.redBall">
+                                <span class="ball redText">{{_item}}</span>
+                            </template>
+                            <template v-for="(_item, index) in i.blueBall">
+                                <span class="ball blueText">{{_item}}</span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!--3d-->
+                <div class="style1" v-else-if="lotid === '3d'">
+                    <div class="row style1" v-for="(i, ind) in datas.data">
+                        <div class="fl l c6">
+                            <!--201=直选单式 221=直选复式 202=组选单式  231=组三复式 233=组六复式-->
+                            {{i.play_type === "201" ? "单式":
+                            i.play_type === "221" ? '直选复式':
+                            i.play_type === "231" ? '组三复式' :
+                            '组六复式'}}{{i.multiple}}倍
+                        </div>
+                        <div class="fl balls">
+                            <span class="redText ball" v-for="(item, index) in i.bouns.split(',')">{{item}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--竞彩足球-->
+
             </div>
         </div>
 
@@ -94,29 +142,50 @@
         <!--跟单详情-->
         <div class="with ">
             <div class="wieh_head tag">
-                <span class="k">投注信息:</span>
+                <span class="k">跟单详情:</span>
                 {{datas.number}}人跟单
+
+                <span class="arrow fr" @click="show_wieh_body = !show_wieh_body"
+                      :class="show_wieh_body && 'rotate'"></span>
             </div>
-            <div class="wieh_body grayBox">
-                <p class="row">
-                    <span class="k">订单编号:</span>
-                    {{datas.together_id}}
-                </p>
-                <p class="row">
-                    <span class="k">合买宣言:</span>
-                    {{datas.declaration}}
-                    </span>
-                </p>
-                <p class="row">
-                    <span class="k">发起时间:</span>
-                    {{datas.created_at}}
-                </p>
-                <p class="row">
-                    <span class="k">截止时间:</span>
-                    {{datas.stopTime}}
-                </p>
-                <!--<p class="row"><span class="k">合买说明:</span>{{datas.cut}}</p>-->
+            <div class="wieh_body" v-show="show_wieh_body">
+                <div class="tHead tr">
+                    <div class="td">用户</div>
+                    <div class="td">认购分数</div>
+                    <div class="td">认购时间</div>
+                    <div class="td">奖金分配</div>
+                </div>
+                <div class="tBody">
+                    <div class="tr" v-for="(i, ind) in datas.info">
+                        <div class="td hideTest">{{i.user_name}}</div>
+                        <div class="td">{{i.pay_money_total}}元</div>
+                        <div class="td">{{i.created_at}}</div>
+                        <div class="td">等待开奖</div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!--订单信息-->
+        <div class=" grayBox">
+            <p class="row">
+                <span class="k">订单编号:</span>
+                {{datas.together_id}}
+            </p>
+            <p class="row">
+                <span class="k">合买宣言:</span>
+                {{datas.declaration}}
+                </span>
+            </p>
+            <p class="row">
+                <span class="k">发起时间:</span>
+                {{datas.created_at}}
+            </p>
+            <p class="row">
+                <span class="k">截止时间:</span>
+                {{datas.stopTime}}
+            </p>
+            <!--<p class="row"><span class="k">合买说明:</span>{{datas.cut}}</p>-->
         </div>
 
         <!--剩余份数-->
@@ -150,12 +219,18 @@
                 countDown: "",              //  倒计时
                 counDown_time: null,        //  倒计时计时器
 
+                show_wieh_body: false,      //  显示跟单详情
+                show_order_body: false,     //  显示投注信息
+
                 yuan: 1,
+
+                lotid: null,
             }
         },
         created(){
             this.$vux.loading.show();
             this.global.ajax.call(this, 'hemai_idetails', {id: this.$route.query.id}, this.getData);
+            this.lotid = this.$route.query.lotid;
         },
         methods: {
             getData(d){
@@ -163,6 +238,23 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.setTime(d.data.date * 1000);
+
+                    if (this.lotid === this.global.product_type.shuangseqiu) {              //  双色球
+                        d.data.data.forEach((item, i) => {
+                            if (item.play_type === "103") {
+                                const arr = item.bouns.split("$");
+                                d.data.data[i].danBall = arr[0].split(",");
+                                d.data.data[i].bouns = arr[1];
+                            }
+                            const arr = item.bouns.split("#");
+                            d.data.data[i].blueBall = arr[1].split(",");
+                            d.data.data[i].redBall = arr[0].split(",");
+                        })
+
+
+                    } else if (this.lotid === this.global.product_type.fucai3d) {           //  福彩3d
+
+                    }
 
                     d.data.stopTime = dateFormat(d.data.date * 1000);
                     this.datas = d.data;

@@ -31,12 +31,12 @@
             <div class="row" v-for="(item, index) in detail.info">
                 <span class="text">{{index === 0 ? '投注信息': ''}}</span>
                 <span class="hideText balls">
-                 <template v-if="item.danBall">
-                    <span class="redText">(</span>
-                    <template v-for="(_item, index) in item.danBall">
-                        <span class="redText">{{_item}}</span>
-                 </template>
-                    <span class="redText">)</span>
+                     <template v-if="item.danBall">
+                        <span class="redText">(</span>
+                        <template v-for="(_item, index) in item.danBall">
+                            <span class="redText">{{_item}}</span>
+                        </template>
+                        <span class="redText">)</span>
                     </template>
                     <template v-for="(_item, index) in item.redBall">
                         <span class="ball redText">{{_item}}</span>

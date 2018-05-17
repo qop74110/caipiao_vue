@@ -62,12 +62,12 @@
 </template>
 
 <script>
-    import {XNumber,XHead, LaunchBtn} from "com";
+    import {XNumber, XHead, LaunchBtn} from "com";
     import random_sort from "../random_sort";
 
     export default {
         name: 'order',
-        components: {XNumber,XHead, LaunchBtn},
+        components: {XNumber, XHead, LaunchBtn},
         data () {
             return {
                 qi: 1,
@@ -119,7 +119,7 @@
             },
             random_sort(){
                 const d = random_sort();
-                this.balls.push(d)
+                this.balls.unshift(d)
                 this.zhushu++;
 
             },
@@ -151,7 +151,7 @@
                         stop_money: 0,
                     };
 
-                    if(is_together){
+                    if (is_together === true) {
                         if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
                         else if (this.qi > 1) this.global.alert.call(this, "合买不能追期");
                         else {
@@ -159,7 +159,7 @@
 
                             this.$router.push('/pay_hemai?title=双色球&lotid=' + this.global.product_type.shuangseqiu);
                         }
-                    }else {
+                    } else {
                         this.$vux.loading.show();
                         this.global.ajax.call(this, "ssq_order", d, this.order_callBack)
                     }
@@ -170,8 +170,9 @@
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.global.alert.call(this, "购买成功");
                     this.clearDrder();
+                    localStorage.clear();
+                    this.$router.push("/pay_success")
                 }
             },
             clearDrder(){
