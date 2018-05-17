@@ -790,7 +790,7 @@
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     localStorage.clear();
-                    this.global.alert.call(this, "下单成功！");
+                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type)
                 }
             },
         },

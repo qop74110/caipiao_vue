@@ -152,7 +152,7 @@
                     };
 
                     if (is_together === true) {
-                        if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
+                        if (d.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
                         else if (this.qi > 1) this.global.alert.call(this, "合买不能追期");
                         else {
                             sessionStorage.setItem("together_order", JSON.stringify(d));
@@ -172,7 +172,7 @@
                 else {
                     this.clearDrder();
                     localStorage.clear();
-                    this.$router.push("/pay_success")
+                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type)
                 }
             },
             clearDrder(){

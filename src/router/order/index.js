@@ -67,6 +67,15 @@ export default [
                 component: (resolve) => {
                     require(["page/order/detail_two"], resolve)
                 }
+            }, {
+                path: "hemai",
+                name: "order_hemai",
+                meta: {
+                    title: '订单详情'
+                },
+                component: (resolve) => {
+                    require(["page/order/hemai"], resolve)
+                }
             }
         ]
     }

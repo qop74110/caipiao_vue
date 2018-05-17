@@ -9,7 +9,8 @@
                 </div>
                 <div class="middle fl">
                     <p class="p_name">{{item.name}}</p>
-                    <p class="info">{{item.pay_money_total}}元 {{item.chasing_id === '' ? '普通': '追号'}}订单</p>
+                    <p class="info">{{item.pay_money_total}}元 {{item.type === 1 ? '普通': item.type === 2 ? '追号':
+                        '合买'}}订单</p>
                 </div>
                 <div class="right fr" :class="'stete' + item.openmatch"> {{item.s }}</div>
             </li>
@@ -58,10 +59,10 @@
             openLink(i){
                 const d = this.list[i];
                 let url = "/order/";
-                if (d.chasing_id === "") url += 'detail?id=' + d.order_id;
-                else url += 'detail_tow?id=' + d.chasing_id;
-
-                url += "&type=" + d.lotid;
+                if (d.type === 1) url += 'detail';
+                else if (d.type === 2) url += 'detail_tow';
+                else url += "hemai";
+                url += '?id=' + d.order_id + "&type=" + d.lotid;
 
                 this.$router.push(url)
             },

@@ -5,7 +5,7 @@
         </div>
 
         <div class="btn redBg" @click="$router.push('home')">继续购买</div>
-        <div class="btn redBg" @click="$router.push('/order/detail?id=')">查看订单</div>
+        <div class="btn redBg" @click="go_order">查看订单</div>
     </div>
 </template>
 
@@ -13,12 +13,27 @@
     export default {
         name: 'pay_success',
         data () {
-            return {}
+            return {
+                id: null,
+                type: null,
+            }
         },
         created(){
-
+            const query = this.$route.query;
+            this.id = query.id;
+            this.type = query.type;
         },
-        methods: {}
+        methods: {
+            go_order(){
+                const t = this.type;
+                let url = "/";
+//                t ===   0 : 合买；     1：追号；       2： 普通
+                if (t > 2) url += "order_hemai";
+                else if (t > 1) url += "detail_tow";
+                else if (t > 0) url += "hemai";
+                this.$router.push(url + "id=" + this.id)
+            }
+        }
     }
 </script>
 

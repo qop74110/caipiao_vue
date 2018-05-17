@@ -14,8 +14,11 @@
                 <img :src="datas.logo" class="logo">
             </div>
             <div class="fl c_name">
-                <p class="c3">{{datas.name}}</p>
-                <p class="phase c6">{{datas.phase}}</p>
+                <p class="c3" v-if="isFootball">竞彩足球</p>
+                <p class="c3" v-else>{{datas.name}}</p>
+                <p class="phase c6" v-if="isFootball">{{datas.phase.split("*")[0]}}</p>
+                <p class="phase c6" v-else>{{datas.phase}}</p>
+
             </div>
             <div class="fr time">
                 <div class="redText money c3">{{countDown}}</div>
@@ -133,6 +136,29 @@
                 </div>
 
                 <!--竞彩足球-->
+                <div class="style2" v-else-if="isFootball">
+                    <div class="th row c6">
+                        <div class="td">场次</div>
+                        <div class="td">主队VS客队</div>
+                        <div class="td">玩法</div>
+                        <div class="td">投注(出票赔率)</div>
+                        <div class="td">彩果</div>
+                    </div>
+                    <div class="tr row" v-for="(i, index) in datas.data">
+                        <div class="td l2">
+                            周{{i.week}}
+                            <p>{{i.te}}</p>
+                        </div>
+                        <div class="td blue l3">
+                            {{i.na.split(':')[0]}}
+                            <p>VS</p>
+                            {{i.na.split(':')[1].split("*")[0]}}
+                        </div>
+                        <div class="td l1">{{i.play}}</div>
+                        <div class="td l1">{{i.selected}}</div>
+                        <div class="td l1">{{i.result}}</div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -225,12 +251,15 @@
                 yuan: 1,
 
                 lotid: null,
+                isFootball: null,
             }
         },
         created(){
             this.$vux.loading.show();
             this.global.ajax.call(this, 'hemai_idetails', {id: this.$route.query.id}, this.getData);
-            this.lotid = this.$route.query.lotid;
+            const lotid = this.$route.query.lotid;
+            this.lotid = lotid;
+            this.isFootball = /FT/.test(lotid);
         },
         methods: {
             getData(d){

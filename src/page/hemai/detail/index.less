@@ -122,7 +122,7 @@
 //  投注信息
 .order_body {
 
-    //双色球
+    //双色球 & 福彩3d
     .style1 {
         @row-h: 1.2rem;
         .row {
@@ -140,11 +140,59 @@
         .ball {
             margin-right: .1rem;
         }
-        .blueText{
+        .blueText {
             color: #00A0FF;
         }
     }
 
+    //  足彩
+    .style2 {
+        @tr-h: 1.5rem;
+        font-size: .32rem;
+        .th {
+            @h: .8rem;
+            height: @h;
+            line-height: @h;
+            background: #ccc;
+
+        }
+        .tr {
+            height: @tr-h;
+            border-top: 1px solid #ccc;
+            overflow: hidden;
+            .td {
+                border-right: 1px solid #ccc;
+                &:last-child {
+                    border: 0;
+                }
+            }
+        }
+
+        .row {
+            .td {
+                float: left;
+                &:nth-child(odd) {
+                    width: 18%;
+                }
+                &:nth-child(even) {
+                    width: 23%;
+                }
+            }
+        }
+        .blue {
+            color: #00A0FF;
+        }
+        .l1 {
+            line-height: @tr-h;
+        }
+        .l2 {
+            line-height: @tr-h / 2;
+        }
+        .l3 {
+            line-height: @tr-h / 3;
+        }
+
+    }
 }
 
 //  投注信息 下边距
