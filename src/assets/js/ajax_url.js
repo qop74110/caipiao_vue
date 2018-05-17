@@ -16,8 +16,8 @@ const ajax_url = {
 
         jczq_play_type: "v1/football/muchPlayreles",    //  竞猜足球-玩法类型
         jczq_index_list: "v1/football/list",            //  竞猜足球-赛事列表
-        jczq_pay: "v1/football/confirmThePayment",      //  竞猜足球-下单
-        FT005_pay: "v1/football/blend",                 //  竞猜足球-混合投注下单
+        jczq_order: "v1/football/confirmThePayment",    //  竞猜足球-下单
+        FT005_order: "v1/football/blend",               //  竞猜足球-混合投注下单
         jczq_screenList: "v1/football/league",          //  筛选列表
         jczq_screen: "v1/football/screen",              //  筛选
 
@@ -53,6 +53,7 @@ const ajax_url = {
         hemai_index_top: 'v1/together/top',             //  合买 index-top
         hemai_idetails: 'v1/together/details',          //  合买 详情
         hemai_pay: 'v1/together/documentary',           //  合买 跟单
+
     }
 };
 

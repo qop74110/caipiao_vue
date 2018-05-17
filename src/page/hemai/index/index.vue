@@ -199,7 +199,7 @@
             },
             hemai(k){
                 const url = this.global.product_type[k];
-                if (url) this.$router.push(url + '/index?hemai=1');
+                if (url) this.$router.push(url + '/index');
                 else this.global.alert.call(this, "敬请期待");
             }
         },
@@ -207,7 +207,6 @@
             window.addEventListener('scroll', topLoad.fun);
         },
         destroyed(){
-            console.log('销毁')
             window.removeEventListener('scroll', topLoad.fun)
         }
     }

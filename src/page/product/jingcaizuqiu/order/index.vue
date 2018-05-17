@@ -379,9 +379,11 @@
     import {suanfa, danzhu} from "../suanfa";
     import {max_jj, min_jj} from "./jiangjin";
 
+    import {LaunchBtn} from "com";
 
     export default {
         name: 'jczq_order',
+        components:{LaunchBtn},
         data () {
             return {
                 bei: '10',
@@ -613,8 +615,8 @@
                     this.$set(this.checked[i], _i, []);
                     this.$set(this.c[i], _i, []);
                 } else {
-                    this.$set(this.checked[i], _i, [[],[],[],[],[]]);
-                    this.$set(this.c[i], _i, [[],[],[],[],[]]);
+                    this.$set(this.checked[i], _i, [[], [], [], [], []]);
+                    this.$set(this.c[i], _i, [[], [], [], [], []]);
                 }
 
 
@@ -763,7 +765,7 @@
                         }
                     }
 
-                    this.global.ajax.call(this, this.play_type !== "FT005" ? "jczq_pay" : 'FT005_pay', d, this.submit_CB);
+                    this.global.ajax.call(this, this.play_type !== "FT005" ? "jczq_order" : 'FT005_order', d, this.submit_CB);
                 }
             },
             submit_CB(d){
@@ -771,8 +773,8 @@
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.global.alert.call(this, "下单成功！");
                     localStorage.clear();
+                    this.global.alert.call(this, "下单成功！");
                 }
             },
         },

@@ -6,5 +6,6 @@ import Actionsheet from "./Actionsheet";
 import XHead from "./XHead";
 import XFoot from "./XFoot";
 import Bar from "./Bar";
+import LaunchBtn from "./LaunchBtn";
 
-export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead, Bar, XFoot};
+export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead, Bar, XFoot, LaunchBtn};

@@ -1,6 +1,10 @@
 <template>
     <div class="fucai3d_order" v-if="order !== null">
-        <XHead :show_mord="false" :show_title_option="false">3D</XHead>
+        <XHead :show_mord="false" :show_title_option="false">3D
+            <LaunchBtn :fun="submit"></LaunchBtn>
+        </XHead>
+        <!--发起合买-->
+        <!--<LaunchBtn></LaunchBtn>-->
 
         <ul class="btn_list">
             <li class="btn fl btn_active" @click="zixuan">
@@ -65,10 +69,10 @@
 </template>
 
 <script>
-    import {XHead, XNumber} from "com";
+    import {XHead, XNumber, LaunchBtn} from "com";
     export default {
         name: 'fucai3d_order',
-        components: {XHead, XNumber},
+        components: {XHead, XNumber, LaunchBtn},
         data () {
             return {
                 qi: 1,
@@ -166,7 +170,7 @@
                         obj.money = 4;
                     }
                 }
-                console.log(obj)
+
                 this.order.unshift(obj);
             },
             set_request_data(){
@@ -193,7 +197,7 @@
                 }
                 return d;
             },
-            submit(){
+            submit(is_together = false){
                 if (this.zhushu > 0) {
                     const data = this.set_request_data();
 
@@ -210,8 +214,18 @@
                         else if (typeof ( data.total[i].six ) === "object") data.total[i].six = data.total[i].six.join(",");
                     }
 
-                    this.$vux.loading.show();
-                    this.global.ajax.call(this, 'fc3d_order', data, this.submit_CB);
+                    if (is_together) {          //  true: 发起合买
+                        if (data.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
+                        else if (this.qi > 1) this.global.alert.call(this, "合买不能追期");
+                        else {
+                            sessionStorage.setItem("together_order", JSON.stringify(data));
+
+                            this.$router.push('/pay_hemai?title=福彩3d&lotid=fc3d');
+                        }
+                    } else {
+                        this.$vux.loading.show();
+                        this.global.ajax.call(this, 'fc3d_order', data, this.submit_CB);
+                    }
                 }
             },
             submit_CB(d){
@@ -219,7 +233,7 @@
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.global.alert.call(this, "下单成功")
+                    this.$router.push("/pay_hemai");
                 }
             }
         },

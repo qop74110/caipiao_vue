@@ -2,7 +2,7 @@
     <div class="pay_hemai">
         <div class="header">
             <div class="head redBg">
-                {{}}合买
+                {{title}}合买
                 <span class="back abs" @click="$router.back()"></span>
                 <span class="help abs" @click="$router.push('/exposition?id=hemai')"></span>
             </div>
@@ -10,14 +10,15 @@
 
         <!--总金额-->
         <div class="totalAmount">
-            方案总额：2772元
+            方案总额：{{order.money || 0}}元
         </div>
 
         <div class="form">
             <div class="row">
                 <div class="fl k">我要认购：</div>
-                <input class="money input w188" type="tel" v-model="money" placeholder="278">
-                元，最少认购278元
+                <input class="money input w188" type="tel" v-model="money"
+                       :placeholder=" Math.ceil( (order.money || 0) / 10)">
+                元，最少认购{{ Math.ceil( (order.money || 0) / 10) }}元
             </div>
             <div class="row">
                 <div class="fl k">保密设置：</div>
@@ -56,9 +57,9 @@
 
         <footer class="footer">
             <div class="foot">
-                应支付金额：<span class="redText">0.00</span>元
-                <div class="abs money">共<span class="redText">278</span>元</div>
-                <div class="abs btn redBg">发起和买</div>
+                应支付金额：<span class="redText">{{(money * 1 + baseline_money * 1) || 0}}</span>元
+                <div class="abs money">共<span class="redText">{{order.money || 0}}</span>元</div>
+                <div class="abs btn redBg" @click="hemai">发起和买</div>
             </div>
         </footer>
 
@@ -75,12 +76,51 @@
                 baseline_money: "",     //  保底金额
                 cut: 0,                 //  提成比例
                 declaration: '',        //  合买宣言
+
+                title: '',
+                order: null,
             }
         },
         created(){
+            this.title = this.$route.query.title || '';
+            const order = sessionStorage.getItem('together_order') || "{}";
+            if (order !== "{}") this.getOrder(order);
 
         },
-        methods: {}
+        methods: {
+            getOrder(order){
+                this.order = JSON.parse(order);
+
+            },
+            hemai(){
+                const min_money = Math.ceil((this.order.money || 0) / 10);
+                const baseline_money = this.baseline_money || 0;
+                if (this.money < min_money) this.global.toast.call(this, "认购金额最小为" + min_money);
+                else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
+                else {
+                    this.$vux.loading.show();
+
+                    const d = this.order;
+                    d.quota = this.money * 1 + this.baseline_money * 1;
+                    d.set = this.type;
+                    d.declaration = this.declaration || "想中奖的，跟我来！";
+                    d.cut = this.cut;
+                    d.baseline_money = baseline_money;
+                    d.is_together = 2;
+
+
+                    this.global.ajax.call(this, this.$route.query.lotid + "_order", d, this.heamai_BC)
+                }
+            },
+            heamai_BC(d){
+                this.$vux.loading.hide();
+                if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
+                else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+                    this.$router.push("/pay_success");
+                }
+            }
+        }
     }
 </script>
 
