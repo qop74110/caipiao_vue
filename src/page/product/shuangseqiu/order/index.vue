@@ -1,5 +1,9 @@
 <template>
     <div class="order page">
+        <XHead :show_mord="false" :show_title_option="false">双色球
+            <LaunchBtn :fun="submit"></LaunchBtn>
+        </XHead>
+
         <ul class="btns clearFix">
             <li class="btn fl btn_active" @click="back_index(balls.length)">
                 <img src="./img/add.png" alt="" class="btn_img">
@@ -58,12 +62,12 @@
 </template>
 
 <script>
-    import {XNumber} from "com";
+    import {XNumber,XHead, LaunchBtn} from "com";
     import random_sort from "../random_sort";
 
     export default {
         name: 'order',
-        components: {XNumber},
+        components: {XNumber,XHead, LaunchBtn},
         data () {
             return {
                 qi: 1,
@@ -130,12 +134,13 @@
                     this.balls[i].money = this.qi * this.bei * this.balls[i].notes * 2;
                 }
             },
-            submit(){
+            submit(is_together = false){
                 if (this.zhushu === 0) this.global.toast.call(this, "请投注");
                 else {
                     this.setMoney();
-                    this.$vux.loading.show();
-                    this.global.ajax.call(this, "ssq_order", {
+
+
+                    const d = {
                         total: this.balls,
                         notes: this.zhushu,
                         money: this.zhushu * this.qi * this.bei * 2,
@@ -144,7 +149,20 @@
                         phase: this.$route.query.phase || "",
                         is_stop: 2,
                         stop_money: 0,
-                    }, this.order_callBack)
+                    };
+
+                    if(is_together){
+                        if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
+                        else if (this.qi > 1) this.global.alert.call(this, "合买不能追期");
+                        else {
+                            sessionStorage.setItem("together_order", JSON.stringify(d));
+
+                            this.$router.push('/pay_hemai?title=双色球&lotid=' + this.global.product_type.shuangseqiu);
+                        }
+                    }else {
+                        this.$vux.loading.show();
+                        this.global.ajax.call(this, "ssq_order", d, this.order_callBack)
+                    }
                 }
             },
             order_callBack(d){
