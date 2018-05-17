@@ -90,7 +90,7 @@
         methods: {
             getOrder(order){
                 this.order = JSON.parse(order);
-
+console.log(this.order)
             },
             hemai(){
                 const min_money = Math.ceil((this.order.money || 0) / 10);

@@ -1,17 +1,19 @@
 @import "../../../../assets/css/theme";
 
+@Xhead-h: 1.2rem;
+
 .jczq_order {
     @head_h: 1.5rem;
     @foot_h: 2.35rem;
     @p: .3rem;
     height: 100vh;
-    padding: @head_h 0 @foot_h;
+    padding: @head_h + @Xhead-h 0 @foot_h;
     text-align: center;
     background: #efefef;
     position: relative;
     .header {
         position: absolute;
-        top: 0;
+        top: @Xhead-h;
         left: 0;
         right: 0;
         height: @head_h;
@@ -32,7 +34,7 @@
     .order_list {
         @item_h: 2rem;
         @item_p: .2rem;
-        max-height: calc(~"100vh - @{head_h} - @{foot_h}");
+        max-height: calc(~"98vh - @{head_h} - @{foot_h} - @{Xhead-h}");
         margin: 0 @p;
         border-radius: .2rem;
         background: white;

@@ -1,5 +1,9 @@
 <template>
     <div class="jczq_order page" v-if="render_page">
+        <XHead :show_mord="false" :show_title_option="false">竞彩足球
+            <LaunchBtn :fun="submit"></LaunchBtn>
+        </XHead>
+
         <div class="header">
             <a class="head_btn add fl" @click="set_order">添加/编辑赛事</a>
             <a class="head_btn clear fl" @click="del_order">清空列表</a>
@@ -379,11 +383,11 @@
     import {suanfa, danzhu} from "../suanfa";
     import {max_jj, min_jj} from "./jiangjin";
 
-    import {LaunchBtn} from "com";
+    import {LaunchBtn, XHead} from "com";
 
     export default {
         name: 'jczq_order',
-        components:{LaunchBtn},
+        components: {LaunchBtn, XHead},
         data () {
             return {
                 bei: '10',
@@ -684,7 +688,7 @@
                 this.set_jjArr();
 
             },
-            submit(){
+            submit(is_together = false){
                 if (this.chuan.length === 0 && this.bar_value) this.global.toast.call(this, "请选择投注方式");
                 else if (this.money === 0) console.log("money = 0");
                 else {
@@ -765,7 +769,18 @@
                         }
                     }
 
-                    this.global.ajax.call(this, this.play_type !== "FT005" ? "jczq_order" : 'FT005_order', d, this.submit_CB);
+                    const ajaxName = this.play_type !== "FT005" ? "jczq" : 'FT005';
+
+                    if (is_together) {
+                        if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
+                        else {
+                            this.$vux.loading.hide();
+                            d.money = this.money;
+                            sessionStorage.setItem("together_order", JSON.stringify(d));
+
+                            this.$router.push('/pay_hemai?title=竞彩足球&lotid=' + ajaxName);
+                        }
+                    } else this.global.ajax.call(this, ajaxName + "_order", d, this.submit_CB);
                 }
             },
             submit_CB(d){
