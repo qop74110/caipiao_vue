@@ -54,6 +54,9 @@ const ajax_url = {
         hemai_idetails: 'v1/together/details',          //  合买 详情
         hemai_pay: 'v1/together/documentary',           //  合买 跟单
 
+        hb_data: 'v1/user/envelopes',                   //  红包-获取红包列表
+
+
     }
 };
 

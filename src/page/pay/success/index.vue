@@ -26,12 +26,13 @@
         methods: {
             go_order(){
                 const t = this.type;
-                let url = "/";
+                let url = "/order/";
 //                t ===   0 : 合买；     1：追号；       2： 普通
-                if (t > 2) url += "order_hemai";
+                if (t > 2) url += "hemai";
                 else if (t > 1) url += "detail_tow";
-                else if (t > 0) url += "hemai";
-                this.$router.push(url + "id=" + this.id)
+                else if (t > 0) url += "detail";
+                this.$router.push(url + "?id=" + this.id)
+
             }
         }
     }
