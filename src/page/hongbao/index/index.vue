@@ -21,7 +21,7 @@
                         {{i.amount}}<span class="em">元</span>
                     </div>
                     <div class="fr r">
-                        <div class="btn fr redText s32" @click="use(i.red_id)">立即使用</div>
+                        <div class="btn fr redText s32" @click="use(index)">立即使用</div>
                         <p class="balance c3">余额：{{i.amount}}</p>
                         <p class="s32 redText">有效期 {{i.effective}}天</p>
                         <p class="s32 ca">{{i.title}}</p>
@@ -58,14 +58,16 @@
         <div class="popup fog" v-if="show_popup">
             <div class="popup_content">
                 <div class="pt">
-                    标题
+                    {{popup_data.money}}元红包
+                    <p class="c9">可投注以下彩种，请选择</p>
                 </div>
                 <div class="pl">
-                    <div class="item">
-                        logo
-                        名字
+                    <div class="item" v-for="(item, index) in popup_data.d">
+                        <img :src="item.logo" alt="" class="logo">
+                        <p class="fr c_name">{{item.title}}</p>
                     </div>
                 </div>
+                <div class="pf" @click="show_popup = false">取消</div>
             </div>
         </div>
 
@@ -102,6 +104,7 @@
                 stop_request2: false,   //  停止请求
 
                 show_popup: false,
+                popup_data: {},
             }
         },
         created(){
@@ -142,16 +145,20 @@
                 }
                 this.in_request = false;
             },
-            use(id){
+            use(i){
                 this.$vux.loading.show();
-                this.global.ajax.call(this, "hb_useHb", {id}, this.use_BC);
+                this.popup_data = {};
+                this.popup_data.money = this.available[i].amount;
+                this.global.ajax.call(this, "hb_useHb", {id: this.available[i].red_id}, this.use_BC);
 
             },
             use_BC(d){
                 this.$vux.loading.hide();
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    console.log(d.data)
+                    this.popup_data.d = d.data;
+                    this.show_popup = true;
+                    console.log(this.popup_data)
                 }
             },
             get_cashingCode(){

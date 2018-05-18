@@ -120,3 +120,64 @@
         background: url(../../../assets/img/noData.png) no-repeat center center / 5rem;
     }
 }
+
+.popup {
+    @pt-h: 1.6rem;
+    @ft-h: 1.2rem;
+    padding-top: 3rem;
+    .popup_content {
+        height: 10.4rem;
+        margin: 0 .8rem;
+        padding-bottom: @ft-h;
+        background: #F7F7F7;
+        border-radius: .2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .pt {
+        height: @pt-h;
+        line-height: (@pt-h - .4) / 2;
+        padding: .2rem 0;
+        border-bottom: 1px solid #E1E1E1;
+        text-align: center;
+    }
+    .pl {
+        @item-h: 1.33rem;
+        .item {
+            height: @item-h;
+            line-height: @item-h;
+            overflow: hidden;
+        }
+        .logo {
+            width: .8rem;
+            height: .8rem;
+            margin: (@item-h - .8) / 2;
+        }
+        .c_name {
+            height: 100%;
+            font-size: .38rem;
+            width: 7rem;
+            border-bottom: 1px solid #E1E1E1;
+            background: url(../../../assets/img/arrow.png) no-repeat 6.5rem center / .2rem;
+        }
+    }
+
+    .pf {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: @ft-h;
+        line-height: @ft-h;
+        text-align: center;
+        color: #666;
+        font-size: .4rem;
+        border-top: 1px solid #e1e1e1;
+        background: #efefef;
+    }
+    .c9 {
+        color: #999;
+        font-size: .24rem;
+    }
+
+}
