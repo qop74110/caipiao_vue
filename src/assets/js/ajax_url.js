@@ -57,6 +57,7 @@ const ajax_url = {
 
         hb_data: 'v1/user/envelopes',                   //  红包-获取红包列表
         hb_share: "v1/user/sharesend",                  //  红包-分享得红包
+        hb_useHb: "v1/user/rightoff",                   //  红包-分享得红包
 
 
 
