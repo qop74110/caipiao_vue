@@ -1,5 +1,5 @@
 <template>
-    <div class="hemai_detail" v-if="datas !== null">
+    <div class="order_hemai" v-if="datas !== null">
         <header class="head">
             <div class="head_t redBg">
                 合买详情
@@ -23,43 +23,27 @@
 
             </div>
             <div class="fr time">
-                <div class="redText money c3">{{countDown}}</div>
-                <div class="text c6">距离截止</div>
+                <div class="redText money">{{datas.winning_money}}</div>
+                <div class="text c6">我的奖金</div>
             </div>
         </div>
 
-        <!-- 进度 & 我的认购（元）& 订单状态
-         <ul class="top2">
-         <li class="fl">
-         <span class="redText c3">{{datas.progress}}</span>
-         <p class="text">进度</p>
-         </li>
-         <li class="fl">
-         <span class="c3">{{}}</span>
-         <p class="text">我的认购（元</p>
-         </li>
-         <li class="fl"></li>
-         </ul>-->
-
-        <!--金额状态： 总金额 & 已购金额 & 剩余金额 & 进度-->
-        <ul class="top2 top">
+        <!--进度 & 我的认购（元）& 订单状态-->
+        <ul class="top3">
             <li class="fl">
-                <p class="c3">{{datas.pay_money_total}}</p>
-                <p class="text c6">总金额(元)</p>
-            </li>
-            <li class="fl">
-                <p class="c3">{{datas.percentage}}</p>
-                <p class="text c6">已购金额(元)</p>
-            </li>
-            <li class="fl">
-                <p class="c3">{{datas.remaining_money}}</p>
-                <p class="text c6">剩余金额(元)</p>
-            </li>
-            <li class="fl">
-                <p class=" redText">{{datas.progress}}%</p>
+                <span class="redText">{{datas.progress}}%</span>
                 <p class="text c6">进度</p>
             </li>
+            <li class="fl">
+                <span class="c3">{{datas.quota}}</span>
+                <p class="text c6">我的认购(元)</p>
+            </li>
+            <li class="fl">
+                <span class="c3">{{datas.s}}</span>
+                <p class="text c6">订单状态</p>
+            </li>
         </ul>
+
 
         <!--发起人信息-->
         <div class="user_data grayBox">
@@ -68,13 +52,8 @@
                 <span class="redText">{{datas.user}}</span>
             </p>
             <p class="row">
-                <span class="k">中奖记录:</span>
-                <span class="c3">{{`中奖${datas.winning_num}次，中奖 `}}</span>
-                <span class="redText">{{datas.winning_money_total}}元</span>
-            </p>
-            <p class="row">
                 <span class="k">订单保底:</span>
-                <span class="c3">{{datas.baseline_money}}</span>
+                <span class="c3">{{datas.baseline_money}}元</span>
             </p>
             <p class="row">
                 <span class="k">发单提成:</span>
@@ -167,6 +146,34 @@
 
         <div class="order_margin"></div>
 
+        <!--派单详情-->
+        <div class="paidan">
+            <div class="paidan_head tag">
+                <span class="k">派单详情</span>
+
+                <span class="arrow fr" @click="show_paidan_body = !show_paidan_body"
+                      :class="show_paidan_body && 'rotate'"></span>
+            </div>
+            <div class="paidan_body c3" v-show="show_paidan_body">
+                <div class="row">
+                    <div class="fl"></div>
+                    <div class="fl">金额/比例</div>
+                    <div class="fl">奖金</div>
+                </div>
+                <div class="row">
+                    <div class="fl">订单金额</div>
+                    <div class="fl">{{datas.pay_money_total}}元</div>
+                    <div class="fl">{{datas.winning_money_total}}元</div>
+                </div>
+                <div class="row">
+                    <div class="fl">发起人提成</div>
+                    <div class="fl">{{datas.cut}}%</div>
+                    <div class="fl">{{datas.extract}}元</div>
+                </div>
+            </div>
+        </div>
+        <div class="order_margin"></div>
+
         <!--跟单详情-->
         <div class="with ">
             <div class="wieh_head tag">
@@ -214,22 +221,29 @@
                 {{datas.stopTime}}
             </p>
             <!--<p class="row"><span class="k">合买说明:</span>{{datas.cut}}</p>-->
+
+            <!--删除订单-->
+            <div class="delOrder redText" @click="del_order" v-if="datas.st !== 1">删除订单</div>
         </div>
 
+
         <!--剩余份数-->
-        <div class="surplus">
+        <div class="surplus" v-if="datas.st === 1">
             剩余份数: <span class="redText">{{datas.remaining_money}}份)</span> (1元/份)
             <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal"></XNumber>
         </div>
 
 
         <footer class="footer">
-            <!--<div class="foot redBg">方案已满员，下次出手要快点了！</div>-->
-            <div class="foot whiteBg">
+
+            <div class="foot whiteBg" v-if="datas.st === 1">
                 <span class="quanbao redText" @click="pay('all')">全包</span>
                 共<span class="redText">300</span>元
                 <span class="pay btn_active redBg" @click="pay">支付</span>
             </div>
+
+            <div class="foot redBg" v-else @click="$router.push('/hemai')">去合买</div>
+            <!--<div class="foot redBg"  @click="$router.push('/hemai')">去合买</div>-->
         </footer>
     </div>
 </template>
@@ -239,16 +253,17 @@
     import {XNumber} from "com";
 
     export default {
-        name: 'hemai_detail',
+        name: 'order_hemai',
         components: {XNumber},
         data () {
             return {
                 datas: null,
-                countDown: "",              //  倒计时
-                counDown_time: null,        //  倒计时计时器
+//                countDown: "",              //  倒计时
+//                counDown_time: null,        //  倒计时计时器
 
                 show_wieh_body: false,      //  显示跟单详情
                 show_order_body: false,     //  显示投注信息
+                show_paidan_body: false,    //  显示派单详情
 
                 yuan: 1,
 
@@ -259,7 +274,7 @@
         created(){
             this.$vux.loading.show();
             this.global.ajax.call(this, 'order_hemai', {id: this.$route.query.id}, this.getData);
-            const lotid = this.$route.query.lotid;
+            const lotid = this.$route.query.type;
             this.lotid = lotid;
             this.isFootball = /FT/.test(lotid);
         },
@@ -268,8 +283,7 @@
                 this.$vux.loading.hide();
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.setTime(d.data.date * 1000);
-
+                    this.setOrderState(d.data);
                     if (this.lotid === this.global.product_type.shuangseqiu) {              //  双色球
                         d.data.data.forEach((item, i) => {
                             if (item.play_type === "103") {
@@ -291,20 +305,30 @@
                     this.datas = d.data;
                 }
             },
-            setTime(time){
-                const timestamp = Date.parse(new Date());           //  当前时间戳
-                let t = time - timestamp;
-                const _this = this;
-                this.countDown_time = setInterval(() => {
-                    t -= 1000;
-                    const _h = 3600000;
-                    const _m = 60000;
-                    const h = parseInt(t / _h);
-                    const m = parseInt(( t - h * _h ) / _m);
-                    const s = parseInt((t - h * _h - m * _m) / 1000);
+            setOrderState(d){
 
-                    _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
-                }, 1000)
+                let s = "", st = null;
+                if (d.status === 4) {
+                    if (d.openmatch === '0') {
+                        s = "等待开奖";
+                        st = 1;
+                    } else if (d.openmatch === '2') {
+                        st = 2;
+                        s = "未中奖";
+                    } else if (d.openmatch === '3') {
+                        st = 3;
+                        s = "中奖 ";
+                    }
+                } else if (d.status === 2) {
+                    s = "委托中";
+                    st = 1;
+                } else {
+                    st = 0;
+                    s = "委托失败";
+                }
+
+                d.s = s;
+                d.st = st;
             },
             setVal(d){
                 this[d.name] = d.val;
@@ -328,7 +352,26 @@
             },
             share(){
                 this.global.share.call(this)
-            }
+            },
+
+            del_order(){
+                const _this = this;
+                this.$vux.confirm.show({
+                    content: "删除后本订单将无法还原",
+                    onConfirm () {
+                        _this.$vux.loading.show();
+                        _this.global.ajax.call(_this, 'order_del', {id: _this.$route.query.id}, _this.del_order_CB);
+                    }
+                })
+            },
+            del_order_CB(d){
+                this.$vux.loading.hide();
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+                    this.global.alert.call(this, "删除成功");
+                    this.$router.back();
+                }
+            },
         },
         destroyed(){
             clearInterval(this.countDown_time);

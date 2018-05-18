@@ -74,7 +74,7 @@ export default [
                     title: '订单详情'
                 },
                 component: (resolve) => {
-                    require(["page/order/hemai"], resolve)
+                    require(["page/order/hemai/index1.vue"], resolve)
                 }
             }
         ]

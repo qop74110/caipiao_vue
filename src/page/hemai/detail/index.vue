@@ -74,7 +74,7 @@
             </p>
             <p class="row">
                 <span class="k">订单保底:</span>
-                <span class="c3">{{datas.baseline_money}}</span>
+                <span class="c3">{{datas.baseline_money}}元</span>
             </p>
             <p class="row">
                 <span class="k">发单提成:</span>
@@ -294,20 +294,17 @@
             setTime(time){
                 const timestamp = Date.parse(new Date());           //  当前时间戳
                 let t = time - timestamp;
-                if (t > 0) {
-                    const _this = this;
-                    this.countDown_time = setInterval(() => {
-                        t -= 1000;
-                        const _h = 3600000;
-                        const _m = 60000;
-                        const h = parseInt(t / _h);
-                        const m = parseInt(( t - h * _h ) / _m);
-                        const s = parseInt((t - h * _h - m * _m) / 1000);
+                const _this = this;
+                this.countDown_time = setInterval(() => {
+                    t -= 1000;
+                    const _h = 3600000;
+                    const _m = 60000;
+                    const h = parseInt(t / _h);
+                    const m = parseInt(( t - h * _h ) / _m);
+                    const s = parseInt((t - h * _h - m * _m) / 1000);
 
-                        _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
-                    }, 1000)
-                }
-
+                    _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
+                }, 1000)
             },
             setVal(d){
                 this[d.name] = d.val;

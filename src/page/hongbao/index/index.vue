@@ -21,7 +21,7 @@
                         {{i.amount}}<span class="em">元</span>
                     </div>
                     <div class="fr r">
-                        <div class="btn fr redText s32" @click="use(i.id)">立即使用</div>
+                        <div class="btn fr redText s32" @click="use(i.red_id)">立即使用</div>
                         <p class="balance c3">余额：{{i.amount}}</p>
                         <p class="s32 redText">有效期 {{i.effective}}天</p>
                         <p class="s32 ca">{{i.title}}</p>
@@ -38,7 +38,7 @@
                         {{i.amount}}<span class="em">元</span>
                     </div>
                     <div class="fr r">
-                        <div class="btn fr s32" @click="use(i.id)">立即使用</div>
+                        <div class="btn fr s32" >立即使用</div>
                         <p class="balance ">余额：{{i.amount}}</p>
                         <p class="s32">有效期 {{i.effective}}天</p>
                         <p class="s32">{{i.title}}</p>
@@ -55,7 +55,7 @@
         </div>
 
         <!--弹窗-->
-       <!-- <div class="popup fog">
+        <div class="popup fog" v-if="show_popup">
             <div class="popup_content">
                 <div class="pt">
                     标题
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
     </div>
 </template>
@@ -100,6 +100,8 @@
                 in_request: false,      //  防止重复请求
                 stop_request1: false,   //  停止请求
                 stop_request2: false,   //  停止请求
+
+                show_popup: false,
             }
         },
         created(){

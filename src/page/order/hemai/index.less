@@ -5,7 +5,7 @@
 @tag-h: 1.2rem;
 @sur-h: 1.08rem;
 
-.hemai_detail {
+.order_hemai {
     padding-bottom: @sur-h;
     text-align: center;
 }
@@ -76,10 +76,14 @@
     border-bottom: 1px solid #efefef;
 }
 
-//  金额状态： 总金额 & 已购金额 & 剩余金额 & 进度
-.top2 {
+//进度 & 我的认购（元）& 订单状态
+.top3 {
+    @p: .5rem;
+    height: @top-h;
+    line-height: (@top-h - 2 * @p) / 2;
+    padding: @p 0;
     .fl {
-        width: 25%;
+        width: 100% / 3;
     }
     .c3 {
         font-size: .42rem;
@@ -91,6 +95,22 @@
         font-size: .42rem;
     }
 }
+
+////  金额状态： 总金额 & 已购金额 & 剩余金额 & 进度
+//.top2 {
+//    .fl {
+//        width: 25%;
+//    }
+//    .c3 {
+//        font-size: .42rem;
+//    }
+//    .c6 {
+//        font-size: .32rem;
+//    }
+//    .redText {
+//        font-size: .42rem;
+//    }
+//}
 
 //  发起人信息 & 跟单详情---公共
 .grayBox {
@@ -201,6 +221,25 @@
     background: #efefef;
 }
 
+//派单详情
+.paidan_body {
+    @row-h: 1.2rem;
+    font-size: .38rem;
+    .row {
+        height: @row-h;
+        line-height: @row-h;
+        border-top: 1px solid #efefef;
+        .fl {
+            width: 100% / 3;
+            height: 100%;
+            border-right: 1px solid #efefef;
+            &:last-child {
+                border: 0;
+            }
+        }
+    }
+}
+
 //跟单详情
 .wieh_body {
     @tr-h: @sur-h;
@@ -293,6 +332,12 @@
             font-size: .38rem;
         }
     }
+}
+
+.delOrder {
+    text-align: center;
+    font-size: .3rem;
+    padding: .3rem 0;
 }
 
 .c3 {
