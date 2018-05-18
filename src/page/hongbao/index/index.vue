@@ -11,7 +11,7 @@
             <!--兑奖码-->
             <div class="cashingCode" v-show="bar_value === 0">
                 <input type="text" class="input" v-model="cashingCode" placeholder="请输入兑奖码">
-                <span class="btn redBg fr">兑换</span>
+                <span class="btn redBg fr" @click="get_cashingCode">兑换</span>
             </div>
 
             <!--可用红包列表-->
@@ -38,7 +38,7 @@
                         {{i.amount}}<span class="em">元</span>
                     </div>
                     <div class="fr r">
-                        <div class="btn fr s32" >立即使用</div>
+                        <div class="btn fr s32">立即使用</div>
                         <p class="balance ">余额：{{i.amount}}</p>
                         <p class="s32">有效期 {{i.effective}}天</p>
                         <p class="s32">{{i.title}}</p>
@@ -152,6 +152,20 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     console.log(d.data)
+                }
+            },
+            get_cashingCode(){
+                if (this.cashingCode.length < 8) this.global.call(this, d.error_message);
+                else {
+                    this.$vux.loading.show();
+                    this.global.ajax.call(this, "hb_cashingCode", {}, this.cashingCode_CB)
+                }
+            },
+            cashingCode_CB(d){
+                this.$vux.loading.hide();
+                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                else {
+                    this.global.alert.call(this, "兑换成功");
                 }
             }
         },
