@@ -2,9 +2,26 @@
     <div class="hongbao">
         <XHead :show_mord="false" :show_title_option="false">
             红包
-            <span class="help" @click=""></span>
+            <span class="help" @click="$router.push('/hb_help')"></span>
         </XHead>
         <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
+
+
+        <div class="content" v-if="loading === 0">
+            <!--兑奖码-->
+            <div class="cashingCode">
+                <input type="text" class="input" v-model="cashingCode">
+                <span class="btn redBg">兑换</span>
+            </div>
+
+            <div class="available list">
+
+            </div>
+
+
+            <div class="noData"></div>
+        </div>
+
     </div>
 </template>
 
@@ -21,12 +38,21 @@
                 bar_list: [
                     "可用",
                     "用完/过期"
-                ]
+                ],
+
+                available: [],          //  可用红包列表
+                disabled: [],           //  用完/过期 红包列表
+
+                cashingCode: "",        //  兑奖码
+
+                loading: 1,
             }
         },
         created(){
             this.$vux.loading.show();
             this.global.ajax.call(this, 'hb_data', {}, this.getData)
+
+            this.global.ajax.call(this, 'hb_share', {}, console.log);
         },
         methods: {
             getData(d){
@@ -35,6 +61,7 @@
                 else {
                     console.log(d.data)
                 }
+                this.loading--;
             },
         }
     }

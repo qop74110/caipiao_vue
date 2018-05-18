@@ -172,7 +172,7 @@
                 else {
                     this.clearDrder();
                     localStorage.clear();
-                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type)
+                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type + "&lotid=" + d.data.lotid)
                 }
             },
             clearDrder(){

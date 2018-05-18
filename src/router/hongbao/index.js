@@ -12,14 +12,14 @@ export default [
         component: (resolve) => {
             require(['page/hongbao/index'], resolve)
         }
-        // }, {
-        //     path: '/hemai_detail',
-        //     name: 'hemai_detail',
-        //     meta: {
-        //         title: '合买详情'
-        //     },
-        //     component: (resolve) => {
-        //         require(['page/hemai/detail'], resolve)
-        //     }
+        }, {
+            path: '/hb_help',
+            name: 'hb_help',
+            meta: {
+                title: '红包/兑换说明'
+            },
+            component: (resolve) => {
+                require(['page/hongbao/help'], resolve)
+            }
     },
 ]

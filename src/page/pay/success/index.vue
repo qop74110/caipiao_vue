@@ -16,12 +16,14 @@
             return {
                 id: null,
                 type: null,
+                lotid: null,
             }
         },
         created(){
             const query = this.$route.query;
             this.id = query.id;
             this.type = query.type;
+            this.lotid = query.lotid;
         },
         methods: {
             go_order(){
@@ -31,7 +33,7 @@
                 if (t > 2) url += "hemai";
                 else if (t > 1) url += "detail_tow";
                 else if (t > 0) url += "detail";
-                this.$router.push(url + "?id=" + this.id)
+                this.$router.push(url + "?id=" + this.id + "&type=" + this.lotid)
 
             }
         }

@@ -1,0 +1,314 @@
+@head-h: 1.2rem;
+@foot-h: 1.2rem;
+
+@top-h: 2.13rem;
+@tag-h: 1.2rem;
+@sur-h: 1.08rem;
+
+.hemai_detail {
+    padding-bottom: @sur-h;
+    text-align: center;
+}
+
+.head {
+    height: @head-h;
+    color: white;
+    font-size: .5rem;
+    .head_t {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: @head-h;
+        line-height: @head-h;
+        width: 10rem;
+        margin: 0 auto;
+    }
+    .abs {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1rem;
+    }
+    .back {
+        left: 0;
+        background: url(../../../assets/img/arrow_l.png) no-repeat .3rem center / .3rem;
+    }
+    .share {
+        right: 0;
+        background: url(img/share.png) no-repeat center center / .5rem;
+    }
+
+}
+
+//top1 & top2----公共
+.top {
+    height: @top-h;
+    padding: .4rem .5rem;
+    text-align: center;
+    line-height: (@top-h - 2 * .4rem) / 2;
+}
+
+//<!--彩种&截止时间-->
+.top1 {
+    .logo {
+        width: 1.3rem;
+        margin-right: .68rem;
+        line-height: 100%;
+    }
+    .c_name {
+        text-align: left;
+        .c3 {
+            font-size: .5rem;
+        }
+        .c6 {
+            font-size: .38rem;
+        }
+    }
+    .time {
+        .c3 {
+            font-size: .45rem;
+        }
+        .c6 {
+            font-size: .4rem;
+        }
+    }
+    border-bottom: 1px solid #efefef;
+}
+
+//  金额状态： 总金额 & 已购金额 & 剩余金额 & 进度
+.top2 {
+    .fl {
+        width: 25%;
+    }
+    .c3 {
+        font-size: .42rem;
+    }
+    .c6 {
+        font-size: .32rem;
+    }
+    .redText {
+        font-size: .42rem;
+    }
+}
+
+//  发起人信息 & 跟单详情---公共
+.grayBox {
+    padding: .4rem;
+    background: #efefef;
+    font-size: .38rem;
+    text-align: left;
+    color: #666;
+}
+
+//  发起人信息
+.user_data {
+    .em {
+        display: inline-block;
+        width: .5em;
+        height: 100%;
+    }
+}
+
+//  发起人信息 & 订单信息----公共
+.tag {
+    height: @tag-h;
+    line-height: @tag-h;
+    padding: 0 .4rem;
+    text-align: left;
+    font-size: .38rem;
+}
+
+//  投注信息
+.order_body {
+
+    //双色球 & 福彩3d
+    .style1 {
+        @row-h: 1.2rem;
+        .row {
+            height: @row-h;
+            line-height: @row-h;
+            padding: 0 .4rem;
+            border-top: 1px solid #efefef;
+            overflow: hidden;
+        }
+        .l {
+            width: 2rem;
+            font-size: .29rem;
+            text-align: left;
+        }
+        .ball {
+            margin-right: .1rem;
+        }
+        .blueText {
+            color: #00A0FF;
+        }
+    }
+
+    //  足彩
+    .style2 {
+        @tr-h: 1.5rem;
+        font-size: .32rem;
+        .th {
+            @h: .8rem;
+            height: @h;
+            line-height: @h;
+            background: #ccc;
+
+        }
+        .tr {
+            height: @tr-h;
+            border-top: 1px solid #ccc;
+            overflow: hidden;
+            .td {
+                border-right: 1px solid #ccc;
+                &:last-child {
+                    border: 0;
+                }
+            }
+        }
+
+        .row {
+            .td {
+                float: left;
+                &:nth-child(odd) {
+                    width: 18%;
+                }
+                &:nth-child(even) {
+                    width: 23%;
+                }
+            }
+        }
+        .blue {
+            color: #00A0FF;
+        }
+        .l1 {
+            line-height: @tr-h;
+        }
+        .l2 {
+            line-height: @tr-h / 2;
+        }
+        .l3 {
+            line-height: @tr-h / 3;
+        }
+
+    }
+}
+
+//  投注信息 下边距
+.order_margin {
+    height: .3rem;
+    background: #efefef;
+}
+
+//跟单详情
+.wieh_body {
+    @tr-h: @sur-h;
+    font-size: .32rem;
+    .tr {
+        height: @tr-h;
+        line-height: @tr-h;
+        border-bottom: 1px solid #efefef;
+        &:last-child {
+            border: 0;
+        }
+        overflow: hidden;
+        .td {
+            float: left;
+            width: 25%;
+            height: 100%;
+        }
+    }
+}
+
+.arrow {
+    height: 100%;
+    width: .35rem;
+    background: url(../../../assets/img/arrow.png) no-repeat center center / .2rem;
+    transform: rotate(90deg);
+    transition: transform .25s;
+}
+
+.rotate {
+    transform: rotate(270deg);
+}
+
+//剩余份数
+.surplus {
+    position: fixed;
+    bottom: @foot-h;
+    left: 0;
+    right: 0;
+    width: 10rem;
+    height: @sur-h;
+    line-height: @head-h;
+    margin: 0 auto;
+    padding: 0 .4rem;
+    text-align: left;
+    background: white;
+    border-top: 1px solid #efefef;
+    .fr {
+        margin-top: .2rem;
+    }
+}
+
+.footer {
+    height: @foot-h;
+    text-align: center;
+    .foot {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: inherit;
+        line-height: @foot-h;
+        width: 10rem;
+        margin: 0 auto;
+    }
+    .redBg {
+        color: white;
+        font-size: .45rem;
+    }
+    .whiteBg {
+        border-top: 1px solid #DCDBDB;
+        background: white;
+        .quanbao {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 1.4rem;
+            border-right: 1px solid #DCDBDB;
+        }
+        .pay {
+            @pay-h: .8rem;
+            position: absolute;
+            right: .3rem;
+            top: (@foot-h - @pay-h) / 2;
+            height: @pay-h;
+            line-height: @pay-h;
+            width: 2 * @pay-h;
+            color: white;
+            border-radius: .1rem;
+            font-size: .38rem;
+        }
+    }
+}
+
+.c3 {
+    color: #333;
+}
+
+.c6 {
+    color: #666;
+}
+
+.c9 {
+    color: #999;
+}
+
+.k {
+    display: inline-block;
+    width: 2rem;
+    height: 100%;
+}

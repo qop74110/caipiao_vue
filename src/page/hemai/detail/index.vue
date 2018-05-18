@@ -294,17 +294,20 @@
             setTime(time){
                 const timestamp = Date.parse(new Date());           //  当前时间戳
                 let t = time - timestamp;
-                const _this = this;
-                this.countDown_time = setInterval(() => {
-                    t -= 1000;
-                    const _h = 3600000;
-                    const _m = 60000;
-                    const h = parseInt(t / _h);
-                    const m = parseInt(( t - h * _h ) / _m);
-                    const s = parseInt((t - h * _h - m * _m) / 1000);
+                if (t > 0) {
+                    const _this = this;
+                    this.countDown_time = setInterval(() => {
+                        t -= 1000;
+                        const _h = 3600000;
+                        const _m = 60000;
+                        const h = parseInt(t / _h);
+                        const m = parseInt(( t - h * _h ) / _m);
+                        const s = parseInt((t - h * _h - m * _m) / 1000);
 
-                    _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
-                }, 1000)
+                        _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
+                    }, 1000)
+                }
+
             },
             setVal(d){
                 this[d.name] = d.val;
@@ -322,8 +325,8 @@
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.$router.push("/pay_success?id=");
-                    /*todo 等接口返回订单id*/
+                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type + "&lotid=" + d.data.lotid)
+                    /*todo 等接口返回lotid*/
                 }
             },
             share(){
