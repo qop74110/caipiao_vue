@@ -650,14 +650,16 @@
                 }
             },
             set_order(){
-                const d = {
-                    index_list: this.index_list,
-                    checked: this.c,
-                    play_type: this.play_type,
-                    bar_value: this.bar_value,
-                };
-                localStorage.setItem("jczq_order", JSON.stringify(d));
-                localStorage.setItem("jczq_setOrder", "1");
+                if(this.changshu){
+                    const d = {
+                        index_list: this.index_list,
+                        checked: this.c,
+                        play_type: this.play_type,
+                        bar_value: this.bar_value,
+                    };
+                    localStorage.setItem("jczq_order", JSON.stringify(d));
+                    localStorage.setItem("jczq_setOrder", "1");
+                }
                 this.$router.back();
             },
             show_footMiddle_fun(){

@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="fl k">提成比例：</div>
                 <select class="cut input w188" v-model="cut">
-                    <option :value="index" v-for="(item, index) in 10 ">{{index}}%</option>
+                    <option :value="index" v-for="(item, index) in 11 ">{{index}}%</option>
 
                 </select>
             </div>
@@ -90,7 +90,6 @@
         methods: {
             getOrder(order){
                 this.order = JSON.parse(order);
-console.log(this.order)
             },
             hemai(){
                 const min_money = Math.ceil((this.order.money || 0) / 10);
@@ -98,18 +97,21 @@ console.log(this.order)
                 if (this.money < min_money) this.global.toast.call(this, "认购金额最小为" + min_money);
                 else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
                 else {
-                    this.$vux.loading.show();
+                    const quota = this.money * 1 + this.baseline_money * 1;
+                    if (quota > this.order.money) this.global.toast.call(this, "金额错误");
+                    else {
+                        this.$vux.loading.show();
 
-                    const d = this.order;
-                    d.quota = this.money * 1 + this.baseline_money * 1;
-                    d.set = this.type;
-                    d.declaration = this.declaration || "想中奖的，跟我来！";
-                    d.cut = this.cut;
-                    d.baseline_money = baseline_money;
-                    d.is_together = 2;
+                        const d = this.order;
+                        d.quota = quota;
+                        d.set = this.type;
+                        d.declaration = this.declaration || "想中奖的，跟我来！";
+                        d.cut = this.cut;
+                        d.baseline_money = baseline_money;
+                        d.is_together = 2;
 
-
-                    this.global.ajax.call(this, this.$route.query.lotid + "_order", d, this.heamai_BC)
+                        this.global.ajax.call(this, this.$route.query.lotid + "_order", d, this.heamai_BC)
+                    }
                 }
             },
             heamai_BC(d){
@@ -117,7 +119,8 @@ console.log(this.order)
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.$router.push("/pay_success");
+                    localStorage.clear();
+                    this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type)
                 }
             }
         }

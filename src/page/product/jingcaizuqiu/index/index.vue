@@ -608,7 +608,7 @@
                 if (JSON.stringify(order) !== "{}") {
                     this.index_list = order.index_list || [];
                     this.play_type = order.play_type;
-                    this.bar_value = order.bar_value;
+                    this.bar_value = order.bar_value * 1;
                     this.checked = order.checked;
                 }
             },
@@ -629,6 +629,7 @@
             getIndexList(){
                 if (!this.getData) {
                     this.$vux.loading.show();
+                    this.index_list = [];
                     this.global.ajax.call(this, "jczq_index_list", {
                         pass_rules: this.bar_value,
                         play_rules: this.play_type
@@ -800,17 +801,33 @@
                 }
             },
             random_touzhu(){
+                const arr = this.index_list;
+                const c = [];
                 for (let i = 0; i < this.bar_value + 1; i++) {
-                    let ii = this.random(this.index_list[0].match.length - 1, 0);
-                    let k = this.random(this.index_list[0].match[ii].odds.length - 1, 0);
+                    let k = this.random(arr.length - 1, 0);
+                    let j = this.random(arr[k].match.length - 1, 0);
+                    let h = this.random(arr[k].match[j].odds.length - 1, 0);
 
-                    let d;
-                    if (/FT001|FT006/.test(this.play_type)) d = k === 0 ? "3" : k === 1 ? "1" : "0";
-                    else d = this.index_list[0].match[i].odds[k].name;
-                    this.checked[0][ii].push(d)
+                    if (c.length === 0) {
+                        c[0] = {k, j, h};
+                    } else {
+                        if (k === c[0].k && j === c[0].j) {
+                            i--;
+                        } else {
+                            c[1] = {k, j, h};
+                        }
+                    }
                 }
+
+                for (let i = 0; i < c.length; i++) {
+                    let d;
+                    if (/FT001|FT006/.test(this.play_type)) d = c[i].h === 0 ? "3" : c[i].h === 1 ? "1" : "0";
+                    else d = arr[c[i].k].match[c[i].j].odds[c[i].h].name;
+                    this.checked[c[i].k][c[i].j].push(d)
+                }
+
                 this.set_changshu();
-                this.submit();
+//                this.submit();
 
             },
             random(max, min){
