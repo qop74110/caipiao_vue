@@ -191,7 +191,10 @@
                     content: "删除后本订单将无法还原",
                     onConfirm () {
                         _this.$vux.loading.show();
-                        _this.global.ajax.call(_this, 'order_del', {id: _this.$route.query.id}, _this.del_order_CB);
+                        _this.global.ajax.call(_this, 'order_del', {
+                            id: _this.$route.query.id,
+                            type: 1
+                        }, _this.del_order_CB);
                     }
                 })
             },

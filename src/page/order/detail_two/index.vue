@@ -41,7 +41,8 @@
                     <span>{{detail.already_periods}}期</span>
                 </div>
                 <div class="order_list_body">
-                    <div class="item" v-for="(item,index) in detail.info" @click="$router.push('/order/detail?id=' + item.order_id)">
+                    <div class="item" v-for="(item,index) in detail.info"
+                         @click="$router.push('/order/detail?id=' + item.order_id)">
                         <span class="fr">{{item.s}}</span>
                         <div class="qi">{{item.start_periods}}期</div>
                         <div class="money">{{item.pay_money_total}}元</div>
@@ -108,7 +109,10 @@
                     content: "删除后本订单将无法还原",
                     onConfirm () {
                         _this.$vux.loading.show();
-                        _this.global.ajax.call(_this, 'order_del', {id: _this.$route.query.id}, _this.del_order_CB);
+                        _this.global.ajax.call(_this, 'order_del', {
+                            id: _this.$route.query.id,
+                            type: 2
+                        }, _this.del_order_CB);
                     }
                 })
             },

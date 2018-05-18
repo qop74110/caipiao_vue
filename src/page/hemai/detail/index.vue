@@ -323,7 +323,6 @@
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
                     this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type + "&lotid=" + d.data.lotid)
-                    /*todo 等接口返回lotid*/
                 }
             },
             share(){
