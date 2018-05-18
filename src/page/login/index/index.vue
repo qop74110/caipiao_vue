@@ -3,17 +3,19 @@
 
         <div class="telLogin">
             <label class="label vux-1px-b tel">
-                <input type="tel" maxlength="11" v-model="tel" class="input" placeholder="请输入手机号">
+                <input type="tel" maxlength="11" v-model="tel" class="input" placeholder="请输入手机号"
+                       @focus="hideWxLogin = true;" @blur="hideWxLogin = false">
             </label>
             <div class="label vux-1px-b code">
-                <input type="tel" class="input" maxlength="4" v-model="code" placeholder="请输入验证码">
+                <input type="tel" class="input" maxlength="4" v-model="code" placeholder="请输入验证码"
+                       @focus="hideWxLogin = true;" @blur="hideWxLogin = false">
                 <span class="getMsg fr" @click="getCode">{{getCodeBtnText}}</span>
             </div>
 
             <div class="submit btn_active" @click="submit">登录</div>
         </div>
 
-        <div class="wxLogin">
+        <div class="wxLogin" v-show="!hideWxLogin">
             <span class="wxLogin_text">第三方登录</span>
             <div>
                 <img class="wx_img" src="./img/wx.png" @click="wxLogin">
@@ -34,6 +36,8 @@
                 getCodeBtnText: '获取验证码',
                 time: null,
                 getCodeNum: 0,                      //  获取短信验证码次数  点登录按钮 判断是否发送过验证码
+
+                hideWxLogin: false,
             }
         },
         methods: {
