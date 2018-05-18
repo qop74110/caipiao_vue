@@ -40,11 +40,11 @@
             </li>
         </ul>
 
-        <ul class="lists">
-            <!--<li class="li">-->
-                <!--<img class="lists_img" src="./img/l1.png">-->
-                <!--我的红包-->
-            <!--</li>-->
+        <ul class="lists" @click="open('/hongbao')">
+            <li class="li">
+                <img class="lists_img" src="./img/l1.png">
+                我的红包
+            </li>
             <li class="li" @click="share">
                 <img class="lists_img" src="./img/l2.png">
                 分享给朋友
