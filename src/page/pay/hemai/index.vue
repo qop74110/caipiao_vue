@@ -98,7 +98,7 @@
                 else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
                 else {
                     const quota = this.money * 1 + this.baseline_money * 1;
-                    if (quota > this.order.money) this.global.toast.call(this, "金额错误");
+                    if (quota >= this.order.money) this.global.toast.call(this, "金额错误");
                     else {
                         this.$vux.loading.show();
 
