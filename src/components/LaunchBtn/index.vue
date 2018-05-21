@@ -28,7 +28,7 @@
 
 <style scoped lang="less" rel="stylesheet/less">
     .LaunchBtn {
-        position: fixed;
+        position: absolute;
         top: 0;
         right: .3rem;
         height: inherit;

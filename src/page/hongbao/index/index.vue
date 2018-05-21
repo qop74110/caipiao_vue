@@ -62,7 +62,7 @@
                     <p class="c9">可投注以下彩种，请选择</p>
                 </div>
                 <div class="pl">
-                    <div class="item" v-for="(item, index) in popup_data.d">
+                    <div class="item" v-for="(item, index) in popup_data.d" @click="open(index)">
                         <img :src="item.logo" alt="" class="logo">
                         <p class="fr c_name">{{item.title}}</p>
                     </div>
@@ -105,9 +105,12 @@
 
                 show_popup: false,
                 popup_data: {},
+
+                lotid: null,
             }
         },
         created(){
+            this.lotid = this.$route.query.lotid || '';
             this.getData();
             topLoad.callBack = this.getData;
         },
@@ -121,7 +124,8 @@
                     this.global.ajax.call(this, 'hb_data', {
                         type,
                         limit_begin,
-                        limit_num: this.limit_num
+                        limit_num: this.limit_num,
+                        lotid: this.lotid,
                     }, this.request_CB);
                 }
 
@@ -146,11 +150,17 @@
                 this.in_request = false;
             },
             use(i){
-                this.$vux.loading.show();
-                this.popup_data = {};
-                this.popup_data.money = this.available[i].amount;
-                this.global.ajax.call(this, "hb_useHb", {id: this.available[i].red_id}, this.use_BC);
-
+                //                this.lotid === ""  true = 我的页面； false：下单页面
+                if (this.lotid !== "") {
+                    sessionStorage.setItem('red_packet', JSON.stringify(this.available[i]));
+                    this.$router.back();
+                } else {
+                    this.$vux.loading.show();
+                    this.popup_data = {};
+                    this.popup_data.money = this.available[i].amount;
+                    this.popup_data.red_id = this.available[i].id;
+                    this.global.ajax.call(this, "hb_useHb", {id: this.available[i].red_id}, this.use_BC);
+                }
             },
             use_BC(d){
                 this.$vux.loading.hide();
@@ -158,8 +168,11 @@
                 else {
                     this.popup_data.d = d.data;
                     this.show_popup = true;
-                    console.log(this.popup_data)
                 }
+            },
+            open(i){
+                this.$router.push(this.global.product_type[this.popup_data.d[i].lotid] + "/index");
+                /*todo 处理未开发的彩种*/
             },
             get_cashingCode(){
                 if (this.cashingCode.length < 8) this.global.call(this, d.error_message);

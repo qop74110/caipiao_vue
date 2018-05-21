@@ -17,5 +17,14 @@ export default [
         component: (resolve) => {
             require(['page/pay/hemai'], resolve)
         }
+    }, {
+        path: '/payment',
+        name: 'payment',
+        meta: {
+            title: '确认支付'
+        },
+        component: (resolve) => {
+            require(['page/pay/payment'], resolve)
+        }
     },
 ]
