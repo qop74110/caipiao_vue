@@ -107,10 +107,12 @@
                 popup_data: {},
 
                 lotid: null,
+                order_money: null,
             }
         },
         created(){
             this.lotid = this.$route.query.lotid || '';
+            this.order_money = this.$route.query.money || '';
             this.getData();
             topLoad.callBack = this.getData;
         },
@@ -126,6 +128,7 @@
                         limit_begin,
                         limit_num: this.limit_num,
                         lotid: this.lotid,
+                        money: this.order_money
                     }, this.request_CB);
                 }
 

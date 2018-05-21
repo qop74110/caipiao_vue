@@ -59,7 +59,7 @@
             <div class="foot">
                 应支付金额：<span class="redText">{{(money * 1 + baseline_money * 1) || 0}}</span>元
                 <div class="abs money">共<span class="redText">{{order.money || 0}}</span>元</div>
-                <div class="abs btn redBg" @click="hemai">发起和买</div>
+                <div class="abs btn redBg" @click="submit">发起和买</div>
             </div>
         </footer>
 
@@ -85,11 +85,35 @@
             this.title = this.$route.query.title || '';
             const order = sessionStorage.getItem('together_order') || "{}";
             if (order !== "{}") this.getOrder(order);
+            else this.global.toast.call(this, "暂无订单")
 
         },
         methods: {
             getOrder(order){
                 this.order = JSON.parse(order);
+            },
+            submit(){
+                const min_money = Math.ceil((this.order.money || 0) / 10);
+                const baseline_money = this.baseline_money || 0;
+                if (this.money < min_money) this.global.toast.call(this, "认购金额最小为" + min_money);
+                else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
+                else {
+                    const quota = this.money * 1 + this.baseline_money * 1;
+                    if (quota >= this.order.money) this.global.toast.call(this, "金额错误");
+                    else {
+
+                        const d = this.order;
+                        d.quota = quota;
+                        d.set = this.type;
+                        d.declaration = this.declaration || "想中奖的，跟我来！";
+                        d.cut = this.cut;
+                        d.baseline_money = baseline_money;
+                        d.is_together = 2;
+
+                        sessionStorage.setItem('pay_data', JSON.stringify(d));
+                        this.$router.push("/payment?lotid=" + this.$route.query.lotid);
+                    }
+                }
             },
             hemai(){
                 const min_money = Math.ceil((this.order.money || 0) / 10);
