@@ -2,7 +2,7 @@
     <div class="payment">
         <div class="row">
             <div class="fl k">订单金额</div>
-            <div class="fr c6">{{order.quota || order_money}}元</div>
+            <div class="fr c6">{{order.quota || order.money}}元</div>
         </div>
 
         <div class="border"></div>
@@ -66,8 +66,10 @@
                 }
             },
             seeHongbao(){
+//                const lotidObg = this.global.product_type;
+                const lotid = this.lotid === "jczq" ? "ftb" : this.lotid === 'FT005' ? 'ftb' : this.lotid === "fc3d" ? "3d" : this.lotid === "ssq_random" ? "ssq" : this.lotid;
                 sessionStorage.removeItem('red_packet');
-                this.$router.push('/hongbao?lotid=' + (this.lotid === "jczq" ? "ftb" : this.lotid) + "&money=" + this.order.quota || this.order_money);
+                this.$router.push('/hongbao?lotid=' + lotid + "&money=" + (this.order.quota || this.order.money));
             },
             submit(){
                 this.$vux.loading.show();

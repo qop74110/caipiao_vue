@@ -80,15 +80,26 @@
                 this.money = this.qi * this.bei * this.zhushu * 2;
             },
             submit(){
-                this.$vux.loading.show();
-                this.global.ajax.call(this, "ssq_random", {
+//                this.$vux.loading.show();
+//                this.global.ajax.call(this, "ssq_random", {
+//                    notes: this.zhushu,
+//                    money: this.money,
+//                    periods: this.qi,
+//                    multiple: this.bei,
+//                    is_stop: this.agree ? 1 : 2,
+//                    stop_money: this.end_money
+//                }, this.callBack)
+
+                const d = {
                     notes: this.zhushu,
                     money: this.money,
                     periods: this.qi,
                     multiple: this.bei,
                     is_stop: this.agree ? 1 : 2,
                     stop_money: this.end_money
-                }, this.callBack)
+                };
+                sessionStorage.setItem("pay_data", JSON.stringify(d));
+                this.$router.push(`/payment?lotid=ssq_random`);
             },
             callBack(d){
                 this.$vux.loading.hide();

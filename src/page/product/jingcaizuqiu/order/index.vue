@@ -694,7 +694,6 @@
                 if (this.chuan.length === 0 && this.bar_value) this.global.toast.call(this, "请选择投注方式");
                 else if (this.money === 0) console.log("money = 0");
                 else {
-                    this.$vux.loading.show();
 
                     const d = {
                         title: [],
@@ -772,18 +771,20 @@
                     }
 
                     const ajaxName = this.play_type !== "FT005" ? "jczq" : 'FT005';
+                    d.money = this.money;
 
                     if (is_together === true) {
-                        this.$vux.loading.hide();
                         if (this.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
                         else {
-
-                            d.money = this.money;
                             sessionStorage.setItem("together_order", JSON.stringify(d));
 
                             this.$router.push('/pay_hemai?title=竞彩足球&lotid=' + ajaxName);
                         }
-                    } else this.global.ajax.call(this, ajaxName + "_order", d, this.submit_CB);
+                    } else {
+                        sessionStorage.setItem("pay_data", JSON.stringify(d));
+                        this.$router.push(`/payment?lotid=${ajaxName}`);
+//                        this.global.ajax.call(this, ajaxName + "_order", d, this.submit_CB);
+                    }
                 }
             },
             submit_CB(d){

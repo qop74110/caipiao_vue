@@ -160,8 +160,10 @@
                             this.$router.push('/pay_hemai?title=双色球&lotid=' + this.global.product_type.shuangseqiu);
                         }
                     } else {
-                        this.$vux.loading.show();
-                        this.global.ajax.call(this, "ssq_order", d, this.order_callBack)
+//                        this.$vux.loading.show();
+//                        this.global.ajax.call(this, "ssq_order", d, this.order_callBack)
+                        sessionStorage.setItem("pay_data", JSON.stringify(d));
+                        this.$router.push(`/payment?lotid=${this.global.product_type.shuangseqiu}`);
                     }
                 }
             },

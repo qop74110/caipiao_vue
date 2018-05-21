@@ -1,5 +1,6 @@
 @xhead-h: 1.2rem;
 @bar-h: 1.93rem;
+@cashingCode-h: .7rem;
 
 .XHead {
     z-index: 2;
@@ -19,16 +20,15 @@
 }
 
 .content {
-    @content-h: calc(~"99vh - @{xhead-h} - @{bar-h}");
+    @content-h: calc(~"99vh - @{xhead-h} - @{bar-h} - @{cashingCode-h}");
     @p: .3rem;
     min-height: @content-h;
     padding: @p;
     //兑奖码
     .cashingCode {
-        @h: .7rem;
-        height: @h;
-        line-height: @h;
-        margin-bottom: @p;
+        height: @cashingCode-h;
+        line-height: @cashingCode-h;
+        margin-bottom: @cashingCode-h;
         font-size: .32rem;
         .input {
             width: 80%;

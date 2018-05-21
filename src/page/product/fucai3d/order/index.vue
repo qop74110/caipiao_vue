@@ -198,6 +198,7 @@
                 return d;
             },
             submit(is_together = false){
+
                 if (this.zhushu > 0) {
                     const data = this.set_request_data();
 
@@ -223,8 +224,10 @@
                             this.$router.push('/pay_hemai?title=福彩3d&lotid=fc3d');
                         }
                     } else {
-                        this.$vux.loading.show();
-                        this.global.ajax.call(this, 'fc3d_order', data, this.submit_CB);
+                        sessionStorage.setItem("pay_data", JSON.stringify(data));
+                        this.$router.push(`/payment?lotid=fc3d`);
+//                        this.$vux.loading.show();
+//                        this.global.ajax.call(this, 'fc3d_order', data, this.submit_CB);
                     }
                 }
             },

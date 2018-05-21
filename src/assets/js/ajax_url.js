@@ -9,7 +9,7 @@ const ajax_url = {
         login: 'v1/login/login',                        //  登录|| 注册
 
         ssq_phase: "v1/ssq/purchase",                   //  双色球顶部购买的奖期以及截止时间
-        ssq_random: "v1/ssq/multi",                     //  双色球-多期机选
+        ssq_random_order: "v1/ssq/multi",               //  双色球-多期机选
         ssq_miss: "v1/ssq/miss",                        //  双色球-显示遗漏
         ssq_order: "v1/ssq/order",                      //  双色球-下单
         ssq_historyNo: "v1/ssq/drop",                   //  双色球-往期中奖
