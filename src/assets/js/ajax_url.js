@@ -60,7 +60,7 @@ const ajax_url = {
         hb_useHb: "v1/user/rightoff",                   //  红包-分享得红包
         hb_cashingCode: "v1/user/code",                 //  红包-分享得红包
 
-
+        tj_home_pro: "v1/StatisticalColor/statistical", //  首页点击彩种统计
 
     }
 };

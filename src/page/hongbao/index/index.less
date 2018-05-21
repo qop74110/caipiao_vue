@@ -20,7 +20,7 @@
 }
 
 .content {
-    @content-h: calc(~"99vh - @{xhead-h} - @{bar-h} - @{cashingCode-h}");
+    @content-h: calc(~"99vh - @{xhead-h} - @{bar-h}");
     @p: .3rem;
     min-height: @content-h;
     padding: @p;
@@ -28,7 +28,7 @@
     .cashingCode {
         height: @cashingCode-h;
         line-height: @cashingCode-h;
-        margin-bottom: @cashingCode-h;
+        margin-bottom: @p;
         font-size: .32rem;
         .input {
             width: 80%;

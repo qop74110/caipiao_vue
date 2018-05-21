@@ -67,11 +67,15 @@
                 --this.loading === 0 && this.$vux.loading.hide();
             },
             open(i){
+                this.global.ajax.call(this, "tj_home_pro", {
+                    token: this.global.cookie.get('token') || '0',
+                    lotid: this.product_list[i].lotid
+                }, console.log)
 //                判断彩种是否启用  1=启用 2=未启用
                 if (this.product_list[i].status === "2") this.global.alert.call(this, "暂停销售");
-                else{
+                else {
                     const url = this.global.product_type[this.product_list[i].lotid];
-                    if (url)this.$router.push(url + '/index');
+                    if (url) this.$router.push(url + '/index');
                     else this.global.alert.call(this, "敬请期待");
                 }
             }

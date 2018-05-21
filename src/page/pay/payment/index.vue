@@ -81,8 +81,8 @@
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    localStorage.clear();
-                    sessionStorage.clear();
+//                    localStorage.clear();
+//                    sessionStorage.clear();
                     this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type + "&lotid=" + d.data.lotid)
                 }
             }
