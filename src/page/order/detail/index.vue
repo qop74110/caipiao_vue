@@ -91,7 +91,8 @@
         <!--足彩-->
         <div class="info" v-else-if="play_type === 'jingcaizuqiu'">
             <div>
-                <span class="text">投注信息</span>
+                <span class="text">订单状态：</span> {{detail.mess}}
+                <span class="text">投注信息：</span> <span v-for="(i, ind) in detail.strand.split(',')">{{i === "0" ? '单关': i+'串1'}}</span>
                 <table class="tabal">
                     <thead class="t_head">
                     <tr>

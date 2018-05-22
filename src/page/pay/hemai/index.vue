@@ -59,7 +59,7 @@
             <div class="foot">
                 应支付金额：<span class="redText">{{(money * 1 + baseline_money * 1) || 0}}</span>元
                 <div class="abs money">共<span class="redText">{{order.money || 0}}</span>元</div>
-                <div class="abs btn redBg" @click="submit">发起和买</div>
+                <div class="abs btn redBg" @click="hemai">发起和买</div>
             </div>
         </footer>
 

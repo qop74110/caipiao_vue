@@ -149,6 +149,8 @@
                         const k = this.bar_value === 0 ? 'available' : 'disabled';
                         this[k].push(...d.data.info);
                     }
+
+                    if(this.bar_value === 0 && d.data.count) this.bar_list[0] = '可用' + d.data.count;
                 }
                 this.in_request = false;
             },
@@ -180,7 +182,7 @@
                 else this.global.alert.call(this, "敬请期待");
             },
             get_cashingCode(){
-                if (this.cashingCode.length < 8) this.global.call(this, d.error_message);
+                if (this.cashingCode.length === "") this.global.call(this, '兑换码不能为空');
                 else {
                     this.$vux.loading.show();
                     this.global.ajax.call(this, "hb_cashingCode", {}, this.cashingCode_CB)

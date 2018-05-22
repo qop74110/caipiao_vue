@@ -650,7 +650,7 @@
                 }
             },
             set_order(){
-                if(this.changshu){
+                if (this.changshu) {
                     const d = {
                         index_list: this.index_list,
                         checked: this.c,
@@ -757,7 +757,22 @@
                                         else if (j === 1) type.lotid = "FT006";
                                         else type.lotid = "FT00" + j;
 
-                                        selected.push(this.c[i][k][j][h]);
+                                        let val = this.c[i][k][j][h];
+
+                                        if (j === 2) {
+                                            val = val.replace(/:/g, '');
+                                            val = val.replace(/胜其它/g, '90');
+                                            val = val.replace(/平其它/g, '99');
+                                            val = val.replace(/负其它/g, '09');
+                                        } else if (j === 4) {
+                                            val = val.replace(/负/g, '0');
+                                            val = val.replace(/平/g, '1');
+                                            val = val.replace(/胜/g, '3');
+                                        } else if (j === 3) {
+                                            val = val.replace(/\+/g, '')
+                                        }
+
+                                        selected.push(val);
 
                                     }
                                     if (selected.length !== 0) {
