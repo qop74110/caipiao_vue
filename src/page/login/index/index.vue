@@ -22,6 +22,17 @@
             </div>
 
         </div>
+
+        <div class="popup fog" v-show="showPop">
+            <div class="popup_box">
+                <div class="popup_top">
+                    <div class="fl l">{{this.problem}}</div>
+                    <input class="fr r" type="tel" v-model="u_answer" maxlength="2"/>
+                </div>
+                <div class="popup_bottom" @click="test">确定</div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -38,18 +49,28 @@
                 getCodeNum: 0,                      //  获取短信验证码次数  点登录按钮 判断是否发送过验证码
 
                 hideWxLogin: false,
+
+                showPop: false,                     //  true：显示问题
+                testState: false,                   //  问题是否答对
+                u_answer: '',                       //  用户给的答案
+                answer: null,                       //  正确答案
+                problem: null,                      //  问题
             }
         },
         methods: {
             getCode(){
-                const mobile = this.tel;
-                if (this.time === null) {
-                    if (!this.global.phoneRE.test(mobile)) this.global.toast.call(this, "手机号格式错误");
-                    else {
-                        this.$vux.loading.show();
-                        this.global.ajax.call(this, 'login_code', {mobile}, this.getCode_CB)
+                if (!this.testState) this.showPop_fun();
+                else {
+                    const mobile = this.tel;
+                    if (this.time === null) {
+                        if (!this.global.phoneRE.test(mobile)) this.global.toast.call(this, "手机号格式错误");
+                        else {
+                            this.$vux.loading.show();
+                            this.global.ajax.call(this, 'login_code', {mobile}, this.getCode_CB)
+                        }
                     }
                 }
+
             },
             getCode_CB(d){
                 this.$vux.loading.hide();
@@ -74,6 +95,23 @@
                     }
                 }, 1000)
             },
+            showPop_fun(){
+                function randomNum(min, max) {
+                    return Math.floor(Math.random() * (max - min) + min)
+                };
+                this.showPop = true;
+                const v1 = randomNum(1, 9)
+                const v2 = randomNum(1, 9)
+                this.problem = v1 + " + " + v2;
+                this.answer = v1 + v2;
+            },
+            test(){
+                if (this.u_answer * 1 === this.answer) {
+                    this.testState = true;
+                    this.getCode();
+                    this.showPop = false;
+                } else this.u_answer = "";
+            },
             submit(){
                 if (this.getCodeNum === 0) this.global.toast.call(this, "请获取验证码");
                 else if (this.code.length !== 4) this.global.toast.call(this, "验证码格式不正确");
@@ -94,7 +132,7 @@
                 }
             },
             wxLogin(){
-                if (this.global.isWeiXin()) console.log('还没写');     // todo 微信登录
+                if (this.global.isWeiXin()) this.global.alert.call(this, "敬请期待");
                 else  this.global.alert.call(this, "请在微信客户端打开此链接");
             }
         }

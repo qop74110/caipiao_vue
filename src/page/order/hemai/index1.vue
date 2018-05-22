@@ -229,7 +229,7 @@
 
         <!--剩余份数-->
         <div class="surplus" v-if="datas.st === 1">
-            剩余份数: <span class="redText">{{datas.remaining_money}}份)</span> (1元/份)
+            剩余份数: <span class="redText">{{datas.remaining_money}}份</span> (1元/份)
             <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal"></XNumber>
         </div>
 

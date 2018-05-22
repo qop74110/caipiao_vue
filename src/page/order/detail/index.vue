@@ -165,7 +165,7 @@
                     if (d.data.lotid === typt.shuangseqiu) {
                         this.play_type = 'shuangseqiu';
                         for (let i = 0; i < d.data.info.length; i++) {
-                            if (d.data.play_type === "103") {
+                            if ( d.data.info[i].play_type === "103") {
                                 d.data.info[i].danBall = d.data.info[i].bouns.split("$")[0].split(",");
                                 d.data.info[i].bouns = d.data.info[i].bouns.split("$")[1];
                             }

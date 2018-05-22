@@ -1,78 +1,114 @@
 @import "../../../assets/css/theme";
 
 .login {
-  min-height: 100vh;
-  padding: .96rem .4rem;
+    min-height: 100vh;
+    padding: .96rem .4rem;
 
-  position: relative;
-  .telLogin {
-    @h: 1.3rem;
-    height: @h;
-    line-height: @h;
-    .label {
-      padding-left: 1rem;
-      background-repeat: no-repeat;
-      background-position: .2rem center;
-      background-size: .6rem;
-      .input {
-        margin-left: .26rem;
-        width: 4rem;
-      }
-      .getMsg {
-        width: 2.6666rem;
-        height: .6rem;
-        line-height: .6rem;
-        margin-top: .4rem;
+    position: relative;
+    .telLogin {
+        @h: 1.3rem;
+        height: @h;
+        line-height: @h;
+        .label {
+            padding-left: 1rem;
+            background-repeat: no-repeat;
+            background-position: .2rem center;
+            background-size: .6rem;
+            .input {
+                margin-left: .26rem;
+                width: 4rem;
+            }
+            .getMsg {
+                width: 2.6666rem;
+                height: .6rem;
+                line-height: .6rem;
+                margin-top: .4rem;
+                text-align: center;
+                color: @theme;
+                font-size: .32rem;
+                border-left: 1px solid #D4D4D4;
+            }
+        }
+        .tel {
+            background-image: url(./img/tel.png);
+        }
+        .code {
+            background-image: url(./img/code.png);
+        }
+        .submit {
+            height: @h;
+            line-height: @h;
+            margin-top: 1rem;
+            background: @theme;
+            color: white;
+            font-size: .48rem;
+            text-align: center;
+            border-radius: .1rem;
+        }
+    }
+
+    .wxLogin {
+        @c: #B3B3B5;
+        position: absolute;
+        bottom: 0;
+        left: 1.1rem;
+        right: 1.1rem;
+        height: 3.85rem;
+        border-top: 1px solid @c;
         text-align: center;
-        color: @theme;
-        font-size: .32rem;
-        border-left: 1px solid #D4D4D4;
-      }
+        color: @c;
+        .wxLogin_text {
+            @text_h: .6rem;
+            display: inline-block;
+            height: @text_h;
+            line-height: @text_h;
+            padding: 0 .2rem;
+            font-size: .38rem;
+            margin-bottom: .72rem;
+            position: relative;
+            top: -(@text_h / 2);
+            background: white;
+        }
+        .wx_img {
+            @w: 1.49rem;
+            width: @w;
+            height: @w;
+        }
     }
-    .tel {
-      background-image: url(./img/tel.png);
-    }
-    .code {
-      background-image: url(./img/code.png);
-    }
-    .submit {
-      height: @h;
-      line-height: @h;
-      margin-top: 1rem;
-      background: @theme;
-      color: white;
-      font-size: .48rem;
-      text-align: center;
-      border-radius: .1rem;
-    }
-  }
+}
 
-  .wxLogin {
-    @c: #B3B3B5;
-    position: absolute;
-    bottom: 0;
-    left: 1.1rem;
-    right: 1.1rem;
-    height: 3.85rem;
-    border-top: 1px solid @c;
+.popup {
+    @popupBox-h: 3rem;
+    padding-top: 50vh;
     text-align: center;
-    color: @c;
-    .wxLogin_text {
-      @text_h: .6rem;
-      display: inline-block;
-      height: @text_h;
-      line-height: @text_h;
-      padding: 0 .2rem;
-      font-size: .38rem;
-      margin-bottom: .72rem;
-      position: relative;
-      top: -(@text_h / 2);
-      background: white;
+    font-size: .4rem;
+    color: #333;
+    .popup_box {
+        height: @popupBox-h;
+        width: 8rem;
+        margin: -@popupBox-h / 2 auto;
+        background: white;
+        border-radius: .1rem;
+        .popup_top {
+            height: 1.8rem;
+            line-height: 1.2rem;
+            padding: .3rem;
+        }
+        .l {
+            width: 60%;
+            background: #ccc;
+            letter-spacing: .2rem;
+        }
+        .r {
+            width: 30%;
+            height: 100%;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+        .popup_bottom {
+            height: 1.2rem;
+            line-height: 1.2rem;
+            border-top: 1px solid #ccc;
+        }
     }
-    .wx_img {
-      @w: 1.49rem;
-      width: @w;
-      height: @w;
-    }
-  }
 }

@@ -139,4 +139,3 @@
 <style scoped lang="less" rel="stylesheet/less">
     @import "./index.less";
 </style>
-<!--todo 加减乘除验证码-->

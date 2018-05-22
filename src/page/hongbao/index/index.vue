@@ -174,8 +174,10 @@
                 }
             },
             open(i){
-                this.$router.push(this.global.product_type[this.popup_data.d[i].lotid] + "/index");
-                /*todo 处理未开发的彩种*/
+                const k = this.popup_data.d[i].lotid;
+                const url = this.global.product_type[k];
+                if (url) this.$router.push(url + "/index");
+                else this.global.alert.call(this, "敬请期待");
             },
             get_cashingCode(){
                 if (this.cashingCode.length < 8) this.global.call(this, d.error_message);
