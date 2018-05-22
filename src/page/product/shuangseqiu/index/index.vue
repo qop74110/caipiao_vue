@@ -58,7 +58,7 @@
 
         <!--机选-->
         <div class="random clearFix" v-show="play_type === 1">
-          <span class="random_btn fl" @click="showActionsheet=!showActionsheet">机选</span>
+          <span class="random_btn fl redText" @click="showActionsheet=!showActionsheet">机选</span>
           <span class="fr _text">至少选择6个红球，1个蓝球</span>
         </div>
 

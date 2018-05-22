@@ -132,7 +132,7 @@
                             '组六复式'}}{{i.multiple}}倍
                         </div>
                         <div class="fl balls">
-                            <span class="redText ball" v-for="(item, index) in i.bouns.split(',')">{{item}}</span>
+                            <span class="redText ball">{{i.bouns}}</span>
                         </div>
                     </div>
                 </div>
@@ -284,7 +284,18 @@
 
 
                     } else if (this.lotid === this.global.product_type.fucai3d) {           //  福彩3d
-
+                        d.data.data.forEach((item, i) => {
+                            let str = '';
+                            const num = item.bouns.split(',');
+                            for (let k = 0; k < num.length; k++) {
+                                for (let j = 0; j < num[k].length; j++) {
+                                    str += num[k][j];
+                                    if((j === num[k].length - 1) && k !== 2) str += " | ";
+                                    else if(j !== num[k].length - 1) str += ","
+                                }
+                            }
+                            d.data.data[i].bouns = str;
+                        })
                     }
 
                     d.data.stopTime = dateFormat(d.data.date * 1000);

@@ -74,11 +74,16 @@
                 }
             },
             submit(){
+                debugger;
                 if (this.state !== 0) this.selectBank();
-                else if (this.balance < 10) this.global.toast.call(this, "余额不足10元");
+                else if (this.money < 10) this.global.toast.call(this, "提现不足10元");
                 else if (this.balance > this.money) {
                     this.$vux.loading.show();
-                    this.global.ajax.call(this, "tx_take", {}, this.submit_CB)
+                    this.global.ajax.call(this, "tx_take", {
+                        id: this.bankId,
+                        bank_id: this.num,
+                        amount: this.money
+                    }, this.submit_CB)
                 } else this.global.toast.call(this, "金额范围10~" + this.balance);
             },
             submit_CB(d){

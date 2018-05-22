@@ -40,8 +40,8 @@
             </li>
         </ul>
 
-        <ul class="lists" @click="open('/hongbao')">
-            <li class="li">
+        <ul class="lists">
+            <li class="li" @click="open('/hongbao')">
                 <img class="lists_img" src="./img/l1.png">
                 我的红包
             </li>
@@ -67,7 +67,7 @@
         data () {
             return {
                 token: this.global.cookie.get("token"),
-                tel: this.global.cookie.get("mobile") || '',
+                tel: this.global.cookie.get("user_name") || '',
                 balance: "0.00"
             }
         },

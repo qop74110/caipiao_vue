@@ -70,7 +70,6 @@
         data () {
             return {
                 detail: null,
-                play_type: '',
             }
         },
         created(){
@@ -125,10 +124,11 @@
                 }
             },
             one_more(){
-                const pt = this.play_type;
-                let url = null;
-                if (pt === "") url = 'home';
-                else url = `${this.play_type}/index`;
+                const pt = this.$route.query.type;
+
+                let url = this.global.product_type[pt];
+                if (!url) url = 'home';
+                else url = `${url}/index`;
                 this.$router.push('/' + url);
             },
         }

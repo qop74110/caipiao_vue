@@ -34,7 +34,7 @@
 
         <!--机选-->
         <div class="random">
-            <span @click="random">机选</span>
+            <span @click="random" class="redText">机选</span>
             <span class="fr" v-show="play_type === 1">
                 每位至少选1个号，按位猜对开奖号即中<span class="redText">1040</span>元
             </span>

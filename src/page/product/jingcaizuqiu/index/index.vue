@@ -9,7 +9,7 @@
         <div class="content">
             <div class="bar_box" v-if="play_type !== 'FT005'">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
-                <div class="jixuan" v-show="play_type !== 'FT003' && play_type !== 'FT002'" @click="random_touzhu">
+                <div class="jixuan redText" v-show="play_type !== 'FT003' && play_type !== 'FT002'" @click="random_touzhu">
                     机选
                 </div>
             </div>
