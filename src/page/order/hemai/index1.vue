@@ -69,9 +69,9 @@
                 <span class="c9">{{datas.type === '1' ? '完全公开': datas.type === '2' ? '参与可见': '截止后可看'}}</span>
 
                 <span class="arrow fr" @click="show_order_body = !show_order_body" :class="show_order_body && 'rotate'"
-                      v-if="datas.type === '1'"></span>
+                      v-if="datas.data.length > 0"></span>
             </div>
-            <div class="order_body" v-if="datas.type === '1' && show_order_body">
+            <div class="order_body" v-if="datas.data.length > 0 && show_order_body">
 
                 <!--双色球-->
                 <div class="style1" v-if="/ssq|dlt/.test(lotid)">

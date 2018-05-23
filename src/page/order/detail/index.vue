@@ -28,13 +28,36 @@
 
         <!--双色球-->
         <div class="info" v-if="play_type === 'shuangseqiu'">
-            <div class="row" v-for="(item, index) in detail.info">
-                <span class="text">{{index === 0 ? '投注信息': ''}}</span>
-                <span class="hideText balls">
+            <div class="row">
+                <span class="text">订单状态：</span>
+                <span class="hideText balls">{{detail.s}}</span>
+            </div>
+
+            <div class="row">
+                <span class="text">开奖号码</span>
+                <template v-if="detail.bonuscode !== ''">
+                    <template v-for="(item, index) in detail.bonuscode.split('#')[0].split(',')">
+                        <span class="ball redText">{{item}}</span>
+                    </template>
+                    <span class="ball blueText">{{detail.bonuscode.split('#')[1]}}</span>
+                </template>
+                <span v-else>未开奖</span>
+            </div>
+
+            <div class="row">
+                <span class="text">选号详情：</span>
+                <span class="hideText balls">{{detail.info.length}}条</span>
+            </div>
+
+            <div class="row whiteBg con" v-for="(item, index) in detail.info">
+                <!--双色球 101=单式 102=复式 103=胆拖-->
+                <span class="l fl">{{item.play_type === '101' ? '单式': item.play_type === '102'? '复式':'胆拖'}}</span>
+
+                <span class="fl c">
                      <template v-if="item.danBall">
                         <span class="redText">(</span>
                         <template v-for="(_item, index) in item.danBall">
-                            <span class="redText">{{_item}}</span>
+                            <span class="redText">{{_item}} </span>
                         </template>
                         <span class="redText">)</span>
                     </template>
@@ -45,16 +68,7 @@
                         <span class="ball blueText">{{_item}}</span>
                     </template>
                 </span>
-            </div>
-            <div class="row">
-                <span class="text">开奖号码</span>
-                <template v-if="detail.bonuscode !== ''">
-                    <template v-for="(item, index) in detail.bonuscode.split('#')[0].split(',')">
-                        <span class="ball redText">{{item}}</span>
-                    </template>
-                    <span class="ball blueText">{{detail.bonuscode.split('#')[1]}}</span>
-                </template>
-                <span v-else>未开奖</span>
+                <span class="r">{{item.multiple}}倍</span>
             </div>
 
             <div class="quiz" @click="$router.push('/exposition?id=ssq')">
@@ -91,8 +105,9 @@
         <!--足彩-->
         <div class="info" v-else-if="play_type === 'jingcaizuqiu'">
             <div>
-                <span class="text">订单状态：</span> {{detail.mess}}
-                <span class="text">投注信息：</span> <span v-for="(i, ind) in detail.strand.split(',')">{{i === "0" ? '单关': i+'串1'}}</span>
+                <span class="text">订单状态：</span> <span class="hideText balls">{{detail.mess}}</span>
+                <span class="text">投注信息：</span> <span class="hideText balls"
+                                                      v-for="(i, ind) in detail.strand.split(',')">{{i === "0" ? '单关': i+'串1'}}</span>
                 <table class="tabal">
                     <thead class="t_head">
                     <tr>
@@ -166,7 +181,7 @@
                     if (d.data.lotid === typt.shuangseqiu) {
                         this.play_type = 'shuangseqiu';
                         for (let i = 0; i < d.data.info.length; i++) {
-                            if ( d.data.info[i].play_type === "103") {
+                            if (d.data.info[i].play_type === "103") {
                                 d.data.info[i].danBall = d.data.info[i].bouns.split("$")[0].split(",");
                                 d.data.info[i].bouns = d.data.info[i].bouns.split("$")[1];
                             }
@@ -183,8 +198,24 @@
                         this.play_type = 'jingcaizuqiu';
                     }
 
-                    this.detail = d.data[0] || d.data;
+                    const detail = d.data[0] || d.data;
+
+                    this.setOrderState(detail)
+
+                    this.detail = detail;
                 }
+            },
+            setOrderState(detail){
+                let s = '';
+                if (detail.status === 4) {
+                    if (detail.openmatch === '0') s = "等待开奖";
+                    else if (detail.openmatch === '2') s = "未中奖";
+                    else if (detail.openmatch === '3') s = "中奖 ";
+                } else if (detail.status === 2) s = "委托中";
+                else s = "委托失败";
+
+                detail.s = s;
+
             },
             del_order(){
                 const _this = this;
