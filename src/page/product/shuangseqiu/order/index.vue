@@ -92,7 +92,8 @@
 
             },
             setRandom_zhushu(){
-                const zhushu = this.$route.query.zhushu;
+                const zhushu = sessionStorage.getItem('ssq_jx') || 0;
+                sessionStorage.removeItem('ssq_jx');
                 if (zhushu) {
                     for (let i = 0; i < zhushu; i++) {
                         this.random_sort();
@@ -100,7 +101,10 @@
                 }
             },
             del(i){
-                if (i > -1) this.balls.splice(i, 1);
+                if (i > -1) {
+                    this.balls.splice(i, 1);
+                    this.zhushu--;
+                }
                 else if (this.balls.length > 0) {
                     const _this = this;
                     this.$vux.confirm.show({

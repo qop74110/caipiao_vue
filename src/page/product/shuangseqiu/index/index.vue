@@ -198,7 +198,8 @@
             },
 //      生成随机注数
             click_item(key){
-                if (key > 0) this.$router.push(`order?zhushu=${key}&phase=${this.phase.phase}`)
+                sessionStorage.setItem('ssq_jx', key);
+                if (key > 0) this.$router.push(`order?phase=${this.phase.phase}`)
             },
 //      标准玩法 计算
             getnum (){
