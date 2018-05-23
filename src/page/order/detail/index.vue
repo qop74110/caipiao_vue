@@ -84,7 +84,7 @@
             </div>
 
             <div class="row">
-                <span class="text">开奖号码</span>
+                <span class="text">开奖号码：</span>
                 <template v-if="detail.bonuscode !== ''">
                     <template v-for="(item, index) in detail.bonuscode.split('#')[0].split(',')">
                         <span class="ball redText">{{item}}</span>
@@ -150,7 +150,10 @@
                             <div>{{item.team.split('*')[1]}}</div>
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
-                        <td class="td">{{item.selected}}</td>
+                        <td class="td selected">
+                            <div v-for="(k, j) in item.selected.split('.')">{{k}}</div>
+
+                        </td>
                         <td class="td">{{item.result}}</td>
                     </tr>
                     </tbody>

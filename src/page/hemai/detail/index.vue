@@ -175,7 +175,11 @@
                             {{i.na.split(':')[1].split("*")[0]}}
                         </div>
                         <div class="td l1">{{i.play}}</div>
-                        <div class="td l1">{{i.selected}}</div>
+                        <div class="td l1 selected">
+                            <div v-for="(k, j) in i.selected.split(',')">
+                                {{k}}
+                            </div>
+                        </div>
                         <div class="td l1">{{i.result}}</div>
                     </div>
                 </div>
