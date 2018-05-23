@@ -103,15 +103,29 @@
                 <!--3d-->
                 <div class="style1" v-else-if="/3d|p5|p3/.test(lotid)">
                     <div class="row style1" v-for="(i, ind) in datas.data">
-                        <div class="fl l c6">
+                        <div class="fl l c6" v-if="lotid === '3d'">
                             <!--201=直选单式 221=直选复式 202=组选单式  231=组三复式 233=组六复式-->
-                            {{i.play_type === "201" ? "单式":
+                            {{i.play_type === "201" ? "直选单式":
                             i.play_type === "221" ? '直选复式':
                             i.play_type === "231" ? '组三复式' :
-                            '组六复式'}}{{i.multiple}}倍
+                            i.play_type === "215" ? '直选位选' :
+                            '组六复式'}}
+                        </div>
+                        <div class="fl l c6" v-else-if="lotid === 'p5'">
+                            <!--101=单式 102=复式-->
+                            {{i.play_type === "101" ? "直选单式": '直选复式'}}
+                        </div>
+                        <div class="fl l c6" v-else>
+                            <!--201=组六 202=组选 203=组三 204=组六-->
+                            {{i.play_type === "201" ? "直选":
+                            i.play_type === "202" ? '组选':
+                            i.play_type === "203" ? '组三' : '组六'}}
                         </div>
                         <div class="fl balls">
                             <span class="redText ball">{{i.bouns}}</span>
+                        </div>
+                        <div class="fr">
+                            {{i.multiple}}倍
                         </div>
                     </div>
                 </div>
@@ -299,16 +313,18 @@
 
                     } else if (/3d|p5|p3/.test(this.lotid)) {           //  福彩3d 排3 排5
                         d.data.data.forEach((item, i) => {
-                            let str = '';
-                            const num = item.bouns.split(',');
-                            for (let k = 0; k < num.length; k++) {
-                                for (let j = 0; j < num[k].length; j++) {
-                                    str += num[k][j];
-                                    if((j === num[k].length - 1) && k !== num.length - 1) str += " | ";
-                                    else if(j !== num[k].length - 1) str += ","
+                            if (this.lotid === "p5" || (this.lotid === "3d" && /201|221|215/.test(item.play_type)) || (this.lotid === "201" && item.play_type === "201")) {
+                                let str = '';
+                                const num = item.bouns.split(',');
+                                for (let k = 0; k < num.length; k++) {
+                                    for (let j = 0; j < num[k].length; j++) {
+                                        str += num[k][j];
+                                        if ((j === num[k].length - 1) && k !== num.length - 1) str += "|";
+                                        else if (j !== num[k].length - 1) str += ","
+                                    }
                                 }
+                                d.data.data[i].bouns = str;
                             }
-                            d.data.data[i].bouns = str;
                         })
                     }
 
