@@ -21,6 +21,7 @@
         <div class="moreBox _fog" v-show="show_more" @click.stop="show_more = false">
             <ul class="moreList">
                 <li class="arrow"></li>
+                <li class="moreItem" @click="$router.push('/prize_ssq')">近期开奖</li>
                 <li class="moreItem" @click="$router.push('random')">多期机选</li>
                 <li class="moreItem" @click="show_text = !show_text">{{show_text ? "隐藏": "显示"}}遗漏</li>
                 <li class="moreItem" @click="$router.push('/zst/ssq')">走势图</li>

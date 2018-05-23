@@ -144,6 +144,7 @@
                 xhead_title: null,
 
                 more_list: [
+                    '近期开奖',
                     "显示遗漏",
                     "走势图",
                     "玩法说明",
@@ -239,11 +240,12 @@
             },
             more_item(val){
                 if (val !== "-1") {
-                    if (val === 0) {
+                    if(val === 0)this.$router.push('/prize_fc3d');
+                    else if (val === 1) {
                         this.showMiss = !this.showMiss;
-                        this.more_list[0] = this.showMiss ? '隐藏遗漏' : '显示遗漏';
-                    } else if (val === 1) this.$router.push('/zst/fc3d')
-                    else if (val === 2) {
+                        this.more_list[1] = this.showMiss ? '隐藏遗漏' : '显示遗漏';
+                    } else if (val === 2) this.$router.push('/zst/fc3d')
+                    else if (val === 3) {
                         this.$router.push("/exposition?id=fc3d");
                     }
                 }
