@@ -48,7 +48,7 @@
 
                 <div class="fl setItem">
                     <span class="setText">投</span>
-                    <XNumber input_w="1.6" :_val="bei" name="bei" h=".6" @on-change="setVal"></XNumber>
+                    <XNumber input_w="1.6" :_val="bei" name="bei" h=".6" @on-change="setVal" :max_val="50"></XNumber>
                     <span class="setText">倍</span>
                 </div>
             </div>

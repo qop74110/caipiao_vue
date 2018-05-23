@@ -25,7 +25,7 @@
         <span class="left fl">
           每<span class="em5"></span>期<span class="em5"></span>投:
         </span>
-                <XNumber class="right" name="bei" :_val="bei" h=".8" @on-change="setVal" :max_val="99"></XNumber>
+                <XNumber class="right" name="bei" :_val="bei" h=".8" @on-change="setVal" :max_val="50"></XNumber>
                 <span class="right_text">倍</span>
             </div>
             <div class="add_up">

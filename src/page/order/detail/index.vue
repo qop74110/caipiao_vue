@@ -30,7 +30,8 @@
         <div class="info" v-if="play_type === 'shuangseqiu'">
             <div class="row">
                 <span class="text">订单状态：</span>
-                <span class="hideText balls">{{detail.s}}</span>
+                <span class="balls redText" v-if="detail.openmatch === '3'">{{detail.s}}</span>
+                <span class="balls" v-else>{{detail.s}}</span>
             </div>
 
             <div class="row">
@@ -69,6 +70,7 @@
                     </template>
                 </span>
                 <span class="r">{{item.multiple}}倍</span>
+                <span class="r redText" v-if="item.type === 2">中奖</span>
             </div>
 
             <div class="quiz" @click="$router.push('/exposition?id=ssq')">
@@ -80,7 +82,8 @@
         <div class="info" v-else-if="play_type === 'fucai3d'">
             <div class="row">
                 <span class="text">订单状态：</span>
-                <span class="hideText balls">{{detail.s}}</span>
+                <span class="balls redText" v-if="detail.openmatch === '3'">{{detail.s}}</span>
+                <span class="balls" v-else>{{detail.s}}</span>
             </div>
 
             <div class="row">
@@ -111,6 +114,7 @@
                         <span class="ball redText">{{item.bouns}}</span>
                 </span>
                 <span class="r">{{item.multiple}}倍</span>
+                <span class="r redText" v-if="item.type === 2">中奖</span>
             </div>
 
 

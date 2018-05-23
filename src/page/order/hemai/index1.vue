@@ -216,7 +216,7 @@
                         <div class="td hideTest">{{i.user_name}}</div>
                         <div class="td">{{i.pay_money_total}}元</div>
                         <div class="td">{{i.created_at}}</div>
-                        <div class="td">等待开奖</div>
+                        <div class="td">{{datas.openmatch === "3" ? i.openmatch : datas.s}}</div>
                     </div>
                 </div>
             </div>

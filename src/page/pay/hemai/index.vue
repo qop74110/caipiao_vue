@@ -119,10 +119,12 @@
                 const min_money = Math.ceil((this.order.money || 0) / 10);
                 const baseline_money = this.baseline_money || 0;
                 if (this.money < min_money) this.global.toast.call(this, "认购金额最小为" + min_money);
+                else if (!/^[0-9]\d*$/.test(this.money)) this.global.toast.call(this, "认购金额格式错误");
                 else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
                 else {
                     const quota = this.money * 1 + this.baseline_money * 1;
-                    if (quota >= this.order.money) this.global.toast.call(this, "金额错误");
+                    if (quota > this.order.money) this.global.toast.call(this, "金额错误");
+                    else if (this.money >= this.order.money) this.global.toast.call(this, "认购金额必须小于总金额");
                     else {
                         this.$vux.loading.show();
 
