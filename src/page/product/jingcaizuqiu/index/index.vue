@@ -9,9 +9,10 @@
         <div class="content">
             <div class="bar_box" v-if="play_type !== 'FT005'">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
-                <div class="jixuan redText" v-show="play_type !== 'FT003' && play_type !== 'FT002'" @click="random_touzhu">
-                    机选
-                </div>
+                <!--<div class="jixuan redText" v-show="play_type !== 'FT003' && play_type !== 'FT002'"-->
+                     <!--@click="random_touzhu">-->
+                    <!--机选-->
+                <!--</div>-->
             </div>
 
             <div v-show="index_list.length !== 0">
@@ -800,36 +801,36 @@
                     this.init_checked();
                 }
             },
-            random_touzhu(){
-                const arr = this.index_list;
-                const c = [];
-                for (let i = 0; i < this.bar_value + 1; i++) {
-                    let k = this.random(arr.length - 1, 0);
-                    let j = this.random(arr[k].match.length - 1, 0);
-                    let h = this.random(arr[k].match[j].odds.length - 1, 0);
-
-                    if (c.length === 0) {
-                        c[0] = {k, j, h};
-                    } else {
-                        if (k === c[0].k && j === c[0].j) {
-                            i--;
-                        } else {
-                            c[1] = {k, j, h};
-                        }
-                    }
-                }
-
-                for (let i = 0; i < c.length; i++) {
-                    let d;
-                    if (/FT001|FT006/.test(this.play_type)) d = c[i].h === 0 ? "3" : c[i].h === 1 ? "1" : "0";
-                    else d = arr[c[i].k].match[c[i].j].odds[c[i].h].name;
-                    this.checked[c[i].k][c[i].j].push(d)
-                }
-
-                this.set_changshu();
-//                this.submit();
-
-            },
+//            random_touzhu(){
+//                const arr = this.index_list;
+//                const c = [];
+//                for (let i = 0; i < this.bar_value + 1; i++) {
+//                    let k = this.random(arr.length - 1, 0);
+//                    let j = this.random(arr[k].match.length - 1, 0);
+//                    let h = this.random(arr[k].match[j].odds.length - 1, 0);
+//
+//                    if (c.length === 0) {
+//                        c[0] = {k, j, h};
+//                    } else {
+//                        if (k === c[0].k && j === c[0].j) {
+//                            i--;
+//                        } else {
+//                            c[1] = {k, j, h};
+//                        }
+//                    }
+//                }
+//                debugger;
+//                for (let i = 0; i < c.length; i++) {
+//                    let d;
+//                    if (/FT001|FT006/.test(this.play_type)) d = c[i].h === 0 ? "3" : c[i].h === 1 ? "1" : "0";
+//                    else d = arr[c[i].k].match[c[i].j].odds[c[i].h].name;
+//                    this.checked[c[i].k][c[i].j].push(d)
+//                }
+//
+//                this.set_changshu();
+////                this.submit();
+//
+//            },
             random(max, min){
                 return Math.floor(Math.random() * (max - min + 1) + min);
             },

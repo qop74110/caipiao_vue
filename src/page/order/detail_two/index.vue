@@ -26,9 +26,9 @@
         <div class="border"></div>
 
         <div class="info">
-            <div class="row">
+            <div class="row" v-if=" detail.info.length === 0">
                 <span class="text">订单状态</span>
-                <span>{{detail.winning_money > 0 ? '中奖': '未中奖'}}</span>
+                <span>委托中</span>
             </div>
             <div class="row">
                 <span class="text">追期条件</span>

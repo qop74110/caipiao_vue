@@ -4,6 +4,9 @@
     @foot_h: 1.35rem;
     padding: @XHead_h 0 @foot_h;
     min-height: 100vh;
+    &::-webkit-scrollbar {
+        display: none;
+    }
     .shaixuan {
         position: absolute;
         top: 0;
@@ -73,6 +76,7 @@
                             right: 0;
                             height: 100%;
                             width: 100%;
+                            opacity: 0;
                             &:checked + div {
                                 background: @theme;
                                 color: white;
@@ -132,12 +136,12 @@
                 background: white;
                 z-index: 100;
             }
-            .jixuan {
-                height: @h;
-                line-height: @h;
-                padding: 0 .2rem;
-                text-align: left;
-            }
+            //.jixuan {
+            //    height: @h;
+            //    line-height: @h;
+            //    padding: 0 .2rem;
+            //    text-align: left;
+            //}
         }
 
         .item {
@@ -148,7 +152,7 @@
                 height: @h;
                 line-height: @h;
                 border-bottom: 1px solid #efefef;
-                background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
+                //background: url(./img/arrow_b.png) no-repeat 9.4rem center / .35rem;
             }
             .details {
 
