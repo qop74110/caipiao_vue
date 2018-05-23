@@ -145,6 +145,7 @@
 
                 more_list: [
                     "显示遗漏",
+                    "走势图",
                     "玩法说明",
                 ],
                 showMiss: false,
@@ -241,8 +242,8 @@
                     if (val === 0) {
                         this.showMiss = !this.showMiss;
                         this.more_list[0] = this.showMiss ? '隐藏遗漏' : '显示遗漏';
-                    }
-                    else {
+                    } else if (val === 1) this.$router.push('/zst/fc3d')
+                    else if (val === 2) {
                         this.$router.push("/exposition?id=fc3d");
                     }
                 }

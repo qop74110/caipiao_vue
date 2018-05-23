@@ -564,7 +564,8 @@
 
                 more_list: {
                     "1": "开奖信息",
-                    "2": "玩法说明"
+                    "2": "走势图",
+                    "3": "玩法说明"
                 },
                 title_option_list: {},
                 play_type: "",
@@ -702,8 +703,9 @@
                 this.show_title_option = val;
             },
             more_item(val){
-                if (val === "2") this.$router.push("/exposition?id=jczq");
+                if (val === "3") this.$router.push("/exposition?id=jczq");
                 else if (val === "1") this.$router.push('/prize_jczq');
+                else if (val === "2") this.$router.push('/zst/jczq');
             },
             title_item(val){
                 if (val !== "-1") {

@@ -102,7 +102,7 @@
                             <!--101=单式 102=复式 103=胆拖-->
                             {{i.play_type === "101" ? '单式' :
                             i.play_type === "102" ? '复式' : '胆拖'
-                            }}{{i.multiple}}倍
+                            }}
                         </div>
                         <div class="fl balls">
                             <template v-if="i.danBall">
@@ -118,6 +118,10 @@
                             <template v-for="(_item, index) in i.blueBall">
                                 <span class="ball blueText">{{_item}}</span>
                             </template>
+                        </div>
+
+                        <div class="fr">
+                            {{i.multiple}}倍
                         </div>
                     </div>
                 </div>
@@ -241,7 +245,7 @@
             <!--<div class="foot redBg">方案已满员，下次出手要快点了！</div>-->
             <div class="foot whiteBg">
                 <span class="quanbao redText" @click="pay('all')">全包</span>
-                共<span class="redText">300</span>元
+                共<span class="redText">{{datas.remaining_money}}</span>元
                 <span class="pay btn_active redBg" @click="pay">支付</span>
             </div>
         </footer>
