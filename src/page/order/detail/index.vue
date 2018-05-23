@@ -78,14 +78,11 @@
 
         <!--福彩3d-->
         <div class="info" v-else-if="play_type === 'fucai3d'">
-            <div class="row" v-for="(item, index) in detail.info">
-                <span class="text">{{index === 0 ? '投注信息': ''}}</span>
-                <span class="hideText balls">
-                    <template v-for="(_item, index) in item.bouns">
-                        <span class="ball redText">{{_item}}</span>
-                    </template>
-                </span>
+            <div class="row">
+                <span class="text">订单状态：</span>
+                <span class="hideText balls">{{detail.s}}</span>
             </div>
+
             <div class="row">
                 <span class="text">开奖号码</span>
                 <template v-if="detail.bonuscode !== ''">
@@ -97,6 +94,26 @@
                 <span v-else>未开奖</span>
             </div>
 
+            <div class="row">
+                <span class="text">选号详情：</span>
+                <span class="hideText balls">{{detail.info.length}}条</span>
+            </div>
+
+            <div class="row whiteBg con" v-for="(item, index) in detail.info">
+                <!--201=直选单式 221=直选复式 202=组选单式 231=组三复式 233=组六复式 215=直选位选-->
+                <span class="l fl">{{item.play_type === '201' ? '直选单式':
+                    item.play_type === '221'? '直选复式':
+                    item.play_type === '202'? '组选单式':
+                    item.play_type === '231'? '组三复式':
+                    item.play_type === '233'? '组六复式':'直选位选'}}</span>
+
+                <span class="fl c">
+                        <span class="ball redText">{{item.bouns}}</span>
+                </span>
+                <span class="r">{{item.multiple}}倍</span>
+            </div>
+
+
             <div class="quiz" @click="$router.push('/exposition?id=fc3d')">
                 <span class="text">中奖怎么算？</span>
             </div>
@@ -105,9 +122,14 @@
         <!--足彩-->
         <div class="info" v-else-if="play_type === 'jingcaizuqiu'">
             <div>
-                <span class="text">订单状态：</span> <span class="hideText balls">{{detail.mess}}</span>
-                <span class="text">投注信息：</span> <span class="hideText balls"
-                                                      v-for="(i, ind) in detail.strand.split(',')">{{i === "0" ? '单关': i+'串1'}}</span>
+                <span class="text">订单状态：</span>
+                <span class="hideText balls">{{detail.mess}}</span>
+                <span class="text">投注信息：</span>
+                <span class="hideText balls">
+                    <span>{{detail.arr.length}}场， </span>
+                    <span>{{detail.strand === "0" ? '单关': detail.strand +'串1'}}， </span>
+                    <span> 方案{{detail.multiple}}倍</span>
+                </span>
                 <table class="tabal">
                     <thead class="t_head">
                     <tr>
@@ -191,9 +213,20 @@
 //
                     } else if (d.data.lotid === typt.fucai3d) {
                         this.play_type = 'fucai3d';
-                        for (let i = 0; i < d.data.info.length; i++) {
-                            d.data.info[i].bouns = d.data.info[i].bouns.split(",");
-                        }
+                        d.data.info.forEach((item, index) => {
+                            if (/201|221|215/.test(item.play_type)) {
+                                const arr = item.bouns.split(',');
+                                let str = "";
+                                for (let i = 0; i < arr.length; i++) {
+                                    for (let k = 0; k < arr[i].length; k++) {
+                                        str += arr[i][k];
+                                        if (k === arr[i].length - 1 && i !== arr.length - 1) str += "|";
+                                        else if (k !== arr[i].length - 1) str += ",";
+                                    }
+                                }
+                                d.data.info[index].bouns = str;
+                            }
+                        })
                     } else if (d.data[0] && d.data[0].play_type === typt.jingcaizuqiu) {
                         this.play_type = 'jingcaizuqiu';
                     }

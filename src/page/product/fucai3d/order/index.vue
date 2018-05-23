@@ -202,18 +202,20 @@
                 if (this.zhushu > 0) {
                     const data = this.set_request_data();
 
-                    for (let i = 0; i < data.total.length; i++) {
-                        const zhi = [];
-                        zhi.push(data.total[i].val1.join(''));
-                        zhi.push(data.total[i].val2.join(''));
-                        zhi.push(data.total[i].val3.join(''));
+                    data.total.forEach((item, index) => {
+                        if (item.type === 4) {
+                            data.total[index].six = item.six.join(",");
+                        } else if (item.type === 3) {
+                            data.total[index].three_fu = item.three_fu.join(",");
+                        } else if (item.type === 1) {
+                            const zhi = [];
+                            zhi.push(item.val1.join(''));
+                            zhi.push(item.val2.join(''));
+                            zhi.push(item.val3.join(''));
 
-                        data.total[i].zhi = zhi;
-
-                        if (typeof ( data.total[i].zhi ) === "object") data.total[i].zhi = data.total[i].zhi.join(",");
-                        else if (typeof ( data.total[i].three_fu ) === "object") data.total[i].three_fu = data.total[i].three_fu.join(",");
-                        else if (typeof ( data.total[i].six ) === "object") data.total[i].six = data.total[i].six.join(",");
-                    }
+                            data.total[index].zhi = zhi.join(",");
+                        }
+                    })
 
                     if (is_together === true) {          //  true: 发起合买
                         if (data.money < 8) this.global.alert.call(this, "方案金额不能小于8元");

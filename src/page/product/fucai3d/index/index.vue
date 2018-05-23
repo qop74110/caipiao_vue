@@ -176,7 +176,6 @@
         created(){
             this.$vux.loading.show();
             this.modify();
-            this.xhead_title = this.title_option_list[0];
             this.global.ajax.call(this, "fc3d_phase", {}, this.get_phase);
 
             this.global.ajax.call(this, "fc3d_historyNo", {}, this.get_historyNo);
@@ -185,6 +184,7 @@
         methods: {
             modify(){
                 const modify = sessionStorage.getItem('fc3d_modify');
+                let xhead_title = this.title_option_list[0];
                 if (modify) {
                     const data = JSON.parse(sessionStorage.getItem('fc3d_order')).total[modify];
                     this.play_type = data.type;
@@ -193,13 +193,15 @@
                         this.val2 = data.val2;
                         this.val3 = data.val3;
                     } else {
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             for (let i = 0; i < data[{"3": "three_fu", "4": 'six'}[data.type]].length; i++) {
                                 this.val4.push(data[{"3": "three_fu", "4": 'six'}[data.type]][i])
                             }
                         }, 300);
+                        xhead_title = this.title_option_list[data.type - 2];
                     }
                 } else this.play_type = 1;
+                this.xhead_title = xhead_title;
 
             },
             get_phase(d){
@@ -339,12 +341,12 @@
         },
         watch: {
             play_type(val){
-                if (val !== 0) this.val4 = [];
-                else {
-                    this.val1 = [];
-                    this.val2 = [];
-                    this.val3 = [];
-                }
+                this.val4 = [];
+                this.val1 = [];
+                this.val2 = [];
+                this.val3 = [];
+
+
                 this.$vux.loading.show();
                 this.global.ajax.call(this, "fc3d_miss", {type: val === 4 ? 3 : val}, this.get_miss);
                 this.zhushu = 0;
