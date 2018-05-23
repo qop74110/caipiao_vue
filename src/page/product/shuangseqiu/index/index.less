@@ -2,284 +2,284 @@
 
 .shuangseqiu {
 
-  @bar_h: 1.2rem;
-  @footH: 1.32rem;
-  @blue: #00A0FF;
+    @bar_h: 1.2rem;
+    @footH: 1.32rem;
+    @blue: #00A0FF;
 
-  text-align: center;
-  padding: @bar_h 0 @footH;
+    text-align: center;
+    padding: @bar_h 0 @footH;
 
-  .bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: @bar_h;
-    line-height: @bar_h;
-    background: @theme;
-    margin: 0 auto;
-    width: 10rem;
-    z-index: 100;
-    .w10 {
-      width: 1rem;
-      height: @bar_h;
-    }
-    .back {
-      background: url(../../../../assets/img/arrow_l.png) no-repeat .2rem center / .28rem;
-    }
-    .name {
-      width: 8rem;
-      font-size: .5rem;
-      color: white;
-      .arrow {
-        display: inline-block;
-        width: .4rem;
-        height: .4rem;
-        margin-top: -3px;
-        vertical-align: middle;
-        background: url(img/arrow.png) no-repeat center center / .4rem;
-      }
-    }
-    .more {
-      background: url(img/more.png) no-repeat .4rem center / .4rem;
-    }
-  }
-  ._fog {
-    position: fixed;
-    top: @bar_h;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 10rem;
-    margin: 0 auto;
-    background: rgba(0, 0, 0, .4);
-    z-index: 10;
-  }
-
-  .playTypeList {
-    height: 1.2rem;
-    background: white;
-    padding: .26rem .98rem;
-    .type {
-      width: 3.4rem;
-      height: .68rem;
-      border-radius: .08rem;
-      border: 1px solid #999999;
-      color: #999;
-    }
-    .s {
-      background: @theme;
-      border-color: @theme;
-      color: white;
-    }
-  }
-
-  .moreBox {
-    font-size: .34rem;
-    color: #000;
-    .moreList {
-      position: fixed;
-      top: @bar_h;
-      right: .2rem;
-      width: 2rem;
-      line-height: .9rem;
-      border-radius: .06rem;
-      background: white;
-      .arrow {
-        @arrow_w: .3rem;
-        height: @arrow_w;
-        width: @arrow_w;
-        border: @arrow_w / 2 solid transparent;
-        border-bottom-color: white;
-        position: absolute;
-        top: -@arrow_w;
-        right: .1rem;
-      }
-    }
-  }
-
-  //往期中奖号码
-  .history {
-    .his_list {
-      height: 0;
-      transition:height 1s;
-      overflow: hidden;
-      .item {
-        @h: .95rem;
-        height: @h;
-        line-height: @h;
-        text-align: center;
-        .No {
-          width: 40%;
-        }
-        .Nonumber {
-          width: 60%;
-          span {
-            color: @theme;
-            &:last-child {
-              color: @blue;
-            }
-          }
-
-        }
-        &:nth-child(odd) {
-          background: #EFEFEF;
-        }
-        &:last-child {
-          border-bottom: 1px solid @border-color;
-        }
-      }
-
-    }
-
-    .showHis{
-      height: 10.45rem;
-
-    }
-    .his_last {
-      @h: .8rem;
-      height: @h;
-      line-height: @h;
-      padding: 0 .2rem;
-      text-align: left;
-      font-size: .3rem;
-      color: #333;
-      border-bottom: 1px solid @border-color;
-      .his_arrow {
-        display: inline-block;
-        @b_h: .3rem;
-        width: @b_h;
-        height: @b_h;
-        vertical-align: middle;
-        margin-top: -3px;
-        background: url(img/his_arrow.png) no-repeat center center / 100%;
-
-      }
-    }
-  }
-
-  .content {
-    @p: .3rem;
-    .ballBox {
-      padding: @p;
-      .box {
-        width: (10rem - 2 * @p) / 7;
-        margin-bottom: .1rem;
-        position: relative;
-        .checkbox {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          opacity: 0;
-          height: 100%;
-          width: 100%;
-        }
-        .ball {
-          @ball_w: 1rem;
-          width: @ball_w;
-          height: @ball_w;
-          line-height: @ball_w;
-          margin: 0 auto;
-          border-radius: 50%;
-          border: 1px solid #CCCCCC;
-          font-size: .38rem;
-        }
-
-      }
-    }
-    .redBallBox {
-      margin-bottom: .2rem;
-      border-bottom: 1px solid @border-color;
-      .checkbox:checked + .ball {
+    .bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: @bar_h;
+        line-height: @bar_h;
         background: @theme;
-        color: white;
-        border: 0;
-      }
-      .ball {
-        color: #E74C3C;
+        margin: 0 auto;
+        width: 10rem;
+        z-index: 100;
+        .w10 {
+            width: 1rem;
+            height: @bar_h;
+        }
+        .back {
+            background: url(../../../../assets/img/arrow_l.png) no-repeat .2rem center / .28rem;
+        }
+        .name {
+            width: 8rem;
+            font-size: .5rem;
+            color: white;
+            .arrow {
+                display: inline-block;
+                width: .4rem;
+                height: .4rem;
+                margin-top: -3px;
+                vertical-align: middle;
+                background: url(img/arrow.png) no-repeat center center / .4rem;
+            }
+        }
+        .more {
+            background: url(img/more.png) no-repeat .4rem center / .4rem;
+        }
+    }
+    ._fog {
+        position: fixed;
+        top: @bar_h;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 10rem;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, .4);
+        z-index: 10;
+    }
 
-      }
-    }
-    .blueBallBox {
-      .checkbox:checked + .ball {
-        background: @blue;
-        color: white;
-        border: 0;
-      }
-      .ball {
-        color: @blue;
-      }
-
-    }
-    .random {
-      margin-top: @p;
-      padding: 0 @p;
-      font-size: .3rem;
-      color: #666;
-    }
-    .dantuo_text {
-      margin-top: @p;
-      padding-left: @p;
-      text-align: left;
-      font-size: .32rem;
-      color: #666;
-
+    .playTypeList {
+        height: 1.2rem;
+        background: white;
+        padding: .26rem .98rem;
+        .type {
+            width: 3.4rem;
+            height: .68rem;
+            border-radius: .08rem;
+            border: 1px solid #999999;
+            color: #999;
+        }
+        .s {
+            background: @theme;
+            border-color: @theme;
+            color: white;
+        }
     }
 
-    //显示遗漏
-    .text {
-      font-size: .3rem;
-      color: transparent;
+    .moreBox {
+        font-size: .34rem;
+        color: #000;
+        .moreList {
+            position: fixed;
+            top: @bar_h;
+            right: .2rem;
+            width: 2rem;
+            line-height: .9rem;
+            border-radius: .06rem;
+            background: white;
+            .arrow {
+                @arrow_w: .3rem;
+                height: @arrow_w;
+                width: @arrow_w;
+                border: @arrow_w / 2 solid transparent;
+                border-bottom-color: white;
+                position: absolute;
+                top: -@arrow_w;
+                right: .1rem;
+            }
+        }
     }
-    &.show_text {
-      .text {
-        color: #666;
-      }
+
+    //往期中奖号码
+    .history {
+        .his_list {
+            height: 0;
+            transition: height 1s;
+            overflow: hidden;
+            .item {
+                @h: .95rem;
+                height: @h;
+                line-height: @h;
+                text-align: center;
+                .No {
+                    width: 40%;
+                }
+                .Nonumber {
+                    width: 60%;
+                    span {
+                        color: @theme;
+                        &:last-child {
+                            color: @blue;
+                        }
+                    }
+
+                }
+                &:nth-child(odd) {
+                    background: #EFEFEF;
+                }
+                &:last-child {
+                    border-bottom: 1px solid @border-color;
+                }
+            }
+
+        }
+
+        .showHis {
+            height: 10.45rem;
+
+        }
+        .his_last {
+            @h: .8rem;
+            height: @h;
+            line-height: @h;
+            padding: 0 .2rem;
+            text-align: left;
+            font-size: .3rem;
+            color: #333;
+            border-bottom: 1px solid @border-color;
+            .his_arrow {
+                display: inline-block;
+                @b_h: .3rem;
+                width: @b_h;
+                height: @b_h;
+                vertical-align: middle;
+                margin-top: -3px;
+                background: url(img/his_arrow.png) no-repeat center center / 100%;
+
+            }
+        }
     }
-  }
-  .foot {
-    @footP: .4rem;
-    @w16: 1.6rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 10rem;
-    padding: 0 @footP;
-    height: @footH;
-    background: white;
-    .w16 {
-      width: @w16;
+
+    .content {
+        @p: .3rem;
+        .ballBox {
+            padding: @p;
+            .box {
+                width: (10rem - 2 * @p) / 7;
+                margin-bottom: .1rem;
+                position: relative;
+                .checkbox {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 0;
+                    height: 100%;
+                    width: 100%;
+                }
+                .ball {
+                    @ball_w: 1rem;
+                    width: @ball_w;
+                    height: @ball_w;
+                    line-height: @ball_w;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                    border: 1px solid #CCCCCC;
+                    font-size: .38rem;
+                }
+
+            }
+        }
+        .redBallBox {
+            margin-bottom: .2rem;
+            border-bottom: 1px solid @border-color;
+            .checkbox:checked + .ball {
+                background: @theme;
+                color: white;
+                border: 0;
+            }
+            .ball {
+                color: #E74C3C;
+
+            }
+        }
+        .blueBallBox {
+            .checkbox:checked + .ball {
+                background: @blue;
+                color: white;
+                border: 0;
+            }
+            .ball {
+                color: @blue;
+            }
+
+        }
+        .random {
+            margin-top: @p;
+            padding: 0 @p;
+            font-size: .3rem;
+            color: #666;
+        }
+        .dantuo_text {
+            margin-top: @p;
+            padding-left: @p;
+            text-align: left;
+            font-size: .32rem;
+            color: #666;
+
+        }
+
+        //显示遗漏
+        .text {
+            font-size: .3rem;
+            color: transparent;
+        }
+        &.show_text {
+            .text {
+                color: #666;
+            }
+        }
     }
-    .result {
-      width: 10rem - 2 * (@footP + @w16);
-      line-height: @footH;
+    .foot {
+        @footP: .4rem;
+        @w16: 1.6rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 10rem;
+        padding: 0 @footP;
+        height: @footH;
+        background: white;
+        .w16 {
+            width: @w16;
+        }
+        .result {
+            width: 10rem - 2 * (@footP + @w16);
+            line-height: @footH;
+        }
+        .clear {
+            @margin_top: .25rem;
+            @clearH: @footH - 2 * @margin_top;
+            @clearImgH: .4rem;
+            height: @clearH;
+            margin-top: @margin_top;
+            padding-top: @clearImgH;
+            text-align: left;
+            font-size: .3rem;
+            color: #333;
+            background: url(img/clear.png) no-repeat .1rem top / @clearImgH @clearImgH;
+        }
+        .submit {
+            @sub_h: .8rem;
+            height: @sub_h;
+            width: @sub_h * 2;
+            line-height: @sub_h;
+            margin-top: (@footH - @sub_h ) / 2;
+            background: @theme;
+            color: white;
+            border-radius: .13rem;
+            font-size: .34rem;
+        }
     }
-    .clear {
-      @margin_top: .25rem;
-      @clearH: @footH - 2 * @margin_top;
-      @clearImgH: .4rem;
-      height: @clearH;
-      margin-top: @margin_top;
-      padding-top: @clearImgH;
-      text-align: left;
-      font-size: .3rem;
-      color: #333;
-      background: url(img/clear.png) no-repeat .1rem top / @clearImgH @clearImgH;
-    }
-    .submit {
-      @sub_h: .8rem;
-      height: @sub_h;
-      width: @sub_h * 2;
-      line-height: @sub_h;
-      margin-top: (@footH - @sub_h ) / 2;
-      background: @theme;
-      color: white;
-      border-radius: .13rem;
-      font-size: .34rem;
-    }
-  }
 }

@@ -34,6 +34,15 @@ routes.push(
             require(["page/login/index/index.vue"], resolve)
         }
     }, {
+        path: "/zst/:type",
+        name: "zst",
+        meta: {
+            title: '走势图'
+        },
+        component: (resolve) => {
+            require(["page/zst"], resolve)
+        }
+    }, {
         path: "/nofund",
         name: "nofund",
         meta: {
