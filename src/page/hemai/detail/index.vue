@@ -14,8 +14,9 @@
                 <img :src="datas.logo" class="logo">
             </div>
             <div class="fl c_name">
-                <p class="c3" v-if="isFootball">竞彩足球</p>
-                <p class="c3" v-else>{{datas.name}}</p>
+                <!--<p class="c3" v-if="isFootball">竞彩足球</p>-->
+                <!--<p class="c3" v-else>{{datas.name}}</p>-->
+                <p class="c3">{{datas.name}}</p>
                 <p class="phase c6" v-if="isFootball && lotid !== 'FT005'">{{datas.phase.split("*")[0]}}</p>
                 <p class="phase c6" v-else-if="lotid === 'FT005'">{{datas.matchs.split("*")[0]}}</p>
 

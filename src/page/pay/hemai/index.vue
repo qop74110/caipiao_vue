@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="fl k">提成比例：</div>
                 <select class="cut input w188" v-model="cut">
-                    <option :value="index" v-for="(item, index) in 11 ">{{index}}%</option>
+                    <option :value="index" v-for="(item, index) in 9 ">{{index}}%</option>
 
                 </select>
             </div>
