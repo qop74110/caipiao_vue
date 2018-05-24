@@ -141,7 +141,10 @@
 
 //  投注信息
 .order_body {
-
+    .jiang {
+        padding-left: 1rem;
+        background: url(../detail/img/jiang.png) no-repeat left center / .8rem;
+    }
     //双色球 & 福彩3d
     .style1 {
         @row-h: 1.2rem;
@@ -158,16 +161,15 @@
             text-align: left;
         }
         .balls {
-            width: 6rem;
+            width: 5rem;
             overflow-x: scroll;
             white-space: nowrap;
         }
+
         .ball {
             margin-right: .1rem;
         }
-        .blueText {
-            color: #00A0FF;
-        }
+
     }
 
     //  足彩
@@ -366,4 +368,8 @@
     display: inline-block;
     width: 2rem;
     height: 100%;
+}
+
+.blueText {
+    color: #00A0FF;
 }

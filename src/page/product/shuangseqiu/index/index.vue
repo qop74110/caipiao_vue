@@ -270,7 +270,9 @@
                         data.red = this.checked_red_dan.join(",");
                         data.red_arr = this.checked_red_dan
                     }
-                    balls[index] = data;
+                    if (index < 0) {
+                        balls.unshift(data);
+                    } else balls[index] = data;
                     localStorage.setItem("order", JSON.stringify(balls));
                     localStorage.removeItem("ssq_index");
                     this.$router.push('order?index=' + this.index + "&phase=" + this.phase.phase);

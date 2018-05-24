@@ -17,7 +17,7 @@
                         <p>订单金额</p>
                     </div>
                     <div class="winning_money fl">
-                        <span class="redText">{{detail.winning_money || '0'}}元</span>
+                        <span class="redText">{{detail.winning_money === -1 ? '稍后会有工作人员主动联系您': detail.winning_money + '元'}}</span>
                         <p>中奖金额</p>
                     </div>
                 </div>
@@ -69,8 +69,8 @@
                         <span class="ball blueText">{{_item}}</span>
                     </template>
                 </span>
-                <span class="r">{{item.multiple}}倍</span>
-                <span class="r redText" v-if="item.type === 2">中奖</span>
+                <span class="r fr" :class="item.type === 2 && 'jiang'">{{item.multiple}}倍</span>
+
             </div>
 
             <div class="quiz" @click="$router.push('/exposition?id=ssq')">
@@ -113,8 +113,7 @@
                 <span class="fl c">
                         <span class="ball redText">{{item.bouns}}</span>
                 </span>
-                <span class="r">{{item.multiple}}倍</span>
-                <span class="r redText" v-if="item.type === 2">中奖</span>
+                <span class="r fr" :class="item.type === 2 && 'jiang'">{{item.multiple}}倍</span>
             </div>
 
 

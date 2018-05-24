@@ -5,7 +5,7 @@
         </XHead>
 
         <ul class="btns clearFix">
-            <li class="btn fl btn_active" @click="back_index(balls.length)">
+            <li class="btn fl btn_active" @click="back_index(-1)">
                 <img src="./img/add.png" alt="" class="btn_img">
                 自选号码
             </li>
@@ -79,6 +79,7 @@
         created(){
             this.getOrder();
             this.setRandom_zhushu();
+            localStorage.removeItem('ssq_index');
         },
         methods: {
             getOrder(){

@@ -23,7 +23,8 @@
 
             </div>
             <div class="fr time">
-                <div class="redText money">{{datas.winning_money}}</div>
+                <div class="redText money">{{datas.winning_money === -1 ? '稍后会有工作人员主动联系您': datas.winning_money + '元'}}
+                </div>
                 <div class="text c6">我的奖金</div>
             </div>
         </div>
@@ -58,6 +59,16 @@
             <p class="row">
                 <span class="k">发单提成:</span>
                 <span class="c3">{{datas.cut}}%</span>
+            </p>
+            <p class="row" v-if="datas.bouns !== ''">
+                <span class="k">开奖号码:</span>
+                <span class="c3" v-if="lotid !== 'ssq' && lotid !== 'dlt'">
+                    <span class="redText" v-for="(k, j) in datas.bouns.split(',')">{{k}} </span>
+                </span>
+                <span class="c3" v-else>
+                    <span class="redText" v-for="(k, j) in datas.bouns.split('#')[0].split(',')">{{k}} </span>
+                    <span class="blueText" v-for="(k, j) in datas.bouns.split('#')[1].split(',')">{{k}} </span>
+                </span>
             </p>
         </div>
 
@@ -97,7 +108,7 @@
                                 <span class="ball blueText">{{_item}}</span>
                             </template>
                         </div>
-                        <div class="fr">
+                        <div class="fr" :class="i.type === 2 && 'jiang'">
                             {{i.multiple}}倍
                         </div>
                     </div>
@@ -127,9 +138,10 @@
                         <div class="fl balls">
                             <span class="redText ball">{{i.bouns}}</span>
                         </div>
-                        <div class="fr">
+                        <div class="fr" :class="i.type === 2 && 'jiang'">
                             {{i.multiple}}倍
                         </div>
+
                     </div>
                 </div>
 
@@ -216,7 +228,7 @@
                         <div class="td hideTest">{{i.user_name}}</div>
                         <div class="td">{{i.pay_money_total}}元</div>
                         <div class="td">{{i.created_at}}</div>
-                        <div class="td">{{datas.openmatch === "3" ? i.openmatch : datas.s}}</div>
+                        <div class="td">{{datas.openmatch === "3" ? i.winning_money : datas.s}}</div>
                     </div>
                 </div>
             </div>
@@ -316,7 +328,6 @@
                             d.data.data[i].blueBall = arr[1].split(",");
                             d.data.data[i].redBall = arr[0].split(",");
                         })
-
 
                     } else if (/3d|p5|p3/.test(this.lotid)) {           //  福彩3d 排3 排5
                         d.data.data.forEach((item, i) => {
