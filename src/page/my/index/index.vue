@@ -4,7 +4,7 @@
             <label for="file" class="header_img fl" :style="`background-image: url(${head_img})`">
                 <!--<img class="img fl" src="./img/header_img.png">-->
             </label>
-            <input type="file" accept="image/*" class="file" id="file" @change="setHead">
+            <input type="file" accept="image/*" class="file" id="file" @change="setHead" v-if="token">
             <span class="user_tel" v-if="!token" @click="$router.push('login')">登录/注册</span>
             <span class="user_tel" v-else>{{tel}}</span>
         </header>
@@ -100,17 +100,31 @@
                 } else this.$router.push('/login');
             },
             setHead(e){
-                const file = e.target && e.target.files[0];
-                const maxSize = 2097152;
-                if (!/image\/(png|jpg|jpeg)/.test(file.type)) this.global.toast.call(this, "只能选择(png,jpg)格式图片");
-                else if (maxSize < file.size) this.global.toast.call(this, "最大上传两兆");
-                else if ( typeof(FileReader) === 'undefined' ) this.global.alert.call(this, "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！");
+                const token = this.global.cookie.get('token');
+                if (!token) this.$router.push('login');
                 else {
-                    let reader = new FileReader();
-                    reader.readAsDataURL(file);
+                    const file = e.target && e.target.files[0];
+                    const maxSize = 2097152;
+                    let imgSrc = "";
+                    if (!/image\/(png|jpg|jpeg)/.test(file.type)) this.global.toast.call(this, "只能选择(png,jpg)格式图片");
+                    else if (maxSize < file.size) this.global.toast.call(this, "最大上传两兆");
+                    else if (typeof(FileReader) === 'undefined') this.global.alert.call(this, "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！");
+                    else {
+                        let reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        this.$vux.loading.show();
+                        reader.onload = () => {
+                            imgSrc = reader.result;
+                            this.global.ajax.call(this, 'my_headImg', {avatar: imgSrc}, (d) => {
+                                console.log(imgSrc)
+                            });
+                            this.head_img = imgSrc;
+                        };
+
+
+                    }
                 }
-//        .*(.jpg|.png|.gif)$
-                console.log(file)
+
 
             }
         },

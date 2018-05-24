@@ -30,6 +30,8 @@ const ajax_url = {
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
         my_balance: "v1/user/balance",                  //  我的—余额
+        my_headImg: "v1/user/avatar",                   //  我的—上传头像
+        my_name: "v1/user/name",                        //  我的—修改昵称
 
         pay: 'v1/recharge/browser',                     //  充值
         pay1004: 'v1/pay/browser',                      //  充值

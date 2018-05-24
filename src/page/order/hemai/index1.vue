@@ -46,7 +46,7 @@
                 <p class="text c6">我的认购(元)</p>
             </li>
             <li class="fl">
-                <span class="c3">{{datas.s}}</span>
+                <span :class="datas.openmatch === '3' ? 'redText': 'c3'">{{datas.s}}</span>
                 <p class="text c6">订单状态</p>
             </li>
         </ul>
@@ -234,7 +234,7 @@
                         <div class="td hideTest">{{i.user_name}}</div>
                         <div class="td">{{i.pay_money_total}}元</div>
                         <div class="td">{{i.created_at}}</div>
-                        <div class="td">{{datas.openmatch === "3" ? i.winning_money : datas.s}}</div>
+                        <div class="td"  :class="datas.openmatch === '3' && 'redText'">{{datas.openmatch === "3" ? i.winning_money : datas.s}}</div>
                     </div>
                 </div>
             </div>
