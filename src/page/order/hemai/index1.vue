@@ -17,14 +17,19 @@
                 <!--<p class="c3" v-if="isFootball">竞彩足球</p>-->
                 <!--<p class="c3" v-else>{{datas.name}}</p>-->
                 <p class="c3">{{datas.name}}</p>
-                <p class="phase c6" v-if="isFootball && lotid !== 'FT005'">{{datas.phase.split("*")[0]}}</p>
-                <p class="phase c6" v-else-if="lotid === 'FT005'">{{datas.matchs.split("*")[0]}}</p>
+                <p class="phase c6" v-if="isFootball && lotid !== 'FT005'">{{datas.phase.split("*")[0]}}期</p>
+                <p class="phase c6" v-else-if="lotid === 'FT005'">{{datas.matchs.split("*")[0]}}期</p>
 
-                <p class="phase c6" v-else>{{datas.phase}}</p>
+                <p class="phase c6" v-else>{{datas.phase}}期</p>
 
             </div>
             <div class="fr time">
-                <div class="redText money">{{datas.winning_money === -1 ? '稍后会有工作人员主动联系您': datas.winning_money + '元'}}
+                <div class="redText money" v-if="datas.winning_money === -1 " style="line-height: .5rem; font-size: .3rem;">
+                    <div>稍后会有工作</div>
+                    <div>人员主动联系您</div>
+                </div>
+                <div class="redText money" v-else>
+                    {{ datas.winning_money + '元'}}
                 </div>
                 <div class="text c6">我的奖金</div>
             </div>
@@ -264,7 +269,7 @@
         <!--剩余份数-->
         <div class="surplus" v-if="datas.st === 1">
             剩余份数: <span class="redText">{{datas.remaining_money}}份</span> (1元/份)
-            <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal"></XNumber>
+            <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal" :max_val="datas.remaining_money"></XNumber>
         </div>
 
 
@@ -332,7 +337,7 @@
 
                     } else if (/3d|p5|p3/.test(this.lotid)) {           //  福彩3d 排3 排5
                         d.data.data.forEach((item, i) => {
-                            if (this.lotid === "p5" || (this.lotid === "3d" && /201|221|215/.test(item.play_type)) || (this.lotid === "201" && item.play_type === "201")) {
+                            if (this.lotid === "p5" || (this.lotid === "3d" && /201|221|215/.test(item.play_type)) || (this.lotid === "p3" && item.play_type === "201")) {
                                 let str = '';
                                 const num = item.bouns.split(',');
                                 for (let k = 0; k < num.length; k++) {

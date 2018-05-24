@@ -242,7 +242,7 @@
         <!--剩余份数-->
         <div class="surplus">
             剩余份数: <span class="redText">{{datas.remaining_money}}份</span> (1元/份)
-            <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal"></XNumber>
+            <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal" :max_val="datas.remaining_money"></XNumber>
         </div>
 
 
@@ -308,7 +308,7 @@
 
                     } else if (/3d|p5|p3/.test(this.lotid)) {           //  福彩3d 排3 排5
                         d.data.data.forEach((item, i) => {
-                            if (this.lotid === "p5" || (this.lotid === "3d" && /201|221|215/.test(item.play_type)) || (this.lotid === "201" && item.play_type === "201")) {
+                            if (this.lotid === "p5" || (this.lotid === "3d" && /201|221|215/.test(item.play_type)) || (this.lotid === "p3" && item.play_type === "201")) {
                                 let str = '';
                                 const num = item.bouns.split(',');
                                 for (let k = 0; k < num.length; k++) {

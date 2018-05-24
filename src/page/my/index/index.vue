@@ -1,7 +1,10 @@
 <template>
     <div class="my page">
         <header class="header">
-            <img class="header_img fl" src="./img/header_img.png">
+            <label for="file" class="header_img fl" :style="`background-image: url(${head_img})`">
+                <!--<img class="img fl" src="./img/header_img.png">-->
+            </label>
+            <input type="file" accept="image/*" class="file" id="file" @change="setHead">
             <span class="user_tel" v-if="!token" @click="$router.push('login')">登录/注册</span>
             <span class="user_tel" v-else>{{tel}}</span>
         </header>
@@ -68,7 +71,8 @@
             return {
                 token: this.global.cookie.get("token"),
                 tel: this.global.cookie.get("user_name") || '',
-                balance: "0.00"
+                balance: "0.00",
+                head_img: '/static/img/header_img.png'
             }
         },
         created(){
@@ -94,8 +98,23 @@
                     if (url === "") this.global.toast.call(this, "还没写");
                     else this.$router.push(url);
                 } else this.$router.push('/login');
+            },
+            setHead(e){
+                const file = e.target && e.target.files[0];
+                const maxSize = 2097152;
+                if (!/image\/(png|jpg|jpeg)/.test(file.type)) this.global.toast.call(this, "只能选择(png,jpg)格式图片");
+                else if (maxSize < file.size) this.global.toast.call(this, "最大上传两兆");
+                else if ( typeof(FileReader) === 'undefined' ) this.global.alert.call(this, "抱歉，你的浏览器不支持 FileReader，请使用现代浏览器操作！");
+                else {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                }
+//        .*(.jpg|.png|.gif)$
+                console.log(file)
+
             }
-        }
+        },
+
     }
 </script>
 

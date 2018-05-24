@@ -97,6 +97,7 @@
                 const baseline_money = this.baseline_money || 0;
                 if (this.money < min_money) this.global.toast.call(this, "认购金额最小为" + min_money);
                 else if (!/^[0-9]\d*$/.test(baseline_money)) this.global.toast.call(this, "保底金额格式错误");
+                else if (this.declaration.length > 50) this.global.toast.call(this, "宣言最多50字");
                 else {
                     const quota = this.money * 1 + this.baseline_money * 1;
                     if (quota >= this.order.money) this.global.toast.call(this, "金额错误");
