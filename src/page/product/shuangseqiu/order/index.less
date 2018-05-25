@@ -1,3 +1,5 @@
+@import "../../../../assets/css/theme";
+
 @XHead_h: 1.2rem;
 
 .order {
@@ -77,6 +79,43 @@
                     color: #00A0FF;
                 }
             }
+        }
+    }
+    .stop {
+        @stop-h: .8rem;
+        position: fixed;
+        bottom: @foot_set_h + @foot_abstract_h;
+        left: 0;
+        right: 0;
+        width: 10rem;
+        height: @stop-h;
+        line-height: @stop-h;
+        margin: 0 auto;
+        padding: 0 .2rem;
+        background: white;
+        overflow: hidden;
+        .op {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            &:checked + .box {
+                border: .15rem solid @theme;
+            }
+        }
+        .box {
+            @box-w: .5rem;
+            width: @box-w;
+            height: @box-w;
+            margin-top: (@stop-h - @box-w) / 2;
+            margin-right: .2rem;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+
         }
     }
     .foot {

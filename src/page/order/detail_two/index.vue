@@ -32,7 +32,7 @@
             </div>
             <div class="row">
                 <span class="text">追期条件</span>
-                <span>{{detail.is_stop === '1' ? '中' + detail.stop_money + '停止': '到期后停止'}}</span>
+                <span>{{detail.is_stop === '1' ? (detail.stop_money > 0 ? '中' + detail.stop_money + '停止': '中奖停止'): '到期后停止'}}</span>
             </div>
 
             <div class="order_list">

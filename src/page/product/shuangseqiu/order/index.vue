@@ -38,6 +38,11 @@
             </li>
         </ul>
 
+        <label class="stop" v-if="qi > 1">
+            <input type="checkbox" class="op fr" v-model="is_stop">
+            <span class="box fl"></span>
+            <span class="fl">中奖后停止追期</span>
+        </label>
         <div class="foot">
             <div class="set clearFix">
                 <div class="fl setItem">
@@ -74,6 +79,7 @@
                 bei: 1,
                 balls: [],
                 zhushu: 0,
+                is_stop: false,
             }
         },
         created(){
@@ -152,7 +158,7 @@
                         periods: this.qi,
                         multiple: this.bei,
                         phase: this.$route.query.phase || "",
-                        is_stop: 2,
+                        is_stop: this.is_stop ? 1 : 2,
                         stop_money: 0,
                     };
 
