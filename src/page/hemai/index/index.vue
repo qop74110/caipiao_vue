@@ -39,7 +39,7 @@
             <ul class="list" v-if="list.length > 0">
                 <li class="item" v-for="(it, ind) in list" @click="go_detail(ind)">
                     <div class="l fl">
-                        <img class="headImg" :src="'./static/img/header_img.png'">
+                        <img class="headImg" :src="it.avatar || '/static/img/header_img.png'">
                         <p class="u_name hideText text">{{it.user_name}}</p>
                     </div>
                     <div class="r fr">

@@ -1,12 +1,14 @@
 <template>
     <div class="my page">
         <header class="header">
-            <label for="file" class="header_img fl" :style="`background-image: url(${head_img})`">
-                <!--<img class="img fl" src="./img/header_img.png">-->
-            </label>
-            <input type="file" accept="image/*" class="file" id="file" @change="setHead" v-if="token">
+            <div class="header_img fl" :style="`background-image: url(${head_img || '/static/img/header_img.png'})`">
+                <label for="file" class="label" v-if="token">
+                    <input type="file" accept="image/*" class="file" id="file" @change="setHead" >
+                </label>
+            </div>
+
             <span class="user_tel" v-if="!token" @click="$router.push('login')">登录/注册</span>
-            <span class="user_tel" v-else>{{tel}}</span>
+            <input class="user_tel" v-else v-model="tel" @blur="setName" @focus="oldName = tel; tel = ''" placeholder="请修改昵称"/>
         </header>
 
         <ul class="money clearFix">
@@ -72,7 +74,8 @@
                 token: this.global.cookie.get("token"),
                 tel: this.global.cookie.get("user_name") || '',
                 balance: "0.00",
-                head_img: '/static/img/header_img.png'
+                head_img: '',
+                oldName: '',
             }
         },
         created(){
@@ -87,6 +90,8 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data.amount) {
                     this.balance = d.data.amount;
+                    this.head_img = d.data.avatar;
+                    this.tel = d.data.name || '幸运彩';
                     this.global.cookie.set('amount', this.balance);
                 }
             },
@@ -115,17 +120,33 @@
                         this.$vux.loading.show();
                         reader.onload = () => {
                             imgSrc = reader.result;
-                            this.global.ajax.call(this, 'my_headImg', {avatar: imgSrc}, (d) => {
-                                console.log(imgSrc)
+                            this.global.ajax.call(this, 'my_headImg', {avatar: imgSrc.split('base64,')[1]}, (d) => {
+                                this.$vux.loading.hide();
+                                if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                                else {
+                                    this.global.toast.call(this, "上传成功");
+                                }
                             });
                             this.head_img = imgSrc;
                         };
-
-
                     }
                 }
-
-
+            },
+            setName(){
+                const name = this.tel.replace(/(^\s*)|(\s*$)/g, "");
+                if (name.length === 0) this.tel = this.oldName;
+                else if (name.length > 6) this.global.toast.call(this, "最长不能超过6位");
+                else if (name === this.oldName) return false;
+                else {
+                    this.$vux.loading.show();
+                    this.global.ajax.call(this, "my_name", {name}, (d) => {
+                        this.$vux.loading.hide();
+                        if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
+                        else {
+                            this.global.toast.call(this, "修改成功");
+                        }
+                    })
+                }
             }
         },
 
