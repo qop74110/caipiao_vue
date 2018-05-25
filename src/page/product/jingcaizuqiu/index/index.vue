@@ -10,8 +10,8 @@
             <div class="bar_box" v-if="play_type !== 'FT005'">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
                 <!--<div class="jixuan redText" v-show="play_type !== 'FT003' && play_type !== 'FT002'"-->
-                     <!--@click="random_touzhu">-->
-                    <!--机选-->
+                <!--@click="random_touzhu">-->
+                <!--机选-->
                 <!--</div>-->
             </div>
 
@@ -772,8 +772,17 @@
                 if (this.screen_c.length > 0) this.screen_c = [];
             },
             league(){
+                this.clear_c();
                 for (let i = 0; i < this.screenList.length; i++) {
-                    if (/法甲|意甲|西甲|德甲|英超/.test(this.screenList[i].league)) this.screen_c.push(i);
+                    if (/法甲|意甲|西甲|德甲|英超/.test(this.screenList[i].league)) {
+                        if (this.screen_c.length === 0) this.screen_c.push(i);
+                        else {
+                            for (let k = 0; k < this.screen_c.length; k++) {
+                                if (this.screen_c[k] === i) break;
+                                if (this.screen_c.length - 1 === k) this.screen_c.push(i);
+                            }
+                        }
+                    }
                 }
             },
             screenFun(){
