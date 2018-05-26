@@ -154,7 +154,7 @@
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
                         <td class="td selected">
-                            <div v-for="(k, j) in item.selected.split('.')">{{k}}</div>
+                            <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
                         </td>
                         <td class="td">{{item.result}}</td>

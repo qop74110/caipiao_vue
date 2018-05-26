@@ -56,7 +56,7 @@
         name: 'recharge',
         data () {
             return {
-                amount: this.global.cookie.get('amount') || '0.00',
+                amount: '',
                 user_name: this.global.cookie.get('user_name') || '',
                 money: "5000",                                          //  单选框的金额 单位分
                 custom_money: '',                                       //  自定义的金额 单位元
@@ -74,6 +74,15 @@
                 this.type = 0;
                 this.orderid = query.orderid;
             }
+            this.$vux.loading.show();
+            this.global.ajax.call(this, "my_balance", {}, (d) => {
+                this.$vux.loading.hide();
+                if (d.error_code !== 0) this.amount = this.global.cookie.get('amount');
+                else {
+                    this.amount = d.data.amount;
+                    this.global.cookie.set('amount', d.data.amount);
+                }
+            })
         },
         methods: {
             setChecked(){
