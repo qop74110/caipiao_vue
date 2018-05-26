@@ -106,7 +106,7 @@
                 <!--201=直选单式 221=直选复式 202=组选单式 231=组三复式 233=组六复式 215=直选位选-->
                 <span class="l fl">{{item.play_type === '201' ? '直选单式':
                     item.play_type === '221'? '直选复式':
-                    item.play_type === '202'? '组选单式':
+                    item.play_type === '202'? '组六单式':
                     item.play_type === '231'? '组三复式':
                     item.play_type === '233'? '组六复式':'直选位选'}}</span>
 

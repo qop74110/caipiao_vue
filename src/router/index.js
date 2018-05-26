@@ -52,6 +52,24 @@ routes.push(
             require(["page/nofund"], resolve)
         }
     }, {
+        path: "/service",
+        name: "service",
+        meta: {
+            title: '服务协议'
+        },
+        component: (resolve) => {
+            require(["page/service"], resolve)
+        }
+    }, {
+        path: "/about",
+        name: "about",
+        meta: {
+            title: '关于'
+        },
+        component: (resolve) => {
+            require(["page/service/about.vue"], resolve)
+        }
+    }, {
         path: '*',
         redirect: '/nofund'
     }
