@@ -11,12 +11,12 @@
             return {
                 src: '',
                 url: {
-                    ssq: 'http://jl.uplottery.cn/zst/ssq',
-                    fc3d: 'http://jl.uplottery.cn/zst/fc3d',
+                    ssq: 'http://m.500.com/datachart/ssq/jb.html',
+                    fc3d: 'http://m.500.com/datachart/sd/jb.html',
                     jczq: 'http://baidu.com',
-                    dlt: 'http://t.cp2y.com/draw.html#bt=10026',
-                    p3: 'http://t.cp2y.com/draw.html#bt=10024',
-                    p5: 'http://t.cp2y.com/draw.html#bt=100241'
+                    dlt: 'http://m.500.com/datachart/dlt/jb.html',
+                    p3: 'http://m.500.com/datachart/pls/jb.html',
+                    p5: 'https://m.500.com/datachart/plw/zx/0.html'
                 }
             }
         },

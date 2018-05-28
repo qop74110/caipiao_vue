@@ -1,5 +1,5 @@
 const ajax_url = {
-    host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
+    host: `${window.location.protocol}//api.lottery.anwenqianbao.com/`,
     api: {
         home_list: "v1/home/list",                      //  首页-产品列表
         home_banner: "v1/home/banner",                  //  首页-banner
@@ -63,6 +63,8 @@ const ajax_url = {
         hb_cashingCode: "v1/user/code",                 //  红包-分享得红包
 
         tj_home_pro: "v1/StatisticalColor/statistical", //  首页点击彩种统计
+
+        download_an: 'http://ot8flmrcy.bkt.clouddn.com/xingyuncai.apk',
 
     }
 };

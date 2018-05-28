@@ -22,9 +22,16 @@
                     <div class="td">{{item.memo}}</div>
                 </div>
             </div>
-            <div class="his_foot">
+            <div class="his_foot" v-if="phase.phase > 0">
                 第{{phase.phase}}期
                 <span class="redText">{{phase.end_time}} 截止</span>
+                <span class="btn fr" @click="show_his = !show_his">
+                    {{show_his ? '收起':'显示'}}
+                    <i class="his_arrow fr" :class="show_his && 'rotate'"></i>
+                </span>
+            </div>
+            <div class="his_foot" v-else>
+                <span class="redText">{{alertText}}</span>
                 <span class="btn fr" @click="show_his = !show_his">
                     {{show_his ? '收起':'显示'}}
                     <i class="his_arrow fr" :class="show_his && 'rotate'"></i>
@@ -173,6 +180,8 @@
                 phase: '',          //  将期
                 historyNo: null,
                 miss: null,
+
+                alertText: '开奖中！请20：00后再来'
             }
         },
         created(){
@@ -210,6 +219,7 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data && d.data[0].phase) {
                     this.phase = d.data[0];
+                    if (this.phase.phase < 0) this.global.alert.call(this, this.alertText);
                 }
                 this.hideLoading();
             },
@@ -240,7 +250,7 @@
             },
             more_item(val){
                 if (val !== "-1") {
-                    if(val === 0)this.$router.push('/prize_fc3d');
+                    if (val === 0) this.$router.push('/prize_fc3d');
                     else if (val === 1) {
                         this.showMiss = !this.showMiss;
                         this.more_list[1] = this.showMiss ? '隐藏遗漏' : '显示遗漏';
@@ -295,6 +305,7 @@
             },
             submit(){
                 if (this.zhushu === 0) this.global.toast.call(this, "请投注");
+                else if (this.phase.phase < 0) this.global.alert.call(this, this.alertText);
                 else {
                     let money = this.money, notes = this.zhushu, periods = 1, multiple = 1, type = this.play_type;
                     const zhi = [];

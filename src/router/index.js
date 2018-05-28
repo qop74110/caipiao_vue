@@ -43,6 +43,15 @@ routes.push(
             require(["page/zst"], resolve)
         }
     }, {
+        path: "/download",
+        name: "download",
+        meta: {
+            title: '下载'
+        },
+        component: (resolve) => {
+            require(["page/download"], resolve)
+        }
+    }, {
         path: "/nofund",
         name: "nofund",
         meta: {

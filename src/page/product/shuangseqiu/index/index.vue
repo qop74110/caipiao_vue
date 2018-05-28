@@ -44,8 +44,13 @@
                 </div>
 
             </div>
-            <div class="his_last">
+            <div class="his_last" v-if="phase.phase > 0">
                 第{{phase.phase}}期 <span class="redText">{{phase.end_time}} 截止</span>
+
+                <span class="his_btn fr" @click="show_his = !show_his">往期中奖号<i class="his_arrow"></i></span>
+            </div>
+            <div class="his_last" v-else>
+                <span class="redText">{{alertText}}</span>
 
                 <span class="his_btn fr" @click="show_his = !show_his">往期中奖号<i class="his_arrow"></i></span>
             </div>
@@ -140,6 +145,8 @@
                 checked_blue: [],             //  选中的篮球
                 zhushu: 0,
                 loading: 3,                   //
+
+                alertText: '开奖中！请20：00后再来'
             }
         },
         created(){
@@ -155,6 +162,7 @@
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (d.data[0]) {
                     this.phase = d.data[0];
+                    if (this.phase.phase < 0) this.global.alert.call(this, this.alertText);
                 }
 
             },
@@ -248,6 +256,7 @@
             },
             submit(){
                 if (this.zhushu === 0) this.global.toast.call(this, "请投注");
+                else if (this.phase.phase < 0) this.global.alert.call(this, this.alertText);
                 else {
                     const balls = JSON.parse(localStorage.getItem("order") || "[]");
                     const index = this.index || 0;
