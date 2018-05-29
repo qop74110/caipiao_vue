@@ -90,7 +90,7 @@
                 this.$vux.loading.hide();
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
-                    this.global.alert.call(this, "操作成功");
+                    this.global.alert.call(this, "操作成功（1~3个工作日到账）");
                 }
             }
         }
