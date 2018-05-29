@@ -1,5 +1,10 @@
 <template>
     <div class="download">
+        <div class="bold">
+            <div>幸运彩</div>
+            <div>足不出户中大奖</div>
+            <p class="s3">下载送红包</p>
+        </div>
         <div class="btn an"  @click="download('an')">
             <img src="./an.png" class="img">
             <span>Android下载</span>

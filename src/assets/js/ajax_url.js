@@ -1,5 +1,5 @@
 const ajax_url = {
-    host: `${window.location.protocol}//api.lottery.anwenqianbao.com/`,
+    host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
     api: {
         home_list: "v1/home/list",                      //  首页-产品列表
         home_banner: "v1/home/banner",                  //  首页-banner
@@ -41,6 +41,7 @@ const ajax_url = {
         tx_bindID: 'v1/extract/idcard',                 //  绑定 银行卡&身份证&手机号
         tx_tixianData: 'v1/extract/amount',             //  提现 获取余额&银行卡号
         tx_take: 'v1/extract/take',                     //  提现 申请提现
+        tx_bankList: 'v1/extract/opening',              //  开户银行
 
         order_all: 'v1/order/whole',                    //  订单 我的全部订单
         order_chase: 'v1/order/chase',                  //  订单 追号订单
