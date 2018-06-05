@@ -66,6 +66,7 @@ const ajax_url = {
         tj_home_pro: "v1/StatisticalColor/statistical", //  首页点击彩种统计
 
         download_an: 'http://ot8flmrcy.bkt.clouddn.com/xingyuncai.apk',
+        download_ios: 'https://fir.im/6kqp',
 
     }
 };

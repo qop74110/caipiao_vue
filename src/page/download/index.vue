@@ -9,9 +9,13 @@
             <img src="./an.png" class="img">
             <span>Android下载</span>
         </div>
-        <div class="btn ios" @click="download('ios')">
+        <div class="btn ios" @click="tishi = true">
             <img src="./an.png" class="img">
             <span>iphone下载</span>
+        </div>
+
+        <div class="tishi" v-show="tishi" @click="tishi = false">
+            <div class="th_btn redBg" @click.stop="download('ios')">点击下载</div>
         </div>
     </div>
 </template>
@@ -20,15 +24,15 @@
     export default {
         name: 'download',
         data () {
-            return {}
+            return {
+                tishi: false,
+            }
         },
         created(){
-
         },
         methods: {
             download(t){
-                if (t === "ios") this.global.toast.call(this, '敬请期待');
-                else if (this.global.isWeiXin()) this.global.alert.call(this, "请在浏览器打开")
+                if (this.global.isWeiXin()) this.global.alert.call(this, "请在浏览器打开");
                 else {
                     const ajax_url = this.global.ajax_url;
 
