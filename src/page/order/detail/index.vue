@@ -157,7 +157,7 @@
                             <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
                         </td>
-                        <td class="td">{{item.result}}</td>
+                        <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">{{item.result}}</td>
                     </tr>
                     </tbody>
                 </table>
