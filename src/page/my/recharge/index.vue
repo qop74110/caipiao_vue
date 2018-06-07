@@ -7,27 +7,27 @@
         <div class="money whiteBg font">
             <p>选择充值金额:</p>
             <div class="option fl">
-                <input class="radio" type="radio" value="5000" v-model="money">
+                <input class="radio" type="radio" value="5000" v-model="money" :disabled="type === 0">
                 <div class="num">50</div>
             </div>
             <div class="option fl middle">
-                <input class="radio" type="radio" value="10000" v-model="money">
+                <input class="radio" type="radio" value="10000" v-model="money" :disabled="type === 0">
                 <div class="num">100</div>
             </div>
             <div class="option fl">
-                <input class="radio" type="radio" value="20000" v-model="money">
+                <input class="radio" type="radio" value="20000" v-model="money" :disabled="type === 0">
                 <div class="num">200</div>
             </div>
             <div class="option fl">
-                <input class="radio" type="radio" value="30000" v-model="money">
+                <input class="radio" type="radio" value="30000" v-model="money" :disabled="type === 0">
                 <div class="num">300</div>
             </div>
             <div class="option fl middle">
-                <input class="radio" type="radio" value="50000" v-model="money">
+                <input class="radio" type="radio" value="50000" v-model="money" :disabled="type === 0">
                 <div class="num">500</div>
             </div>
             <div class="option fl">
-                <input class="custom" type="tel" :class="custom_money.length > 0 && 'redBorder' " v-model="custom_money"
+                <input class="custom" type="tel" :class="custom_money.length > 0 && 'redBorder' " v-model="custom_money" :disabled="type === 0"
                        placeholder="自定义金额" @focus="setChecked">
             </div>
         </div>
