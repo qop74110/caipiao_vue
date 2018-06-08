@@ -152,6 +152,7 @@
 
     //  足彩
     .style2 {
+        @border-color: #ccc;
         @tr-h: 1.5rem;
         font-size: .32rem;
         .th {
@@ -163,12 +164,19 @@
         }
         .tr {
             height: @tr-h;
-            border-top: 1px solid #ccc;
+            border-top: 1px solid @border-color;
             overflow: hidden;
             .td {
-                border-right: 1px solid #ccc;
+                border-right: 1px solid @border-color;
+                height: 100%;
                 &:last-child {
                     border: 0;
+                }
+                .bor_b{
+                    border-bottom: 1px solid @border-color;
+                    &:last-child{
+                        border: none;
+                    }
                 }
             }
         }
@@ -191,16 +199,16 @@
             line-height: @tr-h;
         }
         .l2 {
-            line-height: @tr-h / 2;
+            line-height: @tr-h / 3;
         }
         .l3 {
             line-height: @tr-h / 3;
         }
         .selected {
-            height: @tr-h;
-            line-height: .6rem;
-            overflow-y: scroll;
+
+            overflow-y: hidden;
         }
+
     }
 }
 
