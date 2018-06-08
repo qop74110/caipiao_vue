@@ -18,7 +18,7 @@
                 <!--<p class="c3" v-else>{{datas.name}}</p>-->
                 <p class="c3">{{datas.name}}</p>
                 <p class="phase c6" v-if="isFootball && lotid !== 'FT005'">{{datas.phase.split("*")[0]}}期</p>
-                <p class="phase c6" v-else-if="lotid === 'FT005'">{{datas.matchs.split("*")[0]}}期</p>
+                <p class="phase c6" v-else-if="lotid === 'FT005' && datas.matchs ">{{datas.matchs.split("*")[0]}}期</p>
 
                 <p class="phase c6" v-else>{{datas.phase}}期</p>
 
@@ -161,24 +161,75 @@
                         <div class="td">投注(出票赔率)</div>
                         <div class="td">彩果</div>
                     </div>
-                    <div class="tr row" v-for="(i, index) in datas.data">
-                        <div class="td l2">
-                            周{{i.week}}
-                            <p>{{i.te}}</p>
+                    <!--<div class="tr row" v-for="(i, index) in datas.data">-->
+                        <!--<div class="td l2">-->
+                            <!--周{{i.week}}-->
+                            <!--<p>{{i.te}}</p>-->
+                        <!--</div>-->
+                        <!--<div class="td blue l3">-->
+                            <!--{{i.na.split(':')[0]}}-->
+                            <!--<p>VS</p>-->
+                            <!--{{i.na.split(':')[1].split("*")[0]}}-->
+                        <!--</div>-->
+                        <!--<div class="td l1">{{i.play}}</div>-->
+                        <!--<div class="td l1 selected">-->
+                            <!--<div v-for="(k, j) in i.selected.split(',')">-->
+                                <!--{{k}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="td l1">{{i.result}}</div>-->
+                    <!--</div>-->
+
+                    <template v-if="lotid !== 'FT005'">
+                        <div class="tr row" v-for="(i, index) in datas.data" >
+                            <div class="td l2">
+                                周{{i.week}}
+                                <p>{{i.te}}</p>
+                            </div>
+                            <div class="td blue l3">
+                                {{i.na.split(':')[0]}}
+                                <p>VS</p>
+                                {{i.na.split(':')[1].split("*")[0]}}
+                            </div>
+                            <div class="td l1">{{i.play}}</div>
+                            <div class="td l1 selected">
+                                <div v-for="(k, j) in i.selected.split(',')">
+                                    {{k}}
+                                </div>
+                            </div>
+                            <div class="td l1">{{i.result}}</div>
                         </div>
-                        <div class="td blue l3">
-                            {{i.na.split(':')[0]}}
-                            <p>VS</p>
-                            {{i.na.split(':')[1].split("*")[0]}}
-                        </div>
-                        <div class="td l1">{{i.play}}</div>
-                        <div class="td l1 selected">
-                            <div v-for="(k, j) in i.selected.split(',')">
-                                {{k}}
+                    </template>
+
+                    <!--混合-->
+                    <template v-else>
+                        <div class="tr row" v-for="(i, index) in datas.data"  :style="'height: ' + i.info.length + 'rem; min-height: 1.5rem;'">
+                            <div class="td l2" :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1 ) / 2 + 'rem'">
+                                周{{i.week}}
+                                <p>{{i.te}}</p>
+                            </div>
+                            <div class="td blue l3" :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1.5 ) / 2 + 'rem'">
+                                {{i.na.split(':')[0]}}
+                                <p>VS</p>
+                                {{i.na.split(':')[1].split("*")[0]}}
+                            </div>
+
+                            <div class="td" >
+                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">{{j.play}}</div>
+                            </div>
+                            <div class="td l1 selected">
+                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
+                                    {{j.selected}}
+                                </div>
+                            </div>
+                            <div class="td l1" >
+                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
+                                    {{j.result}}
+                                </div>
                             </div>
                         </div>
-                        <div class="td l1">{{i.result}}</div>
-                    </div>
+                    </template>
+
                 </div>
 
             </div>
