@@ -138,7 +138,6 @@
                     <tr>
                         <th class="th">场次</th>
                         <th class="th">主队VS客队</th>
-                        <!--<th class="th">玩法</th>-->
                         <th class="th">投注(赔率)</th>
                         <th class="th">彩果</th>
                     </tr>
@@ -155,7 +154,7 @@
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
                         <td class="td selected">
-                            <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
+                            <div class="td_r" v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
                         </td>
                         <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">
@@ -168,68 +167,45 @@
                 <table class="tabal" v-else>
                     <thead class="t_head">
                     <tr>
-                        <th class="th">场次</th>
-                        <th class="th">主队VS客队</th>
-                        <th class="th">玩法</th>
+                        <th class="th w15">场次</th>
+                        <th class="th w25">主队VS客队</th>
+                        <th class="th ">玩法</th>
                         <th class="th">投注(赔率)</th>
                         <th class="th">彩果</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <template v-if="$route.query.type !== 'FT005'">
-                        <tr class="tr" v-for="(item, index) in detail.arr">
-                            <td class="td">
-                                周{{item.week}}
-                                <div>{{item.team_id}}</div>
-                            </td>
-                            <td class="td blueText">
-                                <div class="hideText">{{item.team.split(':')[0]}}</div>
-                                <div>{{item.team.split('*')[1]}}</div>
-                                <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
-                            </td>
-                            <td class="td">
-                                待开发
-                            </td>
-                            <td class="td selected">
-                                <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
-                            </td>
-                            <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">
-                                {{item.result}}
-                            </td>
-                        </tr>
-                    </template>
+                    <tr class="tr" v-for="(item, index) in detail.arr">
+                        <td class="td">
+                            周{{item.week}}
+                            <div>{{item.team_id}}</div>
+                        </td>
+                        <td class="td blueText">
+                            <div class="hideText">{{item.team.split(':')[0]}}</div>
+                            <div>{{item.team.split('*')[1]}}</div>
+                            <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
+                        </td>
+                        <td class="td">
+                            <div class="td_r" v-for="j in item.info"
+                                 :style="'height: ' + j.selected.split('*').length + 'rem; line-height: ' +  j.selected.split('*').length + 'rem'">
+                                {{j.play_type}}
+                            </div>
+                        </td>
+                        <td class="td selected">
+                            <template v-for="j in item.info">
+                                <div class="td_r" v-for="a in j.selected.split('*')">{{a}}</div>
+                            </template>
 
-                    <template v-else>
-                        <tr class="tr" v-for="(item, index) in detail.arr">
-                            <td class="td">
-                                周{{item.week}}
-                                <div>{{item.team_id}}</div>
-                            </td>
-                            <td class="td blueText">
-                                <div class="hideText">{{item.team.split(':')[0]}}</div>
-                                <div>{{item.team.split('*')[1]}}</div>
-                                <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
-                            </td>
-                            <td class="td">
-                                <div class="td_r" v-for="j in item.info">{{j.play_type}}</div>
-                            </td>
-                            <td class="td selected">
-                                <div class="td_r" v-for="j in item.info">{{j.selected}}</div>
-                            </td>
-                            <td class="td">
-                                <div class="td_r" v-for="j in item.info">{{j.result}}</div>
-                            </td>
+                        </td>
+                        <td class="td">
+                            <div class="td_r" v-for="j in item.info"
+                                 :style="'height: ' + j.selected.split('*').length + 'rem; line-height: ' +  j.selected.split('*').length + 'rem'">
+                                {{j.result}}
+                            </div>
+                        </td>
 
-                            <!--<td class="td selected">-->
-                                <!--<div v-for="(k, j) in item.selected.split('*')">{{k}}</div>-->
-
-                            <!--</td>-->
-                            <!--<td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">-->
-                                <!--{{item.result}}-->
-                            <!--</td>-->
-                        </tr>
-                    </template>
+                    </tr>
 
                     </tbody>
                 </table>
