@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="td l1" >
-                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
+                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')" :class="j.is_prize === '2' && 'redText'">
                                     {{j.result}}
                                 </div>
                             </div>

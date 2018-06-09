@@ -176,27 +176,61 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="tr" v-for="(item, index) in detail.arr">
-                        <td class="td">
-                            周{{item.week}}
-                            <div>{{item.team_id}}</div>
-                        </td>
-                        <td class="td blueText">
-                            <div class="hideText">{{item.team.split(':')[0]}}</div>
-                            <div>{{item.team.split('*')[1]}}</div>
-                            <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
-                        </td>
-                        <td class="td">
-                            待开发
-                        </td>
-                        <td class="td selected">
-                            <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
+                    <template v-if="$route.query.type !== 'FT005'">
+                        <tr class="tr" v-for="(item, index) in detail.arr">
+                            <td class="td">
+                                周{{item.week}}
+                                <div>{{item.team_id}}</div>
+                            </td>
+                            <td class="td blueText">
+                                <div class="hideText">{{item.team.split(':')[0]}}</div>
+                                <div>{{item.team.split('*')[1]}}</div>
+                                <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
+                            </td>
+                            <td class="td">
+                                待开发
+                            </td>
+                            <td class="td selected">
+                                <div v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
-                        </td>
-                        <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">
-                            {{item.result}}
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">
+                                {{item.result}}
+                            </td>
+                        </tr>
+                    </template>
+
+                    <template v-else>
+                        <tr class="tr" v-for="(item, index) in detail.arr">
+                            <td class="td">
+                                周{{item.week}}
+                                <div>{{item.team_id}}</div>
+                            </td>
+                            <td class="td blueText">
+                                <div class="hideText">{{item.team.split(':')[0]}}</div>
+                                <div>{{item.team.split('*')[1]}}</div>
+                                <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
+                            </td>
+                            <td class="td">
+                                <div class="td_r" v-for="j in item.info">{{j.play_type}}</div>
+                            </td>
+                            <td class="td selected">
+                                <div class="td_r" v-for="j in item.info">{{j.selected}}</div>
+                            </td>
+                            <td class="td">
+                                <div class="td_r" v-for="j in item.info">{{j.result}}</div>
+                            </td>
+
+                            <!--<td class="td selected">-->
+                                <!--<div v-for="(k, j) in item.selected.split('*')">{{k}}</div>-->
+
+                            <!--</td>-->
+                            <!--<td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">-->
+                                <!--{{item.result}}-->
+                            <!--</td>-->
+                        </tr>
+                    </template>
+
                     </tbody>
                 </table>
 
