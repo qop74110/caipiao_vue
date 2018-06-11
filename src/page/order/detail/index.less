@@ -5,6 +5,8 @@
     background: #EFEFEF;
     @w: 2rem;
     @p: .2rem;
+    @om-h: 1.32rem;
+    padding-bottom: @om-h;
     .head {
         height: @head-h;
         padding: @p;
@@ -159,13 +161,12 @@
         text-align: center;
     }
     .one_more {
-        @om-h: 1.32rem;
-        height: @om-h;
-        background: white;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
+        height: @om-h;
+        background: white;
         .one_more_btn {
             @om_btn-h: .8rem;
             @om_btn-w: 3.5rem;

@@ -154,6 +154,10 @@
 
                 <!--竞彩足球-->
                 <div class="style2" v-else-if="isFootball">
+                    <div class="tb">
+                        <!--<span v-for="(a, b) in datas.strand.split(',')">{{a === '0' ? '单关': a + '串1'}},</span>-->
+                        {{`${datas.strand === '0' ? '单关': datas.strand + '串1'}, ${datas.notes}注${datas.multiple}倍`}}
+                    </div>
                     <div class="th row c6">
                         <div class="td">场次</div>
                         <div class="td">主队VS客队</div>
@@ -191,7 +195,7 @@
                                 <p>{{i.te}}</p>
                             </div>
                             <div class="td blue l3" :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1.5 ) / 2 + 'rem'">
-                                {{i.na.split(':')[0]}}
+                                {{ i.letpoint !== undefined ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
                                 <p>VS</p>
                                 {{i.na.split(':')[1].split("*")[0]}}
                             </div>
@@ -311,7 +315,7 @@
 
             <div class="foot whiteBg" v-if="datas.st === 1">
                 <span class="quanbao redText" @click="pay('all')">全包</span>
-                共<span class="redText">{{datas.remaining_money}}</span>元
+                共<span class="redText">{{yuan}}</span>元
                 <span class="pay btn_active redBg" @click="pay">支付</span>
             </div>
 
