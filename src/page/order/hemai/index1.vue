@@ -169,7 +169,7 @@
                                 <p>{{i.te}}</p>
                             </div>
                             <div class="td blue l3" :style="'padding-top: ' + ( ( i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1.5 ) / 2 + 'rem'">
-                                {{ $route.query.type === 'FT006' && i.letpoint  ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
+                                {{ $route.query.type === 'FT006' && i.letpoint !== undefined ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
                                 <p>VS</p>
                                 {{i.na.split(':')[1].split("*")[0]}}
                             </div>
