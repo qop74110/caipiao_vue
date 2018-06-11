@@ -149,7 +149,8 @@
                             <div>{{item.team_id}}</div>
                         </td>
                         <td class="td blueText">
-                            <div class="hideText">{{`${$route.query.type === 'FT006' && ( '(' + item.letpoint + ')' )}${item.team.split(':')[0]}`}}</div>
+                            <!--<div class="hideText">{{`${$route.query.type === 'FT006' && ( '(' + item.letpoint + ')' )}${item.team.split(':')[0]}`}}</div>-->
+                            <div class="hideText"> {{ $route.query.type === 'FT006' && item.letpoint  ? '(' + item.letpoint + ')' : '' }} {{item.team.split(':')[0]}}</div>
                             <div>{{item.team.split('*')[1]}}</div>
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
