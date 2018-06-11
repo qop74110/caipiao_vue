@@ -161,43 +161,25 @@
                         <div class="td">投注(出票赔率)</div>
                         <div class="td">彩果</div>
                     </div>
-                    <!--<div class="tr row" v-for="(i, index) in datas.data">-->
-                        <!--<div class="td l2">-->
-                            <!--周{{i.week}}-->
-                            <!--<p>{{i.te}}</p>-->
-                        <!--</div>-->
-                        <!--<div class="td blue l3">-->
-                            <!--{{i.na.split(':')[0]}}-->
-                            <!--<p>VS</p>-->
-                            <!--{{i.na.split(':')[1].split("*")[0]}}-->
-                        <!--</div>-->
-                        <!--<div class="td l1">{{i.play}}</div>-->
-                        <!--<div class="td l1 selected">-->
-                            <!--<div v-for="(k, j) in i.selected.split(',')">-->
-                                <!--{{k}}-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="td l1">{{i.result}}</div>-->
-                    <!--</div>-->
 
                     <template v-if="lotid !== 'FT005'">
-                        <div class="tr row" v-for="(i, index) in datas.data" >
-                            <div class="td l2">
+                        <div class="tr row" v-for="(i, index) in datas.data" :style="'height: ' + i.selected.split('*').length + 'rem; min-height: 1.5rem;'">
+                            <div class="td l2" :style="'padding-top: ' + ( (  i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1 ) / 2 + 'rem'">
                                 周{{i.week}}
                                 <p>{{i.te}}</p>
                             </div>
-                            <div class="td blue l3">
-                                {{i.na.split(':')[0]}}
+                            <div class="td blue l3" :style="'padding-top: ' + ( ( i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1.5 ) / 2 + 'rem'">
+                                {{ $route.query.type === 'FT006' && i.letpoint  ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
                                 <p>VS</p>
                                 {{i.na.split(':')[1].split("*")[0]}}
                             </div>
-                            <div class="td l1">{{i.play}}</div>
-                            <div class="td l1 selected">
-                                <div v-for="(k, j) in i.selected.split(',')">
-                                    {{k}}
-                                </div>
+                            <div class="td l1" :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">{{i.play}}</div>
+                            <div class="td l1 selected" :style="'line-height: ' + (i.selected.split('*').length > 1 ? '1rem': '1.5rem')">
+                                <template v-for="(k, j) in i.selected.split('*')">
+                                    <div class="bor_b">{{k}}</div>
+                                </template>
                             </div>
-                            <div class="td l1">{{i.result}}</div>
+                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">{{i.result}}</div>
                         </div>
                     </template>
 
