@@ -158,7 +158,7 @@
                             <div class="td_r" v-for="(k, j) in item.selected.split('*')">{{k}}</div>
 
                         </td>
-                        <td class="td" :class="detail.openmatch == '3' && item.type === 1 && 'redText'">
+                        <td class="td" :class="detail.openmatch == '3' && item.is_prize === '2' && 'redText'">
                             {{item.result}}
                         </td>
                     </tr>
@@ -200,7 +200,7 @@
 
                         </td>
                         <td class="td">
-                            <div class="td_r" v-for="j in item.info"
+                            <div class="td_r" v-for="j in item.info" :class="detail.openmatch == '3' && j.is_prize === '2' && 'redText'"
                                  :style="'height: ' + j.selected.split('*').length + 'rem; line-height: ' +  j.selected.split('*').length + 'rem'">
                                 {{j.result}}
                             </div>
