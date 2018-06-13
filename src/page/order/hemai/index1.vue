@@ -183,7 +183,7 @@
                                     <div class="bor_b">{{k}}</div>
                                 </template>
                             </div>
-                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">{{i.result}}</div>
+                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')" :class="j.is_prize === '2' && 'redText'">{{i.result}}</div>
                         </div>
                     </template>
 
@@ -305,7 +305,7 @@
 
 
         <!--剩余份数-->
-        <div class="surplus" v-if="datas.st === 1">
+        <div class="surplus" v-if="datas.remaining_money > 1">
             剩余份数: <span class="redText">{{datas.remaining_money}}份</span> (1元/份)
             <XNumber class="fr" input_w="1.4" :_val="yuan" name="yuan" h=".68" @on-change="setVal" :max_val="datas.remaining_money"></XNumber>
         </div>
@@ -313,7 +313,7 @@
 
         <footer class="footer">
 
-            <div class="foot whiteBg" v-if="datas.st === 1">
+            <div class="foot whiteBg" v-if="datas.remaining_money > 1">
                 <span class="quanbao redText" @click="pay('all')">全包</span>
                 共<span class="redText">{{yuan}}</span>元
                 <span class="pay btn_active redBg" @click="pay">支付</span>
