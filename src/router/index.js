@@ -9,10 +9,11 @@ import caizhong from "./product";
 import my from "./my";
 import pay from "./pay";
 import hongbao from "./hongbao";
+import event from "./event";
 
 Vue.use(Router);
 
-const routes = [...hemai, ...order, ...prize, ...caizhong, ...my, ...pay, ...hongbao];
+const routes = [...hemai, ...order, ...prize, ...caizhong, ...my, ...pay, ...hongbao, ...event];
 
 routes.push(
     {

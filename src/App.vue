@@ -18,9 +18,6 @@
             this.$router.afterEach((to) => {
                 NProgress.done();
             });
-//            渠道
-            let channel = this.$route.query.channel || '';
-            this.global.cookie.set("channel", channel);
         },
     }
 </script>

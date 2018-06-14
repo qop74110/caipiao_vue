@@ -69,6 +69,7 @@ const ajax_url = {
 
         download_an: 'http://ot8flmrcy.bkt.clouddn.com/xingyuncai.apk',
         download_ios: 'https://fir.im/6kqp',
+        download_evnet: 'v1/download/download',
 
     }
 };

@@ -8,6 +8,16 @@ const global = {
     product_type,
 
     cookie,
+    getTerminal(){
+        let u = navigator.userAgent;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+        let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        return isAndroid ? 2 : isiOS ? 1 : this.global.isWeiXin() ? 4 : 3;
+    },
+    testPhone(phone){
+        return this.global.phoneRE.test(phone)
+    },
     alert(content){
         this.$vux.alert.show({
             content: content,
@@ -22,6 +32,7 @@ const global = {
     ajax(url, data, callBack, head = {}, method = "POST"){
         head.token = cookie.get("token") || "";
         head.channel = cookie.get("channel") || "lottery-one";
+        head.terminal = this.global.isWeiXin() ? 4 : 3;
         const _this = this;
 
         this.$http({

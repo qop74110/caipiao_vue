@@ -1,0 +1,48 @@
+.down1 {
+    height: 100vh;
+    position: relative;
+}
+
+.bg {
+    height: 7.24rem;
+    background-repeat: no-repeat;
+    background-size: 10rem auto;
+}
+
+.top {
+    background-image: url(./top.png);
+    background-position: left top;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10rem;
+    background-image: url(./bottom.png);
+    background-position: left bottom;
+}
+
+.middle {
+    @h: 4rem;
+    @c: #ed6c6c;
+    position: absolute;
+    top: 50vh;
+    left: 0;
+    right: 0;
+    height: @h;
+    margin-top: -@h / 2;
+    text-align: center;
+    z-index: 100;
+    .btn {
+        @btn-h: 1.5rem;
+        height: @btn-h;
+        line-height: @btn-h;
+        width: 6rem;
+        margin: .5rem auto 0;
+        border: 1px solid @c;
+        border-radius: @btn-h / 2;
+        color: @c;
+        font-size: .45rem;
+    }
+}

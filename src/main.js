@@ -6,6 +6,7 @@ import router from './router';
 import App from './App';
 import {LoadingPlugin, AlertPlugin, ConfirmPlugin, AjaxPlugin, ToastPlugin} from "vux";
 import global from "./assets/js/common";
+import store from '@/store';
 
 Vue.prototype.global = global;
 
@@ -21,8 +22,13 @@ Vue.use(ToastPlugin);
 Vue.use(require('vue-wechat-title'));
 
 
+
+
+
+
 /* eslint-disable no-new */
 new Vue({
-  router,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app-box')
