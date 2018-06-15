@@ -1,12 +1,14 @@
 <template>
     <div class="jczq_index page" v-if="loading === 0">
-
+        <!--玩法-->
         <XHead @setMore="setMore" @setOption="setOption" :active_more="show_more" :active_title="show_title_option">
             {{title_option_list[play_type]}}
         </XHead>
+        <!--筛选-->
         <span class="shaixuan" @click="show_screen = true"></span>
         <!--赛事列表-->
         <div class="content">
+            <!--单关、多关-->
             <div class="bar_box" v-if="play_type !== 'FT005'">
                 <Bar :list="bar_list" v-model="bar_value" class="bar"></Bar>
                 <!--<div class="jixuan redText" v-show="play_type !== 'FT003' && play_type !== 'FT002'"-->
@@ -865,9 +867,12 @@
                 this.getIndexList();
                 this.getScreenList();
             },
-            play_type(){
-                this.getIndexList();
-                this.getScreenList();
+            play_type(v){
+                if (v === 'FT005' && this.bar_value === 0) this.bar_value = 1;
+                else {
+                    this.getIndexList();
+                    this.getScreenList();
+                }
             },
             checked(){
                 this.set_changshu();
