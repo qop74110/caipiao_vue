@@ -34,6 +34,7 @@ const ajax_url = {
         my_balance: "v1/user/balance",                  //  我的—余额
         my_headImg: "v1/user/avatar",                   //  我的—上传头像
         my_name: "v1/user/name",                        //  我的—修改昵称
+        my_log: "v1/user/log",                        //  我的—修改昵称
 
         pay: 'v1/recharge/browser',                     //  充值
         pay1004: 'v1/pay/browser',                      //  充值

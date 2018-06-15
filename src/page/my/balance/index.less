@@ -1,0 +1,41 @@
+@p: .2rem;
+.balance {
+    min-height: 100vh;
+    background: #EFEFEF;
+    font-size: .4rem;
+    color: #333;
+}
+
+.header {
+    @h: 2rem;
+    height: @h;
+    line-height: (@h - 2 * @p) / 2;
+    padding: .2rem;
+    margin-bottom: .3rem;
+}
+
+.item {
+    @lh: .8rem;
+    padding: @p;
+    line-height: @lh;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    .time {
+        color: #999;
+        font-size: .38rem;
+    }
+    .money {
+        position: absolute;
+        top: 0;
+        right: @p;
+        bottom: 0;
+        line-height: 2 * @lh + @p;
+    }
+    .greenText{
+        color: #0bb20c;
+    }
+}
+
+.whiteBg {
+    background: white;
+}

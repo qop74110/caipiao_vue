@@ -48,5 +48,14 @@ export default [
         component: (resolve) => {
             require(["page/my/set"], resolve)
         }
+    }, {
+        path: "/balance",
+        name: "balance",
+        meta: {
+            title: '账户明细'
+        },
+        component: (resolve) => {
+            require(["page/my/balance"], resolve)
+        }
     },
 ]
