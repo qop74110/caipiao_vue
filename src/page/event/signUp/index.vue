@@ -23,12 +23,14 @@
     import codeInput from '../com/code-input.vue';
     import getCodeBtn from '../com/getCode-btn.vue';
     import submitBtn from '../com/submit-btn.vue';
+//    import SuanfaAlert from 'com';
     export default {
         name: 'event1',
         components: {
             phoneInput,
             codeInput,
             getCodeBtn,
+//            SuanfaAlert,
             submitBtn
         },
         data () {

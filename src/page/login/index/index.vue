@@ -15,13 +15,13 @@
             <div class="submit btn_active" @click="submit">登录</div>
         </div>
 
-        <div class="wxLogin" v-show="!hideWxLogin">
-            <span class="wxLogin_text">第三方登录</span>
-            <div>
-                <img class="wx_img" src="./img/wx.png" @click="wxLogin">
-            </div>
+        <!--<div class="wxLogin" v-show="!hideWxLogin">-->
+            <!--<span class="wxLogin_text">第三方登录</span>-->
+            <!--<div>-->
+                <!--<img class="wx_img" src="./img/wx.png" @click="wxLogin">-->
+            <!--</div>-->
 
-        </div>
+        <!--</div>-->
 
         <div class="popup fog" v-show="showPop">
             <div class="popup_box">
