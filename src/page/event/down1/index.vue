@@ -1,20 +1,29 @@
 <template>
     <div class="down1">
-        <div class="top bg"></div>
-        <div class="middle" @click="down">
-            <div class="btn Android">Android下载</div>
-            <div class="btn iphone">iphone下载</div>
+        <div v-show="!showGuide">
+            <div class="top bg"></div>
+            <div class="middle" >
+                <div class="btn Android" @click="down">Android下载</div>
+                <div class="btn iphone" @click="showGuide = true">iphone下载</div>
+            </div>
+            <div class="bottom bg"></div>
         </div>
-        <div class="bottom bg"></div>
+
+        <Guide v-show="showGuide" @down="down"></Guide>
     </div>
 </template>
 
 <script>
+    import Guide from "com/Guide";
     export default {
         name: 'down1',
+        components: {
+            Guide
+        },
         data () {
             return {
                 url: null,
+                showGuide: false,
             }
         },
         created(){
