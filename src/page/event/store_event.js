@@ -4,6 +4,7 @@ export default {
         phone_b: '',
         code: '',
         getCodeNum: 0,
+        suanfaState: false,
     },
     mutations: {
         setPhone(state, val) {
@@ -17,6 +18,9 @@ export default {
         },
         setGetCodeNum(state){
             state.getCodeNum++;
+        },
+        setSFState(s){
+            s.suanfaState = true;
         }
     }
 };

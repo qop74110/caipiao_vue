@@ -17,6 +17,7 @@
         }
         .l {
             width: 60%;
+            height: 100%;
             background: #ccc;
             letter-spacing: .2rem;
         }
@@ -32,5 +33,21 @@
             line-height: 1.2rem;
             border-top: 1px solid #ccc;
         }
+
+        .err{
+            animation:1s seconddiv;
+            border-color: red;
+        }
     }
+
+
+}
+
+@keyframes seconddiv{
+    0% {transform: scale(1.4,1.4);}
+    10% {transform: scale(1,1);}
+    25% {transform: scale(1.2,1.2);}
+    50% {transform: scale(1,1);}
+    70% {transform: scale(1.2,1.2);}
+    100% {transform: scale(1,1);}
 }

@@ -10,7 +10,12 @@
                 text: '获取验证码',
                 s: 60,
                 time: null,
+
+                state: null,            //  代替监听 数字验证码结果
             }
+        },
+        created(){
+            this.state = this.$store.state.event;
         },
         methods: {
             getCode(){
@@ -44,6 +49,11 @@
                         _this.text = "获取验证码";
                     }
                 }, 1000)
+            }
+        },
+        watch: {
+            state(val){
+                if(val.suanfaState) this.getCode();
             }
         }
     }

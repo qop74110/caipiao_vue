@@ -7,6 +7,6 @@ import XHead from "./XHead";
 import XFoot from "./XFoot";
 import Bar from "./Bar";
 import LaunchBtn from "./LaunchBtn";
-import SuanfaAlert from "./SuanfaAlert";
+import Suanfa from "./SuanfaAlert";
 
-export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead, Bar, XFoot, LaunchBtn, SuanfaAlert};
+export {Tabbar, Banener, Marquee, XNumber, Actionsheet, XHead, Bar, XFoot, LaunchBtn, Suanfa};

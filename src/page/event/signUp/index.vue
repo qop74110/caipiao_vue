@@ -8,7 +8,8 @@
            <div class="row codeRow whiteBg">
                <span class="k fl">验证码</span>
                <codeInput class="input fl"></codeInput>
-               <getCodeBtn class="getCodeBtn btn btn_active"></getCodeBtn>
+               <getCodeBtn class="getCodeBtn btn btn_active" v-if="$store.state.event.suanfaState"></getCodeBtn>
+               <Suanfa  class="getCodeBtn btn btn_active" v-else></Suanfa>
            </div>
 
             <submitBtn class="row btn submit btn_active">注册</submitBtn>
@@ -23,14 +24,14 @@
     import codeInput from '../com/code-input.vue';
     import getCodeBtn from '../com/getCode-btn.vue';
     import submitBtn from '../com/submit-btn.vue';
-//    import SuanfaAlert from 'com';
+    import Suanfa from 'com/SuanfaAlert';
     export default {
         name: 'event1',
         components: {
             phoneInput,
             codeInput,
             getCodeBtn,
-//            SuanfaAlert,
+            Suanfa,
             submitBtn
         },
         data () {

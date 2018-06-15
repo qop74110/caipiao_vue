@@ -1,10 +1,12 @@
 <template>
     <div class="suanfa">
-        <div class="popup fog">
+        <div @click="showPop_fun">获取验证码</div>
+        <div class="popup fog" v-show="showPop">
             <div class="popup_box">
                 <div class="popup_top">
                     <div class="fl l">{{problem}}</div>
-                    <input class="fr r" type="tel" v-model="u_answer" maxlength="2"/>
+                    <input class="fr r" :class="shakeClass && 'err'" type="tel" v-model="u_answer" maxlength="2"
+                           :style="err && 'border-color: red'" @animationend="shakeClass = false"/>
                 </div>
                 <div class="popup_bottom" @click="test">确定</div>
             </div>
@@ -18,10 +20,12 @@
         data () {
             return {
                 showPop: false,                     //  true：显示问题
-                testState: false,                   //  问题是否答对
                 u_answer: '',                       //  用户给的答案
                 answer: null,                       //  正确答案
                 problem: null,                      //  问题
+
+                err: false,
+                shakeClass: false,
             }
         },
         created(){
@@ -30,10 +34,12 @@
         methods: {
             test(){
                 if (this.u_answer * 1 === this.answer) {
-                    this.testState = true;
-                    this.getCode();
                     this.showPop = false;
-                } else this.u_answer = "";
+                    this.$store.commit('setSFState');
+                } else {
+                    this.u_answer = "";
+                    this.err = this.shakeClass = true;
+                }
             },
             showPop_fun(){
                 function randomNum(min, max) {
