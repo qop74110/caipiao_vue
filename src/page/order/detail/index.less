@@ -6,7 +6,8 @@
     @w: 2rem;
     @p: .2rem;
     @om-h: 1.32rem;
-    padding-bottom: @om-h;
+    @tabbar-h: 1.2rem;
+    padding-bottom: @om-h + @tabbar-h;
     .head {
         height: @head-h;
         padding: @p;
@@ -162,7 +163,7 @@
     }
     .one_more {
         position: fixed;
-        bottom: 0;
+        bottom: @tabbar-h;
         left: 0;
         right: 0;
         height: @om-h;

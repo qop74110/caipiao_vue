@@ -57,7 +57,7 @@
         },
         methods: {
             open(page){
-                this.$router.push(page)
+                this.$router.push(`/${page}`)
             },
         }
     }

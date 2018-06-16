@@ -1,12 +1,13 @@
 @head-h: 1.2rem;
 @foot-h: 1.2rem;
+@tabbar-h: 1.2rem;
 
 @top-h: 2.13rem;
 @tag-h: 1.2rem;
 @sur-h: 1.08rem;
 
 .order_hemai {
-    padding-bottom: @sur-h;
+    padding-bottom: @sur-h + @tabbar-h;
     text-align: center;
 }
 
@@ -302,7 +303,7 @@
 //剩余份数
 .surplus {
     position: fixed;
-    bottom: @foot-h;
+    bottom: @foot-h + @tabbar-h;
     left: 0;
     right: 0;
     width: 10rem;
@@ -323,7 +324,7 @@
     text-align: center;
     .foot {
         position: fixed;
-        bottom: 0;
+        bottom: @tabbar-h;
         left: 0;
         right: 0;
         height: inherit;

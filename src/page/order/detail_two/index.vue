@@ -61,12 +61,15 @@
         <div class="one_more">
             <div class="one_more_btn redBg" @click="one_more">再来一注</div>
         </div>
+        <Tabbar></Tabbar>
     </div>
 </template>
 
 <script>
+    import { Tabbar } from 'com';
     export default {
         name: 'detail_tow',
+        components: {Tabbar},
         data () {
             return {
                 detail: null,

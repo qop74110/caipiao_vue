@@ -322,16 +322,18 @@
             <div class="foot redBg" v-else @click="$router.push('/hemai')">去合买</div>
             <!--<div class="foot redBg"  @click="$router.push('/hemai')">去合买</div>-->
         </footer>
+
+        <Tabbar></Tabbar>
     </div>
 </template>
 
 <script>
     import {dateFormat} from 'vux';
-    import {XNumber} from "com";
+    import {XNumber, Tabbar} from "com";
 
     export default {
         name: 'order_hemai',
-        components: {XNumber},
+        components: {XNumber, Tabbar},
         data () {
             return {
                 datas: null,
