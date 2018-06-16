@@ -183,7 +183,7 @@
                                     <div class="bor_b">{{k}}</div>
                                 </template>
                             </div>
-                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')" :class="j.is_prize === '2' && 'redText'">{{i.result}}</div>
+                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')" :class="i.is_prize === '2' && 'redText'">{{i.result}}</div>
                         </div>
                     </template>
 
