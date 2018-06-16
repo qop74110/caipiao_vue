@@ -3,7 +3,7 @@
         <header class="head">
             <div class="head_t redBg">
                 合买详情
-                <span class="share abs" @click="share"></span>
+                <!--<span class="share abs" @click="share"></span>-->
                 <span class="back abs" @click="$router.go(-1)"></span>
             </div>
         </header>

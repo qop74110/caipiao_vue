@@ -1,5 +1,5 @@
 <template>
-    <div class="Tabbar vux-1px-t">
+    <div class="Tabbar vux-1px-t" v-if="page !== null">
         <div class="TabbarItem fl" v-if="page === 1">
             <img class="TabbarItem_img" src="./img/home.png">
             <p class="TabbarItem_text s">购彩</p>
@@ -44,7 +44,7 @@
         name: 'Tabbar',
         data () {
             return {
-                page: 1,            //  1:购彩； 2：开奖；  3：我的
+                page: null,            //  1:购彩； 2：开奖；  3：我的   4: 合买    5: 订单
             }
         },
         created(){
@@ -52,7 +52,8 @@
             if (page_name === "home") this.page = 1;
             else if (page_name === "prize") this.page = 2;
             else if (page_name === "my") this.page = 3;
-            else this.page = 4;
+            else if (page_name === 'hemai') this.page = 4;
+            else this.page = 5;
         },
         methods: {
             open(page){
