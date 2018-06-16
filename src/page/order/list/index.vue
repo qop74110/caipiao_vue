@@ -1,5 +1,5 @@
 <template>
-    <div class="order_list">
+    <div class="order_list" v-if="hideLoad">
         <ul class="lists" v-if="list.length > 0">
             <li class="item" v-for="(item, index) in list" :key="item.id"
                 @click="openLink(index)">
@@ -28,6 +28,7 @@
         data () {
             return {
                 list: [],
+                hideLoad: false,
             }
         },
         created(){
@@ -42,6 +43,7 @@
                     this.setOrderState(d.data);
                     this.list = d.data;
                 }
+                this.hideLoad = true;
             },
             setOrderState(d){
                 for (let i = 0; i < d.length; i++) {
