@@ -1,7 +1,7 @@
 <template>
     <div class="jczq_order page" v-if="render_page">
         <XHead :show_mord="false" :show_title_option="false">竞彩足球
-            <LaunchBtn :fun="submit"></LaunchBtn>
+            <LaunchBtn v-if="!hemai" :fun="submit"></LaunchBtn>
         </XHead>
 
         <div class="header">
@@ -153,7 +153,8 @@
             <div class="foot_bottom">
                 {{zhushu}}注 {{bei}}倍 <span class="redText">{{money}}</span>元
                 <p class="c666">预测奖金(仅供参考): {{zhushu !== 1 ? min_m + "~" + max_m: min_m}}</p>
-                <span class="submit redBg" @click="submit">确定</span>
+                <span v-if="hemai" class="submit redBg" @click="submit(true)">发起合买</span>
+                <span v-else class="submit redBg" @click="submit">付款</span>
             </div>
         </div>
 
@@ -412,9 +413,12 @@
                 max_m: 0,
                 timeout: null,
 
+                hemai: false,
+
             }
         },
         created(){
+            if(sessionStorage.getItem('hemai')) this.hemai = true;
             this.getOrder();
             this.setMaxChuan();
             this.render_page = true;

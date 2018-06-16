@@ -200,8 +200,10 @@
             },
             hemai(k){
                 const url = this.global.product_type[k];
-                if (url) this.$router.push(url + '/index');
-                else this.global.alert.call(this, "敬请期待");
+                if (url) {
+                    sessionStorage.setItem('hemai', 1);
+                    this.$router.push(url + '/index');
+                } else this.global.alert.call(this, "敬请期待");
             }
         },
         beforeCreate(){

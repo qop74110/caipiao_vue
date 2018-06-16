@@ -1,7 +1,7 @@
 <template>
     <div class="fucai3d_order" v-if="order !== null">
         <XHead :show_mord="false" :show_title_option="false">3D
-            <LaunchBtn :fun="submit"></LaunchBtn>
+            <LaunchBtn v-if="!hemai" :fun="submit"></LaunchBtn>
         </XHead>
         <!--发起合买-->
         <!--<LaunchBtn></LaunchBtn>-->
@@ -62,7 +62,8 @@
             </div>
             <div class="foot_bottom">
                 {{zhushu}}注{{qi}}期{{bei}}倍 共{{2 * zhushu * qi * bei }}元
-                <span class="submit redBg" @click="submit">确定</span>
+                <span v-if="hemai" class="submit redBg" @click="submit(true)">发起合买</span>
+                <span v-else class="submit redBg" @click="submit">付款</span>
             </div>
         </footer>
     </div>
@@ -70,10 +71,11 @@
 
 <script>
     import {XHead, XNumber, LaunchBtn} from "com";
+
     export default {
         name: 'fucai3d_order',
         components: {XHead, XNumber, LaunchBtn},
-        data () {
+        data() {
             return {
                 qi: 1,
                 bei: 1,
@@ -83,15 +85,17 @@
                 play_type: null,
                 phase: null,
 
+                hemai: false,
             }
         },
-        created(){
+        created() {
+            if (sessionStorage.getItem('hemai')) this.hemai = true;
             this.getOrder();
             sessionStorage.removeItem("fc3d_zixuan");
             sessionStorage.removeItem("fc3d_modify");
         },
         methods: {
-            getOrder(){
+            getOrder() {
                 let order = sessionStorage.getItem('fc3d_order') || "{}";
                 if (order !== "{}") {
                     let o = JSON.parse(order);
@@ -102,39 +106,39 @@
 
                 }
             },
-            setVal(d){
+            setVal(d) {
                 this[d.name] = d.val;
             },
-            del(i){
+            del(i) {
                 if (i > -1) this.order.splice(i, 1);
                 else if (this.order.length > 0) {
                     const _this = this;
                     this.$vux.confirm.show({
                         content: "确认清空？",
-                        onConfirm(){
+                        onConfirm() {
                             _this.order = [];
                         }
                     })
                 }
             },
-            setZhuShu(){
+            setZhuShu() {
                 let zhushu = 0;
                 for (let i = 0; i < this.order.length; i++) {
                     zhushu += this.order[i].notes;
                 }
                 this.zhushu = zhushu;
             },
-            modify(i){
+            modify(i) {
                 sessionStorage.setItem("fc3d_order", JSON.stringify(this.set_request_data()));
                 sessionStorage.setItem("fc3d_modify", i);
                 this.$router.back();
             },
-            zixuan(){
+            zixuan() {
                 sessionStorage.setItem("fc3d_order", JSON.stringify(this.set_request_data()));
                 sessionStorage.setItem("fc3d_zixuan", 1);
                 this.$router.back();
             },
-            random(){
+            random() {
                 const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
                 arr.sort(() => Math.random() > .5 ? -1 : 1);
                 const type = this.order && this.order[0] && this.order[0].type ? this.order[0].type : 1;
@@ -173,7 +177,7 @@
 
                 this.order.unshift(obj);
             },
-            set_request_data(){
+            set_request_data() {
                 let notes = this.zhushu, periods = this.qi, multiple = this.bei;
                 const d = {
                     total: [],
@@ -197,7 +201,7 @@
                 }
                 return d;
             },
-            submit(is_together = false){
+            submit(is_together = false) {
 
                 if (this.zhushu > 0) {
                     const data = this.set_request_data();
@@ -233,7 +237,7 @@
                     }
                 }
             },
-            submit_CB(d){
+            submit_CB(d) {
                 this.$vux.loading.hide();
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
@@ -244,7 +248,7 @@
             }
         },
         watch: {
-            order(val){
+            order(val) {
                 this.setZhuShu();
             },
         },

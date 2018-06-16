@@ -17,8 +17,8 @@
                 <span class="fr line"></span>
             </li>
             <li class="fl middle">
-                <p class="num hideText" @click="open('balance')">{{balance}}</p>
-                <span class="balance">余额</span>
+                <p class="num hideText" @click="open('balance')">{{balance}}元</p>
+                <span class="balance">余额查询</span>
             </li>
             <li class="fl" @click="open('tixian')">
                 <span class="flet line"></span>

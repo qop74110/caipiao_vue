@@ -75,8 +75,10 @@
                 if (this.product_list[i].status === "2") this.global.alert.call(this, "暂停销售");
                 else {
                     const url = this.global.product_type[this.product_list[i].lotid];
-                    if (url) this.$router.push(url + '/index');
-                    else this.global.alert.call(this, "敬请期待");
+                    if (url) {
+                        this.$router.push(url + '/index');
+                        sessionStorage.removeItem('hemai');
+                    } else this.global.alert.call(this, "敬请期待");
                 }
             }
         }

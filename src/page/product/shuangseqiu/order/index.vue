@@ -1,7 +1,7 @@
 <template>
     <div class="order page">
         <XHead :show_mord="false" :show_title_option="false">双色球
-            <LaunchBtn :fun="submit"></LaunchBtn>
+            <LaunchBtn v-if="!hemai" :fun="submit"></LaunchBtn>
         </XHead>
 
         <ul class="btns clearFix">
@@ -59,7 +59,8 @@
             </div>
             <div class="abstract">
                 {{`${zhushu}注${qi}期${bei}倍 共`}}<span class="redText">{{zhushu * qi * bei * 2}}</span>元
-                <div class="submit redBg btn_active" @click="submit">付款</div>
+                <div  v-if="hemai" class="submit redBg btn_active" @click="submit(true)">发起合买</div>
+                <div v-else class="submit redBg btn_active" @click="submit">付款</div>
             </div>
         </div>
 
@@ -80,9 +81,12 @@
                 balls: [],
                 zhushu: 0,
                 is_stop: false,
+
+                hemai: false,
             }
         },
         created(){
+            if(sessionStorage.getItem('hemai')) this.hemai = true;
             this.getOrder();
             this.setRandom_zhushu();
             localStorage.removeItem('ssq_index');
