@@ -5,7 +5,7 @@
             <div class="h1">冻结金额： {{list.frost_cash}}元</div>
         </div>
         <ul class="list whiteBg" v-if="list.info">
-            <li class="item" v-for="(i, index) in list.info">
+            <li class="item" v-for="(i, index) in list.info" :key="index">
                 <div class="title">{{i.desc}}</div>
                 <div class="time">{{i.created_at}}</div>
                 <div class="money" :class="i.type === 2 ? 'redText': 'greenText'">{{i.amount}}元</div>

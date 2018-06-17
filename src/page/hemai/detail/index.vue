@@ -24,7 +24,7 @@
 
             </div>
             <div class="fr time">
-                <div class="redText money c3">{{countDown}}</div>
+                <div class="redText money" :class="countDown_time === null && 'redText'">{{countDown}}</div>
                 <div class="text c6">距离截止</div>
             </div>
         </div>
@@ -170,70 +170,88 @@
                         <div class="td">彩果</div>
                     </div>
                     <!--<template v-if="lotid !== 'FT005'">-->
-                        <!--<div class="tr row" v-for="(i, index) in datas.data" >-->
-                            <!--<div class="td l2">-->
-                                <!--周{{i.week}}-->
-                                <!--<p>{{i.te}}</p>-->
-                            <!--</div>-->
-                            <!--<div class="td blue l3">-->
-                                <!--{{i.na.split(':')[0]}}-->
-                                <!--<p>VS</p>-->
-                                <!--{{i.na.split(':')[1].split("*")[0]}}-->
-                            <!--</div>-->
-                            <!--<div class="td l1">{{i.play}}</div>-->
-                            <!--<div class="td l1 selected">-->
-                                <!--<div v-for="(k, j) in i.selected.split(',')">-->
-                                    <!--{{k}}-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="td l1">{{i.result}}</div>-->
-                        <!--</div>-->
+                    <!--<div class="tr row" v-for="(i, index) in datas.data" >-->
+                    <!--<div class="td l2">-->
+                    <!--周{{i.week}}-->
+                    <!--<p>{{i.te}}</p>-->
+                    <!--</div>-->
+                    <!--<div class="td blue l3">-->
+                    <!--{{i.na.split(':')[0]}}-->
+                    <!--<p>VS</p>-->
+                    <!--{{i.na.split(':')[1].split("*")[0]}}-->
+                    <!--</div>-->
+                    <!--<div class="td l1">{{i.play}}</div>-->
+                    <!--<div class="td l1 selected">-->
+                    <!--<div v-for="(k, j) in i.selected.split(',')">-->
+                    <!--{{k}}-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="td l1">{{i.result}}</div>-->
+                    <!--</div>-->
                     <!--</template>-->
 
                     <template v-if="lotid !== 'FT005'">
-                        <div class="tr row" v-for="(i, index) in datas.data" :style="'height: ' + i.selected.split('*').length + 'rem; min-height: 1.5rem;'">
-                            <div class="td l2" :style="'padding-top: ' + ( (  i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1 ) / 2 + 'rem'">
+                        <div class="tr row" v-for="(i, index) in datas.data"
+                             :style="'height: ' + i.selected.split('*').length + 'rem; min-height: 1.5rem;'">
+                            <div class="td l2"
+                                 :style="'padding-top: ' + ( (  i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1 ) / 2 + 'rem'">
                                 周{{i.week}}
                                 <p>{{i.te}}</p>
                             </div>
-                            <div class="td blue l3" :style="'padding-top: ' + ( ( i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1.5 ) / 2 + 'rem'">
-                                {{ $route.query.type === 'FT006' && i.letpoint !== undefined ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
+                            <div class="td blue l3"
+                                 :style="'padding-top: ' + ( ( i.selected.split('*').length > 1 ? i.selected.split('*').length: 1.5) - 1.5 ) / 2 + 'rem'">
+                                {{ $route.query.type === 'FT006' && i.letpoint !== undefined ? '(' + i.letpoint + ')' :
+                                '' }} {{ i.na.split(':')[0] }}
                                 <p>VS</p>
                                 {{i.na.split(':')[1].split("*")[0]}}
                             </div>
-                            <div class="td l1" :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">{{i.play}}</div>
-                            <div class="td l1 selected" :style="'line-height: ' + (i.selected.split('*').length > 1 ? '1rem': '1.5rem')">
+                            <div class="td l1"
+                                 :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">
+                                {{i.play}}
+                            </div>
+                            <div class="td l1 selected"
+                                 :style="'line-height: ' + (i.selected.split('*').length > 1 ? '1rem': '1.5rem')">
                                 <template v-for="(k, j) in i.selected.split('*')">
                                     <div class="bor_b">{{k}}</div>
                                 </template>
                             </div>
-                            <div class="td l1"  :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">{{i.result}}</div>
+                            <div class="td l1"
+                                 :style="'line-height: ' + (i.selected.split('*').length > 1 ? i.selected.split('*').length + 'rem': '1.5rem')">
+                                {{i.result}}
+                            </div>
                         </div>
                     </template>
 
                     <!--混合-->
                     <template v-else>
-                        <div class="tr row" v-for="(i, index) in datas.data"  :style="'height: ' + i.info.length + 'rem; min-height: 1.5rem;'">
-                            <div class="td l2" :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1 ) / 2 + 'rem'">
+                        <div class="tr row" v-for="(i, index) in datas.data"
+                             :style="'height: ' + i.info.length + 'rem; min-height: 1.5rem;'">
+                            <div class="td l2"
+                                 :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1 ) / 2 + 'rem'">
                                 周{{i.week}}
                                 <p>{{i.te}}</p>
                             </div>
-                            <div class="td blue l3" :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1.5 ) / 2 + 'rem'">
+                            <div class="td blue l3"
+                                 :style="'padding-top: ' + ( ( i.info.length > 1 ? i.info.length: 1.5) - 1.5 ) / 2 + 'rem'">
                                 {{ i.letpoint !== undefined ? '(' + i.letpoint + ')' : '' }} {{ i.na.split(':')[0] }}
                                 <p>VS</p>
                                 {{i.na.split(':')[1].split("*")[0]}}
                             </div>
 
-                            <div class="td" >
-                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">{{j.play}}</div>
+                            <div class="td">
+                                <div class="bor_b" v-for="j in i.info"
+                                     :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">{{j.play}}
+                                </div>
                             </div>
                             <div class="td l1 selected">
-                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
+                                <div class="bor_b" v-for="j in i.info"
+                                     :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
                                     {{j.selected}}
                                 </div>
                             </div>
-                            <div class="td l1" >
-                                <div class="bor_b" v-for="j in i.info" :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
+                            <div class="td l1">
+                                <div class="bor_b" v-for="j in i.info"
+                                     :style="'line-height: ' + (i.info.length > 1 ? '1rem': '1.5rem')">
                                     {{j.result}}
                                 </div>
                             </div>
@@ -283,7 +301,6 @@
             <p class="row">
                 <span class="k">合买宣言:</span>
                 {{datas.declaration}}
-                </span>
             </p>
             <p class="row">
                 <span class="k">发起时间:</span>
@@ -322,7 +339,7 @@
     export default {
         name: 'hemai_detail',
         components: {XNumber},
-        data () {
+        data() {
             return {
                 datas: null,
                 countDown: "",              //  倒计时
@@ -337,7 +354,7 @@
                 isFootball: null,
             }
         },
-        created(){
+        created() {
             this.$vux.loading.show();
             this.global.ajax.call(this, 'hemai_idetails', {id: this.$route.query.id}, this.getData);
             const lotid = this.$route.query.lotid;
@@ -345,7 +362,7 @@
             this.isFootball = /FT/.test(lotid);
         },
         methods: {
-            getData(d){
+            getData(d) {
                 this.$vux.loading.hide();
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else {
@@ -385,33 +402,46 @@
                     this.datas = d.data;
                 }
             },
-            setTime(time){
+            setTime(time) {
                 const timestamp = Date.parse(new Date());           //  当前时间戳
                 let t = time - timestamp;
-                const _this = this;
+                this.countDown_time = 1;                            //  c
                 this.countDown_time = setInterval(() => {
                     t -= 1000;
-                    const _h = 3600000;
-                    const _m = 60000;
-                    const h = parseInt(t / _h);
-                    const m = parseInt(( t - h * _h ) / _m);
-                    const s = parseInt((t - h * _h - m * _m) / 1000);
+                    if (t > 0) {
+                        const _h = 3600000;
+                        const _m = 60000;
+                        const h = parseInt(t / _h);
+                        const m = parseInt((t - h * _h) / _m);
+                        const s = parseInt((t - h * _h - m * _m) / 1000);
 
-                    _this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
+                        this.countDown = `${h}:${m > 10 ? m : "0" + m}:${s > 10 ? s : "0" + s}`;
+                    } else {
+                        this.countDown = '已截止';
+                        this.clear_countDown_time();
+                    }
+
                 }, 1000)
             },
-            setVal(d){
+            clear_countDown_time(){
+                clearInterval(this.countDown_time);
+                this.countDown_time = null;
+            },
+            setVal(d) {
                 this[d.name] = d.val;
             },
-            pay(s = ""){
-                this.$vux.loading.show();
-                let money = s === "all" ? this.datas.remaining_money : this.yuan;
-                this.global.ajax.call(this, 'hemai_pay', {
-                    id: this.$route.query.id,
-                    money
-                }, this.pay_CB)
+            pay(s = "") {
+                if(this.countDown_time === null) this.global.toast.call(this, '已截止');
+                else {
+                    this.$vux.loading.show();
+                    let money = s === "all" ? this.datas.remaining_money : this.yuan;
+                    this.global.ajax.call(this, 'hemai_pay', {
+                        id: this.$route.query.id,
+                        money
+                    }, this.pay_CB)
+                }
             },
-            pay_CB(d){
+            pay_CB(d) {
                 this.$vux.loading.hide();
                 if (d.error_code === 1004) this.$router.push(`/recharge?money=${d.data.money}&orderid=${d.data.orderid}&type=${d.error_code}`);
                 else if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
@@ -419,13 +449,12 @@
                     this.$router.push("/pay_success?id=" + d.data.order_id + "&type=" + d.data.type + "&lotid=" + d.data.lotid)
                 }
             },
-            share(){
+            share() {
                 this.global.share.call(this)
             }
         },
-        destroyed(){
-            clearInterval(this.countDown_time);
-            this.countDown_time = null;
+        destroyed() {
+            this.clear_countDown_time();
         }
     }
 </script>
