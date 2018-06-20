@@ -46,17 +46,20 @@
     }
 
     .tishi {
+        @h: 12.85rem;
         position: absolute;
         top: 0;
         left: 0;
         width: 10rem;
-        height: 22rem;
-        background: url(./tihsi.png) no-repeat left top / 100% auto;
+        height: @h;
+        min-height: 100vh;
+        background: white url(./bg.jpg) no-repeat left top / 100% auto;
         .th_btn {
-            position: absolute;
-            bottom: .5rem;
-            left: .5rem;
-            right: .5rem;
+            margin-top: @h;
+            //position: absolute;
+            //bottom: .5rem;
+            //left: .5rem;
+            //right: .5rem;
             height: 1rem;
             line-height: 1rem;
             color: white;

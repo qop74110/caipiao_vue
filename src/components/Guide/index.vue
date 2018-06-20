@@ -1,6 +1,6 @@
 <template>
     <div class="guide">
-        <img src="./tishi.jpeg" class="img">
+        <img src="./bg.jpg" class="img">
 
         <div class="downloadBtn redBg" @click="down">点击下载</div>
     </div>
@@ -10,7 +10,8 @@
     export default {
         name: 'guide',
         data () {
-            return {}
+            return {
+            }
         },
         created(){
 

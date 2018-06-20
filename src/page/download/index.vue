@@ -1,18 +1,21 @@
 <template>
     <div class="download">
-        <div class="bold">
-            <div>幸运彩</div>
-            <div>足不出户中大奖</div>
-            <p class="s3">下载送红包</p>
+        <div v-show="!tishi">
+            <div class="bold">
+                <div>幸运彩</div>
+                <div>足不出户中大奖</div>
+                <p class="s3">下载送红包</p>
+            </div>
+            <div class="btn an" @click="download('an')">
+                <img src="./an.png" class="img">
+                <span>Android下载</span>
+            </div>
+            <div class="btn ios" @click="tishi = true">
+                <img src="./an.png" class="img">
+                <span>iphone下载</span>
+            </div>
         </div>
-        <div class="btn an" @click="download('an')">
-            <img src="./an.png" class="img">
-            <span>Android下载</span>
-        </div>
-        <div class="btn ios" @click="tishi = true">
-            <img src="./an.png" class="img">
-            <span>iphone下载</span>
-        </div>
+
 
         <div class="tishi" v-show="tishi" @click="tishi = false">
             <div class="th_btn redBg" @click.stop="download('ios')">点击下载</div>
