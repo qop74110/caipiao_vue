@@ -12,7 +12,7 @@
                <Suanfa  class="getCodeBtn btn btn_active" v-else></Suanfa>
            </div>
 
-            <submitBtn class="row btn submit btn_active">注册</submitBtn>
+            <submitBtn class="row btn submit btn_active">立即投注</submitBtn>
         </div>
 
     </div>

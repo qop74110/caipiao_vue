@@ -53,6 +53,7 @@
                         else if (d[i].openmatch === '2') s = "未中奖";
                         else if (d[i].openmatch === '3') s = "中奖 ";
                     } else if (d[i].status === 2) s = "委托中";
+                    else if (d[i].status === 1) s = '凑单中'
                     else s = "委托失败";
 
                     d[i].s = s;
