@@ -28,13 +28,17 @@ const ajax_url = {
         fc3d_historyNo: "v1/3d/drop",                   //  福彩3D-往期中奖
         fc3d_order: "v1/3d/order",                      //  福彩3D-下单
 
+        p_purchase: 'v1/arrange/purchase',              //  排列3 5购买的奖期以及截止时间
+        p_drop: 'v1/arrange/drop',                      //  排列3 5 近10期中奖结果
+        p_miss: 'v1/arrange/miss',                      //  排列3 5 遗漏
+
         kj_list: "v1/open/open",                        //  开奖_首页_列表
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
         kj_jczq: "v1/football/result",                  //  开奖_竞彩足球
         my_balance: "v1/user/balance",                  //  我的—余额
         my_headImg: "v1/user/avatar",                   //  我的—上传头像
         my_name: "v1/user/name",                        //  我的—修改昵称
-        my_log: "v1/user/log",                        //  我的—修改昵称
+        my_log: "v1/user/log",                          //  我的—修改昵称
 
         pay: 'v1/recharge/browser',                     //  充值
         pay1004: 'v1/pay/browser',                      //  充值

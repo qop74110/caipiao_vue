@@ -1,0 +1,60 @@
+.list {
+    @item-h: .95rem;
+    height: 0;
+    overflow: hidden;
+    transition: height .2s;
+    &.show_history {
+        height: 11 * @item-h;
+    }
+    .item {
+        height: @item-h;
+        line-height: @item-h;
+        padding: 0 .3rem;
+        &:nth-child(odd) {
+            background: #EFEFEF;
+        }
+
+        > .winning {
+            text-align: center;
+        }
+        > .memo {
+            text-align: right;
+        }
+    }
+    > .p3 .fl {
+        width: 100% / 3;
+    }
+    > .p5 .fl {
+        width: 100% / 2;
+    }
+}
+
+.XTime {
+    @h: .8rem;
+    height: @h;
+    line-height: @h;
+    padding: 0 .3rem;
+    font-size: .3rem;
+    color: #333;
+    > .redText {
+        margin-left: .3rem;
+    }
+    > .btn {
+        height: 100%;
+        //width: 1rem;
+        text-align: right;
+        > .arrow {
+            display: inline-block;
+            height: 100%;
+            width: .4rem;
+            vertical-align: top;
+            background: url(../../../img/his_arrow.png) no-repeat center center / .3rem auto;
+            transform: rotate(0);
+            transition: transform .2s;
+            &.rotate {
+                transform: rotate(60deg);
+            }
+        }
+
+    }
+}

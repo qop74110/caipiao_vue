@@ -1,0 +1,45 @@
+@import '../../../../../assets/css/theme';
+
+@h: 1.2rem;
+
+.XTitle {
+    height: @h;
+    width: 100%;
+    > .fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 10rem;
+        height: inherit;
+        margin: 0 auto;
+        background: @theme;
+        > .back {
+            width: 20%;
+            height: 100%;
+            background: url(../../../../../assets/img/arrow_l.png) no-repeat .3rem center / .3rem auto;
+
+        }
+        > .text {
+            width: 60%;
+            height: 100%;
+            line-height: @h;
+            color: white;
+            text-align: center;
+            font-size: .5rem;
+            > .arrow_b {
+                display: inline-block;
+                width: .4rem;
+                height: 100%;
+                vertical-align: top;
+                background: url(../../../../../assets/img/arrow_b.png) no-repeat center center / .3rem auto;
+            }
+        }
+        > .more {
+            width: 20%;
+            height: 100%;
+            background: url(../../../../../components/XHead/more.png) no-repeat 1.2rem center / .5rem auto;
+        }
+    }
+
+}

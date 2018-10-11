@@ -1,0 +1,81 @@
+@import "../../../../../assets/css/theme";
+
+.ballList {
+    @h: 2.7rem;
+    @label-h: .53rem;
+    @ball-w: 1rem;
+    @ball-margin-top: .15rem;
+    //height: @h;
+    padding: 0 .4rem;
+    text-align: center;
+    overflow: hidden;
+    .labelBox {
+        @arrow-w: @label-h / 2;
+        padding-top: @ball-margin-top + (@ball-w / 2 - @label-h / 2);
+        height: inherit;
+        width: 1.4rem;
+        .label {
+            width: 1.1rem - @arrow-w;
+            height: @label-h;
+            line-height: @label-h;
+            background: @theme;
+            color: white;
+            font-size: .3rem;
+            border-radius: 3px 0 0 3px;
+        }
+        .arrow {
+            border: @arrow-w solid transparent;
+            border-left-color: @theme;
+        }
+    }
+    .ballBox {
+        width: 7.8rem;
+        line-height: @ball-w;
+        overflow: hidden;
+        .ball {
+            float: left;
+            margin: @ball-margin-top 0 @ball-margin-top .52rem;
+            width: @ball-w;
+            //height: @ball-w;
+            position: relative;
+            .checkbox {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 10;
+                &:checked + .num {
+                    background: @theme;
+                    color: white;
+                    .border {
+                        display: none;
+                    }
+                }
+            }
+            .num {
+                width: @ball-w;
+                height: @ball-w;
+                border-radius: 50%;
+                .border {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: @ball-w;
+                    border-radius: 50%;
+                    border: 1px solid #ccc;
+                }
+            }
+            .miss {
+                @miss-h: .5rem;
+                height: @miss-h;
+                line-height: @miss-h;
+                color: #333;
+                font-size: .3rem;
+            }
+        }
+
+    }
+}
