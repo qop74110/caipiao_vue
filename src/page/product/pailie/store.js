@@ -11,6 +11,7 @@ export default {
             notes: 0                //  注数
         },
         p5: {
+            textIndex: 0,
             moreIndex: null,
             individual: [],         //  个位
             ten: [],                //  十位

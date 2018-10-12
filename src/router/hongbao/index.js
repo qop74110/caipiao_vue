@@ -12,14 +12,14 @@ export default [
         component: (resolve) => {
             require(['page/hongbao/index'], resolve)
         }
-        }, {
-            path: '/hb_help',
-            name: 'hb_help',
-            meta: {
-                title: '红包/兑换说明'
-            },
-            component: (resolve) => {
-                require(['page/hongbao/help'], resolve)
-            }
+    }, {
+        path: '/hb_help',
+        name: 'hb_help',
+        meta: {
+            title: '红包/兑换说明'
+        },
+        component: (resolve) => {
+            require(['page/hongbao/help'], resolve)
+        }
     },
 ]

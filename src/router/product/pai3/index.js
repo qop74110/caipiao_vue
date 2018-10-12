@@ -11,6 +11,15 @@ export default [
         name: 'pai3',
         component: (resolve) => {
             require(["page/product/pailie/index/p3"], resolve)
+        }
+    }, {
+        path: "/p5/index",
+        meta: {
+            title: '排列5',
         },
+        name: 'pai5',
+        component: (resolve) => {
+            require(["page/product/pailie/index/p5"], resolve)
+        }
     }
 ]
