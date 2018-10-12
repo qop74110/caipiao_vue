@@ -11,7 +11,7 @@
                     <div class="border"></div>
                     {{i - 1}}
                 </div>
-                <div class="miss" v-if="miss.length > 0">{{miss[i - 1]}}</div>
+                <div class="miss" v-if="miss && miss.length > 0">{{miss[i - 1]}}</div>
             </div>
         </div>
     </div>
@@ -34,8 +34,7 @@
                 default: '个位'
             },
             miss: {
-                type: Array,
-                default: () => []
+                type: Array
             }
         },
         data () {

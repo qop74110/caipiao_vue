@@ -76,8 +76,14 @@ export default {
             const stateNotes = state[caizhong].notes
             if (notes !== stateNotes) state[caizhong].notes = notes
         },
+        /**
+         * 选择彩票的号码
+         * @param state
+         * @param data = {playType: '排三 || 排五', storeStateName: '个十百千万组三组六的变量名', val: '修改得值'}
+         */
         selectBall (state, data) {
-            if (state[data.playType][data.storeStateName].length !== data.val.length) state[data.playType][data.storeStateName] = data.val
+            state[data.playType][data.storeStateName] = data.val
+            // if (state[data.playType][state.storeStateName].length !== data.val.length) state[data.playType][data.storeStateName] = data.val
         },
         clearSelect (state, caizhong) {
             if (caizhong === 'p3') {

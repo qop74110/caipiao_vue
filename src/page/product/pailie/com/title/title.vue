@@ -16,7 +16,7 @@
 
         <!--更多选项-->
         <Actionsheet v-model="showMoreOption" :show-cancel="true" :menus="moreOption"
-                     @on-click-menu="clickMoreOption"></Actionsheet>
+                     @on-click-menu="MOcallback"></Actionsheet>
     </div>
 </template>
 
@@ -68,14 +68,6 @@
                     val,
                     objName: this.palyType,
                     callback: this.TOcallback
-                })
-            },
-            clickMoreOption (val) {
-                this.$store.commit('setIndex', {
-                    key: 'moreIndex',
-                    val,
-                    objName: this.palyType,
-                    callback: this.MOcallback
                 })
             }
         }

@@ -30,7 +30,7 @@
             <span class="redText">{{`${d.end_time || ''}截止`}}</span>
 
             <div class="btn fr" @click="show_history = !show_history">
-                显示
+                往期中奖号
                 <i class="arrow" :class="{rotate: show_history}"></i>
             </div>
         </div>
