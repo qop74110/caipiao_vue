@@ -1,23 +1,23 @@
 <template>
     <div class="pailie">
-        <XTitle :textOption="textOption" @TOcallback="set_TO_index" :moreOption="moreOption"
+        <XTitle palyType="p5" :textOption="textOption" @TOcallback="set_TO_index" :moreOption="moreOption"
                 :MOcallback="set_MO_index" :TOcallback="set_TO_index"></XTitle>
 
-        <XTime></XTime>
+        <XTime playType="p5"></XTime>
 
         <!--排列3直选-->
         <div v-show="$store.state.pailie[playType].textIndex === 0">
             <div class="line random"><span @click="randomNotes" class="redText">机选</span> <span class="fr">每位至少选1个号，按位猜对开奖号即中1040元</span>
             </div>
-            <Ball :miss="zhiMiss ? zhiMiss.absolutely : []" storeStateName="absolutely" label="万位"></Ball>
-            <Ball :miss="zhiMiss ? zhiMiss.thousand : []" storeStateName="thousand" label="千位" class="line"></Ball>
-            <Ball :miss="zhiMiss ? zhiMiss.hundred : []" storeStateName="hundred" label="百位"></Ball>
-            <Ball :miss="zhiMiss ? zhiMiss.ten : []" storeStateName="ten" label="十位" class="line"></Ball>
-            <Ball :miss="zhiMiss ? zhiMiss.individual : []" class="line"></Ball>
+            <Ball playType="p5" :miss="zhiMiss ? zhiMiss.absolutely : []" storeStateName="absolutely" label="万位"></Ball>
+            <Ball playType="p5" :miss="zhiMiss ? zhiMiss.thousand : []" storeStateName="thousand" label="千位" class="line"></Ball>
+            <Ball playType="p5" :miss="zhiMiss ? zhiMiss.hundred : []" storeStateName="hundred" label="百位" class="line"></Ball>
+            <Ball playType="p5" :miss="zhiMiss ? zhiMiss.ten : []" storeStateName="ten" label="十位" class="line"></Ball>
+            <Ball playType="p5" :miss="zhiMiss ? zhiMiss.individual : []" class="line"></Ball>
         </div>
 
 
-        <Pfoot></Pfoot>
+        <Pfoot playType="p5"></Pfoot>
     </div>
 </template>
 
@@ -73,11 +73,11 @@
 
                     case 2:
 //                        近期开奖
-                        this.$router.push('/prize_' + this.palyType)
+                        this.$router.push('/prize_' + this.playType)
                         break;
                     case 3:
 //                        玩法说明
-                        this.$router.push('/exposition?id=' + this.palyType)
+                        this.$router.push('/exposition?id=' + this.playType)
                         break;
 
                     default:

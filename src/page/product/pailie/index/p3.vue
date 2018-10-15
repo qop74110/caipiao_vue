@@ -97,11 +97,11 @@
 
                     case 2:
 //                        近期开奖
-                        this.$router.push('/prize_' + this.palyType)
+                        this.$router.push('/prize_' + this.playType)
                         break;
                     case 3:
 //                        玩法说明
-                        this.$router.push('/exposition?id=' + this.palyType)
+                        this.$router.push('/exposition?id=' + this.playType)
                         break;
 
                     default:
@@ -143,24 +143,36 @@
                             this.$store.commit('selectBall', {
                                 playType: this.playType,
                                 storeStateName: storeStateName[i],
-                                val: [this.random()]
+                                val: [this.random().toString()]
                             })
                         }
                     }
                     else if (textIndex === 1) {
                         const notes = []
 
-                        for (let i = 0; i < 2; i++) {
-                            notes.push(this.random())
+                        notes.push(this.random().toString())
+
+                        let two = null
+                        for (let i = 0; i < 20; i++) {
+                            two = this.random().toString()
+                            if (two !== notes[0]) break
                         }
+
+                        notes.push(two)
 
                         this.$store.commit('selectBall', {playType: this.playType, storeStateName: 'zu3', val: notes})
                     }
                     else {
                         const notes = []
+                        notes.push(this.random().toString())
 
-                        for (let i = 0; i < 3; i++) {
-                            notes.push(this.random())
+                        for (let i = 0; i < 50; i++) {
+                            const n = this.random().toString()
+
+                            if (n !== notes[0] && n !== notes[1]) notes.push(n)
+
+                            if (notes.length === 3) break
+
                         }
 
                         this.$store.commit('selectBall', {playType: this.playType, storeStateName: 'zu6', val: notes})
@@ -180,8 +192,8 @@
              * 生成0-9的随机数
              * @returns {number}
              */
-            random () {
-                return Math.floor(Math.random() * 10);
+            random (max = 10) {
+                return Math.floor(Math.random() * max);
             }
         },
         watch: {}

@@ -1,0 +1,127 @@
+@import '../../../../assets/css/theme';
+
+.paiOrder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 10rem;
+    margin: 0 auto;
+    background: #efefef;
+    padding: 0 .3rem;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.title {
+    @h: 1.2rem;
+    height: @h;
+    line-height: @h;
+    width: 10rem;
+    text-align: center;
+    .substitute {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: inherit;
+        width: inherit;
+        margin: 0 auto;
+        background-color: @theme;
+        color: white;
+        overflow: hidden;
+        z-index: 20;
+        .callback {
+            width: 2rem;
+            height: inherit;
+            background: url(../../../../assets/img/arrow_l.png) no-repeat .4rem center / .26rem auto;
+        }
+        .title {
+            width: 6rem;
+            height: inherit;
+            font-size: .5rem;
+        }
+        .btn {
+            width: 2rem;
+            height: inherit;
+
+        }
+    }
+}
+
+.btnList {
+    @item-h: .8rem;
+    padding: .13rem 0;
+    text-align: center;
+    font-size: .34rem;
+    color: #333;
+    overflow: hidden;
+    .btnIten {
+        float: left;
+        width: 2.93rem;
+        height: @item-h;
+        line-height: @item-h;
+        background-color: #fff;
+        &:first-child {
+            margin-right: .3rem;
+        }
+        &:last-child {
+            margin-left: .3rem;
+        }
+        .icon {
+            display: inline-block;
+            height: inherit;
+            width: .34rem;
+            vertical-align: top;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% auto;
+            &.add {
+                background-image: url(../../shuangseqiu/order/img/add.png);
+            }
+            &.clear {
+                background-image: url(../../shuangseqiu/order/img/clear.png);
+            }
+        }
+    }
+}
+
+.orderList {
+    @item-h: 1.6rem;
+    @del-w: 1.12rem;
+    border-radius: .2rem;
+    background: #fff;
+    font-size: .4rem;
+    overflow: hidden;
+    .first {
+        height: .3rem;
+        width: 100%;
+    }
+    .orderItem {
+        @p: .1rem;
+        padding: @p 0 @p @del-w;
+        min-height: @item-h;
+        line-height: @item-h / 2 - @p / 2;
+        border-top: 1px dashed #ccc;
+        color: @theme;
+        position: relative;
+        .black {
+            color: #333;
+        }
+        .del {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: @del-w;
+            background: url(../../shuangseqiu/order/img/del.png) no-repeat center center / .5rem;
+        }
+    }
+}
+
+.footer {
+    @h: 2.8rem;
+    height: @h;
+    width: 10rem;
+}

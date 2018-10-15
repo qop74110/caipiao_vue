@@ -26,8 +26,14 @@
         </div>
 
         <div class="XTime" v-if="d !== null">
-            {{`第${d.phase || ''}期`}}
-            <span class="redText">{{`${d.end_time || ''}截止`}}</span>
+            <template v-if="d.phase > 0">
+                {{`第${d.phase || ''}期`}}
+                <span class="redText">{{`${d.end_time || ''}截止`}}</span>
+            </template>
+            <template v-else>
+                <span class="redText">{{alertText}}</span>
+            </template>
+
 
             <div class="btn fr" @click="show_history = !show_history">
                 往期中奖号
@@ -53,6 +59,7 @@
             return {
                 d: null,
                 historyList: null,
+                alertText: '开奖中！请20：00后再来',
 
                 show_history: false
             }
@@ -68,14 +75,18 @@
                 else if (!d.data[0]) this.global.toast.call(this, '获取数据异常');
                 else {
                     this.d = d.data[0]
+
+                    if (this.d.phase < 0) this.global.alert.call(this, this.alertText);
+
+                    this.$store.commit('setPhase', this.d.phase)
                 }
             },
             get_list (d) {
                 if (d.error_code !== 0) this.global.toast.call(this, d.error_message);
                 else if (!d.data) this.global.toast.call(this, '获取数据异常');
                 else {
-                    for(let i = 0; i < d.data.length; i++) {
-                        d.data[i].winning = d.data[i].winning.replace(/,+/g," ");
+                    for (let i = 0; i < d.data.length; i++) {
+                        d.data[i].winning = d.data[i].winning.replace(/,+/g, " ");
                     }
                     this.historyList = d.data
                 }

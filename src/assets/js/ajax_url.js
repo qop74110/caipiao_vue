@@ -1,7 +1,7 @@
 const ajax_url = {
     // host: `${window.location.protocol}//api.lottery.anwenqianbao.com/`,
-    host: `${window.location.protocol}//api.siyecaodnp.com/`,
-    // host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
+    // host: `${window.location.protocol}//api.siyecaodnp.com/`,
+    host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
     api: {
         home_list: "v1/home/list",                      //  首页-产品列表
         home_banner: "v1/home/banner",                  //  首页-banner

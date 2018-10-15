@@ -9,8 +9,8 @@ const product_type = {
     jingcaizuqiu: "ftb",             //  竞彩足球
     // daletou: 'dlt',               //  大乐透
     fucai3d: "3d",                   //  福彩3d
-    p3: "p3",                //  排列三
-    // pailie5: "p5",                //  排列五
+    p3: "p3",                        //  排列三
+    p5: "p5",                        //  排列五
 };
 
 for (let k in product_type) {

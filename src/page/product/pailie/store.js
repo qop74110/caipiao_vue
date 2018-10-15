@@ -19,7 +19,8 @@ export default {
             thousand: [],           //  千
             absolutely: [],         //  万
             notes: 0                //  注数
-        }
+        },
+        phase: null
     },
     mutations: {
         /**
@@ -103,6 +104,10 @@ export default {
                     state.p3.zu6 = new Array()
                 }
             }
+        },
+
+        setPhase (state, val) {
+            state.phase = val
         }
     }
 };

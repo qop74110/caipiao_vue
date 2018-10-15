@@ -21,5 +21,14 @@ export default [
         component: (resolve) => {
             require(["page/product/pailie/index/p5"], resolve)
         }
+    }, {
+        path: "/order/:playType",
+        meta: {
+            title: '订单',
+        },
+        name: 'paiOrder',
+        component: (resolve) => {
+            require(["page/product/pailie/order/order"], resolve)
+        }
     }
 ]
