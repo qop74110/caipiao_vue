@@ -42,7 +42,7 @@
                 this.$store.commit('clearSelect', this.playType)
             },
             getOrderList () {
-                const cookie = this.global.cookie.get(this.playType + 'Orber')
+                const cookie = localStorage.getItem(this.playType + 'Orber')
 
                 let orderList = null
 
@@ -99,8 +99,9 @@
 
                     d.unshift(obj)
 
-                    this.global.cookie.set(this.playType + 'Orber', JSON.stringify(d))
-                    this.global.cookie.set(this.playType + 'Pailie', pailie.phase)
+                    localStorage.clear()
+                    localStorage.setItem(this.playType + 'Orber', JSON.stringify(d))
+                    localStorage.setItem(this.playType + 'Phase', pailie.phase)
 
                     this.$router.push(`/order/${this.playType}`)
                 }

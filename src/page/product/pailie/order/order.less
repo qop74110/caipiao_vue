@@ -121,7 +121,94 @@
 }
 
 .footer {
-    @h: 2.8rem;
-    height: @h;
+    @bottom-h: 1.32rem;
+    @top-h: 1.08rem;
+    @stop-h: .8rem;
     width: 10rem;
+    height: @bottom-h + @stop-h + @top-h;
+    .substitute {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0 auto;
+        background-color: #fff;
+        > div {
+            border-top: 1px solid #ccc;
+        }
+        .btnBox {
+            height: @top-h;
+            width: 100%;
+            line-height: @top-h;
+            text-align: center;
+            .setItem {
+                float: left;
+                width: 50%;
+                .setText {
+                    display: inline-block;
+                }
+                .XNumber {
+                    margin-top: (@top-h - .6) / 2;
+                }
+                > * {
+                    vertical-align: top;
+                }
+            }
+        }
+        .bottom {
+            height: @bottom-h;
+            width: 100%;
+            line-height: @bottom-h;
+            text-align: center;
+            font-size: .38rem;
+            color: #000;
+            position: relative;
+            .next {
+                @next-h: .8rem;
+                position: absolute;
+                bottom: (@bottom-h - @next-h) / 2;
+                right: .3rem;
+                height: @next-h;
+                line-height: @next-h;
+                width: 2 * @next-h;
+                background-color: @theme;
+                color: white;
+                border-radius: 5px;
+            }
+        }
+        .stop {
+
+            width: 10rem;
+            height: @stop-h;
+            line-height: @stop-h;
+            margin: 0 auto;
+            padding: 0 .2rem;
+            background: white;
+            overflow: hidden;
+            position: relative;
+            .op {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                &:checked + .box {
+                    border: .15rem solid @theme;
+                }
+            }
+            .box {
+                @box-w: .5rem;
+                width: @box-w;
+                height: @box-w;
+                margin-top: (@stop-h - @box-w) / 2;
+                margin-right: .2rem;
+                border-radius: 50%;
+                border: 1px solid #ccc;
+
+            }
+        }
+    }
 }

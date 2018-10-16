@@ -1,7 +1,7 @@
 const ajax_url = {
     // host: `${window.location.protocol}//api.lottery.anwenqianbao.com/`,
-    // host: `${window.location.protocol}//api.siyecaodnp.com/`,
-    host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
+    host: `${window.location.protocol}//api.siyecaodnp.com/`,
+    // host: `${window.location.protocol}//test.api.lottery.anwenqianbao.com/`,
     api: {
         home_list: "v1/home/list",                      //  首页-产品列表
         home_banner: "v1/home/banner",                  //  首页-banner
@@ -31,6 +31,8 @@ const ajax_url = {
         p_purchase: 'v1/arrange/purchase',              //  排列3 5购买的奖期以及截止时间
         p_drop: 'v1/arrange/drop',                      //  排列3 5 近10期中奖结果
         p_miss: 'v1/arrange/miss',                      //  排列3 5 遗漏
+        p3_order: 'v1/arrange/order',                   //  排列3-下单
+        p5_order: 'v1/arrange/five',                    //  排列5-下单
 
         kj_list: "v1/open/open",                        //  开奖_首页_列表
         kj_czh: "v1/open/openssq",                      //  开奖_ 双色球&大乐透
