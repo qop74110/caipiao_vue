@@ -23,11 +23,27 @@
                     </div>
                 </div>
 
-                <div v-else-if="global.product_type.fucai3d === i.lotid" @click="$router.push('prize_fc3d')">
+                <div v-else-if="global.product_type.fucai3d === i.lotid" @click="$router.push('/prize/3d')">
                     <span class="name">{{i.name}}</span>
                     <span class="time">第{{i.phase}}期 {{i.end_time}}（{{i.week}}）</span>
                     <div class="num style1 clearFix">
                         <span class="ball redBall fl" v-for="k in 3">{{i.bonuscode[k - 1]}}</span>
+                    </div>
+                </div>
+
+                <div v-else-if="global.product_type.p3 === i.lotid" @click="$router.push('prize/p3')">
+                    <span class="name">{{i.name}}</span>
+                    <span class="time">第{{i.phase}}期 {{i.end_time}}（{{i.week}}）</span>
+                    <div class="num style1 clearFix">
+                        <span class="ball redBall fl" v-for="k in i.bonuscode.split(',')">{{k}}</span>
+                    </div>
+                </div>
+
+                <div v-else-if="global.product_type.p5 === i.lotid" @click="$router.push('prize/p5')">
+                    <span class="name">{{i.name}}</span>
+                    <span class="time">第{{i.phase}}期 {{i.end_time}}（{{i.week}}）</span>
+                    <div class="num style1 clearFix">
+                        <span class="ball redBall fl" v-for="k in i.bonuscode.split(',')">{{k}}</span>
                     </div>
                 </div>
             </li>

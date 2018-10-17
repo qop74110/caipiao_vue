@@ -31,10 +31,10 @@ export default [
             require(["page/prize/jingcaizuqiu"], resolve)
         }
     }, {
-        path: "/prize_fc3d",
-        name: "prize_fc3d",
+        path: "/prize/:type",
+        name: "prize_3d",
         meta: {
-            title: '福彩3D'
+            title: '往期中奖'
         },
         component: (resolve) => {
             require(["page/prize/fucai3d"], resolve)

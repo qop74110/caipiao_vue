@@ -175,7 +175,7 @@
                     console.error('无效的 "playTpte"')
                 }
                 obj.notes = '1'
-                obj.money = '2'
+                obj.money = obj.notes * 2 + ''
 
                 this.orderList.unshift(obj)
             },
@@ -210,14 +210,14 @@
                 const list = []
                 this.orderList.map((item) => {
                     let obj = {
-                        individual: item.individual.join(','),
+                        individual: item.individual.join(''),
                         notes: item.notes,
                         money: item.money
                     }
-                    if (item.ten) obj.ten = item.ten.join(",")
-                    if (item.hundred) obj.hundred = item.ten.join(",")
-                    if (item.thousand) obj.thousand = item.thousand.join(",")
-                    if (item.absolutely) obj.absolutely = item.absolutely.join(",")
+                    if (item.ten) obj.ten = item.ten.join("")
+                    if (item.hundred) obj.hundred = item.ten.join("")
+                    if (item.thousand) obj.thousand = item.thousand.join("")
+                    if (item.absolutely) obj.absolutely = item.absolutely.join("")
                     if (item.type) obj.type = item.type
 
                     list.push(obj)
@@ -250,6 +250,7 @@
                         }
                     }
                     else {
+                        console.log(d)
                         sessionStorage.setItem("pay_data", JSON.stringify(d));
                         this.$router.push(`/payment?lotid=${this.playType}`);
                     }

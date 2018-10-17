@@ -19,7 +19,9 @@
         },
         created(){
             this.$vux.loading.show();
-            this.global.ajax.call(this, "kj_czh", {type: this.global.product_type.fucai3d}, this.getData)
+            console.log(this.$route)
+            const type = this.$route.params.type || '3d'
+            this.global.ajax.call(this, "kj_czh", {type}, this.getData)
         },
         methods: {
             getData(d){
