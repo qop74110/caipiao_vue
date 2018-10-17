@@ -122,6 +122,58 @@
             </div>
         </div>
 
+        <!--排列3-->
+        <div class="info" v-else-if="/p3|p5/.test(play_type)">
+            <div class="row">
+                <span class="text">订单状态：</span>
+                <span class="balls redText" v-if="detail.openmatch === '3'">{{detail.s}}</span>
+                <span class="balls" v-else>{{detail.s}}</span>
+            </div>
+
+            <div class="row">
+                <span class="text">开奖号码：</span>
+                <template v-if="detail.bonuscode !== ''">
+                    <template v-for="(item, index) in detail.bonuscode.split('#')[0].split(',')">
+                        <span class="ball redText">{{item}}</span>
+                    </template>
+                    <span class="ball blueText">{{detail.bonuscode.split('#')[1]}}</span>
+                </template>
+                <span v-else>未开奖</span>
+            </div>
+
+            <div class="row">
+                <span class="text">选号详情：</span>
+                <span class="hideText balls">{{detail.info.length}}条</span>
+            </div>
+
+            <div class="row whiteBg con" v-for="(item, index) in detail.info">
+                <!--排列3 201=直选 202=组选 203=组三 204=组六 -->
+                <!--排列5 101=直选 -->
+                <span class="l fl">
+                    {{
+                        {
+                            '101': '直选',
+                            '102': '复式',
+                            '201': '直选',
+                            '202': '组选',
+                            '203': '组三',
+                            '204': '组六',
+                        }[item.play_type]
+                    }}
+                </span>
+
+                <span class="fl c">
+                        <span class="ball redText">{{item.bouns}}</span>
+                </span>
+                <span class="r fr" :class="item.type === 2 && 'jiang'">{{item.multiple}}倍</span>
+            </div>
+
+
+            <div class="quiz" @click="$router.push('/exposition?id=' + detail.lotid)">
+                <span class="text">中奖怎么算？</span>
+            </div>
+        </div>
+
         <!--足彩-->
         <div class="info" v-else-if="play_type === 'jingcaizuqiu'">
             <div>
@@ -150,7 +202,9 @@
                         </td>
                         <td class="td blueText">
                             <!--<div class="hideText">{{`${$route.query.type === 'FT006' && ( '(' + item.letpoint + ')' )}${item.team.split(':')[0]}`}}</div>-->
-                            <div class="hideText"> {{ $route.query.type === 'FT006' && item.letpoint !== undefined  ? '(' + item.letpoint + ')' : '' }} {{item.team.split(':')[0]}}</div>
+                            <div class="hideText"> {{ $route.query.type === 'FT006' && item.letpoint !== undefined ? '('
+                                + item.letpoint + ')' : '' }} {{item.team.split(':')[0]}}
+                            </div>
                             <div>{{item.team.split('*')[1]}}</div>
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
@@ -183,7 +237,9 @@
                             <div>{{item.team_id}}</div>
                         </td>
                         <td class="td blueText">
-                            <div class="hideText"> {{ item.letpoint !== undefined  ? '(' + item.letpoint + ')' : '' }} {{item.team.split(':')[0]}}</div>
+                            <div class="hideText"> {{ item.letpoint !== undefined ? '(' + item.letpoint + ')' : '' }}
+                                {{item.team.split(':')[0]}}
+                            </div>
                             <div>{{item.team.split('*')[1]}}</div>
                             <div class="hideText">{{item.team.split(':')[1].split('*')[0]}}</div>
                         </td>
@@ -234,7 +290,7 @@
 </template>
 
 <script>
-    import { Tabbar } from 'com';
+    import {Tabbar} from 'com';
     export default {
         name: 'detail',
         components: {
@@ -290,6 +346,22 @@
                         })
                     } else if (d.data[0] && d.data[0].play_type === typt.jingcaizuqiu) {
                         this.play_type = 'jingcaizuqiu';
+                    } else if (  /p3|p5/.test(d.data.lotid)) {
+                        d.data.info.forEach((item, index) => {
+                            if (/201|101|102/.test(item.play_type)) {
+                                const arr = item.bouns.split(',');
+                                let str = ''
+                                for (let i = 0; i < arr.length; i++) {
+                                    for (let j = 0; j < arr[i].length; j++) {
+                                        str += arr[i][j]
+                                        if (j === arr[i].length - 1 && i !== arr.length - 1) str += '|'
+                                        else if (j !== arr[i].length - 1) str += ','
+                                    }
+                                }
+                                d.data.info[index].bouns = str;
+                            }
+                        })
+                        this.play_type = d.data.lotid;
                     }
 
                     const detail = d.data[0] || d.data;

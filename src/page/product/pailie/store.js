@@ -61,9 +61,15 @@ export default {
 //                    组六
                 else if (play_type === 2) {
                     const zu6 = state[caizhong].zu6
+
+                    function jiecheng (m){
+                        if (m === zu6.length - 3)return 1;
+                        else return m * (jiecheng(m - 1)); //递归算:法n!=n*(n-1)!
+                    }
+
                     if (zu6.length < 3) notes = 0;
                     else if (zu6.length === 3) notes = 1;
-                    else notes = zu6.length * (zu6.length - 3)
+                    else notes = jiecheng(zu6.length) / 6
 
                 }
 
@@ -72,7 +78,7 @@ export default {
             else if (caizhong === 'p5') {
                 const {individual, ten, hundred, thousand, absolutely} = state[caizhong]
                 if (individual.length === 0 || ten.length === 0 || hundred.length === 0 || absolutely.length === 0 || thousand.length === 0) notes = 0;
-                else notes = individual.length * ten.length * hundred.length
+                else notes = individual.length * ten.length * hundred.length * absolutely.length * thousand.length
             }
 
             const stateNotes = state[caizhong].notes

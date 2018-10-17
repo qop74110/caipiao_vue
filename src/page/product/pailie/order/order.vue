@@ -215,7 +215,7 @@
                         money: item.money
                     }
                     if (item.ten) obj.ten = item.ten.join("")
-                    if (item.hundred) obj.hundred = item.ten.join("")
+                    if (item.hundred) obj.hundred = item.hundred.join("")
                     if (item.thousand) obj.thousand = item.thousand.join("")
                     if (item.absolutely) obj.absolutely = item.absolutely.join("")
                     if (item.type) obj.type = item.type
