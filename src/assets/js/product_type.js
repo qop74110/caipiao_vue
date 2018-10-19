@@ -7,7 +7,7 @@
 const product_type = {
     shuangseqiu: "ssq",              //  双色球
     jingcaizuqiu: "ftb",             //  竞彩足球
-    // daletou: 'dlt',               //  大乐透
+    dlt: 'dlt',                      //  大乐透
     fucai3d: "3d",                   //  福彩3d
     p3: "p3",                        //  排列三
     p5: "p5",                        //  排列五
