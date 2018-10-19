@@ -12,6 +12,9 @@
     padding: 0 .3rem;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar{
+        display: none;
+    }
 }
 
 .title {
@@ -131,6 +134,7 @@
         left: 0;
         right: 0;
         bottom: 0;
+        width: 10rem;
         margin: 0 auto;
         background-color: #fff;
         > div {
