@@ -176,7 +176,7 @@
             MOcallback (key) {
                 switch (key) {
                     case 0:
-                        this.$router.push('/dlt/random')
+                        this.$router.push('/shuangseqiu/random?type=dlt')
                         break;
                     case 1:
                         this.miss()

@@ -19,6 +19,7 @@ const ajax_url = {
         dlt_time: 'v1/dlt/purchase',                    //  大乐透-购买的奖期以及截止时间
         dlt_his: 'v1/dlt/drop',                         //  大乐透-往期中奖
         dlt_miss: 'v1/dlt/miss',                        //  大乐透-遗漏
+        dlt_random_order: "v1/dlt/multi",               //  大乐透-多期机选
 
         jczq_play_type: "v1/football/muchPlayreles",    //  竞猜足球-玩法类型
         jczq_index_list: "v1/football/list",            //  竞猜足球-赛事列表
