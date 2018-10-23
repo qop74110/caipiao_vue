@@ -16,7 +16,7 @@ export default [
         path: "/prize_ssq",
         name: "prize_ssq",
         meta: {
-            title: '双色球'
+            title: '往期中奖'
         },
         component: (resolve) => {
             require(["page/prize/shuangseqiu"], resolve)

@@ -3,7 +3,10 @@
         <li class="item" v-for="(item, index) in list">
             <p class="time">{{`第${item.phase}期 ${item.end_time} (${item.week})`}}</p>
             <p class="balls">
-                <span class="ball fl" v-for="(ball, i) in item.bonuscode">{{ball}}</span>
+                <!--<span class="ball fl" v-for="(ball, i) in item.bonuscode">{{ball}}</span>-->
+                <span class="ball fl" v-for="i in 5">{{item.bonuscode[i]}}</span>
+                <span class="ball fl" :class="type === 'dlt' && 'blue'">{{item.bonuscode[5]}}</span>
+                <span class="ball fl blue" >{{item.bonuscode[6]}}</span>
             </p>
         </li>
     </ul>
@@ -15,11 +18,12 @@
         data () {
             return {
                 list: [],
+                type: this.$route.query.type || 'ssq'
             }
         },
         created(){
             this.$vux.loading.show();
-            this.global.ajax.call(this, "kj_czh", {type: this.global.product_type.shuangseqiu}, this.getData)
+            this.global.ajax.call(this, "kj_czh", {type: this.type}, this.getData)
         },
         methods: {
             getData(d){
