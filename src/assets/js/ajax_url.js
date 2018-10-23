@@ -16,6 +16,10 @@ const ajax_url = {
         ssq_order: "v1/ssq/order",                      //  双色球-下单
         ssq_historyNo: "v1/ssq/drop",                   //  双色球-往期中奖
 
+        dlt_time: 'v1/dlt/purchase',                    //  大乐透-购买的奖期以及截止时间
+        dlt_his: 'v1/dlt/drop',                         //  大乐透-往期中奖
+        dlt_miss: 'v1/dlt/miss',                        //  大乐透-遗漏
+
         jczq_play_type: "v1/football/muchPlayreles",    //  竞猜足球-玩法类型
         jczq_index_list: "v1/football/list",            //  竞猜足球-赛事列表
         jczq_order: "v1/football/confirmThePayment",    //  竞猜足球-下单
