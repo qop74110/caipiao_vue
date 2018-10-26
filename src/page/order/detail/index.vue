@@ -78,6 +78,58 @@
             </div>
         </div>
 
+        <!--大乐透-->
+        <div class="info" v-if="play_type === 'dlt'">
+            <div class="row">
+                <span class="text">订单状态：</span>
+                <span class="balls redText" v-if="detail.openmatch === '3'">{{detail.s}}</span>
+                <span class="balls" v-else>{{detail.s}}</span>
+            </div>
+
+            <div class="row">
+                <span class="text">开奖号码</span>
+                <template v-if="detail.bonuscode !== ''">
+                    <template v-for="(item, index) in detail.bonuscode.split('#')[0].split(',')">
+                        <span class="ball redText">{{item}}</span>
+                    </template>
+                    <span class="ball blueText">{{detail.bonuscode.split('#')[1]}}</span>
+                </template>
+                <span v-else>未开奖</span>
+            </div>
+
+            <div class="row">
+                <span class="text">选号详情：</span>
+                <span class="hideText balls">{{detail.info.length}}条</span>
+            </div>
+
+            <div class="row whiteBg con" v-for="(item, index) in detail.info">
+                <!--101=单式 102=复式 106=胆拖 103=追加单式 104=追加复式 107=追加胆拖-->
+                <span class="l fl">{{ {'101': '单式', '102': '复式', '106': '胆拖', '103': '追加单式', '104': '追加复式', '107': '追加胆拖'}[item.play_type]}}</span>
+
+                <span class="fl c">
+                     <template v-if="item.danBall">
+                        <span class="redText">(</span>
+                        <template v-for="(_item, index) in item.danBall">
+                            <span class="redText">{{_item}} </span>
+                        </template>
+                        <span class="redText">)</span>
+                    </template>
+                    <template v-for="(_item, index) in item.redBall">
+                        <span class="ball redText">{{_item}}</span>
+                    </template>
+                    <template v-for="(_item, index) in item.blueBall">
+                        <span class="ball blueText">{{_item}}</span>
+                    </template>
+                </span>
+                <span class="r fr" :class="item.type === 2 && 'jiang'">{{item.multiple}}倍</span>
+
+            </div>
+
+            <div class="quiz" @click="$router.push('/exposition?id=' + play_type)">
+                <span class="text">中奖怎么算？</span>
+            </div>
+        </div>
+
         <!--福彩3d-->
         <div class="info" v-else-if="play_type === 'fucai3d'">
             <div class="row">
@@ -317,10 +369,10 @@
                 else if (d.data) {
                     const typt = this.global.product_type;
 
-                    if (d.data.lotid === typt.shuangseqiu) {
-                        this.play_type = 'shuangseqiu';
+                    if (d.data.lotid === typt.shuangseqiu || d.data.lotid === 'dlt') {
+                        this.play_type = d.data.lotid;
                         for (let i = 0; i < d.data.info.length; i++) {
-                            if (d.data.info[i].play_type === "103") {
+                            if (/103|106/.test(d.data.info[i].play_type)) {
                                 d.data.info[i].danBall = d.data.info[i].bouns.split("$")[0].split(",");
                                 d.data.info[i].bouns = d.data.info[i].bouns.split("$")[1];
                             }
@@ -346,7 +398,7 @@
                         })
                     } else if (d.data[0] && d.data[0].play_type === typt.jingcaizuqiu) {
                         this.play_type = 'jingcaizuqiu';
-                    } else if (  /p3|p5/.test(d.data.lotid)) {
+                    } else if (/p3|p5/.test(d.data.lotid)) {
                         d.data.info.forEach((item, index) => {
                             if (/201|101|102/.test(item.play_type)) {
                                 const arr = item.bouns.split(',');
@@ -362,6 +414,9 @@
                             }
                         })
                         this.play_type = d.data.lotid;
+//                    } else if (d.data.lotid === 'dlt') {
+//
+//                        this.play_type = d.data.lotid;
                     }
 
                     const detail = d.data[0] || d.data;

@@ -50,6 +50,21 @@
                         `}}
                         <p class="black">{{`直选 ${item.notes}注 ${item.money}元`}}</p>
                     </template>
+
+                    <template v-else-if="playType === 'dlt'">
+                        <template v-if="item.type === 2">
+                            <span class="redText">{{`(${item.red.join(' ')}) ${item.red_tuo.join(' ')}`}}</span>
+                            <span class="blueText">{{`(${item.blue.join(' ')}) ${item.blue_tuo.join(' ')}`}}</span>
+                            <p>{{`胆拖 ${item.notes}注 ${item.money}元`}}</p>
+                        </template>
+                        <template v-else-if="item.type === 1">
+                            <span class="redText">{{item.red.join(' ')}}</span>
+                            <span class="blueText">{{item.blue.join(' ')}}</span>
+                            <p>{{`${item.notes > 1 ? '复式' : '单式'} ${item.notes}注 ${item.money}元`}}</p>
+                        </template>
+                        <template v-else>无效的type ${{item.typ}}</template>
+                    </template>
+                    <template v-else>无效的playType ${{playType}}</template>
                     <div class="del" @click="del(index)"></div>
                 </div>
             </template>
@@ -88,6 +103,7 @@
 </template>
 
 <script>
+    import DLTrandom from '../../daletou/com/randomNotes'
     import {LaunchBtn, XNumber} from  "com"
     export default {
         name: 'paiOrder',
@@ -96,7 +112,8 @@
             return {
                 title: {
                     p3: '排列三',
-                    p5: '排列五'
+                    p5: '排列五',
+                    dlt: '大乐透'
                 },
                 playType: this.$route.params.playType || '',
 
@@ -171,11 +188,20 @@
                         obj[objKeyName[i]] = [this.random().toString()]
                     }
 
+                } else if (this.playType === 'dlt') {
+                    const ball = DLTrandom()
+                    obj.red = ball.red
+                    obj.blue = ball.blue
+                    obj.notes = 1
+                    obj.money = 2
+                    obj.periods = this.phase
+                    obj.multiple = 1
                 } else {
                     console.error('无效的 "playTpte"')
                 }
                 obj.notes = '1'
                 obj.money = obj.notes * 2 + ''
+                obj.type = 1
 
                 this.orderList.unshift(obj)
             },
@@ -210,14 +236,18 @@
                 const list = []
                 this.orderList.map((item) => {
                     let obj = {
-                        individual: item.individual.join(''),
                         notes: item.notes,
                         money: item.money
                     }
+                    if (item.individual) obj.ten = item.individual.join("")
                     if (item.ten) obj.ten = item.ten.join("")
                     if (item.hundred) obj.hundred = item.hundred.join("")
                     if (item.thousand) obj.thousand = item.thousand.join("")
                     if (item.absolutely) obj.absolutely = item.absolutely.join("")
+                    if (item.red) obj.red = item.red.join(",")
+                    if (item.red_tuo) obj.red_tuo = item.red_tuo.join(",")
+                    if (item.blue) obj.blue = item.blue.join(",")
+                    if (item.blue_tuo) obj.blue_tuo = item.blue_tuo.join(",")
                     if (item.type) obj.type = item.type
 
                     list.push(obj)
@@ -228,18 +258,25 @@
                 if (this.notes < 1) this.global.toast.call(this, '请投注')
                 else {
                     let d = null
-                    if (/p3|p5/.test(this.playType)) {
-                        d = {
-                            notes: this.notes,
-                            money: this.money,
-                            periods: this.qi,
-                            multiple: this.bei,
-                            phase: this.phase,
-                            total: this.setOrderList(),
-                            is_stop: this.is_stop ? 1 : 2
-                        }
+//                    if (/p3|p5/.test(this.playType)) {
+                    d = {
+                        notes: this.notes,
+                        money: this.money,
+                        periods: this.qi,
+                        multiple: this.bei,
+                        phase: this.phase,
+                        total: this.setOrderList(),
+                        is_stop: this.is_stop ? 1 : 2
+                    }
 
-                    } else console.error('未知的 "playType"')
+                    if (this.playType === 'dlt') {
+                        d.is_add = 2
+                        d.stop_money = 0
+                    }
+
+//                    } else if (this.playType === 'dlt') {
+//
+//                    } else console.error('未知的 "playType"')
 
                     if (isHemai) {
                         if (d.money < 8) this.global.alert.call(this, "方案金额不能小于8元");
@@ -277,5 +314,5 @@
 
 
 <style scoped lang="less" rel="stylesheet/less">
-    @import "order.less";
+    @import "./order.less";
 </style>

@@ -126,6 +126,8 @@
         },
         data () {
             return {
+                playType: 'dlt',
+
                 activeTitle: 0,
                 titleOption: [
                     "普通投注", '胆拖投注'
@@ -182,7 +184,7 @@
                         this.miss()
                         break;
                     case 2:
-                        this.$router.push('/prize/dlt')
+                        this.$router.push('/prize_ssq?type=dlt')
                         break;
                     case 3:
                         this.$router.push('/zst/dlt')
@@ -256,11 +258,51 @@
                 }
                 else return true
             },
+            getOrderList () {
+                const cookie = localStorage.getItem(this.playType + 'Orber')
+
+                let orderList = null
+
+                if (cookie) orderList = JSON.parse(cookie)
+                else orderList = []
+
+                return orderList
+            },
             next () {
                 if (this.time.phase < 0) this.global.toast.call(this, '开奖中！请20：00后再来')
                 else if (this.notes < 1) this.global.toast.call(this, '请投注')
                 else {
-                    this.$router.push('/dlt/order')
+                    const d = this.getOrderList()
+                    let obj = null
+
+                    if (this.activeTitle === 1) {
+                        obj = {
+                            red: this.redBallDan,
+                            red_tuo: this.redBallTuo,
+                            blue: this.blueBallDan,
+                            blue_tuo: this.blueBallTuo,
+                            type: 2
+                        }
+                    } else if (this.activeTitle === 0){
+                        obj = {
+                            red: this.redBall,
+                            blue: this.blueBall,
+                            type: 1
+                        }
+                    } else console.error('无效的 activeTitle')
+
+                    obj.notes = this.notes
+                    obj.money = this.notes * 2
+                    obj.periods = this.time.phase
+                    obj.multiple = 1
+
+                    d.unshift(obj)
+
+                    localStorage.clear()
+                    localStorage.setItem(this.playType + 'Orber', JSON.stringify(d))
+                    localStorage.setItem(this.playType + 'Phase', this.time.phase)
+
+                    this.$router.push(`/order/${this.playType}`)
                 }
             }
         },
